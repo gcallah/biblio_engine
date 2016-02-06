@@ -1,0 +1,6 @@
+*.log
+.*.swp
+*.pyc
+*.py~
+db.sqlite3
+__pycache__

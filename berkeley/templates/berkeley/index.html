@@ -1,0 +1,39 @@
+<head>
+<link rel="stylesheet" type="text/css" href="/static/berkeley/style.css">
+</head>
+
+<body class="dashboard">
+    <div id="container">
+        <div id="header">
+            <div id="branding">
+            <h1>Welcome to the Bishop Berkeley Bibliography!</h1>
+            </div>
+        </div>
+        <div id="content" class="colMS">
+            <div id="content-main">
+                <div class="module">
+                    <form action="{% url 'berkeley:publications' %}" method="get"/>
+                        <table>
+                            <caption>
+                            Enter search terms:
+                            </caption>
+                            <tr>
+                                <td><label for="lname">Author last name:</label></td>
+                                <td><input id="lname" type="text" name="lname"></td>
+                            </tr>
+                            <tr>
+                                <td><label for="fname">Author first name:</label></td>
+                                <td><input id="fname" type="text" name="fname"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><button type="submit">Search</button</td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</body>

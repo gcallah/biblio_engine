@@ -1,0 +1,43 @@
+<head>
+<link rel="stylesheet" type="text/css" href="/static/berkeley/style.css">
+</head>
+
+<body class="dashboard">
+    <div id="container">
+        <div id="header">
+            <div id="branding">
+            <h1>Welcome to the Bishop Berkeley Bibliography!</h1>
+            </div>
+        </div>
+        <div id="content" class="colMS">
+            <div id="content-main">
+                <div class="module">
+                <table>
+                    <caption>
+                        Publications for {{ lname }}:
+                    </caption>
+                    <tr>
+                        <th>Title</th>
+                        <th>City</th>
+                        <th>Year</th>
+                        <th>Publisher</th>
+                        <th>Editor</th>
+                        <th>Language</th>
+                    </tr>
+                    {% for pub in pub_list %}
+                        <tr>
+                            <td> {{ pub.title }} </td>
+                            <td> {{ pub.city }} </td>
+                            <td> {{ pub.year }} </td>
+                            <td> {{ pub.publisher.name }} </td>
+                            <td> {{ pub.editor.lname }} </td>
+                            <td> {{ pub.language }} </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</body>
