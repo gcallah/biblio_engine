@@ -1,2 +1,2 @@
 # berkeley
-Django project to host a Bishop Berkeley bobliography.
+Django project to host a Bishop Berkeley bibliography.
