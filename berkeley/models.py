@@ -2,11 +2,20 @@ from django.db import models
 
 # Create your models here.
 
-class Institution(models.Model):
+class SingleNameModel(models.Model):
     name = models.CharField(max_length=256)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        abstract = True
+
+
+class Institution(SingleNameModel):
+    """
+    More fields to come.
+    """
 
 
 class Person(models.Model):
@@ -23,19 +32,20 @@ class Person(models.Model):
         return self.fname + " " + self.lname
 
 
-class Publisher(models.Model):
-    name = models.CharField(max_length=256)
+class Publisher(SingleNameModel):
     city = models.CharField(max_length=128, default="")
     province = models.CharField(max_length=128, default="", blank=True)
     country = models.CharField(max_length=128, default="")
 
-    def __str__(self):
-        return self.name
+
+class Journal(SingleNameModel):
+    publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
 class Publication(models.Model):
     title = models.CharField(max_length=512)
-    publisher = models.ForeignKey(Publisher)
+    publisher = models.ForeignKey(Publisher, blank=True, null=True)
+    journal = models.ForeignKey(Journal, blank=True, null=True)
     year = models.CharField(max_length=4)
     edition = models.CharField(max_length=4, default="", blank=True)
     authors = models.ManyToManyField(Person, related_name="authors")
