@@ -48,11 +48,17 @@ class Journal(SingleNameModel, UrlModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
+class Collection(SingleNameModel, UrlModel):
+    publisher = models.ForeignKey(Publisher, blank=True, null=True)
+
+
 class Publication(UrlModel):
     title = models.CharField(max_length=512)
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
+    collection = models.ForeignKey(Collection, blank=True, null=True)
     year = models.CharField(max_length=4)
+    pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     authors = models.ManyToManyField(Person, related_name="authors")
     editors = models.ManyToManyField(Person,

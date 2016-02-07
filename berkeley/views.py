@@ -9,18 +9,18 @@ from .models import Publication
 
 
 def index(request):
-    return render(request, 'berkeley/index.html', None)
+    return render(request, 'index.html', None)
 
 
 def pub_detail(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
-    return render(request, 'berkeley/pub_detail.html',
+    return render(request, 'pub_detail.html',
             {'pub': pub })
 
 
 def person_detail(request, person_id):
     person = get_object_or_404(Person, pk=person_id)
-    return render(request, 'berkeley/person_detail.html',
+    return render(request, 'person_detail.html',
             {'person': person })
 
 
@@ -28,6 +28,6 @@ def publications(request):
     lname = request.GET['lname']
     pub_list = Publication.objects.filter(
         authors__lname=lname 
-    )
+    ).order_by('year')
     template_data = {'lname': lname, 'pub_list': pub_list}
-    return render(request, 'berkeley/publications.html', template_data)
+    return render(request, 'publications.html', template_data)
