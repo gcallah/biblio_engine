@@ -21,16 +21,26 @@
                         <th>City</th>
                         <th>Year</th>
                         <th>Publisher</th>
-                        <th>Editor</th>
+                        <th>Author(s)</th>
                         <th>Language</th>
                     </tr>
                     {% for pub in pub_list %}
                         <tr>
-                            <td> {{ pub.title }} </td>
+                            <td>
+                                <a href="/berkeley/pub_detail/{{ pub.id }}/">
+                                {{ pub.title }}
+                                </a>
+                            </td>
                             <td> {{ pub.city }} </td>
                             <td> {{ pub.year }} </td>
                             <td> {{ pub.publisher.name }} </td>
-                            <td> {{ pub.editor.lname }} </td>
+                            <td>
+                            {% for author in pub.authors.all %}
+                                <a href="/berkeley/person_detail/{{ author.id }}/">
+                                {{ author.lname }},<nbsp;>
+                                </a>
+                            {% endfor %}
+                            </td>
                             <td> {{ pub.language }} </td>
                         </tr>
                     {% endfor %}
