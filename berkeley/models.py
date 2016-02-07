@@ -12,7 +12,14 @@ class SingleNameModel(models.Model):
         abstract = True
 
 
-class Institution(SingleNameModel):
+class UrlModel(models.Model):
+    url = models.CharField(max_length=512, default="", blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
+class Institution(SingleNameModel, UrlModel):
     """
     More fields to come.
     """
