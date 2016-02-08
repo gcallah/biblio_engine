@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="module">
+    <table>
+        <caption>
+            Publisher: {{ publisher.name }}
+        </caption>
+        <tr>
+            <td>Description:</td>
+            <td> {{ publisher.descr }}
+            </td>
+        </tr>
+        <tr>
+            <td>URL:</td>
+            <td><a href="{{ publisher.url }}"> {{ publisher.url }}</a></td>
+        </tr>
+    </table>
+    </div>
+{% endblock content %}

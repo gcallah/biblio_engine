@@ -19,17 +19,23 @@ class UrlModel(models.Model):
         abstract = True
 
 
-class Institution(SingleNameModel, UrlModel):
+class DescrModel(models.Model):
+    descr = models.CharField(max_length=512, default="", blank=True)
+
+    class Meta:
+        abstract = True
+
+
+class Institution(SingleNameModel, UrlModel, DescrModel):
     """
-    More fields to come.
+    All fields from abstract classes right now.
     """
 
 
-class Person(UrlModel):
+class Person(UrlModel, DescrModel):
     fname = models.CharField(max_length=64, default="")
     mname = models.CharField(max_length=64, default="", blank=True)
     lname = models.CharField(max_length=64)
-    descr = models.CharField(max_length=512, default="", blank=True)
     yob = models.CharField(max_length=4, default="", blank=True)
     yod = models.CharField(max_length=4, default="", blank=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
@@ -38,17 +44,17 @@ class Person(UrlModel):
         return self.fname + " " + self.lname
 
 
-class Publisher(SingleNameModel, UrlModel):
+class Publisher(SingleNameModel, UrlModel, DescrModel):
     city = models.CharField(max_length=128, default="")
     province = models.CharField(max_length=128, default="", blank=True)
     country = models.CharField(max_length=128, default="")
 
 
-class Journal(SingleNameModel, UrlModel):
+class Journal(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
-class Collection(SingleNameModel, UrlModel):
+class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
