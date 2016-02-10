@@ -6,9 +6,16 @@
             Journal: {{ journal.name }}
         </caption>
         <tr>
-            <td>Description:</td>
-            <td> {{ journal.descr }}
+            <td>Publisher:</td>
+            <td>
+                <a href="/berkeley/publisher_detail/{{ journal.publisher.id }}/">
+                {{ journal.publisher }}
+                </a>
             </td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td> {{ journal.descr }} </td>
         </tr>
         <tr>
             <td>URL:</td>
