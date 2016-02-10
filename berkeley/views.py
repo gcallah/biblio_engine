@@ -54,9 +54,12 @@ def publications(request):
     fname = request.GET['fname']
     if fname != '':
         kwargs['authors__fname'] = fname
-    year = request.GET['year']
-    if year != '':
-        kwargs['year'] = year
+    year_after = request.GET['year_after']
+    if year_after != '':
+        kwargs['year__gt'] = year_after
+    year_before = request.GET['year_before']
+    if year_before != '':
+        kwargs['year__lt'] = year_before
     subject = request.GET['subject']
     if subject != '':
         kwargs['subject'] = subject
