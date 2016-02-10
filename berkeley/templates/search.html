@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="module">
+        <form action="{% url 'berkeley:publications' %}" method="get"/>
+            <table>
+	            <caption>
+	            Enter search terms:
+	            </caption>
+	            {{ form.as_table }}
+            </table>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+{% endblock content %}

@@ -4,8 +4,9 @@ from . import views
 
 app_name = 'berkeley'
 
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.search, name='search'),
     url(r'^about/*$', views.about, name='about'),
     url(r'^publications/*$', views.publications, name='publications'),
     url(r'^pub_detail/(?P<pub_id>[0-9]+)/$', 

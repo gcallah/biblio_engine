@@ -9,37 +9,41 @@ from .models import Journal
 from .models import Publisher
 from .models import Publication
 
+from .forms import SearchForm
 
-def index(request):
-    return render(request, 'index.html', None)
+
+def search(request):
+    form = SearchForm()
+    return render(request, 'search.html', {'form': form})
 
 
 def about(request):
     return render(request, 'about.html', None)
 
 
+def detail_view(request, dbkey, cls, html, kwarg_key):
+    obj = get_object_or_404(cls, pk=dbkey)
+    return render(request, html, {kwarg_key: obj })
+
+
 def pub_detail(request, pub_id):
-    pub = get_object_or_404(Publication, pk=pub_id)
-    return render(request, 'pub_detail.html',
-            {'pub': pub })
+    return detail_view(request, pub_id, Publication,
+            'pub_detail.html', 'pub')
 
 
 def person_detail(request, person_id):
-    person = get_object_or_404(Person, pk=person_id)
-    return render(request, 'person_detail.html',
-            {'person': person })
+    return detail_view(request, person_id, Person,
+            'person_detail.html', 'person')
 
 
 def journal_detail(request, journal_id):
-    journal = get_object_or_404(Journal, pk=journal_id)
-    return render(request, 'journal_detail.html',
-            {'journal': journal })
+    return detail_view(request, journal_id, Journal,
+            'journal_detail.html', 'journal')
 
 
 def publisher_detail(request, publisher_id):
-    publisher = get_object_or_404(Publisher, pk=publisher_id)
-    return render(request, 'publisher_detail.html',
-            {'publisher': publisher })
+    return detail_view(request, publisher_id, Publisher,
+            'publisher_detail.html', 'publisher')
 
 
 def publications(request):
@@ -53,6 +57,9 @@ def publications(request):
     year = request.GET['year']
     if year != '':
         kwargs['year'] = year
+    subject = request.GET['subject']
+    if subject != '':
+        kwargs['subject'] = subject
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
     template_data = {'lname': lname, 'pub_list': pub_list}
     return render(request, 'publications.html', template_data)

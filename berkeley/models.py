@@ -1,6 +1,19 @@
 from django.db import models
 
-# Create your models here.
+
+PERSON_NAME_LEN = 64
+YEAR_LEN = 4
+
+SUBJECT_CHOICES = (
+    ('', ''),
+    ('COMP', 'Computer Science'),
+    ('ECON', 'Economics'),
+    ('EDIT', 'Editorial'),
+    ('HIST', 'History'),
+    ('PHIL', 'Philosophy'),
+    ('POLI', 'Politics'),
+)
+
 
 class SingleNameModel(models.Model):
     name = models.CharField(max_length=256)
@@ -12,8 +25,17 @@ class SingleNameModel(models.Model):
         abstract = True
 
 
+class SubjectModel(models.Model):
+    subject = models.CharField(choices=SUBJECT_CHOICES, max_length=4,
+            blank=True, null=True, default="")
+
+    class Meta:
+        abstract = True
+
+
 class UrlModel(models.Model):
-    url = models.CharField(max_length=512, default="", blank=True, null=True)
+    url = models.CharField(max_length=512, default="",
+            blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -33,11 +55,11 @@ class Institution(SingleNameModel, UrlModel, DescrModel):
 
 
 class Person(UrlModel, DescrModel):
-    fname = models.CharField(max_length=64, default="")
-    mname = models.CharField(max_length=64, default="", blank=True)
-    lname = models.CharField(max_length=64)
-    yob = models.CharField(max_length=4, default="", blank=True)
-    yod = models.CharField(max_length=4, default="", blank=True)
+    fname = models.CharField(max_length=PERSON_NAME_LEN, default="")
+    mname = models.CharField(max_length=PERSON_NAME_LEN, default="", blank=True)
+    lname = models.CharField(max_length=PERSON_NAME_LEN)
+    yob = models.CharField(max_length=YEAR_LEN, default="", blank=True)
+    yod = models.CharField(max_length=YEAR_LEN, default="", blank=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
 
     def __str__(self):
@@ -50,7 +72,7 @@ class Publisher(SingleNameModel, UrlModel, DescrModel):
     country = models.CharField(max_length=128, default="")
 
 
-class Journal(SingleNameModel, UrlModel, DescrModel):
+class Journal(SingleNameModel, UrlModel, DescrModel, SubjectModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
@@ -58,12 +80,12 @@ class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
-class Publication(UrlModel):
+class Publication(UrlModel, SubjectModel):
     title = models.CharField(max_length=512)
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
     collection = models.ForeignKey(Collection, blank=True, null=True)
-    year = models.CharField(max_length=4)
+    year = models.CharField(max_length=YEAR_LEN)
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     authors = models.ManyToManyField(Person, related_name="authors")
