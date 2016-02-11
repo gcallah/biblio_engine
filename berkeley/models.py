@@ -58,8 +58,8 @@ class Person(UrlModel, DescrModel):
     fname = models.CharField(max_length=PERSON_NAME_LEN, default="")
     mname = models.CharField(max_length=PERSON_NAME_LEN, default="", blank=True)
     lname = models.CharField(max_length=PERSON_NAME_LEN)
-    yob = models.IntegerField(blank=True)
-    yod = models.IntegerField(blank=True)
+    yob = models.IntegerField(blank=True, null=True)
+    yod = models.IntegerField(blank=True, null=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
 
     def __str__(self):
@@ -88,7 +88,9 @@ class Publication(UrlModel, SubjectModel):
     year = models.IntegerField()
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
-    authors = models.ManyToManyField(Person, related_name="authors")
+    authors = models.ManyToManyField(Person, related_name="authors",
+            blank=True
+    )
     editors = models.ManyToManyField(Person,
             related_name="editors", default="",
             blank=True

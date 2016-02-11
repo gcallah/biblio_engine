@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/bin/bash
 python manage.py makemigrations berkeley
