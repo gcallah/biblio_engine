@@ -42,13 +42,20 @@ class UrlModel(models.Model):
 
 
 class DescrModel(models.Model):
-    descr = models.CharField(max_length=512, default="", blank=True)
+    descr = models.CharField(max_length=512, default="", blank=True,
+            null=True)
 
     class Meta:
         abstract = True
 
 
 class Institution(SingleNameModel, UrlModel, DescrModel):
+    """
+    All fields from abstract classes right now.
+    """
+
+
+class Keyword(SingleNameModel):
     """
     All fields from abstract classes right now.
     """
@@ -95,8 +102,12 @@ class Publication(UrlModel, SubjectModel):
             related_name="editors", default="",
             blank=True
     )
-    translator = models.ManyToManyField(
-        Person, default="", related_name="translator",
+    translators = models.ManyToManyField(
+        Person, default="", related_name="translators",
+        blank=True
+    )
+    keywords = models.ManyToManyField(
+        Keyword, default="", related_name="keywords",
         blank=True
     )
     city = models.CharField(max_length=128, default="", blank=True)

@@ -63,6 +63,10 @@ def publications(request):
     subject = request.GET['subject']
     if subject != '':
         kwargs['subject'] = subject
+    keyword_id = request.GET['keyword']
+    if keyword_id != '':
+        kwargs['keywords__id'] = keyword_id
+
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
     template_data = {'lname': lname, 'pub_list': pub_list}
     return render(request, 'publications.html', template_data)

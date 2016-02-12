@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import PERSON_NAME_LEN, SUBJECT_CHOICES
+from .models import PERSON_NAME_LEN, SUBJECT_CHOICES, Keyword
 
 
 class SearchForm(forms.Form):
@@ -11,3 +11,6 @@ class SearchForm(forms.Form):
     year_after = forms.IntegerField(label='Published after (year):')
     year_before = forms.IntegerField(label='Published before (year):')
     subject = forms.ChoiceField(label='Subject', choices=SUBJECT_CHOICES)
+
+    keyword = forms.ModelChoiceField(label='Keyword',
+            queryset=Keyword.objects.all())
