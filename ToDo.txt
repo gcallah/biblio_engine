@@ -1,0 +1,8 @@
+
+To-do list:
+
+1) Add feedback form.
+2) Add (semi-)automated import.
+3) Add export to popular bibliographical formats.
+
+Any other ideas?
