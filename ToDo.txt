@@ -4,6 +4,8 @@ To-do list:
 1) Sort out how to handle collections and authors of books reviewed in DB.
 2) Add feedback form.
 3) Add (semi-)automated import.
+    a) Read in main publication fields.
+    b) *Ask* about author, editor, publisher, etc.
 4) Add export to popular bibliographical formats.
 
 Any other ideas?
