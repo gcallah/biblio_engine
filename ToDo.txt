@@ -1,8 +1,9 @@
 
 To-do list:
 
-1) Add feedback form.
-2) Add (semi-)automated import.
-3) Add export to popular bibliographical formats.
+1) Sort out how to handle collections and authors of books reviewed in DB.
+2) Add feedback form.
+3) Add (semi-)automated import.
+4) Add export to popular bibliographical formats.
 
 Any other ideas?
