@@ -60,7 +60,8 @@ def publications(request):
     add_filter(request, kwargs, 'year_before', 'year__lt')
     add_filter(request, kwargs, 'subject', 'subject')
     add_filter(request, kwargs, 'journal', 'journal__id')
-    add_filter(request, kwargs, 'keyword', 'keywords__id')
+    add_filter(request, kwargs, 'keyword1', 'keywords__id')
+    add_filter(request, kwargs, 'keyword2', 'keywords__id')
 
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
     template_data = {'pub_list': pub_list}
