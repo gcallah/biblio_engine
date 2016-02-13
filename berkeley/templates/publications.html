@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="module">
+    <table>
+        <caption>
+            Publications
+        </caption>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Journal</th>
+            <th>Publisher</th>
+            <th>Author(s)</th>
+            <th>Language</th>
+        </tr>
+        {% for pub in pub_list %}
+            <tr>
+                <td>
+                    <a href="/berkeley/pub_detail/{{ pub.id }}/">
+                    {{ pub.title }}
+                    </a>
+                </td>
+                <td> {{ pub.year }} </td>
+                <td>
+                    <a href="/berkeley/journal_detail/{{ pub.journal.id }}/">
+                    {{ pub.journal.name }}
+                    </a>
+                </td>
+                <td>
+                    <a href="/berkeley/publisher_detail/{{ pub.publisher.id }}/">
+                    {{ pub.publisher.name }}
+                    </a>
+                </td>
+                <td>
+                {% for author in pub.authors.all %}
+                    <a href="/berkeley/person_detail/{{ author.id }}/">
+                    {{ author.lname }},<nbsp;>
+                    </a>
+                {% endfor %}
+                </td>
+                <td> {{ pub.language }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock content %}

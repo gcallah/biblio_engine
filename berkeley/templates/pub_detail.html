@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="module">
+    <table>
+        <caption>
+            Publication: {{ pub.title }}
+        </caption>
+        <tr>
+            <td>Author(s):</td>
+            <td>
+            {% for author in pub.authors.all %}
+                <a href="/berkeley/person_detail/{{ author.id }}/">
+                {{ author.fname }} {{ author.lname }},
+                </a>
+                <nbsp;>
+            {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>Year:</td>
+            <td> {{ pub.year }} </td>
+        </tr>
+        <tr>
+            <td>Subject:</td>
+            <td> {{ pub.subject }} </td>
+        </tr>
+        <tr>
+            <td>Publisher:</td>
+            <td>
+                <a href="/berkeley/publisher_detail/{{ pub.publisher.id }}/">
+                {{ pub.publisher.name }}
+                </a>
+             </td>
+        </tr>
+        <tr>
+            <td>Journal:</td>
+            <td>
+                <a href="/berkeley/journal_detail/{{ pub.journal.id }}/">
+                {{ pub.journal.name }}
+                </a>
+             </td>
+        </tr>
+        <tr>
+            <td>URL:</td>
+            <td><a href="{{ pub.url }}"> {{ pub.url }}</a></td>
+        </tr>
+        <tr>
+            <td>Keywords:</td>
+            <td>
+            {% for keyword in pub.keywords.all %}
+                {{ keyword.name }},
+                <nbsp;>
+            {% endfor %}
+            </td>
+        </tr>
+    </table>
+    <p>
+        <strong>Abstract:</strong>
+        {{ pub.abstract }}
+    </p>
+    </div>
+{% endblock content %}
