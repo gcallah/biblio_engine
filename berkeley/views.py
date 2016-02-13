@@ -46,27 +46,22 @@ def publisher_detail(request, publisher_id):
             'publisher_detail.html', 'publisher')
 
 
+def add_filter(request, kwargs, get_name, kwarg_name):
+    val = request.GET[get_name]
+    if val != '':
+        kwargs[kwarg_name] = val
+
+
 def publications(request):
     kwargs = {}
-    lname = request.GET['lname']
-    if lname != '':
-        kwargs['authors__lname'] = lname
-    fname = request.GET['fname']
-    if fname != '':
-        kwargs['authors__fname'] = fname
-    year_after = request.GET['year_after']
-    if year_after != '':
-        kwargs['year__gt'] = year_after
-    year_before = request.GET['year_before']
-    if year_before != '':
-        kwargs['year__lt'] = year_before
-    subject = request.GET['subject']
-    if subject != '':
-        kwargs['subject'] = subject
-    keyword_id = request.GET['keyword']
-    if keyword_id != '':
-        kwargs['keywords__id'] = keyword_id
+    add_filter(request, kwargs, 'lname', 'authors__lname')
+    add_filter(request, kwargs, 'fname', 'authors__fname')
+    add_filter(request, kwargs, 'year_after', 'year__gt')
+    add_filter(request, kwargs, 'year_before', 'year__lt')
+    add_filter(request, kwargs, 'subject', 'subject')
+    add_filter(request, kwargs, 'journal', 'journal__id')
+    add_filter(request, kwargs, 'keyword', 'keywords__id')
 
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
-    template_data = {'lname': lname, 'pub_list': pub_list}
+    template_data = {'pub_list': pub_list}
     return render(request, 'publications.html', template_data)

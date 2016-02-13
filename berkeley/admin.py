@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+from .models import Address
 from .models import Institution
 from .models import Keyword
 from .models import Person
@@ -8,6 +9,7 @@ from .models import Publisher
 from .models import Journal
 from .models import Publication
 
+admin.site.register(Address)
 admin.site.register(Institution)
 admin.site.register(Keyword)
 admin.site.register(Person)

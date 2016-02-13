@@ -2,6 +2,10 @@ from django.db import models
 
 
 PERSON_NAME_LEN = 64
+STREET_NAME_LEN = 64
+CITY_NAME_LEN = 64
+PROV_NAME_LEN = 32
+COUNTRY_NAME_LEN = 64
 YEAR_LEN = 4
 
 SUBJECT_CHOICES = (
@@ -49,16 +53,30 @@ class DescrModel(models.Model):
         abstract = True
 
 
-class Institution(SingleNameModel, UrlModel, DescrModel):
-    """
-    All fields from abstract classes right now.
-    """
-
-
 class Keyword(SingleNameModel):
     """
     All fields from abstract classes right now.
     """
+
+
+class Address(models.Model):
+    street = models.CharField(max_length=STREET_NAME_LEN, default="",
+            null=True, blank=True)
+    office = models.CharField(max_length=STREET_NAME_LEN, default="",
+            null=True, blank=True)
+    city = models.CharField(max_length=CITY_NAME_LEN, default="",
+            null=True, blank=True)
+    province = models.CharField(max_length=PROV_NAME_LEN, default="",
+            null=True, blank=True)
+    country = models.CharField(max_length=COUNTRY_NAME_LEN, default="",
+            null=True, blank=True)
+
+    def __str__(self):
+        return self.street + ", " + self.city + ", " + self.country
+
+
+class Institution(SingleNameModel, UrlModel, DescrModel):
+    address = models.ForeignKey(Address, null=True, blank=True)
 
 
 class Person(UrlModel, DescrModel):
@@ -68,15 +86,14 @@ class Person(UrlModel, DescrModel):
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
+    address = models.ForeignKey(Address, null=True, blank=True)
 
     def __str__(self):
         return self.fname + " " + self.lname
 
 
 class Publisher(SingleNameModel, UrlModel, DescrModel):
-    city = models.CharField(max_length=128, default="")
-    province = models.CharField(max_length=128, default="", blank=True)
-    country = models.CharField(max_length=128, default="")
+    address = models.ForeignKey(Address, null=True, blank=True)
 
 
 class Journal(SingleNameModel, UrlModel, DescrModel, SubjectModel):
