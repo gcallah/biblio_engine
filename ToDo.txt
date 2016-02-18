@@ -2,11 +2,12 @@
 To-do list:
 
 1) Sort out how to handle collections and authors of books reviewed in DB.
-2) Add search by journal.
+2) Add search by journal: DONE!
 3) Add feedback form.
 4) Add (semi-)automated import.
     a) Read in main publication fields.
     b) *Ask* about author, editor, publisher, etc.
 5) Add export to popular bibliographical formats.
+6) Figure out how to handle works that cite works of interest.
 
 Any other ideas?
