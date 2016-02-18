@@ -21,6 +21,10 @@ def about(request):
     return render(request, 'about.html', None)
 
 
+def feedback(request):
+    return render(request, 'feedback.html', None)
+
+
 def detail_view(request, dbkey, cls, html, kwarg_key):
     obj = get_object_or_404(cls, pk=dbkey)
     return render(request, html, {kwarg_key: obj })

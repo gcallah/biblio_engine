@@ -10,12 +10,28 @@ YEAR_LEN = 4
 
 SUBJECT_CHOICES = (
     ('', ''),
+    ('CMDY', 'Comedy'),
     ('COMP', 'Computer Science'),
     ('ECON', 'Economics'),
     ('EDIT', 'Editorial'),
     ('HIST', 'History'),
+    ('MGMT', 'Management'),
     ('PHIL', 'Philosophy'),
+    ('PECO', 'Political Economy'),
     ('POLI', 'Politics'),
+    ('RELI', 'Religion'),
+    ('SOCI', 'Sociology'),
+    ('URBN', 'Urban'),
+)
+
+TYPE_CHOICES = (
+    ('', ''),
+    ('ARTI', 'Article'),
+    ('BLOG', 'Blog post'),
+    ('BOOK', 'Book'),
+    ('REVW', 'Book review'),
+    ('COMM', 'Comment'),
+    ('PAPR', 'Paper'),
 )
 
 
@@ -106,6 +122,8 @@ class Collection(SingleNameModel, UrlModel, DescrModel):
 
 class Publication(UrlModel, SubjectModel):
     title = models.CharField(max_length=512)
+    pub_type = models.CharField(choices=TYPE_CHOICES, max_length=4,
+            blank=True, null=True, default="")
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
     collection = models.ForeignKey(Collection, blank=True, null=True)
@@ -121,6 +139,10 @@ class Publication(UrlModel, SubjectModel):
     )
     translators = models.ManyToManyField(
         Person, default="", related_name="translators",
+        blank=True
+    )
+    reviewees = models.ManyToManyField(
+        Person, default="", related_name="reviewees",
         blank=True
     )
     keywords = models.ManyToManyField(
