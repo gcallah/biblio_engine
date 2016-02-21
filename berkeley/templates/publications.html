@@ -8,7 +8,7 @@
         <tr>
             <th>Title</th>
             <th>Year</th>
-            <th>Journal</th>
+            <th>Journal /<br>Publisher</th>
             <th>Subject</th>
             <th>Author(s)</th>
             <th>Language</th>
@@ -17,13 +17,18 @@
             <tr>
                 <td>
                     <a href="/berkeley/pub_detail/{{ pub.id }}/">
-                    {{ pub.title }}
+                    {{ pub.title|truncatechars:50 }}
                     </a>
                 </td>
                 <td> {{ pub.year }} </td>
                 <td>
-                    <a href="/berkeley/journal_detail/{{ pub.journal.id }}/">
-                    {{ pub.journal.name }}
+                    {% if pub.journal.id %}
+                        <a href="/berkeley/journal_detail/{{ pub.journal.id }}/">
+                        {{ pub.journal.name|truncatechars:50 }}
+                    {% elif pub.publisher.id %}
+                        <a href="/berkeley/publisher_detail/{{ pub.publisher.id }}/">
+                        {{ pub.publisher.name|truncatechars:50 }}
+                    {% endif %}
                     </a>
                 </td>
                 <td>

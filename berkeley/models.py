@@ -160,4 +160,3 @@ class Publication(UrlModel, SubjectModel):
 
     def __str__(self):
         return self.title
-
