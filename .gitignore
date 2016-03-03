@@ -2,6 +2,8 @@
 .*.swp
 *.pyc
 *.py~
+*.sh~
 *.html~
 db.sqlite3
 __pycache__
+berkeley/migrations/*.py
