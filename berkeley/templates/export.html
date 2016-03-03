@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="module">
+    <table>
+        <caption>
+            Publication references: {{ pub.title }}
+        </caption>
+        <tr>
+            <td>APA:</td>
+            <td>
+            {% for author in pub.authors.all %}
+                {{ author.lname }},
+                <nbsp;>
+                {{ author.fname }},
+                <nbsp;>
+            {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>MLA:</td>
+            <td>MLA style</td>
+        </tr>
+        <tr>
+            <td>Harvard:</td>
+            <td>Harvard style </td>
+        </tr>
+    </table>
+    </div>
+{% endblock content %}
