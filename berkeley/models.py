@@ -136,7 +136,8 @@ class Publication(UrlModel, SubjectModel):
     year = models.IntegerField()
     volume = models.CharField(max_length=12, default="", blank=True)
     issue = models.CharField(max_length=12, default="", blank=True)
-    date = models.CharField(max_length=12, default="", blank=True)
+    month = models.CharField(max_length=10, default="", blank=True)
+    day = models.CharField(max_length=10, default="", blank=True)
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     authors = models.ManyToManyField(Person, related_name="authors",

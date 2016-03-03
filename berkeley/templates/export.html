@@ -36,11 +36,11 @@
                 {{ pub.pages }}.
             {% elif pub.pub_type == 'ARTI' %}
                 <nbsp;>
-                ({{ pub.year }}, {{ pub.date }}).
+                ({{ pub.year }}, {{pub.day }} {{ pub.month }}) 
                 <nbsp;>
                 {{ pub.title }}.
                 <nbsp;>
-                <i>{{ pub.journal.name }}</i>
+                <i>{{ pub.journal.name }}</i>.
             {% endif %}
             </td>
         </tr>
@@ -77,11 +77,10 @@
             {% elif pub.pub_type == 'ARTI' %}
                 "{{ pub.title }}."
                 <nbsp;>
-                <i>{{ pub.journal.name }}</i>
+                <i>{{ pub.journal.name }}</i>,
                 <nbsp;>
-                {{ pub.date }}
-                <nbsp;>
-                {{ pub.year }}:
+                {{ pub.month }} {{ pub.day }},
+                {{ pub.year }}.
                 <nbsp;>
                 {{ pub.pages }}.
             {% endif %}
@@ -89,7 +88,22 @@
         </tr>
         <tr>
             <td><strong>Chicago:</strong></td>
-            <td>Chicago style </td>
+            <td>
+            {% for author in pub.authors.all %}
+                {{ author.fname }}
+                <nbsp;>
+                {{ author.lname }},
+                <nbsp;>
+            {% endfor %}
+            {% if pub.pub_type == 'BOOK' %}
+                <i>{{ pub.title }}</i>
+                (
+                {{ pub.publisher.address.city }}:
+                {{ pub.publisher.name }},
+                {{ pub.year }}
+                )
+            {% endif %}
+            </td>
         </tr>
     </table>
     </div>
