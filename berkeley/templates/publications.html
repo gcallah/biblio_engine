@@ -12,6 +12,7 @@
             <th>Subject</th>
             <th>Author(s)</th>
             <th>Language</th>
+            <th>Export</th>
         </tr>
         {% for pub in pub_list %}
             <tr>
@@ -42,6 +43,11 @@
                 {% endfor %}
                 </td>
                 <td> {{ pub.language }} </td>
+                <td>
+                    <a href="/berkeley/export/{{ pub.id }}/">
+                    Export
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>

@@ -30,6 +30,11 @@ def detail_view(request, dbkey, cls, html, kwarg_key):
     return render(request, html, {kwarg_key: obj })
 
 
+def export(request, pub_id):
+    return detail_view(request, pub_id, Publication,
+            'export.html', 'pub')
+
+
 def pub_detail(request, pub_id):
     return detail_view(request, pub_id, Publication,
             'pub_detail.html', 'pub')
@@ -62,6 +67,7 @@ def publications(request):
     add_filter(request, kwargs, 'fname', 'authors__fname')
     add_filter(request, kwargs, 'year_after', 'year__gt')
     add_filter(request, kwargs, 'year_before', 'year__lt')
+    add_filter(request, kwargs, 'pub_type', 'pub_type')
     add_filter(request, kwargs, 'subject', 'subject')
     add_filter(request, kwargs, 'journal', 'journal__id')
     add_filter(request, kwargs, 'keyword1', 'keywords__id')

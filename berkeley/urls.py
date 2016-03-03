@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^about/*$', views.about, name='about'),
     url(r'^feedback/*$', views.feedback, name='feedback'),
     url(r'^publications/*$', views.publications, name='publications'),
+    url(r'^export/(?P<pub_id>[0-9]+)/$', views.export, name='export'),
     url(r'^pub_detail/(?P<pub_id>[0-9]+)/$', 
         views.pub_detail, name='pub_detail'),
     url(r'^person_detail/(?P<person_id>[0-9]+)/$', 

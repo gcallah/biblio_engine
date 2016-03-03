@@ -43,6 +43,7 @@ class SingleNameModel(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ['name']
 
 
 class SubjectModel(models.Model):
@@ -110,6 +111,10 @@ class Person(UrlModel, DescrModel):
 
 class Publisher(SingleNameModel, UrlModel, DescrModel):
     address = models.ForeignKey(Address, null=True, blank=True)
+
+
+class Collection(SingleNameModel, UrlModel, DescrModel):
+    publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
 class Journal(SingleNameModel, UrlModel, DescrModel, SubjectModel):
