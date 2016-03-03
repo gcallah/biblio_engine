@@ -102,6 +102,8 @@
                 {{ pub.publisher.name }},
                 {{ pub.year }}
                 )
+            {% elif pub.pub_type == 'PAPR' %}
+                "{{ pub.title }}."
             {% endif %}
             </td>
         </tr>
