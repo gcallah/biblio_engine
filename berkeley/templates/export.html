@@ -6,23 +6,90 @@
             Publication references: {{ pub.title }}
         </caption>
         <tr>
-            <td>APA:</td>
+            <td><strong>APA:</strong></td>
             <td>
             {% for author in pub.authors.all %}
                 {{ author.lname }},
                 <nbsp;>
-                {{ author.fname }},
+                {{ author.fname }}.
                 <nbsp;>
             {% endfor %}
+            {% if pub.pub_type == 'BOOK' %}
+                ({{ pub.year }}).
+                <nbsp;>
+                <i>{{ pub.title }}</i>.
+                <nbsp;>
+                {{ pub.publisher.address.city }},
+                <nbsp;>
+                {{ pub.publisher.address.province }}:
+                <nbsp;>
+                {{ pub.publisher.name }}.
+
+            {% elif pub.pub_type == 'PAPR' %}
+                ({{ pub.year }}).
+                <nbsp;>
+                {{ pub.title }}
+                <nbsp;>
+                <i>{{ pub.journal.name }},
+                    {{ pub.volume }}</i>({{ pub.issue }}),
+                <nbsp;>
+                {{ pub.pages }}.
+            {% elif pub.pub_type == 'ARTI' %}
+                <nbsp;>
+                ({{ pub.year }}, {{ pub.date }}).
+                <nbsp;>
+                {{ pub.title }}.
+                <nbsp;>
+                <i>{{ pub.journal.name }}</i>
+            {% endif %}
             </td>
         </tr>
         <tr>
-            <td>MLA:</td>
-            <td>MLA style</td>
+            <td><strong>MLA:</strong></td>
+            <td>
+            {% for author in pub.authors.all %}
+                {{ author.lname }},
+                <nbsp;>
+                {{ author.fname }}.
+                <nbsp;>
+            {% endfor %}
+            <nbsp;>
+            {% if pub.pub_type == 'BOOK' %}
+                <i>{{ pub.title }}</i>.
+                <nbsp;>
+                {{ pub.publisher.address.city }},
+                <nbsp;>
+                {{ pub.publisher.address.province }}:
+                <nbsp;>
+                {{ pub.publisher.name }},
+                {{ pub.year }}.
+
+            {% elif pub.pub_type == 'PAPR' %}
+                "{{ pub.title }}."
+                <nbsp;>
+                <i>{{ pub.journal.name }}</i>
+                <nbsp;>
+                {{ pub.volume }}.{{ pub.issue }}
+                <nbsp;>
+                ({{ pub.year }}):
+                <nbsp;>
+                {{ pub.pages }}.
+            {% elif pub.pub_type == 'ARTI' %}
+                "{{ pub.title }}."
+                <nbsp;>
+                <i>{{ pub.journal.name }}</i>
+                <nbsp;>
+                {{ pub.date }}
+                <nbsp;>
+                {{ pub.year }}:
+                <nbsp;>
+                {{ pub.pages }}.
+            {% endif %}
+            </td>
         </tr>
         <tr>
-            <td>Harvard:</td>
-            <td>Harvard style </td>
+            <td><strong>Chicago:</strong></td>
+            <td>Chicago style </td>
         </tr>
     </table>
     </div>

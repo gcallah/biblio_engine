@@ -1,6 +1,7 @@
 from django.db import models
 
 
+PUB_TITLE_LEN = 512
 PERSON_NAME_LEN = 64
 STREET_NAME_LEN = 64
 CITY_NAME_LEN = 64
@@ -126,13 +127,16 @@ class Collection(SingleNameModel, UrlModel, DescrModel):
 
 
 class Publication(UrlModel, SubjectModel):
-    title = models.CharField(max_length=512)
+    title = models.CharField(max_length=PUB_TITLE_LEN)
     pub_type = models.CharField(choices=TYPE_CHOICES, max_length=4,
             blank=True, null=True, default="")
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
     collection = models.ForeignKey(Collection, blank=True, null=True)
     year = models.IntegerField()
+    volume = models.CharField(max_length=12, default="", blank=True)
+    issue = models.CharField(max_length=12, default="", blank=True)
+    date = models.CharField(max_length=12, default="", blank=True)
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     authors = models.ManyToManyField(Person, related_name="authors",
@@ -165,3 +169,6 @@ class Publication(UrlModel, SubjectModel):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['title']
