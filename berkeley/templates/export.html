@@ -79,11 +79,15 @@
                 <nbsp;>
                 <i>{{ pub.journal.name }}</i>,
                 <nbsp;>
-                {{ pub.month }} {{ pub.day }},
+                {{ pub.month }}
+                {% if pub.day %}
+                    {{ pub.day }},
+                {% endif %}
                 {{ pub.year }}.
                 <nbsp;>
                 {{ pub.pages }}.
             {% endif %}
+            {{ pub.medium }}.
             </td>
         </tr>
         <tr>
@@ -103,7 +107,26 @@
                 {{ pub.year }}
                 )
             {% elif pub.pub_type == 'PAPR' %}
-                "{{ pub.title }}."
+                "{{ pub.title }},"
+                <i>{{ pub.journal.name }}</i>
+                <nbsp;>
+                {{ pub.volume }}
+                <nbsp;>
+                ({{ pub.year }}):
+                <nbsp;>
+                {{ pub.issue }}:
+                <nbsp;>
+                {{ pub.pages }}.
+            {% elif pub.pub_type == 'ARTI' %}
+                "{{ pub.title }},"
+                <i>{{ pub.journal.name }}</i>,
+                {{ pub.month }} 
+                {% if pub.day %}
+                    {{ pub.day }},
+                {% endif %}
+                {{ pub.year }}.
+                <nbsp;>
+                {{ pub.pages }}.
             {% endif %}
             </td>
         </tr>

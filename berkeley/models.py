@@ -140,6 +140,7 @@ class Publication(UrlModel, SubjectModel):
     day = models.CharField(max_length=10, default="", blank=True)
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
+    medium = models.CharField(max_length=12, default="", blank=True)
     authors = models.ManyToManyField(Person, related_name="authors",
             blank=True
     )
