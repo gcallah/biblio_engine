@@ -9,37 +9,35 @@
             <td><strong>APA:</strong></td>
             <td>
             {% for author in pub.authors.all %}
-                {{ author.lname }},
-                <nbsp;>
-                {{ author.fname }}.
-                <nbsp;>
+                {% if forloop.last %}
+                    {% if forloop.counter > 1 %}
+                        and
+                    {% endif %}
+                    {{ author.lname }},
+                    {{ author.fname }}.
+                {% else %}
+                    {{ author.lname }},
+                    {{ author.fname }},
+                {% endif %}
             {% endfor %}
             {% if pub.pub_type == 'BOOK' %}
                 ({{ pub.year }}).
-                <nbsp;>
                 <i>{{ pub.title }}</i>.
-                <nbsp;>
                 {{ pub.publisher.address.city }},
-                <nbsp;>
                 {{ pub.publisher.address.province }}:
-                <nbsp;>
                 {{ pub.publisher.name }}.
 
             {% elif pub.pub_type == 'PAPR' %}
                 ({{ pub.year }}).
-                <nbsp;>
                 {{ pub.title }}
-                <nbsp;>
                 <i>{{ pub.journal.name }},
                     {{ pub.volume }}</i>({{ pub.issue }}),
-                <nbsp;>
                 {{ pub.pages }}.
             {% elif pub.pub_type == 'ARTI' %}
-                <nbsp;>
                 ({{ pub.year }}, {{pub.day }} {{ pub.month }}) 
-                <nbsp;>
                 {{ pub.title }}.
-                <nbsp;>
+                <i>{{ pub.journal.name }}</i>.
+            {% elif pub.pub_type == 'REVW' %}
                 <i>{{ pub.journal.name }}</i>.
             {% endif %}
             </td>
@@ -48,44 +46,41 @@
             <td><strong>MLA:</strong></td>
             <td>
             {% for author in pub.authors.all %}
-                {{ author.lname }},
-                <nbsp;>
-                {{ author.fname }}.
-                <nbsp;>
+                {% if forloop.last %}
+                    {% if forloop.counter > 1 %}
+                        and
+                    {% endif %}
+                    {{ author.lname }},
+                    {{ author.fname }}.
+                {% else %}
+                    {{ author.lname }},
+                    {{ author.fname }},
+                {% endif %}
             {% endfor %}
-            <nbsp;>
             {% if pub.pub_type == 'BOOK' %}
                 <i>{{ pub.title }}</i>.
-                <nbsp;>
                 {{ pub.publisher.address.city }},
-                <nbsp;>
                 {{ pub.publisher.address.province }}:
-                <nbsp;>
                 {{ pub.publisher.name }},
                 {{ pub.year }}.
 
             {% elif pub.pub_type == 'PAPR' %}
                 "{{ pub.title }}."
-                <nbsp;>
                 <i>{{ pub.journal.name }}</i>
-                <nbsp;>
                 {{ pub.volume }}.{{ pub.issue }}
-                <nbsp;>
                 ({{ pub.year }}):
-                <nbsp;>
                 {{ pub.pages }}.
             {% elif pub.pub_type == 'ARTI' %}
                 "{{ pub.title }}."
-                <nbsp;>
                 <i>{{ pub.journal.name }}</i>,
-                <nbsp;>
                 {{ pub.month }}
                 {% if pub.day %}
                     {{ pub.day }},
                 {% endif %}
                 {{ pub.year }}.
-                <nbsp;>
                 {{ pub.pages }}.
+            {% elif pub.pub_type == 'REVW' %}
+                <i>{{ pub.journal.name }}</i>,
             {% endif %}
             {{ pub.medium }}.
             </td>
@@ -94,10 +89,20 @@
             <td><strong>Chicago:</strong></td>
             <td>
             {% for author in pub.authors.all %}
-                {{ author.fname }}
-                <nbsp;>
-                {{ author.lname }},
-                <nbsp;>
+                {% if forloop.last %}
+                    {% if forloop.counter > 1 %}
+                        and
+                    {% endif %}
+                    {{ author.fname }}
+                    {{ author.lname }}.
+                {% else %}
+                    {{ author.fname }}
+                    {% if forloop.revcounter < 3 %}
+                        {{ author.lname }}
+                    {% else %}
+                        {{ author.lname }},
+                    {% endif %}
+                {% endif %}
             {% endfor %}
             {% if pub.pub_type == 'BOOK' %}
                 <i>{{ pub.title }}</i>
@@ -109,13 +114,9 @@
             {% elif pub.pub_type == 'PAPR' %}
                 "{{ pub.title }},"
                 <i>{{ pub.journal.name }}</i>
-                <nbsp;>
                 {{ pub.volume }}
-                <nbsp;>
                 ({{ pub.year }}):
-                <nbsp;>
                 {{ pub.issue }}:
-                <nbsp;>
                 {{ pub.pages }}.
             {% elif pub.pub_type == 'ARTI' %}
                 "{{ pub.title }},"
@@ -125,8 +126,20 @@
                     {{ pub.day }},
                 {% endif %}
                 {{ pub.year }}.
-                <nbsp;>
                 {{ pub.pages }}.
+            {% elif pub.pub_type == 'REVW' %}
+                <i>{{ pub.journal.name }}</i>,
+                {% if pub.volume %}
+                    {{ pub.volume }}
+                    ({{ pub.year }}):
+                    {{ pub.issue }}:
+                {% else %}
+                    {{ pub.month }} 
+                    {% if pub.day %}
+                        {{ pub.day }},
+                    {% endif %}
+                    {{ pub.year }}.
+                {% endif %}
             {% endif %}
             </td>
         </tr>

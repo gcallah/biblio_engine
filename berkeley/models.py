@@ -133,6 +133,7 @@ class Publication(UrlModel, SubjectModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
     collection = models.ForeignKey(Collection, blank=True, null=True)
+    pub_reviewed = models.ForeignKey('<app name>.Publication')
     year = models.IntegerField()
     volume = models.CharField(max_length=12, default="", blank=True)
     issue = models.CharField(max_length=12, default="", blank=True)
