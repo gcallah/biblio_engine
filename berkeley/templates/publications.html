@@ -29,6 +29,9 @@
                     {% elif pub.publisher.id %}
                         <a href="/berkeley/publisher_detail/{{ pub.publisher.id }}/">
                         {{ pub.publisher.name|truncatechars:50 }}
+                    {% elif pub.collection.id %}
+                        <a href="/berkeley/pub_detail/{{ pub.collection.id }}/">
+                        {{ pub.collection.title|truncatechars:50 }}
                     {% endif %}
                     </a>
                 </td>

@@ -132,8 +132,10 @@ class Publication(UrlModel, SubjectModel):
             blank=True, null=True, default="")
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
-    collection = models.ForeignKey(Collection, blank=True, null=True)
-    pub_reviewed = models.ForeignKey('<app name>.Publication')
+    collection = models.ForeignKey('berkeley.Publication', blank=True,
+            null=True, related_name="coll")
+    pub_reviewed = models.ForeignKey('berkeley.Publication', blank=True,
+            null=True, related_name="pub_rev")
     year = models.IntegerField()
     volume = models.CharField(max_length=12, default="", blank=True)
     issue = models.CharField(max_length=12, default="", blank=True)
@@ -142,9 +144,7 @@ class Publication(UrlModel, SubjectModel):
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     medium = models.CharField(max_length=12, default="", blank=True)
-    authors = models.ManyToManyField(Person, related_name="authors",
-            blank=True
-    )
+    authors = models.ManyToManyField(Person, related_name="authors", blank=True)
     editors = models.ManyToManyField(Person,
             related_name="editors", default="",
             blank=True
