@@ -74,5 +74,8 @@ def publications(request):
     add_filter(request, kwargs, 'keyword2', 'keywords__id')
 
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
+    for pub in pub_list:
+        if pub.pub_type == 'REVW':
+            pub.review_of = 'A review of '
     template_data = {'pub_list': pub_list}
     return render(request, 'publications.html', template_data)

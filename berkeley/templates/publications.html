@@ -18,7 +18,11 @@
             <tr>
                 <td>
                     <a href="/berkeley/pub_detail/{{ pub.id }}/">
-                    {{ pub.title|truncatechars:50 }}
+                        {% if pub.title %}
+                            {{ pub.title|truncatechars:50 }}
+                        {% elif pub.review_of %}
+                            {{ pub.review_of|truncatechars:50 }}
+                        {% endif %}
                     </a>
                 </td>
                 <td> {{ pub.year }} </td>
