@@ -5,6 +5,13 @@
         <p>
         Feedback
         </p>
-        <p>Please enter a topic: </p>
+        <p>Please enter a topic:
+            <select name="formError">
+                <option value="">Select...</option>
+                <option value="P">Publication Error</option>
+                <option value="I">Information Error</option>
+                <option value="W">Website Error</option>
+            </select>
+	</p>
     </div>
 {% endblock content %}
