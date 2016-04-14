@@ -1,8 +1,0 @@
-*.log
-.*.swp
-*.pyc
-*.py~
-*.html~
-db.sqlite3
-__pycache__
-berkeley/migrations/*.py
