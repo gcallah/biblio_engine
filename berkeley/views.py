@@ -8,6 +8,7 @@ from .models import Person
 from .models import Journal
 from .models import Publisher
 from .models import Publication
+from .models import AdminEmail
 
 from .forms import SearchForm
 
@@ -22,7 +23,12 @@ def about(request):
 
 
 def feedback(request):
-    return render(request, 'feedback.html', None)
+    email_list = AdminEmail.objects.all()
+    comma_del_emails = ""
+    for email in email_list:
+        comma_del_emails = comma_del_emails + email.email_addr + ","
+    comma_del_emails = comma_del_emails[:-1]
+    return render(request, 'feedback.html', {'emails': comma_del_emails})
 
 
 def detail_view(request, dbkey, cls, html, kwarg_key):

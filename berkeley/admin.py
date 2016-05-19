@@ -8,6 +8,7 @@ from .models import Person
 from .models import Publisher
 from .models import Journal
 from .models import Publication
+from .models import AdminEmail
 
 admin.site.register(Address)
 admin.site.register(Institution)
@@ -16,3 +17,4 @@ admin.site.register(Person)
 admin.site.register(Publisher)
 admin.site.register(Journal)
 admin.site.register(Publication)
+admin.site.register(AdminEmail)
