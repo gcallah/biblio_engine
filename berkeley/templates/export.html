@@ -218,11 +218,9 @@
                     {% else %}
                         n.d.
                     {% endif %}
-
                     {% if pub.pages %}
                         {{ pub.pages }}.
                     {% endif %}
-
                 {% elif pub.pub_type == 'PAPR' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>
@@ -393,7 +391,6 @@
                         {{ pub.url }}
                     {% endif %}
                 {% endif %}
-
             </td>
         </tr>
     </table>
