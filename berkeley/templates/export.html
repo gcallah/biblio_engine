@@ -267,7 +267,7 @@
                             Rev. of <i>{{ pub.pub_reviewed.title }},</i>
                             by {{ pub.pub_reviewed.author }}
                         {% endif %}
-                    {% endif %},
+                    {% endif %}
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.month and pub.year %}
                         {{ pub.month }}
@@ -350,6 +350,13 @@
                     ({{ pub.year }}):
                     {{ pub.pages }}.
                 {% elif pub.pub_type == 'REVW' %}
+                    {% if pub.title %}
+                        "{{ pub.title }}."
+                        {%if pub.pub_reviewed %}
+                            Rev. of <i>{{ pub.pub_reviewed.title }},</i>
+                            by {{ pub.pub_reviewed.author }}
+                        {% endif %}
+                    {% endif %}
                     <i>{{ pub.journal.name }}</i>,
                     {% if pub.volume %}
                         {{ pub.volume }}
