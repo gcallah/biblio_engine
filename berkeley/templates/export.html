@@ -218,11 +218,9 @@
                     {% else %}
                         n.d.
                     {% endif %}
-
                     {% if pub.pages %}
                         {{ pub.pages }}.
                     {% endif %}
-
                 {% elif pub.pub_type == 'PAPR' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>
@@ -265,9 +263,9 @@
                         "{{ pub.title }}."
                         {%if pub.pub_reviewed %}
                             Rev. of <i>{{ pub.pub_reviewed.title }},</i>
-                            by {{ pub.pub_reviewed.author }}
+                            by {{ pub.pub_reviewed.author }}.
                         {% endif %}
-                    {% endif %},
+                    {% endif %}
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.month and pub.year %}
                         {{ pub.month }}
@@ -339,7 +337,6 @@
                     {% else %}
                         n.d.
                     {% endif %}
-
                 {% elif pub.pub_type == 'ARTI' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>,
@@ -350,6 +347,13 @@
                     ({{ pub.year }}):
                     {{ pub.pages }}.
                 {% elif pub.pub_type == 'REVW' %}
+                    {% if pub.title %}
+                        "{{ pub.title }}."
+                        {%if pub.pub_reviewed %}
+                            Rev. of <i>{{ pub.pub_reviewed.title }},</i>
+                            by {{ pub.pub_reviewed.author }}.
+                        {% endif %}
+                    {% endif %}
                     <i>{{ pub.journal.name }}</i>,
                     {% if pub.volume %}
                         {{ pub.volume }}
