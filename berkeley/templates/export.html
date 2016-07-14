@@ -104,11 +104,11 @@
                     {% endif %}.
                     <i>{{ pub.journal.name }}</i>,
                     {% if pub.volume %}
-                        {{ pub.volume }}.
+                        {{ pub.volume }}
                     {% elif pub.volume and pub.page %}
                         {{ pub.volume }},
-                        {{ pub.page }}.
-                    {% endif %}
+                        {{ pub.page }}
+                    {% endif %}.
                 {% elif pub.pub_type == 'BLOG' %}
                     {% if pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }}).
@@ -266,7 +266,7 @@
                             by {{ pub.pub_reviewed.author }}.
                         {% endif %}
                     {% endif %}
-                    <i>{{ pub.journal.name }}</i>
+                    <i>{{ pub.journal.name }}</i>,
                     {% if pub.month and pub.year %}
                         {{ pub.month }}
                         {{ pub.year }}
