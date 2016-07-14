@@ -33,6 +33,7 @@ TYPE_CHOICES = (
     ('REVW', 'Book review'),
     ('COMM', 'Comment'),
     ('PAPR', 'Paper'),
+    ('MOVI', 'Movie'),
 )
 
 
