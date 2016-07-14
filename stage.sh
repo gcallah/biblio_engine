@@ -1,2 +1,2 @@
 #!/bin/bash
-python manage.py makemigrations berkeley
+python3 manage.py makemigrations berkeley

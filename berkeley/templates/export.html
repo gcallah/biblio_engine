@@ -8,139 +8,386 @@
         <tr>
             <td><strong>APA:</strong></td>
             <td>
-            {% for author in pub.authors.all %}
-                {% if forloop.last %}
-                    {% if forloop.counter > 1 %}
-                        and
+                {% for author in pub.authors.all %}
+                    {% if forloop.last %}
+                        {% if forloop.counter > 1 %}
+                            &
+                            {{ author.fname }},
+                            {{ author.lname }}.
+                        {% else %}
+                            {{ author.lname }},
+                            {{ author.fname }}.
+                        {% endif %}
+                    {% elif pub.authors == 0 %}
+                        {{ "" }}
+                    {% else %}
+                        {{ author.lname }},
+                        {% if forloop.revcounter > 1 %}
+                            {{ author.fname }},
+                        {% else %}
+                            {{ author.fname }}.
+                        {% endif %}
                     {% endif %}
-                    {{ author.lname }},
-                    {{ author.fname }}.
-                {% else %}
-                    {{ author.lname }},
-                    {{ author.fname }},
-                {% endif %}
-            {% endfor %}
-            {% if pub.pub_type == 'BOOK' %}
-                ({{ pub.year }}).
-                <i>{{ pub.title }}</i>.
-                {{ pub.publisher.address.city }},
-                {{ pub.publisher.address.province }}:
-                {{ pub.publisher.name }}.
+                {% endfor %}
+                {% if pub.pub_type == 'BOOK' %}
+                    ({{ pub.year }}).
+                    <i>{{ pub.title }}</i>.
+                    {% for editor in pub.editors.all %}
+                        {% if forloop.last %}
+                            {% if forloop.counter > 1 %}
+                                &
+                                {{ editor.fname }},
+                                {{ editor.lname }}.
+                                (Ed.)
+                            {% else %}
+                                {{ editor.lname }},
+                                {{ ediror.fname }}.
+                                (Ed.).
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% for translator in pub.translators.all %}
+                        {% if forloop.last %}
+                            {% if forloop.counter > 1 %}
+                                    &
+                                ({{ translator.fname }},
+                                {{ translator.lname }}, Trans.)
+                            {% elif pub.translator == 0 %}
+                                {{ "" }}
+                            {% else %}
+                                ({{ translator.fname }},
+                                {{ translator.lname }}, Trans.)
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ pub.publisher.address.city }},
+                    {{ pub.publisher.address.province }}:
+                    {{ pub.publisher.name }}.
 
-            {% elif pub.pub_type == 'PAPR' %}
-                ({{ pub.year }}).
-                {{ pub.title }}
-                <i>{{ pub.journal.name }},
-                    {{ pub.volume }}</i>({{ pub.issue }}),
-                {{ pub.pages }}.
-            {% elif pub.pub_type == 'ARTI' %}
-                ({{ pub.year }}, {{pub.day }} {{ pub.month }}) 
-                {{ pub.title }}.
-                <i>{{ pub.journal.name }}</i>.
-            {% elif pub.pub_type == 'REVW' %}
-                <i>{{ pub.journal.name }}</i>.
-            {% endif %}
+                {% elif pub.pub_type == 'PAPR' %}
+                    {% if pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }}).
+                    {% elif pub.day and pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
+                    {% elif pub.year %}
+                        ({{ pub.year }}).
+                    {% endif %}
+                    {{ pub.title }}.
+                    <i>{{ pub.journal.name }},</i> pp.
+                    {{ pub.pages }}.
+                {% elif pub.pub_type == 'ARTI' %}
+                    {% if pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }}).
+                    {% elif pub.day and pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
+                    {% elif pub.year %}
+                        ({{ pub.year }}).
+                    {% endif %}
+                    {{ pub.title }}.
+                    {% if pub.issue %}
+                        <i>{{ pub.journal.name }},
+                        {{ pub.volume }}</i>({{ pub.issue }}),
+                    {% else %}
+                        <i>{{ pub.journal.name }},
+                        {{ pub.volume }}</i>,
+                    {% endif %}
+                    {{ pub.pages }}.
+                    {{ pub.url }}
+                {% elif pub.pub_type == 'REVW' %}
+                    ({{ pub.year }}).
+                    {% if pub.title %}
+                        {{ pub.title }}
+                        {% if pub.pub_reviewed.title %}
+                            [Review of the book <i>{{ pub.pub_reviewed.title }},</i> by
+                            {{ pub.pub_reviewed.author }}]
+                        {% endif %}
+                    {% endif %}.
+                    <i>{{ pub.journal.name }}</i>,
+                    {% if pub.volume %}
+                        {{ pub.volume }}.
+                    {% elif pub.volume and pub.page %}
+                        {{ pub.volume }},
+                        {{ pub.page }}.
+                    {% endif %}
+                {% elif pub.pub_type == 'BLOG' %}
+                    {% if pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }}).
+                    {% elif pub.day and pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
+                    {% elif pub.year %}
+                        ({{ pub.year }}).
+                    {% endif %}
+                    {{ pub.title }}.
+                    {% if pub.pages and pub.volume %}
+                        <i>{{ pub.journal.name }}, {{ pub.volume }},</i> {{ pub.pages }}.
+                    {% elif pub.volume %}
+                        <i>{{ pub.journal.name }}, {{ pub.volume }}</i>.
+                    {% else %}
+                        <i>{{ pub.journal.name }}</i>.
+                    {% endif %}
+                {% endif %}
             </td>
         </tr>
         <tr>
             <td><strong>MLA:</strong></td>
             <td>
-            {% for author in pub.authors.all %}
-                {% if forloop.last %}
-                    {% if forloop.counter > 1 %}
-                        and
+                {% for author in pub.authors.all %}
+                    {% if forloop.last %}
+                        {% if forloop.counter > 1 %}
+                            and
+                            {{ author.fname }},
+                            {{ author.lname }}.
+                        {% else %}
+                            {{ author.lname }},
+                            {{ author.fname }}.
+                        {%  endif %}
+                    {% elif pub.authors == 0 %}
+                        {{ "" }}
+                    {% else %}
+                        {% if forloop.revcounter <= 3 and forloop.revcounter > 1 %}
+                            {{ author.lname }},
+                            {{ author.fname }},
+                        {% elif forloop.revcounter > 3 %}
+                            {{ author.lname }},
+                            {{ author.fname }}, et all.
+                        {% elif forloop.counter == 1  %}
+                            {{ author.lname }},
+                            {{ author.fname }}.
+                        {% endif %}
                     {% endif %}
-                    {{ author.lname }},
-                    {{ author.fname }}.
-                {% else %}
-                    {{ author.lname }},
-                    {{ author.fname }},
-                {% endif %}
-            {% endfor %}
-            {% if pub.pub_type == 'BOOK' %}
-                <i>{{ pub.title }}</i>.
-                {{ pub.publisher.address.city }},
-                {{ pub.publisher.address.province }}:
-                {{ pub.publisher.name }},
-                {{ pub.year }}.
+                {% endfor %}
+                {% if pub.pub_type == 'BOOK' %}
+                    <i>{{ pub.title }}</i>.
+                    {% for editor in pub.editors.all %}
+                        {% if forloop.last %}
+                            {% if forloop.counter > 1 %}
+                                and
+                            {% endif %}
+                            {{ editor.fname }},
+                            {{ editor.lname }}.
+                        {% elif pub.editors == 0 %}
+                            {{ "" }}
+                        {% else %}
+                            Ed.
+                            {{ editor.fname }},
+                            {{ editor.lname }}.
+                        {% endif %}
+                    {% endfor %}
+                    {% if pub.edition %}
+                        {{ pub.edition }}.
+                    {% endif %}
+                    {% for translator in pub.translators.all %}
+                        {% if forloop.last %}
+                            {% if forloop.counter > 1 %}
+                                and
+                            {% endif %}
+                            {{ translator.fname }},
+                            {{ translator.lname }}.
+                        {% elif pub.translator == 0 %}
+                            {{ "" }}
+                        {% else %}
+                            Trans.
+                            {{ translator.fname }},
+                            {{ translator.lname }}.
+                        {% endif %}
+                    {% endfor %}
+                    {% if pub.volume %}
+                        {{ pub.volume }}.
+                    {% endif %}
+                    {{ pub.publisher.address.city }}:
+                    {{ pub.publisher.name }},
+                    {{ pub.year }}.
 
-            {% elif pub.pub_type == 'PAPR' %}
-                "{{ pub.title }}."
-                <i>{{ pub.journal.name }}</i>
-                {{ pub.volume }}.{{ pub.issue }}
-                ({{ pub.year }}):
-                {{ pub.pages }}.
-            {% elif pub.pub_type == 'ARTI' %}
-                "{{ pub.title }}."
-                <i>{{ pub.journal.name }}</i>,
-                {{ pub.month }}
-                {% if pub.day %}
-                    {{ pub.day }},
+                {% elif pub.pub_type == 'BLOG' %}
+                    "{{ pub.title }}."
+                    <i>{{ pub.journal.name }}</i>.
+                    {% if pub.publisher.name %}
+                        {{ pub.publisher.name }},
+                    {% else %}
+                        n.p.
+                    {% endif %}
+                    {% if pub.month and pub.year %}
+                        {{ pub.month }}
+                        {{ pub.year }}.
+                    {% elif pub.day and pub.month and pub.year %}
+                        {{ pub.day }}
+                        {{ pub.month }}
+                        {{ pub.year }}.
+                    {% elif pub.year %}
+                        {{ pub.year }}.
+                    {% else %}
+                        n.d.
+                    {% endif %}
+
+                    {% if pub.pages %}
+                        {{ pub.pages }}.
+                    {% endif %}
+
+                {% elif pub.pub_type == 'PAPR' %}
+                    "{{ pub.title }}."
+                    <i>{{ pub.journal.name }}</i>
+                    {% if pub.volume %}
+                        {{ pub.volume }}.
+                    {% endif %}
+                    {% if pub.issue %}
+                        {{ pub.issue }}.
+                    {% endif %}
+                    {% if pub.month and pub.year %}
+                        {{ pub.month }}
+                        {{ pub.year }}
+                    {% elif pub.day and pub.month and pub.year %}
+                        {{ pub.day }}
+                        {{ pub.month }}
+                        {{ pub.year }}
+                    {% elif pub.year %}
+                        {{ pub.year }}
+                    {% elif pub.edition and pub.day and pub.month and pub.year %}
+                        {{ pub.day }}
+                        {{ pub.month }}
+                        {{ pub.year }}
+                        late ed.
+                    {% endif %}:
+                    {{ pub.pages }}.
+
+                {% elif pub.pub_type == 'ARTI' %}
+                    "{{ pub.title }}."
+                    <i>{{ pub.journal.name }}</i>
+                    {% if pub.day %}
+                        {{ pub.day }}
+                    {% endif %}
+                    {{ pub.month }}
+                    {{ pub.year }}:
+                    {% if pub.pages %}
+                        {{ pub.pages }}.
+                    {% endif %}
+                {% elif pub.pub_type == 'REVW' %}
+                    {% if pub.title %}
+                        "{{ pub.title }}."
+                        {%if pub.pub_reviewed %}
+                            Rev. of <i>{{ pub.pub_reviewed.title }},</i>
+                            by {{ pub.pub_reviewed.author }}
+                        {% endif %}
+                    {% endif %},
+                    <i>{{ pub.journal.name }}</i>
+                    {% if pub.month and pub.year %}
+                        {{ pub.month }}
+                        {{ pub.year }}
+                    {% elif pub.day and pub.month and pub.year %}
+                        {{ pub.day }}
+                        {{ pub.month }}
+                        {{ pub.year }}
+                    {% elif pub.year %}
+                        {{ pub.year }}
+                    {% endif %}:
+                    {{ pub.pages }}.
                 {% endif %}
-                {{ pub.year }}.
-                {{ pub.pages }}.
-            {% elif pub.pub_type == 'REVW' %}
-                <i>{{ pub.journal.name }}</i>,
-            {% endif %}
-            {{ pub.medium }}.
+                {% if pub.medium %}
+                    {{ pub.medium }}.
+                {% endif %}
+                {% if pub.dateOfAccess %}
+                    {{ pub.dateOfAccess }}.
+                {% endif %}
+
             </td>
         </tr>
         <tr>
             <td><strong>Chicago:</strong></td>
             <td>
-            {% for author in pub.authors.all %}
-                {% if forloop.last %}
-                    {% if forloop.counter > 1 %}
-                        and
-                    {% endif %}
-                    {{ author.fname }}
-                    {{ author.lname }}.
-                {% else %}
-                    {{ author.fname }}
-                    {% if forloop.revcounter < 3 %}
-                        {{ author.lname }}
+                {% for author in pub.authors.all %}
+                    {% if forloop.last %}
+                        {% if forloop.counter > 1 %}
+                            and
+                            {{ author.fname }},
+                            {{ author.lname }}.
+                        {% else %}
+                            {{ author.lname }},
+                            {{ author.fname }}.
+                        {%  endif %}
+                    {% elif pub.authors == 0 %}
+                        {{ "" }}
                     {% else %}
-                        {{ author.lname }},
+                        {% if forloop.revcounter <= 3 and forloop.revcounter > 1  %}
+                            {{ author.lname }},
+                            {{ author.fname }},
+                        {% elif forloop.revcounter > 3 %}
+                            {{ author.lname }},
+                            {{ author.fname }}, et all.
+                        {% elif forloop.counter == 1  %}
+                            {{ author.lname }},
+                            {{ author.fname }}.
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            {% endfor %}
-            {% if pub.pub_type == 'BOOK' %}
-                <i>{{ pub.title }}</i>
-                (
-                {{ pub.publisher.address.city }}:
-                {{ pub.publisher.name }},
-                {{ pub.year }}
-                )
-            {% elif pub.pub_type == 'PAPR' %}
-                "{{ pub.title }},"
-                <i>{{ pub.journal.name }}</i>
-                {{ pub.volume }}
-                ({{ pub.year }}):
-                {{ pub.issue }}:
-                {{ pub.pages }}.
-            {% elif pub.pub_type == 'ARTI' %}
-                "{{ pub.title }},"
-                <i>{{ pub.journal.name }}</i>,
-                {{ pub.month }} 
-                {% if pub.day %}
-                    {{ pub.day }},
-                {% endif %}
-                {{ pub.year }}.
-                {{ pub.pages }}.
-            {% elif pub.pub_type == 'REVW' %}
-                <i>{{ pub.journal.name }}</i>,
-                {% if pub.volume %}
-                    {{ pub.volume }}
-                    ({{ pub.year }}):
-                    {{ pub.issue }}:
-                {% else %}
-                    {{ pub.month }} 
-                    {% if pub.day %}
-                        {{ pub.day }},
-                    {% endif %}
+                {% endfor %}
+                {% if pub.pub_type == 'BOOK' %}
+                    <i>{{ pub.title }}</i>.
+                    {{ pub.publisher.address.city }}:
+                    {{ pub.publisher.name }},
                     {{ pub.year }}.
+
+                {% elif pub.pub_type == 'PAPR' %}
+                    "{{ pub.title }}."
+                    <i>{{ pub.journal.name }},</i>
+                    {% if pub.month and pub.year %}
+                        {{ pub.month }}
+                        {{ pub.year }}.
+                    {% elif pub.day and pub.month and pub.year %}
+                        {{ pub.month}}
+                        {{ pub.day }},
+                        {{ pub.year }}.
+                    {% elif pub.year %}
+                        {{ pub.year }}.
+                    {% else %}
+                        n.d.
+                    {% endif %}
+
+                {% elif pub.pub_type == 'ARTI' %}
+                    "{{ pub.title }}."
+                    <i>{{ pub.journal.name }}</i>,
+                    {{ pub.volume }},
+                    {% if pub.issue %}
+                        no. {{ pub.issue }}
+                    {% endif %}
+                    ({{ pub.year }}):
+                    {{ pub.pages }}.
+                {% elif pub.pub_type == 'REVW' %}
+                    <i>{{ pub.journal.name }}</i>,
+                    {% if pub.volume %}
+                        {{ pub.volume }}
+                        ({{ pub.year }}):
+                        {{ pub.issue }}:
+                    {% else %}
+                        {{ pub.month }}
+                        {% if pub.day %}
+                            {{ pub.day }},
+                        {% endif %}
+                    {{ pub.year }}.
+                    {% endif %}
+                {% elif pub.pub_type == 'BLOG' %}
+                    "{{ pub.title }}."
+                    <i>{{ pub.jounal.name }}</i>.
+                    {% if pub.month and pub.year %}
+                        Last modified
+                        {{ pub.month }}
+                        {{ pub.year }}.
+                    {% elif pub.day and pub.month and pub.year %}
+                        Last modified
+                        {{ pub.month}}
+                        {{ pub.day }},
+                        {{ pub.year }}.
+                    {% elif pub.year %}
+                        Last modified
+                        {{ pub.year }}.
+                    {% else %}
+                        {{ "" }}
+                    {% endif %}
+                    {% if pub.dateOfAccess %}
+                        {{ pub.dateOfAccess }}.
+                    {% endif %}
+                    {% if pub.url %}
+                        {{ pub.url }}
+                    {% endif %}
                 {% endif %}
-            {% endif %}
+
             </td>
         </tr>
     </table>
