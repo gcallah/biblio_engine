@@ -263,7 +263,7 @@
                         "{{ pub.title }}."
                         {%if pub.pub_reviewed %}
                             Rev. of <i>{{ pub.pub_reviewed.title }},</i>
-                            by {{ pub.pub_reviewed.author }}
+                            by {{ pub.pub_reviewed.author }}.
                         {% endif %}
                     {% endif %}
                     <i>{{ pub.journal.name }}</i>
@@ -391,7 +391,7 @@
                         {{ pub.url }}
                     {% endif %}
                 {% endif %}
-            
+
             </td>
         </tr>
     </table>
