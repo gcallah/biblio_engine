@@ -8,22 +8,7 @@ CITY_NAME_LEN = 64
 PROV_NAME_LEN = 32
 COUNTRY_NAME_LEN = 64
 YEAR_LEN = 4
-
-SUBJECT_CHOICES = (
-    ('', ''),
-    ('CMDY', 'Comedy'),
-    ('COMP', 'Computer Science'),
-    ('ECON', 'Economics'),
-    ('EDIT', 'Editorial'),
-    ('HIST', 'History'),
-    ('MGMT', 'Management'),
-    ('PHIL', 'Philosophy'),
-    ('PECO', 'Political Economy'),
-    ('POLI', 'Politics'),
-    ('RELI', 'Religion'),
-    ('SOCI', 'Sociology'),
-    ('URBN', 'Urban'),
-)
+CODE_LEN = 4
 
 TYPE_CHOICES = (
     ('', ''),
@@ -46,14 +31,6 @@ class SingleNameModel(models.Model):
     class Meta:
         abstract = True
         ordering = ['name']
-
-
-class SubjectModel(models.Model):
-    subject = models.CharField(choices=SUBJECT_CHOICES, max_length=4,
-            blank=True, null=True, default="")
-
-    class Meta:
-        abstract = True
 
 
 class UrlModel(models.Model):
@@ -114,6 +91,11 @@ class Person(UrlModel, DescrModel):
         ordering = ['lname']
 
 
+class Subject(SingleNameModel):
+    code = models.CharField(max_length=CODE_LEN, blank=True, null=True,
+            default="")
+
+
 class Publisher(SingleNameModel, UrlModel, DescrModel):
     address = models.ForeignKey(Address, null=True, blank=True)
 
@@ -122,20 +104,22 @@ class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
-class Journal(SingleNameModel, UrlModel, DescrModel, SubjectModel):
+class Journal(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
+    subject = models.ForeignKey(Subject, blank=True, null=True)
 
 
 class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
-class Publication(UrlModel, SubjectModel):
+class Publication(UrlModel):
     title = models.CharField(max_length=PUB_TITLE_LEN,
             blank=True, null=True, default="")
     pub_type = models.CharField(choices=TYPE_CHOICES, max_length=4,
             blank=True, null=True, default="")
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
+    subject = models.ForeignKey(Subject, blank=True, null=True)
     journal = models.ForeignKey(Journal, blank=True, null=True)
     collection = models.ForeignKey('berkeley.Publication', blank=True,
             null=True, related_name="coll")
