@@ -3,12 +3,17 @@ from django.db import models
 
 PUB_TITLE_LEN = 512
 PERSON_NAME_LEN = 64
+RANK_LEN = 64
+DEPT_LEN = 64
 STREET_NAME_LEN = 64
 CITY_NAME_LEN = 64
+DOI_LEN = 64
 PROV_NAME_LEN = 32
 COUNTRY_NAME_LEN = 64
 YEAR_LEN = 4
 CODE_LEN = 4
+
+UNKNOWN_ID = 9
 
 TYPE_CHOICES = (
     ('', ''),
@@ -82,6 +87,8 @@ class Person(UrlModel, DescrModel):
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
+    dept = models.CharField(max_length=DEPT_LEN, null=True, blank=True)
+    rank = models.CharField(max_length=RANK_LEN, null=True, blank=True)
     address = models.ForeignKey(Address, null=True, blank=True)
 
     def __str__(self):
@@ -89,11 +96,6 @@ class Person(UrlModel, DescrModel):
 
     class Meta:
         ordering = ['lname']
-
-
-class Subject(SingleNameModel):
-    code = models.CharField(max_length=CODE_LEN, blank=True, null=True,
-            default="")
 
 
 class Publisher(SingleNameModel, UrlModel, DescrModel):
@@ -104,13 +106,17 @@ class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
-class Journal(SingleNameModel, UrlModel, DescrModel):
-    publisher = models.ForeignKey(Publisher, blank=True, null=True)
-    subject = models.ForeignKey(Subject, blank=True, null=True)
-
-
 class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
+
+
+class Subject(SingleNameModel):
+    code = models.CharField(max_length=CODE_LEN, null=True, blank=True)
+
+
+class Journal(SingleNameModel, UrlModel, DescrModel):
+    publisher = models.ForeignKey(Publisher, blank=True, null=True)
+    subject = models.ForeignKey(Subject, default=UNKNOWN_ID)
 
 
 class Publication(UrlModel):
@@ -119,7 +125,7 @@ class Publication(UrlModel):
     pub_type = models.CharField(choices=TYPE_CHOICES, max_length=4,
             blank=True, null=True, default="")
     publisher = models.ForeignKey(Publisher, blank=True, null=True)
-    subject = models.ForeignKey(Subject, blank=True, null=True)
+    subject = models.ForeignKey(Subject, default=UNKNOWN_ID)
     journal = models.ForeignKey(Journal, blank=True, null=True)
     collection = models.ForeignKey('berkeley.Publication', blank=True,
             null=True, related_name="coll")
@@ -158,6 +164,7 @@ class Publication(UrlModel):
     sn = models.CharField(max_length=12, default="", blank=True, null=True)
     language = models.CharField(max_length=32, default="", blank=True)
     abstract = models.CharField(max_length=1024, default="", blank=True)
+    doi = models.CharField(max_length=DOI_LEN, default="", blank=True)
 
     def __str__(self):
         if self.title:

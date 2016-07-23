@@ -71,6 +71,7 @@ def publications(request):
     kwargs = {}
     add_filter(request, kwargs, 'lname', 'authors__lname')
     add_filter(request, kwargs, 'fname', 'authors__fname')
+    add_filter(request, kwargs, 'dept', 'authors__dept')
     add_filter(request, kwargs, 'year_after', 'year__gt')
     add_filter(request, kwargs, 'year_before', 'year__lt')
     add_filter(request, kwargs, 'pub_type', 'pub_type')

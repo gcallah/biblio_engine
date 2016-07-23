@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models.functions import Lower
 
-from .models import PERSON_NAME_LEN, TYPE_CHOICES, Keyword, Journal, Subject
+from .models import PERSON_NAME_LEN, TYPE_CHOICES, DEPT_LEN, Keyword, Journal, Subject
 
 
 class SearchForm(forms.Form):
@@ -9,6 +9,7 @@ class SearchForm(forms.Form):
             max_length=PERSON_NAME_LEN)
     fname = forms.CharField(label='Author first name:',
             max_length=PERSON_NAME_LEN)
+    dept = forms.CharField(label='Department:', max_length=DEPT_LEN)
     year_after = forms.IntegerField(label='Published after (year):')
     year_before = forms.IntegerField(label='Published before (year):')
     pub_type = forms.ChoiceField(label='Type', choices=TYPE_CHOICES)
