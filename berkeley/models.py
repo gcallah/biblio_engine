@@ -5,6 +5,7 @@ PUB_TITLE_LEN = 512
 PERSON_NAME_LEN = 64
 RANK_LEN = 64
 DEPT_LEN = 64
+CAMPUS_LEN = 64
 STREET_NAME_LEN = 64
 CITY_NAME_LEN = 64
 DOI_LEN = 64
@@ -82,13 +83,15 @@ class Institution(SingleNameModel, UrlModel, DescrModel):
 
 class Person(UrlModel, DescrModel):
     fname = models.CharField(max_length=PERSON_NAME_LEN, default="")
-    mname = models.CharField(max_length=PERSON_NAME_LEN, default="", blank=True)
+    mname = models.CharField(max_length=PERSON_NAME_LEN,
+            blank=True, null=True)
     lname = models.CharField(max_length=PERSON_NAME_LEN)
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
     dept = models.CharField(max_length=DEPT_LEN, null=True, blank=True)
     rank = models.CharField(max_length=RANK_LEN, null=True, blank=True)
+    campus = models.CharField(max_length=CAMPUS_LEN, null=True, blank=True)
     address = models.ForeignKey(Address, null=True, blank=True)
 
     def __str__(self):
