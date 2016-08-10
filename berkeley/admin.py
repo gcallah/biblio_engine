@@ -9,6 +9,7 @@ from .models import Keyword
 from .models import Person
 from .models import Publication
 from .models import Publisher
+from .models import Site
 from .models import Subject
 
 admin.site.register(Address)
@@ -19,4 +20,5 @@ admin.site.register(Keyword)
 admin.site.register(Person)
 admin.site.register(Publication)
 admin.site.register(Publisher)
+admin.site.register(Site)
 admin.site.register(Subject)

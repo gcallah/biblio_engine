@@ -2,7 +2,7 @@
 <head>
     <title>
         {% block title %}
-            St. Joseph's College Bibliography Engine
+        {{ site.header }}
         {% endblock title %}
     </title>
     {% block stylesheets %}
@@ -12,11 +12,11 @@
 
 <body class="dashboard">
     <div id="container">
-        <img src="/static/berkeley/sjcny_logo.png" alt="SJC Logo"/>
+        <img src="/static/berkeley/logo.png" alt="Logo"/>
         <br>
         <div id="header">
             <div id="branding">
-                <h1>St. Joseph's College Bibliography Engine</h1>
+                <h1>{{ site.header }}</h1>
             </div>
             <div id="user-tools">
                 <a href="/berkeley">Home</a>

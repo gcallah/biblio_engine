@@ -1,6 +1,7 @@
 from django.db import models
 
 
+HEADER_LEN = 128
 PUB_TITLE_LEN = 512
 PERSON_NAME_LEN = 64
 RANK_LEN = 64
@@ -75,6 +76,11 @@ class Address(models.Model):
 
     def __str__(self):
         return self.street + ", " + self.city + ", " + self.country
+
+
+# this model captures site specific info
+class Site(SingleNameModel, UrlModel, DescrModel):
+    header = models.CharField(max_length=HEADER_LEN, default="")
 
 
 class Institution(SingleNameModel, UrlModel, DescrModel):
