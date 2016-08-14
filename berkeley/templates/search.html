@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="module">
-        <form action="{% url 'berkeley:publications' %}" method="get"/>
+        <form action="{% url 'berkeley:publications' %}" method="get"/
+            required="false">
             <table>
 	            <caption>
                     Enter search terms:<br>
