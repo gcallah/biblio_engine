@@ -4,36 +4,51 @@ logger = logging.getLogger(__name__)
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, get_list_or_404, render
 
-from .models import Person
+from .models import AdminEmail
 from .models import Journal
+from .models import Person
 from .models import Publisher
 from .models import Publication
-from .models import AdminEmail
+from .models import Site
 
 from .forms import SearchForm
 
 
+def get_hdr():
+    site_hdr = "Bibliography Search"
+    site_list = Site.objects.all()
+    for site in site_list:
+        site_hdr = site.header
+        break   # since we only expect a single site record!
+    return site_hdr
+
+
 def search(request):
+    site_hdr = get_hdr()
     form = SearchForm()
-    return render(request, 'search.html', {'form': form})
+    return render(request, 'search.html', {'form': form, 'header': site_hdr})
 
 
 def about(request):
-    return render(request, 'about.html', None)
+    site_hdr = get_hdr()
+    return render(request, 'about.html', {'header': site_hdr})
 
 
 def feedback(request):
+    site_hdr = get_hdr()
     email_list = AdminEmail.objects.all()
     comma_del_emails = ""
     for email in email_list:
         comma_del_emails = comma_del_emails + email.email_addr + ","
     comma_del_emails = comma_del_emails[:-1]
-    return render(request, 'feedback.html', {'emails': comma_del_emails})
+    return render(request, 'feedback.html', {'emails': comma_del_emails,
+        'header': site_hdr})
 
 
 def detail_view(request, dbkey, cls, html, kwarg_key):
+    site_hdr = get_hdr()
     obj = get_object_or_404(cls, pk=dbkey)
-    return render(request, html, {kwarg_key: obj })
+    return render(request, html, {kwarg_key: obj, 'header': site_hdr })
 
 
 def export(request, pub_id):
@@ -68,6 +83,7 @@ def add_filter(request, kwargs, get_name, kwarg_name):
 
 
 def publications(request):
+    site_hdr = get_hdr()
     kwargs = {}
     add_filter(request, kwargs, 'lname', 'authors__lname')
     add_filter(request, kwargs, 'fname', 'authors__fname')
@@ -84,5 +100,5 @@ def publications(request):
     for pub in pub_list:
         if pub.pub_type == 'REVW':
             pub.review_of = 'A review of '
-    template_data = {'pub_list': pub_list}
+    template_data = {'pub_list': pub_list, 'header': site_hdr}
     return render(request, 'publications.html', template_data)
