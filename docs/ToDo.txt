@@ -2,9 +2,10 @@ To-Do List
 _____________________________________________________________
 
 1) Don't fetch title every lookup: Adnan
-2) Script backup: Syed
-    a) Figure out SQLite procedure to write table to CSV file.
-    b) Loop doing this for all tables
-    c) FTP files produced elsewhere.
+2) Script backup: Syed & Professor
+    a) Setup backup directory: Professor. DONE.
+    b) Figure out SQLite procedure to write table to CSV file.
+    c) Loop doing this for all tables
+    d) FTP files produced elsewhere.
 3) Add to-do list to docs: Professor. DONE.
 4) Django 1.10 filed validation bug: Adnan
