@@ -8,4 +8,4 @@ _____________________________________________________________
     c) Loop doing this for all tables
     d) FTP files produced elsewhere.
 3) Add to-do list to docs: Professor. DONE.
-4) Django 1.10 filed validation bug: Adnan
+4) Django 1.10 filed validation bug: Adnan. DONE.
