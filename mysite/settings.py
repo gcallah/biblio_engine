@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'berkeley',
+    'Emu86',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -148,6 +149,10 @@ LOGGING = {
             'level': 'DEBUG',
         },
         'berkeley': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+        'Emu86': {
             'handlers': ['file'],
             'level': 'DEBUG',
         },

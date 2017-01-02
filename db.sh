@@ -1,3 +1,3 @@
 #!/bin/bash
-./stage.sh
+./stage.sh $1
 ./commit.sh

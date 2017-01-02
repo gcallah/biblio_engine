@@ -11,6 +11,7 @@ Functions:
 import csv
 import django.db
 
+
 persons = [
               ['Maudud e Rabi', 'Syed', 'Student', 'Computer Science'],
               ['bin Hoq', 'Adnan', 'Student', 'Computer Science'],

@@ -1,2 +1,2 @@
 #!/bin/bash
-./manage.py makemigrations berkeley
+./manage.py makemigrations $1
