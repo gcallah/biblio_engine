@@ -10,6 +10,7 @@ Functions:
 
 import csv
 import django
+django.setup()
 from berkeley.models import *
 
 
@@ -19,6 +20,11 @@ persons = [
               ['Callahan', 'Eugene', 'Faculty', 'Computer Science'],
           ]
 
+def read_records(tbl):
+    subs = Subject.objects.all()
+    for sub in subs:
+        print(sub)
+    return subs
 
 def write_records(filenm, data):
     """
@@ -28,11 +34,14 @@ def write_records(filenm, data):
         Returns:
             None (for now: we probably want success or error codes)
     """
-    django.setup()
-#    persons = Person.objects.all()
     with open(filenm, "w") as f_out:
         fwriter = csv.writer(f_out)
-        for record in persons:
-            fwriter.writerow(record)
+        for record in data:
+            fwriter.writerow(str(record))
 
+def main():
+    recs = read_records("subject")
+    write_records("test.csv", recs)
 
+if __name__ == '__main__':
+    main()
