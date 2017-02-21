@@ -14,12 +14,6 @@ django.setup()
 from berkeley.models import *
 
 
-persons = [
-              ['Maudud e Rabi', 'Syed', 'Student', 'Computer Science'],
-              ['bin Hoq', 'Adnan', 'Student', 'Computer Science'],
-              ['Callahan', 'Eugene', 'Faculty', 'Computer Science'],
-          ]
-
 def read_records(tbl):
     recs = tbl.objects.values()
     for rec in recs:
