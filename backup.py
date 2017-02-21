@@ -16,6 +16,7 @@ from berkeley.models import *
 
 def read_records(tbl):
     recs = tbl.objects.values()
+    # lines 20-22 are just for debugging:
     for rec in recs:
         for (key, val) in rec.items():
             print(key + ": " + str(val))
