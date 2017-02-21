@@ -14,6 +14,7 @@ PROV_NAME_LEN = 32
 COUNTRY_NAME_LEN = 64
 YEAR_LEN = 4
 CODE_LEN = 4
+EMAIL_LEN = 80
 
 UNKNOWN_ID = 9
 
@@ -56,6 +57,13 @@ class DescrModel(models.Model):
         abstract = True
 
 
+class EmailModel(models.Model):
+    email_addr = models.CharField(max_length=EMAIL_LEN, default="", blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
 class Keyword(SingleNameModel):
     """
     All fields from abstract classes right now.
@@ -87,7 +95,7 @@ class Institution(SingleNameModel, UrlModel, DescrModel):
     address = models.ForeignKey(Address, null=True, blank=True)
 
 
-class Person(UrlModel, DescrModel):
+class Person(UrlModel, DescrModel, EmailModel):
     fname = models.CharField(max_length=PERSON_NAME_LEN, default="")
     mname = models.CharField(max_length=PERSON_NAME_LEN,
             blank=True, null=True)
@@ -191,8 +199,6 @@ class Publication(UrlModel):
         ordering = ['title']
 
 
-class AdminEmail(models.Model):
-    email_addr = models.CharField(max_length=80, default="", blank=True, null=True)
-
+class AdminEmail(EmailModel):
     def __str__(self):
         return self.email_addr

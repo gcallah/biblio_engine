@@ -21,26 +21,31 @@ persons = [
           ]
 
 def read_records(tbl):
-    subs = Subject.objects.all()
-    for sub in subs:
-        print(sub)
-    return subs
+    recs = tbl.objects.values()
+    for rec in recs:
+        for (key, val) in rec.items():
+            print(key + ": " + str(val))
+    return recs
 
-def write_records(filenm, data):
+def write_records(filenm, recs):
     """
         Args:
             filenm: where to output the CSV
-            data: what to output 
+            recs: the data to output 
         Returns:
             None (for now: we probably want success or error codes)
     """
     with open(filenm, "w") as f_out:
         fwriter = csv.writer(f_out)
-        for record in data:
-            fwriter.writerow(str(record))
+        for record in recs:
+            output = []
+            for (key, val) in record.items():
+                print("Val = " + str(val))
+                output.append(val)
+            fwriter.writerow(output)
 
 def main():
-    recs = read_records("subject")
+    recs = read_records(Journal)
     write_records("test.csv", recs)
 
 if __name__ == '__main__':
