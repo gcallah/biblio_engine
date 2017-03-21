@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^export/(?P<pub_id>[0-9]+)/$', views.export, name='export'),
     url(r'^pub_detail/(?P<pub_id>[0-9]+)/$', 
         views.pub_detail, name='pub_detail'),
+    url(r'^edit_pub/(?P<pub_id>[0-9]+)/$', 
+        views.edit_pub, name='edit_pub'),
     url(r'^person_detail/(?P<person_id>[0-9]+)/$', 
         views.person_detail, name='person_detail'),
     url(r'^journal_detail/(?P<journal_id>[0-9]+)/$', 

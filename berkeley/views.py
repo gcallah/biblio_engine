@@ -61,6 +61,11 @@ def pub_detail(request, pub_id):
             'pub_detail.html', 'pub')
 
 
+def edit_pub(request, pub_id):
+    return detail_view(request, pub_id, Publication,
+            'edit_pub.html', 'pub')
+
+
 def person_detail(request, person_id):
     return detail_view(request, person_id, Person,
             'person_detail.html', 'person')
