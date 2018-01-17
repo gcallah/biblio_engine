@@ -103,9 +103,6 @@ class Person(UrlModel, DescrModel, EmailModel):
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
     institution = models.ForeignKey(Institution, null=True, blank=True)
-    dept = models.CharField(max_length=DEPT_LEN, null=True, blank=True)
-    rank = models.CharField(max_length=RANK_LEN, null=True, blank=True)
-    campus = models.CharField(max_length=CAMPUS_LEN, null=True, blank=True)
     address = models.ForeignKey(Address, null=True, blank=True)
 
     def __str__(self):
@@ -117,10 +114,6 @@ class Person(UrlModel, DescrModel, EmailModel):
 
 class Publisher(SingleNameModel, UrlModel, DescrModel):
     address = models.ForeignKey(Address, null=True, blank=True)
-
-
-class Collection(SingleNameModel, UrlModel, DescrModel):
-    publisher = models.ForeignKey(Publisher, blank=True, null=True)
 
 
 class Collection(SingleNameModel, UrlModel, DescrModel):

@@ -10,7 +10,6 @@ class SearchForm(forms.Form):
             max_length=PERSON_NAME_LEN)
     fname = forms.CharField(label='Author first name:',
             max_length=PERSON_NAME_LEN)
-    dept = forms.CharField(label='Department:', max_length=DEPT_LEN)
     year_after = forms.IntegerField(label='Published after (year):')
     year_before = forms.IntegerField(label='Published before (year):')
     pub_type = forms.ChoiceField(label='Type', choices=TYPE_CHOICES)
