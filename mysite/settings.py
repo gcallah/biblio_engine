@@ -25,7 +25,7 @@ SECRET_KEY = '-s!o1!3in=^&kud3_ym(673fzs354!5wf8_@e)_qg#%_4e+bt%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ "gcallah.pythonanywhere.com", ]
+ALLOWED_HOSTS = [ "gcallah.pythonanywhere.com", "127.0.0.1", ]
 
 
 # Application definition
@@ -121,15 +121,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_DIRS = (
-    '/berkeley/',
+    os.path.join(BASE_DIR, "mysite", "static"),
     )
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
 
 LOGGING = {
     'version': 1,
