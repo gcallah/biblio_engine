@@ -24,15 +24,7 @@
                         {% endif %}
                     </a>
                 </td>
-                <td>
-                    <a href="/berkeley/edit_pub/{{ pub.id }}/">
-                        {% if pub.title %}
-                            {{ pub.title|truncatechars:50 }}
-                        {% elif pub.review_of %}
-                            {{ pub.review_of|truncatechars:50 }}
-                        {% endif %}
-                    </a>
-                </td>
+
                 <td> {{ pub.year }} </td>
                 <td>
                     {% if pub.journal.id %}
@@ -48,12 +40,13 @@
                     </a>
                 </td>
                 <td>
-                    {{ pub.subject.code }}
+                    {{ pub.subject }}
                 </td>
                 <td>
                 {% for author in pub.authors.all %}
                     <a href="/berkeley/person_detail/{{ author.id }}/">
                     {{ author.lname }},<nbsp;>
+                    {{ author.fname }}
                     </a>
                 {% endfor %}
                 </td>

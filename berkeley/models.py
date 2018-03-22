@@ -27,6 +27,7 @@ TYPE_CHOICES = (
     ('COMM', 'Comment'),
     ('PAPR', 'Paper'),
     ('MOVI', 'Movie'),
+    ('WWW', 'Website'),
 )
 
 
