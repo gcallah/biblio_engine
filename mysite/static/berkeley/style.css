@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-size: 100%;
     color: #ddd;
-    background: #444;
+    background:#444;
     font-family: Arial, Helvetica, sans-serif
 }
 
@@ -50,7 +50,7 @@ hr {
 }
 
 blockquote {
-    margin: .4em 6em .4em 6em;
+    margin: 0.4em 6em .4em 6em;
     font-size: 1.1em;
 }
 
@@ -79,10 +79,10 @@ dt {
     width: auto;
     height: 3em;
     padding: .5em 2em;
-    line-height: 2em;
+    line-height: 1em;
     background-color: #cbe;
     color: #933;
-    overflow: hidden;
+   
 }
 
 #header a:link, #header a:visited {
@@ -99,10 +99,10 @@ h1,h2,h3,h4,h5 {
 
 h1 {
     margin: 0em 0em 1em 0em;
-    padding-bottom: .8em;
-    padding-top: .8em;
+    padding-bottom: .5em;
+    padding-top: .5em;
     text-align: center;
-    font-size: 2.4em;
+    font-size: 2.5em;
     color: #933;
     background-color: #cbe;
 }
@@ -212,10 +212,21 @@ p.def {
     padding: 0;
     margin: 0 0 0 1em;
     font-weight: 300;
-    font-size: .7em;
+    font-size: 1.0em;
     letter-spacing: .1em;
     text-transform: uppercase;
     text-align: right;
+}
+
+input[type=submit] {
+    padding: .7em 1.2em; 
+    background:#cbe;
+    color: #933;
+    font-weight: bold;
+    border:0 none;
+    -webkit-border-radius: .5em;
+    border-radius: .5em; 
+    margin: .4em 2.5em .4em 3.5em;
 }
 
 figure {
