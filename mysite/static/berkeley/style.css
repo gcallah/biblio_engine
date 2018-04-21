@@ -9,10 +9,12 @@ body {
 
 a:link {
     color: #acf;
+    text-decoration: none;
 }
 
 a:visited {
     color: #cbf;
+    text-decoration:none;
 }
 
 table, th, td {
@@ -118,7 +120,7 @@ h1.chap-title {
 
 h2 {
     font-size: 1.9em;
-    margin: 1.2em 1em .6em 4em;
+    margin: 1.2em 1em .6em 1em;
     color: #c69;
 }
 
@@ -218,6 +220,8 @@ p.def {
     letter-spacing: .1em;
     text-transform: uppercase;
     text-align: right;
+    text-decoration:none !important;
+    font-weight: bold;
 }
 
 input[type=submit] {
@@ -230,10 +234,15 @@ input[type=submit] {
     border-radius: .5em; 
     margin: .4em 2.5em .4em 3.5em;
 }
+input[type=text]{
+    padding: .7em 1.23em;
+}
 caption{
-    font-size:2em;
+    font-size:1.2em;
     padding-top:0.5em;
     padding-bottom:.5em;
+    color:#edf2cb;
+    text-transform:uppercase;
 }
 
 figure {
