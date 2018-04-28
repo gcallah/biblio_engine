@@ -240,8 +240,14 @@ input[type=text]{
     background-color: #cbe;
 }
 
-.button{
-    padding: 0em 0em 0em 8em;
+#submit{
+    background:#cbe;
+    color: #933;
+    font-weight: bold;
+    border:0 none;
+    -webkit-border-radius: .5em;
+    text-transform: uppercase;
+    border-radius: .5em;
 }
 input[type=number]{
     color: #933;
