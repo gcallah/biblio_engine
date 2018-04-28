@@ -232,12 +232,16 @@ input[type=submit] {
     border:0 none;
     -webkit-border-radius: .5em;
     border-radius: .5em; 
-    margin: .4em 2.5em .4em 3.5em;
+    margin: .4em 2.5em .4em 26.5em;
 }
 input[type=text]{
     padding: 0em 0em 0em 0em;
     color: #933;
     background-color: #cbe;
+}
+
+.button{
+    padding: 0em 0em 0em 8em;
 }
 input[type=number]{
     color: #933;
