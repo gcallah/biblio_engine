@@ -93,7 +93,7 @@ class Site(SingleNameModel, UrlModel, DescrModel):
 
 
 class Institution(SingleNameModel, UrlModel, DescrModel):
-    address = models.ForeignKey(Address, null=True, blank=True)
+    address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
 
 class Person(UrlModel, DescrModel, EmailModel):
@@ -103,8 +103,8 @@ class Person(UrlModel, DescrModel, EmailModel):
     lname = models.CharField(max_length=PERSON_NAME_LEN)
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
-    institution = models.ForeignKey(Institution, null=True, blank=True)
-    address = models.ForeignKey(Address, null=True, blank=True)
+    institution = models.ForeignKey(Institution, null=True, blank=True, on_delete=models.CASCADE,)
+    address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
     def __str__(self):
         return self.fname + " " + self.lname
@@ -114,11 +114,11 @@ class Person(UrlModel, DescrModel, EmailModel):
 
 
 class Publisher(SingleNameModel, UrlModel, DescrModel):
-    address = models.ForeignKey(Address, null=True, blank=True)
+    address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
 
 class Collection(SingleNameModel, UrlModel, DescrModel):
-    publisher = models.ForeignKey(Publisher, blank=True, null=True)
+    publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE,)
 
 
 class Subject(SingleNameModel):
@@ -126,8 +126,8 @@ class Subject(SingleNameModel):
 
 
 class Journal(SingleNameModel, UrlModel, DescrModel):
-    publisher = models.ForeignKey(Publisher, blank=True, null=True)
-    subject = models.ForeignKey(Subject, default=UNKNOWN_ID)
+    publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE,)
+    subject = models.ForeignKey(Subject, default=UNKNOWN_ID, on_delete=models.CASCADE,)
 
 
 class Publication(UrlModel):
@@ -135,13 +135,13 @@ class Publication(UrlModel):
             blank=True, null=True, default="")
     pub_type = models.CharField(choices=TYPE_CHOICES, max_length=4,
             blank=True, null=True, default="")
-    publisher = models.ForeignKey(Publisher, blank=True, null=True)
-    subject = models.ForeignKey(Subject, default=UNKNOWN_ID)
-    journal = models.ForeignKey(Journal, blank=True, null=True)
+    publisher = models.ForeignKey(Publisher, blank=True, null=True,  on_delete=models.CASCADE,)
+    subject = models.ForeignKey(Subject, default=UNKNOWN_ID, on_delete=models.CASCADE,)
+    journal = models.ForeignKey(Journal, blank=True, null=True, on_delete=models.CASCADE,)
     collection = models.ForeignKey('berkeley.Publication', blank=True,
-            null=True, related_name="coll")
+            null=True, related_name="coll",  on_delete=models.CASCADE,)
     pub_reviewed = models.ForeignKey('berkeley.Publication', blank=True,
-            null=True, related_name="pub_rev")
+            null=True, related_name="pub_rev", on_delete=models.CASCADE,)
     year = models.IntegerField()
     volume = models.CharField(max_length=12, default="", blank=True)
     issue = models.CharField(max_length=12, default="", blank=True)
@@ -176,6 +176,7 @@ class Publication(UrlModel):
     language = models.CharField(max_length=32, default="", blank=True)
     abstract = models.CharField(max_length=1024, default="", blank=True)
     doi = models.CharField(max_length=DOI_LEN, default="", blank=True)
+    review = models.CharField(max_length=128, default="", blank=True)
 
     def __str__(self):
         if self.title:
