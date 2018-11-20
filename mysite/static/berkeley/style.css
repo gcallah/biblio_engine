@@ -3,18 +3,16 @@ body {
     padding: 0;
     font-size: 100%;
     color: #ddd;
-    background:#444;
+    background: #021734;
     font-family: Arial, Helvetica, sans-serif
 }
 
 a:link {
-    color: #acf;
-    text-decoration: none;
+    color: #01ffff;
 }
 
 a:visited {
-    color: #cbf;
-    text-decoration:none;
+    color: #e9f;
 }
 
 table, th, td {
@@ -24,13 +22,12 @@ table, th, td {
     border: 1px solid black;
     }
 
-
 th, td {
         padding: 1em;
 }
 
 th {
-    background: #525;
+    background: #444;
 }
 
 th.table-head {
@@ -38,7 +35,7 @@ th.table-head {
 }
 
 td {
-    background: #659;
+    background: #444;
 }
 
 p {
@@ -49,17 +46,25 @@ p {
 }
 
 hr {
-    margin: 2em 20em 2em 20em;
+    color: #e9f;
+    margin: 2em 8em 2em 8em;
 }
 
 blockquote {
-    margin: 0.4em 6em .4em 6em;
-    font-size: 1.1em;
+    margin: .4em 6em .4em 6em;
+    font-size: 1.3em;
 }
 
 ol, ul, dl, li {
     margin: 1em 1.5em .4em 1.5em;
     font-size: 1.4em;
+}
+
+ul.mod_list, ol.mod_list {
+    color: #bcf;
+    text-align: center;
+    list-style-position: inside;
+    font-size: 1.2em;
 }
 
 ul.centered {
@@ -70,6 +75,11 @@ ul.centered {
 
 ol.nested, ul.nested, dl.nested {
     font-size: 1em;
+    list-style-position: inside;
+}
+
+ol.inner_nested, ul.inner_nested, dl.inner_nested {
+    font-size: .7em;
 }
 
 dt {
@@ -80,16 +90,17 @@ dt {
 
 #header {
     width: auto;
-    height: 4em;
-    padding: 0em 0em;
-    line-height: 1em;
+    height: 3em;
+    padding-bottom: 2em;
+    padding-top: .2em;
+    line-height: 2em;
     background-color: #cbe;
-    color: #933;
-   
+    color: #622;
+    overflow: hidden;
 }
 
 #header a:link, #header a:visited {
-    color: #748;
+    color: #622;
 }
 
 #header a:focus , #header a:hover {
@@ -97,21 +108,34 @@ dt {
 }
 
 h1,h2,h3,h4,h5 {
-    font-weight: bold;
+    font-weight: 300;
 }
 
 h1 {
-    margin: 0em 0em 1em 0em;
+    margin: 0em 0em .6em 0em;
     padding-bottom: 1em;
-    padding-top: 0em;
+    padding-top: 1em;
     text-align: center;
-    font-size: 3.0em;
+    font-size: 2em;
     color: #933;
     background-color: #cbe;
 }
 
-h1#course-title {
+h1.toc_head {
+    font-size: 3rem;
+    padding: 1rem;
+    margin: 1em 0em .6em 0em;
+}
+
+h1.chap-title {
     margin: 0em 0em 0em 0em;
+}
+
+.header-title{
+    position: absolute;
+    top:0.5rem;
+    left:1rem;
+    font-size:1.5rem;
 }
 
 h1.chap-title {
@@ -119,28 +143,31 @@ h1.chap-title {
 }
 
 h2 {
-    font-size: 1.9em;
+    font-size: 1.8em;
     margin: 1.2em 1em .6em 1em;
-    color: #c69;
+    color: #e24;
 }
 
 h2.subhead {
-    font-weight:
-    normal;
+    font-weight: normal;
 }
 
 h3 {
     font-size: 1.6em;
-    margin: .8em 1.2em .8em 2em;
-    color: #ebd;
-    font-weight: bold;
+    margin: 1em 1.4em .6em 1.4em;
+    color: #ecb;
 }
 
 h4 {
     font-size: 1.5em;
     margin: .8em 1.6em .6em 1.6em;
-    color: #339;
-    font-weight: bold;
+    color: #aaf;
+}
+
+h5 {
+    font-size: 1.4em;
+    margin: .8em 1.8em .6em 1.8em;
+    color: #afa;
 }
 
 summary.sum1 {
@@ -212,16 +239,13 @@ p.def {
 
 #user-tools {
     float: right;
-    padding-top: 1.5em;
-    padding-right:1em;
-    margin: 0 0 0 1em;
+    padding: 0;
+    margin: 0 4em 0 1em;
     font-weight: 300;
-    font-size: 1.0em;
+    font-size: 1em;
     letter-spacing: .1em;
-    text-transform: uppercase;
     text-align: right;
-    text-decoration:none !important;
-    font-weight: bold;
+    color: #622;
 }
 
 input[type=submit] {
