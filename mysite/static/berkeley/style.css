@@ -9,11 +9,13 @@ body {
 
 a:link {
     color: #01ffff;
+    text-decoration: none;
 }
 
 a:visited {
     color: #e9f;
 }
+
 
 table, th, td {
     margin: .4em 2.5em .4em 2.5em;
@@ -83,14 +85,14 @@ ol.inner_nested, ul.inner_nested, dl.inner_nested {
 }
 
 dt {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin: .4em 3em .4em 1em;
 }
 
 #header {
     width: auto;
-    height: 3em;
+    height: 1.57em;
     padding-bottom: 2em;
     padding-top: .2em;
     line-height: 2em;
@@ -135,7 +137,11 @@ h1.chap-title {
     position: absolute;
     top:0.5rem;
     left:1rem;
-    font-size:1.5rem;
+    font-size: 1.87rem;
+    font-weight: 1.1;
+    padding-top: .2em;
+    letter-spacing: .07em;
+    padding-left: .16em;
 }
 
 h1.chap-title {
@@ -239,11 +245,11 @@ p.def {
 
 #user-tools {
     float: right;
-    padding: 0;
+    padding-top: .2em;
     margin: 0 4em 0 1em;
-    font-weight: 300;
-    font-size: 1em;
-    letter-spacing: .1em;
+    font-weight: 1.1;
+    font-size: 1.3em;
+    letter-spacing: .2em;
     text-align: right;
     color: #622;
 }
