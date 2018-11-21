@@ -141,7 +141,7 @@ h1.chap-title {
     font-weight: 1.1;
     padding-top: .2em;
     letter-spacing: .07em;
-    padding-left: .16em;
+    padding-left: .14em;
 }
 
 h1.chap-title {
@@ -245,11 +245,11 @@ p.def {
 
 #user-tools {
     float: right;
-    padding-top: .2em;
+    padding-top: 0.2em;
     margin: 0 4em 0 1em;
-    font-weight: 1.1;
-    font-size: 1.3em;
-    letter-spacing: .2em;
+    font-weight: 1.1em;
+    font-size: 1.25em;
+    letter-spacing: .082em;
     text-align: right;
     color: #622;
 }
