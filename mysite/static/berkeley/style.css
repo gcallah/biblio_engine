@@ -7,15 +7,20 @@ body {
     font-family: Arial, Helvetica, sans-serif
 }
 
+.button {
+    font-size: 1.2em;
+    border-radius: 12px;
+    border: 2px solid #4CAF50;
+    background-color: #9bf;
+}
+
 a:link {
     color: #01ffff;
-    text-decoration: none;
 }
 
 a:visited {
     color: #e9f;
 }
-
 
 table, th, td {
     margin: .4em 2.5em .4em 2.5em;
@@ -45,6 +50,15 @@ p {
     font-size: 1.4em;
     padding: 0;
     line-height: 140%;
+}
+
+p.submit {
+    text-align: center
+}
+
+p.quiz_quest {
+   font-size: 1.5rem;
+   color: #539;
 }
 
 hr {
@@ -85,14 +99,14 @@ ol.inner_nested, ul.inner_nested, dl.inner_nested {
 }
 
 dt {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
     margin: .4em 3em .4em 1em;
 }
 
 #header {
     width: auto;
-    height: 1.57em;
+    height: 3em;
     padding-bottom: 2em;
     padding-top: .2em;
     line-height: 2em;
@@ -119,8 +133,7 @@ h1 {
     padding-top: 1em;
     text-align: center;
     font-size: 2em;
-    color: #933;
-    background-color: #cbe;
+    color: #9df;
 }
 
 h1.toc_head {
@@ -137,11 +150,7 @@ h1.chap-title {
     position: absolute;
     top:0.5rem;
     left:1rem;
-    font-size: 1.87rem;
-    font-weight: 1.1;
-    padding-top: .2em;
-    letter-spacing: .07em;
-    padding-left: .14em;
+    font-size:1.5rem;
 }
 
 h1.chap-title {
@@ -176,34 +185,44 @@ h5 {
     color: #afa;
 }
 
+code {
+    font-size: 1.2em;
+    font-family: monospace;
+    color: #8fc;
+}
+
+pre {
+    font-size: 1.1em;
+    color: #9ed;
+}
+
 summary.sum1 {
     font-size: 1.7em;
-    color: #903;
-    margin: 1em 1.2em 1em 1.2em;
+    color: #f9d;
+    margin: .8em 2em .8em 2em;
 }
 
 summary.sum2 {
-    font-size: 1.6em;
-    color: #ebd;
-    font-weight: bold;
-    margin: .8em 1.2em .8em 2em;
+    font-size: 1.5em;
+    color: #9cf;
+    margin: .6em 3em .6em 3em;
 }
 
 summary.sum3 {
-    font-size: 1.5em;
-    color: #339;
-    margin: .6em 1.2em .6em 2.8em;
+    font-size: 1.3em;
+    color: #88e;
+    margin: .4em 1.2em .4em 4em;
 }
 
 summary.sum4 {
-    font-size: 1.4em;
-    color: #903;
-    margin: .4em 1.2em .4em 2.8em;
+    font-size: 1.2em;
+    color: #dac;
+    margin: .4em 1.2em .4em 4em;
 }
 
 summary.menu_sum {
     font-size: 1.4em;
-    color: #639;
+    color: #ebd;
     margin: .5em 0em .5em 0em;
 }
 
@@ -226,7 +245,7 @@ p.leadquote {
     text-align: center;
     margin: 1em 1em 1em 2em;
     font-size: 1.4em;
-    color: #9cd;
+    color: #9de;
 }
 
 p.def {
@@ -244,8 +263,8 @@ p.def {
 }
 
 #user-tools {
-	float: right;
-    padding-top: 0.2em;
+    float: right;
+    padding: 0;
     margin: 0 4em 0 1em;
     font-weight: 300;
     font-size: 1em;
@@ -254,55 +273,6 @@ p.def {
     color: #622;
 }
 
-input[type=submit] {
-    padding: .7em 1.2em; 
-    background:#cbe;
-    color: #933;
-    font-weight: bold;
-    border:0 none;
-    -webkit-border-radius: .5em;
-    border-radius: .5em; 
-    margin: .4em 2.5em .4em 26.5em;
-}
-input[type=text]{
-    padding: 0em 0em 0em 0em;
-    color: #933;
-    background-color: #cbe;
-}
-
-#submit{
-    background:#cbe;
-    color: #933;
-    font-weight: bold;
-    border:0 none;
-    -webkit-border-radius: .5em;
-    text-transform: uppercase;
-    border-radius: .5em;
-}
-input[type=number]{
-    color: #933;
-    background-color: #cbe;
-    font-weight: bold;
-}
-
-textarea{
-    color: #933;
-    background-color: #cbe;
-    font-weight: bold;
-}
-caption{
-    font-size:1.2em;
-    padding-top:0.8em;
-    padding-bottom:.5em;
-    color:#edf2cb;
-    text-transform:uppercase;
-}
-
-select{
-    color: #933;
-    background-color: #cbe;
-    font-weight: bold;
-}
 figure {
     text-align: center;
 }
@@ -314,8 +284,8 @@ figure.lead-figure {
 figcaption {
     color: #ced;
     font-style: italic;
-    text-align: left;
-    margin: .8em 1em .6em 1em;
+    text-align: center;
+    margin: .6em 1em .4em 1em;
 }
 
 span.frac {
@@ -333,4 +303,25 @@ span.frac > sup, span.frac > sub {
 span.frac > sup {border-bottom: 0.08em solid;}
 span.frac > span {display: none;}
 
+
+span.hilight {
+    color: #fc2;
+}
+
 .over { text-decoration: overline; }
+
+.errors { color: red; }
+
+
+
+
+
+.zoom{
+    width:25%;
+    transition:0.5s all;
+}
+
+.zoom:hover{
+    margin-top:5vh;
+   transform: scale(1.5);
+}
