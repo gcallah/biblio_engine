@@ -244,12 +244,12 @@ p.def {
 }
 
 #user-tools {
-    float: right;
+	float: right;
     padding-top: 0.2em;
     margin: 0 4em 0 1em;
-    font-weight: 1.1em;
-    font-size: 1.25em;
-    letter-spacing: .082em;
+    font-weight: 300;
+    font-size: 1.2em;
+    letter-spacing: .1em;
     text-align: right;
     color: #622;
 }
