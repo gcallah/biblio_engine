@@ -92,7 +92,7 @@ dt {
 
 #header {
     width: auto;
-    height: 3em;
+    height: 1.57em;
     padding-bottom: 2em;
     padding-top: .2em;
     line-height: 2em;
@@ -135,9 +135,9 @@ h1.chap-title {
 
 .header-title{
     position: absolute;
-    top:0.5rem;
+    top:0.9rem;
     left:1rem;
-    font-size:1.5rem;
+    font-size:1.7rem;
 }
 
 h1.chap-title {
@@ -244,7 +244,7 @@ p.def {
     padding-top: 0.2em;
     margin: 0 4em 0 1em;
     font-weight: 300;
-    font-size: 1em;
+    font-size: 1.2em;
     letter-spacing: .1em;
     text-align: right;
     color: #622;
