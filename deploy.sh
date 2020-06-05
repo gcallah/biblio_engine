@@ -2,7 +2,7 @@
 # This shell file deploys a new version to our server.
 
 export project_name=mysite
-export user_name=wm1065
+export user_name=gcallah
 
 echo "SSHing to PythonAnywhere."
 sshpass -p $1 ssh -o "StrictHostKeyChecking no" $user_name@ssh.pythonanywhere.com << EOF
