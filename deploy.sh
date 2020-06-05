@@ -1,3 +1,6 @@
+#!/bin/bash
+# This shell file deploys a new version to our server.
+
 export project_name=mysite
 export user_name=wm1065
 
