@@ -23,11 +23,24 @@ TYPE_CHOICES = (
     ('ARTI', 'Article'),
     ('BLOG', 'Blog post'),
     ('BOOK', 'Book'),
-    ('REVW', 'Book review'),
+    #('REVW', 'Book review'),
     ('COMM', 'Comment'),
     ('PAPR', 'Paper'),
-    ('MOVI', 'Movie'),
+    #('MOVI', 'Movie'),
     ('WWW', 'Website'),
+)
+
+CATEGORIES = (
+    ('', ''),
+    ('SOCDIST', 'Social Distancing'),
+    ('MONTRG', 'Monitoring / Situational Awareness Strategies & Data'),
+    ('POLSOR', 'PPE & Other Essential Supplies & Services – Policies & Sourcing'),
+    ('MED', 'Medical / Public Health Guidance for Individuals & Organizations'),
+    ('WORK', 'Sustained Work from Home Strategies'),
+    ('HEALTHSTAT', 'Health Status Confirmation Strategies & Technologies'),
+    ('COMM', 'Communications (internal & external)'),
+    ('CLEANING', 'Cleaning & Disinfection'),
+    ('HR', 'HR / Personnel Strategies'),
 )
 
 
@@ -103,7 +116,7 @@ class Person(UrlModel, DescrModel, EmailModel):
     lname = models.CharField(max_length=PERSON_NAME_LEN)
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
-    institution = models.ForeignKey(Institution, null=True, blank=True, on_delete=models.CASCADE,)
+    #institution = models.ForeignKey(Institution, null=True, blank=True, on_delete=models.CASCADE,)
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
     def __str__(self):
