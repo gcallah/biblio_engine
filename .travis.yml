@@ -14,10 +14,10 @@ before_install:
   - sudo apt-get install sshpass
 
 install:
-    - pip install -r requirements/requirements-dev.txt 
+    - pip install -r requirements/requirements.txt 
 
 env:
-    - PYTHONPATH=/home/travis/build/gcallah/biblio_engine
+    - PYTHONPATH=/home/travis/build/wm1065/biblio_engine
 
 script:
     - make tests
