@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>
-        {% block title %}
-        {{ header }}
-        {% endblock title %}
+      {% block title %} {{ header }} {% endblock title %}
     </title>
-    {% block stylesheets %}
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="/static/berkeley/style.css">
+    {% block stylesheets %} {% load static %}
+    <link rel="stylesheet" type="text/css" href="/static/berkeley/style.css" />
     {% endblock stylesheets %}
-</head>
-<body class="dashboard">
+  </head>
+  <body class="dashboard">
     <div id="container">
-        <div id="header">
-            <div id="user-tools">
-                <a class="header-title">
-                    INTERCEP Data Warehouse
-                </a>
-                &nbsp; &nbsp; &nbsp;
-                <a href="/berkeley">Search</a>
-                &nbsp;&nbsp;  
- 		<a href="berkeley/about">About</a>
-		&nbsp; &nbsp;
-		<a href="http://www.intercep.nyu.edu">INTERCEP</a>
-                &nbsp; &nbsp;
-                <a href="http://www.thedevopscourse.com/participants/login">Log in</a>
-           </div>
-           
+      <div id="header">
+        <div id="user-tools">
+          <a class="header-title">
+            INTERCEP Data Warehouse
+          </a>
+          &nbsp; &nbsp; &nbsp;
+          <a href="/berkeley">Search</a>
+          &nbsp;&nbsp;
+          <a href="/berkeley/about/">About</a>
+          &nbsp; &nbsp;
+          <a href="http://www.intercep.nyu.edu">INTERCEP</a>
+          &nbsp; &nbsp;
+          <a href="http://www.thedevopscourse.com/participants/login">Log in</a>
         </div>
-        <br><br><br>
-        <div id="content" class="colMS">
-            <div id="content-main">
-                {% block content %}
-                {% endblock content %}
-            </div>
+      </div>
+      <br /><br /><br />
+      <div id="content" class="colMS">
+        <div id="content-main">
+          {% block content %} {% endblock content %}
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
