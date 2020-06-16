@@ -82,7 +82,8 @@ def publisher_detail(request, publisher_id):
 
 
 def add_filter(request, kwargs, get_name, kwarg_name):
-    val = request.GET[get_name]
+    #val = request.GET.get[get_name]
+    val = request.GET.get(get_name)
     if val != '':
         kwargs[kwarg_name] = val
 
@@ -91,13 +92,8 @@ def publications(request):
     site_hdr = get_hdr()
     kwargs = {}
     add_filter(request, kwargs, 'lname', 'authors__lname')
-    add_filter(request, kwargs, 'fname', 'authors__fname')
-    add_filter(request, kwargs, 'year_after', 'year__gt')
-    add_filter(request, kwargs, 'year_before', 'year__lt')
     add_filter(request, kwargs, 'pub_type', 'pub_type')
     add_filter(request, kwargs, 'subject', 'subject')
-    add_filter(request, kwargs, 'journal', 'journal__id')
-    add_filter(request, kwargs, 'keyword1', 'keywords__id')
     add_filter(request, kwargs, 'keyword2', 'keywords__id')
 
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
