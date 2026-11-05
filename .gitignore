@@ -9,3 +9,7 @@ __pycache__
 berkeley/migrations/*.py
 berkeley/test/*
 backups/*.csv
+
+# Superset workspaces
+.venv/
+.superset/config.local.json
