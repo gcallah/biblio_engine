@@ -87,11 +87,19 @@ def add_filter(request, kwargs, get_name, kwarg_name):
         kwargs[kwarg_name] = val
 
 
+def add_year_filter(request, kwargs, get_name, kwarg_name):
+    val = request.GET.get(get_name, '').strip()
+    if val.isdigit():
+        kwargs[kwarg_name] = int(val)
+
+
 def publications(request):
     site_hdr = get_hdr()
     kwargs = {}
     add_filter(request, kwargs, 'lname', 'authors__lname__icontains')
     add_filter(request, kwargs, 'pub_type', 'pub_type')
+    add_year_filter(request, kwargs, 'start_year', 'year__gte')
+    add_year_filter(request, kwargs, 'end_year', 'year__lte')
     add_filter(request, kwargs, 'subject', 'subject')
     add_filter(request, kwargs, 'keyword1', 'keywords__id')
 

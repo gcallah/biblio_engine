@@ -70,3 +70,37 @@ class TypeSearchTest(TestCase):
     def test_export_uses_book_format(self):
         resp = self.client.get(f"/oakeshott/export/{self.book.id}/")
         self.assertEqual(resp.status_code, 200)
+
+
+class YearRangeSearchTest(TestCase):
+    def setUp(self):
+        Subject.objects.create(id=UNKNOWN_ID, name="Unknown")
+        self.p1933 = Publication.objects.create(title="Experience", year=1933)
+        self.p1962 = Publication.objects.create(title="Rationalism", year=1962)
+        self.p1975 = Publication.objects.create(title="Human Conduct", year=1975)
+
+    def search(self, start="", end=""):
+        query = {"lname": "", "pub_type": "", "start_year": start,
+                 "end_year": end, "subject": "", "keyword1": ""}
+        resp = self.client.get("/oakeshott/publications/", query)
+        return list(resp.context["pub_list"])
+
+    def test_both_blank_returns_everything(self):
+        self.assertEqual(self.search(), [self.p1933, self.p1962, self.p1975])
+
+    def test_range_is_inclusive(self):
+        self.assertEqual(self.search("1933", "1962"), [self.p1933, self.p1962])
+
+    def test_blank_start_finds_up_to_end(self):
+        self.assertEqual(self.search(end="1962"), [self.p1933, self.p1962])
+
+    def test_blank_end_finds_from_start(self):
+        self.assertEqual(self.search(start="1962"), [self.p1962, self.p1975])
+
+    def test_non_numeric_year_is_ignored(self):
+        self.assertEqual(self.search(start="abc"), [self.p1933, self.p1962, self.p1975])
+
+    def test_form_shows_year_fields(self):
+        resp = self.client.get("/oakeshott/")
+        self.assertContains(resp, 'name="start_year"')
+        self.assertContains(resp, 'name="end_year"')

@@ -10,9 +10,9 @@ class SearchForm(forms.Form):
             max_length=PERSON_NAME_LEN)
     #fname = forms.CharField(label='Author first name:',
        #     max_length=PERSON_NAME_LEN)
-    #year_after = forms.IntegerField(label='Published after (year):')
-    #year_before = forms.IntegerField(label='Published before (year):')
     pub_type = forms.ChoiceField(label='Type', choices=TYPE_CHOICES)
+    start_year = forms.IntegerField(label='From year:')
+    end_year = forms.IntegerField(label='To year:')
     subject = forms.ModelChoiceField(label='Category',
             queryset=Subject.objects.all().order_by('name'))
     #journal = forms.ModelChoiceField(label='Journal',
