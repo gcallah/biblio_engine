@@ -136,6 +136,22 @@ class Person(UrlModel, DescrModel, EmailModel):
         given = self._given()
         return f"{self.lname}, {given}" if given else self.lname
 
+    def initials(self):
+        """'M. J.' for Michael Joseph; hyphenated names keep the hyphen,
+        so Jean-Paul becomes 'J.-P.'."""
+        def initial(word):
+            return '-'.join(part[0] + '.' for part in word.split('-') if part)
+        return ' '.join(initial(w) for w in self._given().split())
+
+    def apa_name(self):
+        """'Oakeshott, M. J.'"""
+        initials = self.initials()
+        return f"{self.lname}, {initials}" if initials else self.lname
+
+    def apa_natural_name(self):
+        """'M. J. Oakeshott'"""
+        return " ".join(n for n in (self.initials(), self.lname) if n)
+
     class Meta:
         ordering = ['lname']
 
@@ -226,8 +242,8 @@ class Publication(UrlModel):
         return text if text.endswith('.') else text + '.'
 
     def apa_authors(self):
-        """APA 7: 'Last, First, Last, First, & Last, First.'"""
-        names = [a.inverted_name() for a in self.ordered_authors()]
+        """APA 7: 'Last, F. M., Last, F., & Last, F.'"""
+        names = [a.apa_name() for a in self.ordered_authors()]
         if len(names) > 1:
             names = [', '.join(names[:-1]) + ', & ' + names[-1]]
         return self._sentence(''.join(names))
@@ -265,9 +281,16 @@ class Publication(UrlModel):
 
     def reviewed_authors(self):
         """Names of the reviewed book's authors, e.g. 'A B, C D and E F'."""
+        return self._reviewed_names(Person.natural_name)
+
+    def apa_reviewed_authors(self):
+        """Reviewed book's authors with initials, e.g. 'M. Oakeshott'."""
+        return self._reviewed_names(Person.apa_natural_name)
+
+    def _reviewed_names(self, name_of):
         if not self.pub_reviewed:
             return ''
-        names = [p.natural_name() for p in self.pub_reviewed.ordered_authors()]
+        names = [name_of(p) for p in self.pub_reviewed.ordered_authors()]
         if len(names) <= 1:
             return ''.join(names)
         return ', '.join(names[:-1]) + ' and ' + names[-1]

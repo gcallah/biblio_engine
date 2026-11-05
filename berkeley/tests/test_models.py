@@ -73,8 +73,16 @@ class ReviewHelpersTest(BiblioTestCase):
         self.assertEqual(review.reviewed_authors(),
                          "Michael Oakeshott, A B and C D")
 
+    def test_apa_reviewed_authors(self):
+        book = self.pub("Book", authors=[self.person("Michael", "Oakeshott"),
+                                         self.person("Isaiah", "Berlin")])
+        review = self.pub("", pub_type="RVAB", pub_reviewed=book)
+        self.assertEqual(review.apa_reviewed_authors(),
+                         "M. Oakeshott and I. Berlin")
+
     def test_reviewed_authors_without_reviewed_book(self):
         self.assertEqual(self.pub("").reviewed_authors(), "")
+        self.assertEqual(self.pub("").apa_reviewed_authors(), "")
 
 
 class AuthorOrderTest(BiblioTestCase):
@@ -164,6 +172,21 @@ class PersonNameTest(BiblioTestCase):
         p = self.person("", "Anonymous")
         self.assertEqual(p.natural_name(), "Anonymous")
         self.assertEqual(p.inverted_name(), "Anonymous")
+        self.assertEqual(p.initials(), "")
+        self.assertEqual(p.apa_name(), "Anonymous")
+        self.assertEqual(p.apa_natural_name(), "Anonymous")
+
+    def test_initials(self):
+        p = self.person("Michael", "Oakeshott", mname="Joseph")
+        self.assertEqual(p.initials(), "M. J.")
+        self.assertEqual(p.apa_name(), "Oakeshott, M. J.")
+        self.assertEqual(p.apa_natural_name(), "M. J. Oakeshott")
+
+    def test_initials_of_hyphenated_and_already_initialled_names(self):
+        self.assertEqual(self.person("Jean-Paul", "Sartre").initials(), "J.-P.")
+        self.assertEqual(self.person("J.", "Smith").initials(), "J.")
+        self.assertEqual(self.person("T. S.", "Eliot").initials(), "T. S.")
+        self.assertEqual(self.person("Mary Anne", "Evans").initials(), "M. A.")
 
 
 class CitationAuthorListTest(BiblioTestCase):
@@ -184,19 +207,19 @@ class CitationAuthorListTest(BiblioTestCase):
 
     def test_one_author(self):
         pub = self.with_authors(1)
-        for style in (pub.apa_authors, pub.mla_authors, pub.chicago_authors):
-            self.assertEqual(style(), "Alpha, Amy.")
+        self.assertEqual(pub.apa_authors(), "Alpha, A.")
+        self.assertEqual(pub.mla_authors(), "Alpha, Amy.")
+        self.assertEqual(pub.chicago_authors(), "Alpha, Amy.")
 
     def test_two_authors(self):
         pub = self.with_authors(2)
-        self.assertEqual(pub.apa_authors(), "Alpha, Amy, & Bravo, Ben.")
+        self.assertEqual(pub.apa_authors(), "Alpha, A., & Bravo, B.")
         self.assertEqual(pub.mla_authors(), "Alpha, Amy, and Ben Bravo.")
         self.assertEqual(pub.chicago_authors(), "Alpha, Amy, and Ben Bravo.")
 
     def test_three_authors(self):
         pub = self.with_authors(3)
-        self.assertEqual(pub.apa_authors(),
-                         "Alpha, Amy, Bravo, Ben, & Charlie, Cal.")
+        self.assertEqual(pub.apa_authors(), "Alpha, A., Bravo, B., & Charlie, C.")
         self.assertEqual(pub.mla_authors(), "Alpha, Amy, et al.")
         self.assertEqual(pub.chicago_authors(),
                          "Alpha, Amy, Ben Bravo, and Cal Charlie.")
@@ -221,6 +244,7 @@ class CitationAuthorListTest(BiblioTestCase):
             self.person("Isaiah", "Berlin")])
         self.assertEqual(pub.mla_authors(),
                          "Oakeshott, Michael Joseph, and Isaiah Berlin.")
+        self.assertEqual(pub.apa_authors(), "Oakeshott, M. J., & Berlin, I.")
 
     def test_no_double_full_stop(self):
         pub = self.pub("P", authors=[self.person("J.", "Smith")])
@@ -229,4 +253,4 @@ class CitationAuthorListTest(BiblioTestCase):
     def test_title_page_order(self):
         zed, amy = self.person("Zed", "Zulu"), self.person("Amy", "Alpha")
         pub = self.pub("P", authors=[zed, amy])
-        self.assertEqual(pub.apa_authors(), "Zulu, Zed, & Alpha, Amy.")
+        self.assertEqual(pub.apa_authors(), "Zulu, Z., & Alpha, A.")

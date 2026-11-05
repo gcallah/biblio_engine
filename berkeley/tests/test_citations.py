@@ -24,7 +24,7 @@ class BookCitationTest(CitationTestCase):
                              authors=[self.mo], publisher=self.methuen)
 
     def test_apa(self):
-        self.assertIn("Oakeshott, Michael. (1962). <i>Rationalism in Politics</i>.",
+        self.assertIn("Oakeshott, M. (1962). <i>Rationalism in Politics</i>.",
                       self.export(self.book))
         self.assertIn("London, England: Methuen.", self.export(self.book))
 
@@ -91,8 +91,11 @@ class ReviewCitationTest(CitationTestCase):
 
     def test_apa(self):
         self.assertIn("(1976). Conduct Considered [Review of the book "
-                      "<i>On Human Conduct</i>, by Michael Oakeshott].",
+                      "<i>On Human Conduct</i>, by M. Oakeshott].",
                       self.export(self.review))
+
+    def test_apa_author_initials(self):
+        self.assertIn("Critic, J. (1976).", self.export(self.review))
 
     def test_mla_and_chicago(self):
         text = self.export(self.review)
@@ -147,7 +150,7 @@ class CitationAuthorListTest(CitationTestCase):
         pub = self.pub("Joint", 1960, pub_type="BKBY",
                        authors=[self.zed, self.amy], publisher=self.methuen)
         text = self.export(pub)
-        self.assertIn("Zulu, Zed, &amp; Alpha, Amy. (1960).", text)
+        self.assertIn("Zulu, Z., &amp; Alpha, A. (1960).", text)
         self.assertEqual(text.count("Zulu, Zed, and Amy Alpha. <i>Joint</i>"), 2)
         self.assertNotIn("et all", text)
 

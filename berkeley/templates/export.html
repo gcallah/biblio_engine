@@ -66,7 +66,7 @@
                     ({{ pub.year }}).
                     {% if pub.title %}{{ pub.title }}{% endif %}
                     {% if pub.pub_reviewed %}
-                        [Review of the book <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}].
+                        [Review of the book <i>{{ pub.pub_reviewed.title }}</i>{% if pub.apa_reviewed_authors %}, by {{ pub.apa_reviewed_authors }}{% endif %}].
                     {% elif pub.title %}.{% endif %}
                     {% if pub.issue %}
                         <i>{{ pub.journal.name }},
