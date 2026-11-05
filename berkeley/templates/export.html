@@ -11,21 +11,7 @@
                 {{ pub.apa_authors }}
                 {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     ({{ pub.year }}).
-                    <i>{{ pub.title }}</i>.
-                    {% for editor in pub.editors.all %}
-                        {% if forloop.last %}
-                            {% if forloop.counter > 1 %}
-                                &
-                                {{ editor.fname }},
-                                {{ editor.lname }}.
-                                (Ed.)
-                            {% else %}
-                                {{ editor.lname }},
-                                {{ editor.fname }}.
-                                (Ed.).
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                    <i>{{ pub.title }}</i>{% if pub.apa_editors %} ({{ pub.apa_editors }}){% endif %}.
                     {% for translator in pub.translators.all %}
                         {% if forloop.last %}
                             {% if forloop.counter > 1 %}
@@ -86,21 +72,7 @@
                 {{ pub.mla_authors }}
                 {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     <i>{{ pub.title }}</i>.
-                    {% for editor in pub.editors.all %}
-                        {% if forloop.last %}
-                            {% if forloop.counter > 1 %}
-                                and
-                            {% endif %}
-                            {{ editor.fname }},
-                            {{ editor.lname }}.
-                        {% elif pub.editors == 0 %}
-                            {{ "" }}
-                        {% else %}
-                            Ed.
-                            {{ editor.fname }},
-                            {{ editor.lname }}.
-                        {% endif %}
-                    {% endfor %}
+                    {{ pub.edited_by }}
                     {% if pub.edition %}
                         {{ pub.edition }}.
                     {% endif %}
@@ -167,6 +139,7 @@
                 {{ pub.chicago_authors }}
                 {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     <i>{{ pub.title }}</i>.
+                    {{ pub.edited_by }}
                     {{ pub.publisher.address.city }}:
                     {{ pub.publisher.name }},
                     {{ pub.year }}.

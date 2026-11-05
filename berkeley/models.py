@@ -279,6 +279,27 @@ class Publication(UrlModel):
             names[-1] = 'and ' + names[-1]
         return self._sentence(', '.join(names))
 
+    @staticmethod
+    def _join(names, conj):
+        """'A', 'A and B', 'A, B, and C' (conj is 'and' or '&')."""
+        if len(names) <= 2:
+            return f" {conj} ".join(names)
+        return ", ".join(names[:-1]) + f", {conj} " + names[-1]
+
+    def apa_editors(self):
+        """APA 7, for after the title: 'T. Nardin & L. O'Sullivan, Eds.'"""
+        names = [e.apa_natural_name() for e in self.editors.all()]
+        if not names:
+            return ''
+        return self._join(names, '&') + (', Ed.' if len(names) == 1 else ', Eds.')
+
+    def edited_by(self):
+        """MLA 9 / Chicago 17: 'Edited by Terry Nardin and Luke O'Sullivan.'"""
+        names = [e.natural_name() for e in self.editors.all()]
+        if not names:
+            return ''
+        return self._sentence('Edited by ' + self._join(names, 'and'))
+
     def reviewed_authors(self):
         """Names of the reviewed book's authors, e.g. 'A B, C D and E F'."""
         return self._reviewed_names(Person.natural_name)

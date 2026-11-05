@@ -254,3 +254,33 @@ class CitationAuthorListTest(BiblioTestCase):
         zed, amy = self.person("Zed", "Zulu"), self.person("Amy", "Alpha")
         pub = self.pub("P", authors=[zed, amy])
         self.assertEqual(pub.apa_authors(), "Zulu, Z., & Alpha, A.")
+
+
+class EditorListTest(BiblioTestCase):
+    def with_editors(self, *names):
+        pub = self.pub("P")
+        pub.editors.add(*[self.person(f, l, mname=m) for f, m, l in names])
+        return pub
+
+    def test_none(self):
+        pub = self.with_editors()
+        self.assertEqual(pub.apa_editors(), "")
+        self.assertEqual(pub.edited_by(), "")
+
+    def test_one(self):
+        pub = self.with_editors(("Shirley", "Robin", "Letwin"))
+        self.assertEqual(pub.apa_editors(), "S. R. Letwin, Ed.")
+        self.assertEqual(pub.edited_by(), "Edited by Shirley Robin Letwin.")
+
+    def test_two(self):
+        pub = self.with_editors(("Terry", "", "Nardin"), ("Luke", "", "O'Sullivan"))
+        self.assertEqual(pub.apa_editors(), "T. Nardin & L. O'Sullivan, Eds.")
+        self.assertEqual(pub.edited_by(),
+                         "Edited by Terry Nardin and Luke O'Sullivan.")
+
+    def test_three(self):
+        pub = self.with_editors(("Ann", "", "Abel"), ("Ben", "", "Baker"),
+                                ("Cy", "", "Cole"))
+        self.assertEqual(pub.apa_editors(), "A. Abel, B. Baker, & C. Cole, Eds.")
+        self.assertEqual(pub.edited_by(),
+                         "Edited by Ann Abel, Ben Baker, and Cy Cole.")

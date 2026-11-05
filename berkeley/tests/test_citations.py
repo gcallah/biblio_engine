@@ -163,13 +163,35 @@ class CitationAuthorListTest(CitationTestCase):
         self.assertEqual(text.count("et al."), 1)
         self.assertIn("Zulu, Zed, et al. <i>Big</i>", text)
 
-    def test_single_editor_name(self):
-        pub = self.pub("Collected Essays", 1991, pub_type="BKBY",
+    def edited_book(self, *editors):
+        pub = self.pub("Lectures", 2006, pub_type="BKBY",
                        authors=[self.mo], publisher=self.methuen)
-        pub.editors.add(self.person("Timothy", "Fuller"))
+        pub.editors.add(*[self.person(f, l) for f, l in editors])
         text = self.export(pub)
-        apa = text[text.index("APA:"):text.index("MLA:")]
-        self.assertIn("Fuller, Timothy. (Ed.).", apa)
+        return (text[text.index("APA:"):text.index("MLA:")],
+                text[text.index("MLA:"):text.index("Chicago:")],
+                text[text.index("Chicago:"):])
+
+    def test_single_editor(self):
+        apa, mla, chicago = self.edited_book(("Timothy", "Fuller"))
+        self.assertIn("(2006). <i>Lectures</i> (T. Fuller, Ed.). London,", apa)
+        self.assertIn("<i>Lectures</i>. Edited by Timothy Fuller. London:", mla)
+        self.assertIn("<i>Lectures</i>. Edited by Timothy Fuller. London:",
+                      chicago)
+
+    def test_two_editors(self):
+        apa, mla, chicago = self.edited_book(("Terry", "Nardin"),
+                                             ("Luke", "O'Sullivan"))
+        self.assertIn("<i>Lectures</i> (T. Nardin &amp; L. O&#x27;Sullivan, Eds.).",
+                      apa)
+        for style in (mla, chicago):
+            self.assertIn("Edited by Terry Nardin and Luke O&#x27;Sullivan.",
+                          style)
+
+    def test_no_editors(self):
+        apa, mla, chicago = self.edited_book()
+        self.assertIn("(2006). <i>Lectures</i>. London,", apa)
+        self.assertNotIn("Edited by", mla + chicago)
 
     def test_no_authors(self):
         pub = self.pub("Anonymous", 1960, pub_type="BKBY", publisher=self.methuen)
