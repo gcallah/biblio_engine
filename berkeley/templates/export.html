@@ -64,7 +64,7 @@
                     {{ pub.publisher.address.province }}:
                     {{ pub.publisher.name }}.
 
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' or pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     {% if pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }}).
                     {% elif pub.day and pub.month and pub.year %}
@@ -73,6 +73,21 @@
                         ({{ pub.year }}).
                     {% endif %}
                     {{ pub.title }}.
+                    {% if pub.issue %}
+                        <i>{{ pub.journal.name }},
+                        {{ pub.volume }}</i>({{ pub.issue }}),
+                    {% else %}
+                        <i>{{ pub.journal.name }},
+                        {{ pub.volume }}</i>,
+                    {% endif %}
+                    {{ pub.pages }}.
+                    {{ pub.url }}
+                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                    ({{ pub.year }}).
+                    {% if pub.title %}{{ pub.title }}{% endif %}
+                    {% if pub.pub_reviewed %}
+                        [Review of the book <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}].
+                    {% elif pub.title %}.{% endif %}
                     {% if pub.issue %}
                         <i>{{ pub.journal.name }},
                         {{ pub.volume }}</i>({{ pub.issue }}),
@@ -155,8 +170,22 @@
                     {{ pub.publisher.name }},
                     {{ pub.year }}.
 
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' or pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     "{{ pub.title }}."
+                    <i>{{ pub.journal.name }}</i>
+                    {% if pub.day %}
+                        {{ pub.day }}
+                    {% endif %}
+                    {{ pub.month }}
+                    {{ pub.year }}:
+                    {% if pub.pages %}
+                        {{ pub.pages }}.
+                    {% endif %}
+                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                    {% if pub.title %}"{{ pub.title }}."{% endif %}
+                    {% if pub.pub_reviewed %}
+                        Review of <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}.
+                    {% endif %}
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.day %}
                         {{ pub.day }}
@@ -210,13 +239,22 @@
                     {{ pub.publisher.name }},
                     {{ pub.year }}.
 
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' or pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>,
                     {{ pub.volume }},
                     {% if pub.issue %}
                         no. {{ pub.issue }}
                     {% endif %}
+                    ({{ pub.year }}):
+                    {{ pub.pages }}.
+                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                    {% if pub.title %}"{{ pub.title }}."{% endif %}
+                    {% if pub.pub_reviewed %}
+                        Review of <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}.
+                    {% endif %}
+                    <i>{{ pub.journal.name }}</i>
+                    {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}
                     ({{ pub.year }}):
                     {{ pub.pages }}.
                 {% endif %}

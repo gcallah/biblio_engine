@@ -1,6 +1,8 @@
+import re
+
 from django.test import TestCase
 
-from .models import Keyword, Person, Publication, Subject, UNKNOWN_ID
+from .models import Journal, Keyword, Person, Publication, Subject, UNKNOWN_ID
 
 
 class KeywordSearchTest(TestCase):
@@ -134,3 +136,50 @@ class ReviewTypeTest(TestCase):
     def test_review_export_renders(self):
         resp = self.client.get(f"/oakeshott/export/{self.review.id}/")
         self.assertEqual(resp.status_code, 200)
+
+
+class ReviewCitationTest(TestCase):
+    def setUp(self):
+        Subject.objects.create(id=UNKNOWN_ID, name="Unknown")
+        mo = Person.objects.create(fname="Michael", lname="Oakeshott")
+        reviewer = Person.objects.create(fname="Jane", lname="Critic")
+        self.book = Publication.objects.create(
+            title="On Human Conduct", year=1975, pub_type="BKBY")
+        self.book.authors.add(mo)
+        journal = Journal.objects.create(name="Political Theory")
+        self.review = Publication.objects.create(
+            title="Conduct Considered", year=1976, pub_type="RVAB",
+            pub_reviewed=self.book, journal=journal, volume="4",
+            issue="2", month="May", pages="1-9")
+        self.review.authors.add(reviewer)
+
+    def export_text(self, pub):
+        html = self.client.get(f"/oakeshott/export/{pub.id}/").content.decode()
+        return re.sub(r"\s+", " ", html)
+
+    def test_reviewed_authors(self):
+        self.assertEqual(self.review.reviewed_authors(), "Michael Oakeshott")
+        self.book.authors.add(Person.objects.create(fname="A", lname="B"),
+                              Person.objects.create(fname="C", lname="D"))
+        self.assertEqual(self.review.reviewed_authors(),
+                         "A B, C D and Michael Oakeshott")  # ordered by last name
+
+    def test_apa(self):
+        self.assertIn("(1976). Conduct Considered [Review of the book "
+                      "<i>On Human Conduct</i>, by Michael Oakeshott].",
+                      self.export_text(self.review))
+
+    def test_mla_and_chicago(self):
+        text = self.export_text(self.review)
+        phrase = ('"Conduct Considered." Review of <i>On Human Conduct</i>, '
+                  'by Michael Oakeshott. <i>Political Theory</i>')
+        self.assertEqual(text.count(phrase), 2)
+        self.assertIn("<i>Political Theory</i> 4, no. 2 (1976): 1-9.", text)
+
+    def test_untitled_review_without_reviewed_book(self):
+        self.review.title = ""
+        self.review.pub_reviewed = None
+        self.review.save()
+        text = self.export_text(self.review)
+        self.assertNotIn("Review of", text)
+        self.assertNotIn('""', text)

@@ -199,6 +199,16 @@ class Publication(UrlModel):
             return self.review_title()
         return ''
 
+    def reviewed_authors(self):
+        """Names of the reviewed book's authors, e.g. 'A B, C D and E F'."""
+        if not self.pub_reviewed:
+            return ''
+        names = [f"{p.fname} {p.lname}".strip()
+                 for p in self.pub_reviewed.authors.all()]
+        if len(names) <= 1:
+            return ''.join(names)
+        return ', '.join(names[:-1]) + ' and ' + names[-1]
+
     def review_title(self):
         rev_title = 'A Review of '
         if self.pub_reviewed:
