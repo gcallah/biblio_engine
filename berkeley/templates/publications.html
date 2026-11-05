@@ -13,7 +13,7 @@
         </p>
     </div>
     {% else %}
-    <table>
+    <table class="results">
         <caption>
             Publications
         </caption>
@@ -56,9 +56,7 @@
                 </td>
                 <td>
                 {% for author in pub.ordered_authors %}
-                    <a href="/oakeshott/person_detail/{{ author.id }}/">
-                    {{ author.lname }},<nbsp;>
-                    </a>
+                    <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.lname }}</a>{% if not forloop.last %},{% endif %}
                 {% endfor %}
                 </td>
                 <td>

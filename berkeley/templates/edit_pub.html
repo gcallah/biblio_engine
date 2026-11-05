@@ -9,10 +9,7 @@
             <td>Author(s):</td>
             <td>
             {% for author in pub.ordered_authors %}
-                <a href="/oakeshott/person_detail/{{ author.id }}/">
-                {{ author.fname }} {{ author.lname }},
-                </a>
-                <nbsp;>
+                <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.fname }} {{ author.lname }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}
             </td>
         </tr>
@@ -48,8 +45,7 @@
             <td>Keywords:</td>
             <td>
             {% for keyword in pub.keywords.all %}
-                {{ keyword.name }},
-                <nbsp;>
+                {{ keyword.name }}{% if not forloop.last %},{% endif %}
             {% endfor %}
             </td>
         </tr>

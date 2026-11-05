@@ -148,3 +148,31 @@ class SearchFormTest(BiblioTestCase):
         self.assertEqual(SearchForm().fields["keyword1"].queryset.count(), 0)
         Keyword.objects.create(name="new")
         self.assertEqual(SearchForm().fields["keyword1"].queryset.count(), 1)
+
+
+class ListPunctuationTest(BiblioTestCase):
+    """Comma-separated lists have no comma after the last item."""
+
+    def setUp(self):
+        super().setUp()
+        self.mo = self.person("Michael", "Oakeshott")
+        self.gg = self.person("Guy", "Griffith")
+        self.both = self.pub("A Guide", 1936, authors=[self.mo, self.gg])
+        self.solo = self.pub("Solo", 1940, authors=[self.mo])
+        self.both.keywords.add(Keyword.objects.create(name="racing"),
+                               Keyword.objects.create(name="wit"))
+
+    def test_results_list(self):
+        text = self.page_text("/oakeshott/publications/")
+        self.assertIn(f'Oakeshott</a>, <a href="/oakeshott/person_detail/{self.gg.id}/">Griffith</a> </td>', text)
+        self.assertIn(">Oakeshott</a> </td>", text)
+        self.assertNotIn("Griffith,", text)
+        self.assertNotIn("nbsp;>", text)
+
+    def test_detail_and_edit_pages(self):
+        for route in ("pub_detail", "edit_pub"):
+            text = self.page_text(f"/oakeshott/{route}/{self.both.id}/")
+            self.assertIn("Michael Oakeshott</a>, <a", text, route)
+            self.assertIn("Guy Griffith</a> </td>", text, route)
+            self.assertIn("racing, wit </td>", text, route)
+            self.assertNotIn("nbsp;>", text, route)
