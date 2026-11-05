@@ -64,17 +64,6 @@
                     {{ pub.publisher.address.province }}:
                     {{ pub.publisher.name }}.
 
-                {% elif pub.pub_type == 'PAPR' %}
-                    {% if pub.month and pub.year %}
-                        ({{ pub.year }}, {{ pub.month }}).
-                    {% elif pub.day and pub.month and pub.year %}
-                        ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
-                    {% elif pub.year %}
-                        ({{ pub.year }}).
-                    {% endif %}
-                    {{ pub.title }}.
-                    <i>{{ pub.journal.name }},</i> pp.
-                    {{ pub.pages }}.
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     {% if pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }}).
@@ -93,38 +82,6 @@
                     {% endif %}
                     {{ pub.pages }}.
                     {{ pub.url }}
-                {% elif pub.pub_type == 'REVW' %}
-                    ({{ pub.year }}).
-                    {% if pub.title %}
-                        {{ pub.title }}
-                        {% if pub.pub_reviewed.title %}
-                            [Review of the book <i>{{ pub.pub_reviewed.title }},</i> by
-                            {{ pub.pub_reviewed.author }}]
-                        {% endif %}
-                    {% endif %}.
-                    <i>{{ pub.journal.name }}</i>,
-                    {% if pub.volume %}
-                        {{ pub.volume }}
-                    {% elif pub.volume and pub.page %}
-                        {{ pub.volume }},
-                        {{ pub.page }}
-                    {% endif %}.
-                {% elif pub.pub_type == 'BLOG' %}
-                    {% if pub.month and pub.year %}
-                        ({{ pub.year }}, {{ pub.month }}).
-                    {% elif pub.day and pub.month and pub.year %}
-                        ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
-                    {% elif pub.year %}
-                        ({{ pub.year }}).
-                    {% endif %}
-                    {{ pub.title }}.
-                    {% if pub.pages and pub.volume %}
-                        <i>{{ pub.journal.name }}, {{ pub.volume }},</i> {{ pub.pages }}.
-                    {% elif pub.volume %}
-                        <i>{{ pub.journal.name }}, {{ pub.volume }}</i>.
-                    {% else %}
-                        <i>{{ pub.journal.name }}</i>.
-                    {% endif %}
                 {% endif %}
             </td>
         </tr>
@@ -198,55 +155,6 @@
                     {{ pub.publisher.name }},
                     {{ pub.year }}.
 
-                {% elif pub.pub_type == 'BLOG' %}
-                    "{{ pub.title }}."
-                    <i>{{ pub.journal.name }}</i>.
-                    {% if pub.publisher.name %}
-                        {{ pub.publisher.name }},
-                    {% else %}
-                        n.p.
-                    {% endif %}
-                    {% if pub.month and pub.year %}
-                        {{ pub.month }}
-                        {{ pub.year }}.
-                    {% elif pub.day and pub.month and pub.year %}
-                        {{ pub.day }}
-                        {{ pub.month }}
-                        {{ pub.year }}.
-                    {% elif pub.year %}
-                        {{ pub.year }}.
-                    {% else %}
-                        n.d.
-                    {% endif %}
-                    {% if pub.pages %}
-                        {{ pub.pages }}.
-                    {% endif %}
-                {% elif pub.pub_type == 'PAPR' %}
-                    "{{ pub.title }}."
-                    <i>{{ pub.journal.name }}</i>
-                    {% if pub.volume %}
-                        {{ pub.volume }}.
-                    {% endif %}
-                    {% if pub.issue %}
-                        {{ pub.issue }}.
-                    {% endif %}
-                    {% if pub.month and pub.year %}
-                        {{ pub.month }}
-                        {{ pub.year }}
-                    {% elif pub.day and pub.month and pub.year %}
-                        {{ pub.day }}
-                        {{ pub.month }}
-                        {{ pub.year }}
-                    {% elif pub.year %}
-                        {{ pub.year }}
-                    {% elif pub.edition and pub.day and pub.month and pub.year %}
-                        {{ pub.day }}
-                        {{ pub.month }}
-                        {{ pub.year }}
-                        late ed.
-                    {% endif %}:
-                    {{ pub.pages }}.
-
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>
@@ -258,26 +166,6 @@
                     {% if pub.pages %}
                         {{ pub.pages }}.
                     {% endif %}
-                {% elif pub.pub_type == 'REVW' %}
-                    {% if pub.title %}
-                        "{{ pub.title }}."
-                        {%if pub.pub_reviewed %}
-                            Rev. of <i>{{ pub.pub_reviewed.title }},</i>
-                            by {{ pub.pub_reviewed.author }}.
-                        {% endif %}
-                    {% endif %}
-                    <i>{{ pub.journal.name }}</i>,
-                    {% if pub.month and pub.year %}
-                        {{ pub.month }}
-                        {{ pub.year }}
-                    {% elif pub.day and pub.month and pub.year %}
-                        {{ pub.day }}
-                        {{ pub.month }}
-                        {{ pub.year }}
-                    {% elif pub.year %}
-                        {{ pub.year }}
-                    {% endif %}:
-                    {{ pub.pages }}.
                 {% endif %}
                 {% if pub.medium %}
                     {{ pub.medium }}.
@@ -322,21 +210,6 @@
                     {{ pub.publisher.name }},
                     {{ pub.year }}.
 
-                {% elif pub.pub_type == 'PAPR' %}
-                    "{{ pub.title }}."
-                    <i>{{ pub.journal.name }},</i>
-                    {% if pub.month and pub.year %}
-                        {{ pub.month }}
-                        {{ pub.year }}.
-                    {% elif pub.day and pub.month and pub.year %}
-                        {{ pub.month}}
-                        {{ pub.day }},
-                        {{ pub.year }}.
-                    {% elif pub.year %}
-                        {{ pub.year }}.
-                    {% else %}
-                        n.d.
-                    {% endif %}
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>,
@@ -346,50 +219,6 @@
                     {% endif %}
                     ({{ pub.year }}):
                     {{ pub.pages }}.
-                {% elif pub.pub_type == 'REVW' %}
-                    {% if pub.title %}
-                        "{{ pub.title }}."
-                        {%if pub.pub_reviewed %}
-                            Rev. of <i>{{ pub.pub_reviewed.title }},</i>
-                            by {{ pub.pub_reviewed.author }}.
-                        {% endif %}
-                    {% endif %}
-                    <i>{{ pub.journal.name }}</i>,
-                    {% if pub.volume %}
-                        {{ pub.volume }}
-                        ({{ pub.year }}):
-                        {{ pub.issue }}:
-                    {% else %}
-                        {{ pub.month }}
-                        {% if pub.day %}
-                            {{ pub.day }},
-                        {% endif %}
-                    {{ pub.year }}.
-                    {% endif %}
-                {% elif pub.pub_type == 'BLOG' %}
-                    "{{ pub.title }}."
-                    <i>{{ pub.jounal.name }}</i>.
-                    {% if pub.month and pub.year %}
-                        Last modified
-                        {{ pub.month }}
-                        {{ pub.year }}.
-                    {% elif pub.day and pub.month and pub.year %}
-                        Last modified
-                        {{ pub.month}}
-                        {{ pub.day }},
-                        {{ pub.year }}.
-                    {% elif pub.year %}
-                        Last modified
-                        {{ pub.year }}.
-                    {% else %}
-                        {{ "" }}
-                    {% endif %}
-                    {% if pub.dateOfAccess %}
-                        {{ pub.dateOfAccess }}.
-                    {% endif %}
-                    {% if pub.url %}
-                        {{ pub.url }}
-                    {% endif %}
                 {% endif %}
 
             </td>
