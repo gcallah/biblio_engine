@@ -25,7 +25,11 @@ TYPE_CHOICES = (
     ('BKAB', 'Books About Oakeshott'),
     ('SWAB', 'Short Works About Oakeshott'),
     ('MENT', 'Works Mentioning Oakeshott'),
+    ('RVBY', 'Book Reviews by Oakeshott'),
+    ('RVAB', 'Book Reviews of Books About Oakeshott'),
 )
+
+REVIEW_TYPES = ('RVBY', 'RVAB')
 
 CATEGORIES = (
     ('', ''),
@@ -191,8 +195,9 @@ class Publication(UrlModel):
     def __str__(self):
         if self.title:
             return self.title
-        elif self.pub_type == 'REVW':
+        elif self.pub_type in REVIEW_TYPES:
             return self.review_title()
+        return ''
 
     def review_title(self):
         rev_title = 'A Review of '

@@ -9,6 +9,7 @@ from .models import Journal
 from .models import Person
 from .models import Publisher
 from .models import Publication
+from .models import REVIEW_TYPES
 from .models import Site
 
 from .forms import SearchForm
@@ -105,7 +106,7 @@ def publications(request):
 
     pub_list = Publication.objects.filter(**kwargs).distinct().order_by('year')
     for pub in pub_list:
-        if pub.pub_type == 'REVW':
-            pub.review_of = 'A review of '
+        if pub.pub_type in REVIEW_TYPES:
+            pub.review_of = pub.review_title()
     template_data = {'pub_list': pub_list, 'header': site_hdr}
     return render(request, 'publications.html', template_data)

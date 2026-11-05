@@ -64,7 +64,9 @@ class TypeSearchTest(TestCase):
         resp = self.client.get("/oakeshott/")
         for label in ("Books by Oakeshott", "Short Works by Oakeshott",
                       "Books About Oakeshott", "Short Works About Oakeshott",
-                      "Works Mentioning Oakeshott"):
+                      "Works Mentioning Oakeshott",
+                      "Book Reviews by Oakeshott",
+                      "Book Reviews of Books About Oakeshott"):
             self.assertContains(resp, label)
 
     def test_export_uses_book_format(self):
@@ -104,3 +106,31 @@ class YearRangeSearchTest(TestCase):
         resp = self.client.get("/oakeshott/")
         self.assertContains(resp, 'name="start_year"')
         self.assertContains(resp, 'name="end_year"')
+
+
+class ReviewTypeTest(TestCase):
+    def setUp(self):
+        Subject.objects.create(id=UNKNOWN_ID, name="Unknown")
+        self.book = Publication.objects.create(
+            title="The Politics of Faith", year=1996, pub_type="BKBY")
+        self.review = Publication.objects.create(
+            year=1997, pub_type="RVAB", pub_reviewed=self.book)
+        self.by_mo = Publication.objects.create(
+            title="Review by MO", year=1950, pub_type="RVBY")
+
+    def search(self, pub_type):
+        query = {"lname": "", "pub_type": pub_type, "subject": "", "keyword1": ""}
+        return self.client.get("/oakeshott/publications/", query)
+
+    def test_filter_by_review_type(self):
+        resp = self.search("RVAB")
+        self.assertEqual(list(resp.context["pub_list"]), [self.review])
+        self.assertEqual(list(self.search("RVBY").context["pub_list"]), [self.by_mo])
+
+    def test_untitled_review_shows_reviewed_book(self):
+        self.assertEqual(str(self.review), "A Review of The Politics of Faith")
+        self.assertContains(self.search("RVAB"), "A Review of The Politics of Faith")
+
+    def test_review_export_renders(self):
+        resp = self.client.get(f"/oakeshott/export/{self.review.id}/")
+        self.assertEqual(resp.status_code, 200)

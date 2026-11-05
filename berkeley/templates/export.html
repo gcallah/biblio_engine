@@ -64,7 +64,7 @@
                     {{ pub.publisher.address.province }}:
                     {{ pub.publisher.name }}.
 
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' or pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
                     {% if pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }}).
                     {% elif pub.day and pub.month and pub.year %}
@@ -155,7 +155,7 @@
                     {{ pub.publisher.name }},
                     {{ pub.year }}.
 
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' or pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.day %}
@@ -210,7 +210,7 @@
                     {{ pub.publisher.name }},
                     {{ pub.year }}.
 
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' or pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>,
                     {{ pub.volume }},
