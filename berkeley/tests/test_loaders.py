@@ -51,3 +51,9 @@ class LoadBooksByOakeshottTest(TestCase):
                 self.assertEqual(resp.status_code, 200, (route, pub.title))
         resp = self.client.get("/oakeshott/publications/", {"pub_type": "BKBY"})
         self.assertEqual(len(resp.context["pub_list"]), len(BOOKS))
+
+    def test_both_editions_of_rationalism(self):
+        self.load()
+        years = sorted(Publication.objects.filter(
+            title__startswith="Rationalism in Politics").values_list("year", flat=True))
+        self.assertEqual(years, [1962, 1991])

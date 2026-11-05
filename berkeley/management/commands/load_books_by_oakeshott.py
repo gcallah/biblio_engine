@@ -1,7 +1,7 @@
 """Load the "Books by Oakeshott" entries into the database.
 
-Safe to re-run: people, publishers and books are matched on their names
-and titles, so running it twice does not create duplicates.
+Safe to re-run: people and publishers are matched on their names,
+and books on title and year, so running it twice does not create duplicates.
 
     python manage.py load_books_by_oakeshott
 """
@@ -32,11 +32,14 @@ PUBLISHERS = {
     "Clarendon Press": ("Oxford", "England"),
     "Yale University Press": ("New Haven", "CT"),
     "Imprint Academic": ("Exeter", "England"),
+    "Liberty Fund": ("Indianapolis", "IN"),
 }
 
 BOOKS = [
     dict(title="Experience and Its Modes", year=1933,
          publisher="Cambridge University Press"),
+    dict(title="The Social and Political Doctrines of Contemporary Europe",
+         year=1939, publisher="Cambridge University Press"),
     dict(title="A Guide to the Classics, or How to Pick the Derby Winner",
          year=1936, publisher="Faber & Faber",
          authors=[OAKESHOTT, GRIFFITH]),
@@ -53,6 +56,9 @@ BOOKS = [
          publisher="Basil Blackwell"),
     dict(title="On History and Other Essays", year=1983,
          publisher="Basil Blackwell"),
+    dict(title="Rationalism in Politics and Other Essays: "
+               "New and Expanded Edition",
+         year=1991, publisher="Liberty Fund", editors=[FULLER]),
     dict(title="The Voice of Liberal Learning: Michael Oakeshott on Education",
          year=1989, publisher="Yale University Press", editors=[FULLER]),
     dict(title="Morality and Politics in Modern Europe: The Harvard Lectures",
@@ -107,9 +113,8 @@ class Command(BaseCommand):
         created = 0
         for book in BOOKS:
             pub, is_new = Publication.objects.get_or_create(
-                title=book["title"], pub_type="BKBY",
-                defaults={"year": book["year"],
-                          "publisher": get_publisher(book["publisher"],
+                title=book["title"], year=book["year"], pub_type="BKBY",
+                defaults={"publisher": get_publisher(book["publisher"],
                                                      book.get("city"))})
             if not is_new:
                 continue
