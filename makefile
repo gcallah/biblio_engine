@@ -13,3 +13,6 @@ prod:
 
 tests:
 	echo "testing ... "
+
+dev_env:
+	pip install -r requirements/requirements.txt
