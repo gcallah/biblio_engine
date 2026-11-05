@@ -9,7 +9,7 @@
             <td>Author(s):</td>
             <td>
             {% for author in pub.authors.all %}
-                <a href="/berkeley/person_detail/{{ author.id }}/">
+                <a href="/oakeshott/person_detail/{{ author.id }}/">
                 {{ author.fname }} {{ author.lname }},
                 </a>
                 <nbsp;>
@@ -27,7 +27,7 @@
         <tr>
             <td>Publisher:</td>
             <td>
-                <a href="/berkeley/publisher_detail/{{ pub.publisher.id }}/">
+                <a href="/oakeshott/publisher_detail/{{ pub.publisher.id }}/">
                 {{ pub.publisher.name }}
                 </a>
              </td>
@@ -35,7 +35,7 @@
         <tr>
             <td>Journal:</td>
             <td>
-                <a href="/berkeley/journal_detail/{{ pub.journal.id }}/">
+                <a href="/oakeshott/journal_detail/{{ pub.journal.id }}/">
                 {{ pub.journal.name }}
                 </a>
              </td>
@@ -56,7 +56,7 @@
         <tr>
             <td>Export:</td>
             <td>
-                <a href="/berkeley/export/{{ pub.id }}/">
+                <a href="/oakeshott/export/{{ pub.id }}/">
                 Export
                 </a>
             </td>
