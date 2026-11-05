@@ -82,9 +82,8 @@ def publisher_detail(request, publisher_id):
 
 
 def add_filter(request, kwargs, get_name, kwarg_name):
-    #val = request.GET.get[get_name]
     val = request.GET.get(get_name)
-    if val != '':
+    if val:
         kwargs[kwarg_name] = val
 
 
@@ -94,7 +93,7 @@ def publications(request):
     add_filter(request, kwargs, 'lname', 'authors__lname')
     add_filter(request, kwargs, 'pub_type', 'pub_type')
     add_filter(request, kwargs, 'subject', 'subject')
-    add_filter(request, kwargs, 'keyword2', 'keywords__id')
+    add_filter(request, kwargs, 'keyword1', 'keywords__id')
 
     pub_list = Publication.objects.filter(**kwargs).order_by('year')
     for pub in pub_list:
