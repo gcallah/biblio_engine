@@ -6,7 +6,7 @@ from .models import PERSON_NAME_LEN, TYPE_CHOICES, DEPT_LEN, Keyword, Journal, S
 
 class SearchForm(forms.Form):
     forms.Form.use_required_attribute = False
-    lname = forms.CharField(label='Publication name:',
+    lname = forms.CharField(label='Author last name:',
             max_length=PERSON_NAME_LEN)
     #fname = forms.CharField(label='Author first name:',
        #     max_length=PERSON_NAME_LEN)
