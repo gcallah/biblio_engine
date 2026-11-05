@@ -8,7 +8,7 @@
         <tr>
             <td>Author(s):</td>
             <td>
-            {% for author in pub.authors.all %}
+            {% for author in pub.ordered_authors %}
                 <a href="/oakeshott/person_detail/{{ author.id }}/">
                 {{ author.fname }} {{ author.lname }},
                 </a>

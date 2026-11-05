@@ -164,7 +164,8 @@ class Publication(UrlModel):
     pages = models.CharField(max_length=12, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     medium = models.CharField(max_length=12, default="", blank=True)
-    authors = models.ManyToManyField(Person, related_name="authors", blank=True)
+    authors = models.ManyToManyField(Person, through="Authorship",
+            related_name="authors", blank=True)
     editors = models.ManyToManyField(Person,
             related_name="editors", default="",
             blank=True
@@ -199,12 +200,17 @@ class Publication(UrlModel):
             return self.review_title()
         return ''
 
+    def ordered_authors(self):
+        """Authors in title-page order (Authorship.position)."""
+        return [a.person for a in
+                self.authorship_set.select_related('person')]
+
     def reviewed_authors(self):
         """Names of the reviewed book's authors, e.g. 'A B, C D and E F'."""
         if not self.pub_reviewed:
             return ''
         names = [f"{p.fname} {p.lname}".strip()
-                 for p in self.pub_reviewed.authors.all()]
+                 for p in self.pub_reviewed.ordered_authors()]
         if len(names) <= 1:
             return ''.join(names)
         return ', '.join(names[:-1]) + ' and ' + names[-1]
@@ -217,6 +223,23 @@ class Publication(UrlModel):
 
     class Meta:
         ordering = ['title']
+
+
+class Authorship(models.Model):
+    """Links an author to a publication, with their title-page position."""
+    publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    # 1 = first-named author. Ties (e.g. authors.add() with no position)
+    # fall back to the order the links were created.
+    position = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = 'berkeley_publication_authors'
+        unique_together = [('publication', 'person')]
+        ordering = ['position', 'id']
+
+    def __str__(self):
+        return f"{self.position}: {self.person} - {self.publication}"
 
 
 class AdminEmail(EmailModel):

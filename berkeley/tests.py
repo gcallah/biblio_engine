@@ -2,7 +2,7 @@ import re
 
 from django.test import TestCase
 
-from .models import Journal, Keyword, Person, Publication, Subject, UNKNOWN_ID
+from .models import Authorship, Journal, Keyword, Person, Publication, Subject, UNKNOWN_ID
 
 
 class KeywordSearchTest(TestCase):
@@ -162,7 +162,7 @@ class ReviewCitationTest(TestCase):
         self.book.authors.add(Person.objects.create(fname="A", lname="B"),
                               Person.objects.create(fname="C", lname="D"))
         self.assertEqual(self.review.reviewed_authors(),
-                         "A B, C D and Michael Oakeshott")  # ordered by last name
+                         "Michael Oakeshott, A B and C D")
 
     def test_apa(self):
         self.assertIn("(1976). Conduct Considered [Review of the book "
@@ -183,3 +183,46 @@ class ReviewCitationTest(TestCase):
         text = self.export_text(self.review)
         self.assertNotIn("Review of", text)
         self.assertNotIn('""', text)
+
+
+class AuthorOrderTest(TestCase):
+    def setUp(self):
+        Subject.objects.create(id=UNKNOWN_ID, name="Unknown")
+        self.zed = Person.objects.create(fname="Zed", lname="Zulu")
+        self.amy = Person.objects.create(fname="Amy", lname="Alpha")
+        self.max = Person.objects.create(fname="Max", lname="Mike")
+        self.pub = Publication.objects.create(
+            title="Joint Work", year=1960, pub_type="BKBY")
+
+    def test_add_keeps_insertion_order(self):
+        self.pub.authors.add(self.zed)
+        self.pub.authors.add(self.amy)
+        self.assertEqual(self.pub.ordered_authors(), [self.zed, self.amy])
+
+    def test_position_sets_title_page_order(self):
+        Authorship.objects.create(publication=self.pub, person=self.zed, position=3)
+        Authorship.objects.create(publication=self.pub, person=self.amy, position=1)
+        Authorship.objects.create(publication=self.pub, person=self.max, position=2)
+        self.assertEqual(self.pub.ordered_authors(),
+                         [self.amy, self.max, self.zed])
+
+    def test_export_and_list_use_title_page_order(self):
+        Authorship.objects.create(publication=self.pub, person=self.zed, position=1)
+        Authorship.objects.create(publication=self.pub, person=self.amy, position=2)
+        for url in (f"/oakeshott/export/{self.pub.id}/",
+                    f"/oakeshott/pub_detail/{self.pub.id}/",
+                    "/oakeshott/publications/?lname="):
+            html = self.client.get(url).content.decode()
+            self.assertLess(html.index("Zulu"), html.index("Alpha"), url)
+
+    def test_author_search_still_works(self):
+        self.pub.authors.add(self.zed, self.amy)
+        resp = self.client.get("/oakeshott/publications/", {"lname": "alp"})
+        self.assertEqual(list(resp.context["pub_list"]), [self.pub])
+
+    def test_admin_has_author_inline(self):
+        from django.contrib.auth.models import User
+        User.objects.create_superuser("admin", "a@example.com", "pw")
+        self.client.login(username="admin", password="pw")
+        resp = self.client.get(f"/admin/berkeley/publication/{self.pub.id}/change/")
+        self.assertContains(resp, "authorship_set-0-position")

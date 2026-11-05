@@ -8,7 +8,7 @@
         <tr>
             <td><strong>APA:</strong></td>
             <td>
-                {% for author in pub.authors.all %}
+                {% for author in pub.ordered_authors %}
                     {% if forloop.last %}
                         {% if forloop.counter > 1 %}
                             &
@@ -103,7 +103,7 @@
         <tr>
             <td><strong>MLA:</strong></td>
             <td>
-                {% for author in pub.authors.all %}
+                {% for author in pub.ordered_authors %}
                     {% if forloop.last %}
                         {% if forloop.counter > 1 %}
                             and
@@ -208,7 +208,7 @@
         <tr>
             <td><strong>Chicago:</strong></td>
             <td>
-                {% for author in pub.authors.all %}
+                {% for author in pub.ordered_authors %}
                     {% if forloop.last %}
                         {% if forloop.counter > 1 %}
                             and
