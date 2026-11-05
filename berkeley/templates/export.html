@@ -8,27 +8,7 @@
         <tr>
             <td><strong>APA:</strong></td>
             <td>
-                {% for author in pub.ordered_authors %}
-                    {% if forloop.last %}
-                        {% if forloop.counter > 1 %}
-                            &
-                            {{ author.fname }},
-                            {{ author.lname }}.
-                        {% else %}
-                            {{ author.lname }},
-                            {{ author.fname }}.
-                        {% endif %}
-                    {% elif pub.authors == 0 %}
-                        {{ "" }}
-                    {% else %}
-                        {{ author.lname }},
-                        {% if forloop.revcounter > 1 %}
-                            {{ author.fname }},
-                        {% else %}
-                            {{ author.fname }}.
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
+                {{ pub.apa_authors }}
                 {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     ({{ pub.year }}).
                     <i>{{ pub.title }}</i>.
@@ -41,7 +21,7 @@
                                 (Ed.)
                             {% else %}
                                 {{ editor.lname }},
-                                {{ ediror.fname }}.
+                                {{ editor.fname }}.
                                 (Ed.).
                             {% endif %}
                         {% endif %}
@@ -103,31 +83,7 @@
         <tr>
             <td><strong>MLA:</strong></td>
             <td>
-                {% for author in pub.ordered_authors %}
-                    {% if forloop.last %}
-                        {% if forloop.counter > 1 %}
-                            and
-                            {{ author.fname }},
-                            {{ author.lname }}.
-                        {% else %}
-                            {{ author.lname }},
-                            {{ author.fname }}.
-                        {%  endif %}
-                    {% elif pub.authors == 0 %}
-                        {{ "" }}
-                    {% else %}
-                        {% if forloop.revcounter <= 3 and forloop.revcounter > 1 %}
-                            {{ author.lname }},
-                            {{ author.fname }},
-                        {% elif forloop.revcounter > 3 %}
-                            {{ author.lname }},
-                            {{ author.fname }}, et all.
-                        {% elif forloop.counter == 1  %}
-                            {{ author.lname }},
-                            {{ author.fname }}.
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
+                {{ pub.mla_authors }}
                 {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     <i>{{ pub.title }}</i>.
                     {% for editor in pub.editors.all %}
@@ -208,31 +164,7 @@
         <tr>
             <td><strong>Chicago:</strong></td>
             <td>
-                {% for author in pub.ordered_authors %}
-                    {% if forloop.last %}
-                        {% if forloop.counter > 1 %}
-                            and
-                            {{ author.fname }},
-                            {{ author.lname }}.
-                        {% else %}
-                            {{ author.lname }},
-                            {{ author.fname }}.
-                        {%  endif %}
-                    {% elif pub.authors == 0 %}
-                        {{ "" }}
-                    {% else %}
-                        {% if forloop.revcounter <= 3 and forloop.revcounter > 1  %}
-                            {{ author.lname }},
-                            {{ author.fname }},
-                        {% elif forloop.revcounter > 3 %}
-                            {{ author.lname }},
-                            {{ author.fname }}, et all.
-                        {% elif forloop.counter == 1  %}
-                            {{ author.lname }},
-                            {{ author.fname }}.
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
+                {{ pub.chicago_authors }}
                 {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     <i>{{ pub.title }}</i>.
                     {{ pub.publisher.address.city }}:

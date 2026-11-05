@@ -61,14 +61,16 @@
                 </a>
             </td>
         </tr>
+        {% if pub.review %}
         <tr>
             <td>Review:</td>
             <td>
-                <a href = "{{ pub.review }}">
+                <a href="{{ pub.review }}">
                 Review of: {{ pub.title }}
                 </a>
             </td>
         </tr>
+        {% endif %}
     </table>
     <p>
         <strong>Abstract:</strong>

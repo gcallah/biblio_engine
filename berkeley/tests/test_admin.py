@@ -28,6 +28,12 @@ class AdminTest(BiblioTestCase):
             url = f"/admin/berkeley/{model}/add/"
             self.assertEqual(self.client.get(url).status_code, 200, url)
 
+    def test_address_with_empty_fields_lists(self):
+        from berkeley.models import Address
+        Address.objects.create(street=None, city="London", country=None)
+        resp = self.client.get("/admin/berkeley/address/")
+        self.assertContains(resp, "London")
+
     def test_publication_has_author_inline(self):
         resp = self.client.get(
             f"/admin/berkeley/publication/{self.pub_.id}/change/")

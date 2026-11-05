@@ -34,6 +34,15 @@ class PagesRenderTest(BiblioTestCase):
                          f'href="/oakeshott/export/{self.book.id}/"'):
             self.assertIn(expected, text)
 
+    def test_pub_detail_review_link_only_when_present(self):
+        url = f"/oakeshott/pub_detail/{self.book.id}/"
+        self.assertNotIn("Review of:", self.page_text(url))
+        self.book.review = "https://example.com/review"
+        self.book.save()
+        text = self.page_text(url)
+        self.assertIn('href="https://example.com/review"', text)
+        self.assertIn("Review of: Rationalism in Politics", text)
+
     def test_edit_pub(self):
         text = self.page_text(f"/oakeshott/edit_pub/{self.book.id}/")
         self.assertIn("Edit Publication: Rationalism in Politics", text)
@@ -44,6 +53,8 @@ class PagesRenderTest(BiblioTestCase):
         self.assertIn("Person: Michael Oakeshott", text)
         self.assertIn("1901", text)
         self.assertIn("1990", text)
+        for gone in ("Institution:", "Department:", "Rank:"):
+            self.assertNotIn(gone, text)
 
     def test_journal_detail(self):
         text = self.page_text(f"/oakeshott/journal_detail/{self.journal.id}/")

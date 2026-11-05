@@ -2,7 +2,7 @@
 from django.db import IntegrityError, transaction
 
 from berkeley.models import (
-    AdminEmail, Authorship, Journal, Keyword, Person, Publication, Publisher,
+    Address, AdminEmail, Authorship, Journal, Keyword, Person, Publication, Publisher,
     Site, Subject, REVIEW_TYPES, TYPE_CHOICES,
 )
 
@@ -132,3 +132,101 @@ class AuthorOrderTest(BiblioTestCase):
     def test_reverse_lookup_from_person(self):
         self.pub_.authors.add(self.zed)
         self.assertEqual(list(self.zed.authors.all()), [self.pub_])
+
+
+class AddressStrTest(BiblioTestCase):
+    def test_full_address(self):
+        a = Address.objects.create(street="Houghton St", city="London",
+                                   country="UK")
+        self.assertEqual(str(a), "Houghton St, London, UK")
+
+    def test_missing_parts_are_skipped(self):
+        self.assertEqual(str(Address.objects.create(city="London")), "London")
+        a = Address.objects.create(street=None, city=None, country="UK")
+        self.assertEqual(str(a), "UK")
+        self.assertEqual(str(Address.objects.create(street=None, city=None,
+                                                    country=None)), "")
+
+
+class PersonNameTest(BiblioTestCase):
+    def test_without_middle_name(self):
+        p = self.person("Michael", "Oakeshott")
+        self.assertEqual(p.natural_name(), "Michael Oakeshott")
+        self.assertEqual(p.inverted_name(), "Oakeshott, Michael")
+        self.assertEqual(str(p), "Michael Oakeshott")
+
+    def test_with_middle_name(self):
+        p = self.person("Michael", "Oakeshott", mname="Joseph")
+        self.assertEqual(p.natural_name(), "Michael Joseph Oakeshott")
+        self.assertEqual(p.inverted_name(), "Oakeshott, Michael Joseph")
+
+    def test_surname_only(self):
+        p = self.person("", "Anonymous")
+        self.assertEqual(p.natural_name(), "Anonymous")
+        self.assertEqual(p.inverted_name(), "Anonymous")
+
+
+class CitationAuthorListTest(BiblioTestCase):
+    """Author lists for the three citation styles."""
+
+    def with_authors(self, n):
+        names = [("Amy", "Alpha"), ("Ben", "Bravo"), ("Cal", "Charlie"),
+                 ("Dee", "Delta"), ("Eve", "Echo"), ("Fay", "Foxtrot"),
+                 ("Gus", "Golf"), ("Hal", "Hotel"), ("Ida", "India"),
+                 ("Jo", "Juliet"), ("Kit", "Kilo")]
+        return self.pub("P", authors=[self.person(f, l) for f, l in names[:n]])
+
+    def test_no_authors(self):
+        pub = self.with_authors(0)
+        self.assertEqual(pub.apa_authors(), "")
+        self.assertEqual(pub.mla_authors(), "")
+        self.assertEqual(pub.chicago_authors(), "")
+
+    def test_one_author(self):
+        pub = self.with_authors(1)
+        for style in (pub.apa_authors, pub.mla_authors, pub.chicago_authors):
+            self.assertEqual(style(), "Alpha, Amy.")
+
+    def test_two_authors(self):
+        pub = self.with_authors(2)
+        self.assertEqual(pub.apa_authors(), "Alpha, Amy, & Bravo, Ben.")
+        self.assertEqual(pub.mla_authors(), "Alpha, Amy, and Ben Bravo.")
+        self.assertEqual(pub.chicago_authors(), "Alpha, Amy, and Ben Bravo.")
+
+    def test_three_authors(self):
+        pub = self.with_authors(3)
+        self.assertEqual(pub.apa_authors(),
+                         "Alpha, Amy, Bravo, Ben, & Charlie, Cal.")
+        self.assertEqual(pub.mla_authors(), "Alpha, Amy, et al.")
+        self.assertEqual(pub.chicago_authors(),
+                         "Alpha, Amy, Ben Bravo, and Cal Charlie.")
+
+    def test_many_authors_et_al_appears_once(self):
+        pub = self.with_authors(5)
+        self.assertEqual(pub.mla_authors(), "Alpha, Amy, et al.")
+        self.assertEqual(pub.chicago_authors(),
+                         "Alpha, Amy, Ben Bravo, Cal Charlie, Dee Delta, "
+                         "and Eve Echo.")
+
+    def test_chicago_more_than_ten(self):
+        pub = self.with_authors(11)
+        self.assertEqual(pub.chicago_authors(),
+                         "Alpha, Amy, Ben Bravo, Cal Charlie, Dee Delta, "
+                         "Eve Echo, Fay Foxtrot, Gus Golf, et al.")
+        self.assertEqual(self.with_authors(10).chicago_authors().count("et al"), 0)
+
+    def test_middle_names(self):
+        pub = self.pub("P", authors=[
+            self.person("Michael", "Oakeshott", mname="Joseph"),
+            self.person("Isaiah", "Berlin")])
+        self.assertEqual(pub.mla_authors(),
+                         "Oakeshott, Michael Joseph, and Isaiah Berlin.")
+
+    def test_no_double_full_stop(self):
+        pub = self.pub("P", authors=[self.person("J.", "Smith")])
+        self.assertEqual(pub.apa_authors(), "Smith, J.")
+
+    def test_title_page_order(self):
+        zed, amy = self.person("Zed", "Zulu"), self.person("Amy", "Alpha")
+        pub = self.pub("P", authors=[zed, amy])
+        self.assertEqual(pub.apa_authors(), "Zulu, Zed, & Alpha, Amy.")

@@ -98,7 +98,8 @@ class Address(models.Model):
             null=True, blank=True)
 
     def __str__(self):
-        return self.street + ", " + self.city + ", " + self.country
+        parts = (self.street, self.city, self.country)
+        return ", ".join(p for p in parts if p)
 
 
 # this model captures site specific info
@@ -121,7 +122,19 @@ class Person(UrlModel, DescrModel, EmailModel):
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
     def __str__(self):
-        return self.fname + " " + self.lname
+        return self.natural_name()
+
+    def _given(self):
+        return " ".join(n for n in (self.fname, self.mname) if n)
+
+    def natural_name(self):
+        """'Michael Joseph Oakeshott'"""
+        return " ".join(n for n in (self._given(), self.lname) if n)
+
+    def inverted_name(self):
+        """'Oakeshott, Michael Joseph'"""
+        given = self._given()
+        return f"{self.lname}, {given}" if given else self.lname
 
     class Meta:
         ordering = ['lname']
@@ -205,12 +218,56 @@ class Publication(UrlModel):
         return [a.person for a in
                 self.authorship_set.select_related('person')]
 
+    @staticmethod
+    def _sentence(text):
+        """End a citation element with exactly one full stop."""
+        if not text:
+            return ''
+        return text if text.endswith('.') else text + '.'
+
+    def apa_authors(self):
+        """APA 7: 'Last, First, Last, First, & Last, First.'"""
+        names = [a.inverted_name() for a in self.ordered_authors()]
+        if len(names) > 1:
+            names = [', '.join(names[:-1]) + ', & ' + names[-1]]
+        return self._sentence(''.join(names))
+
+    def mla_authors(self):
+        """MLA 9: 'Last, First.' / 'Last, First, and First Last.' /
+        'Last, First, et al.'"""
+        authors = self.ordered_authors()
+        if not authors:
+            return ''
+        first = authors[0].inverted_name()
+        if len(authors) == 1:
+            return self._sentence(first)
+        if len(authors) == 2:
+            return self._sentence(f"{first}, and {authors[1].natural_name()}")
+        return f"{first}, et al."
+
+    def chicago_authors(self):
+        """Chicago 17 bibliography: 'Last, First, First Last, and First
+        Last.' Lists up to ten authors; beyond that the first seven and
+        'et al.'"""
+        authors = self.ordered_authors()
+        if not authors:
+            return ''
+        names = [authors[0].inverted_name()]
+        if len(authors) > 10:
+            names += [a.natural_name() for a in authors[1:7]]
+            return ', '.join(names) + ', et al.'
+        names += [a.natural_name() for a in authors[1:]]
+        if len(names) == 2:
+            return self._sentence(f"{names[0]}, and {names[1]}")
+        if len(names) > 2:
+            names[-1] = 'and ' + names[-1]
+        return self._sentence(', '.join(names))
+
     def reviewed_authors(self):
         """Names of the reviewed book's authors, e.g. 'A B, C D and E F'."""
         if not self.pub_reviewed:
             return ''
-        names = [f"{p.fname} {p.lname}".strip()
-                 for p in self.pub_reviewed.ordered_authors()]
+        names = [p.natural_name() for p in self.pub_reviewed.ordered_authors()]
         if len(names) <= 1:
             return ''.join(names)
         return ', '.join(names[:-1]) + ' and ' + names[-1]

@@ -143,6 +143,31 @@ class CitationAuthorListTest(CitationTestCase):
             section = text[text.index(style):]
             self.assertLess(section.index("Zulu"), section.index("Alpha"), style)
 
+    def test_two_authors_on_export_page(self):
+        pub = self.pub("Joint", 1960, pub_type="BKBY",
+                       authors=[self.zed, self.amy], publisher=self.methuen)
+        text = self.export(pub)
+        self.assertIn("Zulu, Zed, &amp; Alpha, Amy. (1960).", text)
+        self.assertEqual(text.count("Zulu, Zed, and Amy Alpha. <i>Joint</i>"), 2)
+        self.assertNotIn("et all", text)
+
+    def test_many_authors_on_export_page(self):
+        authors = [self.zed, self.amy] + [self.person(f"F{i}", f"L{i}")
+                                          for i in range(3)]
+        pub = self.pub("Big", 1960, pub_type="BKBY", authors=authors,
+                       publisher=self.methuen)
+        text = self.export(pub)
+        self.assertEqual(text.count("et al."), 1)
+        self.assertIn("Zulu, Zed, et al. <i>Big</i>", text)
+
+    def test_single_editor_name(self):
+        pub = self.pub("Collected Essays", 1991, pub_type="BKBY",
+                       authors=[self.mo], publisher=self.methuen)
+        pub.editors.add(self.person("Timothy", "Fuller"))
+        text = self.export(pub)
+        apa = text[text.index("APA:"):text.index("MLA:")]
+        self.assertIn("Fuller, Timothy. (Ed.).", apa)
+
     def test_no_authors(self):
         pub = self.pub("Anonymous", 1960, pub_type="BKBY", publisher=self.methuen)
         self.assertIn("(1960). <i>Anonymous</i>.", self.export(pub))
