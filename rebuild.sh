@@ -14,4 +14,4 @@ source /home/$user_name/.virtualenvs/$virtual_env/bin/activate
 # install all of our packages:
 pip install -r requirements/requirements.txt
 echo "Going to reboot the webserver"
-touch WSGI_configuration_file
+touch $WSGI_configuration_file
