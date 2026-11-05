@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
-    <link rel="stylesheet" type="text/css" href="{% static 'berkeley/style.css' %}?v=3" />
+    <link rel="stylesheet" type="text/css" href="{% static 'berkeley/style.css' %}?v=4" />
     {% endblock stylesheets %}
   </head>
   <body>
@@ -37,10 +37,20 @@
         </div>
       </main>
       <footer id="footer">
-        Background: the Gate of Honour, Gonville &amp; Caius College, Cambridge
-        (19th-century photograph, public domain).
-        Portrait: LSE Library, no known copyright restrictions.
-        Images via Wikimedia Commons.
+        <nav class="footer-nav">
+          <a href="/oakeshott/">Search</a>
+          <span class="sep">&middot;</span>
+          <a href="/oakeshott/about/">About</a>
+          <span class="sep">&middot;</span>
+          <a href="https://github.com/gcallah/biblio_engine">Source on GitHub</a>
+        </nav>
+        <p class="footer-name">The Michael Oakeshott Bibliography</p>
+        <p class="credits">
+          Background: the Gate of Honour, Gonville &amp; Caius College, Cambridge
+          (19th-century photograph, public domain).
+          Portrait: LSE Library, no known copyright restrictions.
+          Images via Wikimedia Commons.
+        </p>
       </footer>
     </div>
   </body>

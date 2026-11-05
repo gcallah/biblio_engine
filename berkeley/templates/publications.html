@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="module">
+    {% if not pub_list %}
+    <div class="no-results">
+        <h2>No publications found</h2>
+        <p>
+            Nothing in the bibliography matches your search.
+            Try removing a filter, or leave every field blank to see all entries.
+        </p>
+        <p>
+            <a class="button-link" href="/oakeshott/">Back to search</a>
+        </p>
+    </div>
+    {% else %}
     <table>
         <caption>
             Publications
@@ -57,5 +69,6 @@
             </tr>
         {% endfor %}
     </table>
+    {% endif %}
     </div>
 {% endblock content %}
