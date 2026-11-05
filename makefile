@@ -12,7 +12,7 @@ prod:
 	ssh moabiblio@ssh.pythonanywhere.com 'cd /home/moabiblio/mysite; /home/moabiblio/mysite/myutils/dev.sh'
 
 tests:
-	echo "testing ... "
+	python manage.py test berkeley
 
 dev_env:
 	pip install -r requirements/requirements.txt
