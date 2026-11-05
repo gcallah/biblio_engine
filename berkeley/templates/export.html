@@ -29,7 +29,7 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
-                {% if pub.pub_type == 'BOOK' %}
+                {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     ({{ pub.year }}).
                     <i>{{ pub.title }}</i>.
                     {% for editor in pub.editors.all %}
@@ -75,7 +75,7 @@
                     {{ pub.title }}.
                     <i>{{ pub.journal.name }},</i> pp.
                     {{ pub.pages }}.
-                {% elif pub.pub_type == 'ARTI' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     {% if pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }}).
                     {% elif pub.day and pub.month and pub.year %}
@@ -156,7 +156,7 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
-                {% if pub.pub_type == 'BOOK' %}
+                {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     <i>{{ pub.title }}</i>.
                     {% for editor in pub.editors.all %}
                         {% if forloop.last %}
@@ -247,7 +247,7 @@
                     {% endif %}:
                     {{ pub.pages }}.
 
-                {% elif pub.pub_type == 'ARTI' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.day %}
@@ -316,7 +316,7 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
-                {% if pub.pub_type == 'BOOK' %}
+                {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
                     <i>{{ pub.title }}</i>.
                     {{ pub.publisher.address.city }}:
                     {{ pub.publisher.name }},
@@ -337,7 +337,7 @@
                     {% else %}
                         n.d.
                     {% endif %}
-                {% elif pub.pub_type == 'ARTI' %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     "{{ pub.title }}."
                     <i>{{ pub.journal.name }}</i>,
                     {{ pub.volume }},

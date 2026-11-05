@@ -20,14 +20,11 @@ UNKNOWN_ID = 9
 
 TYPE_CHOICES = (
     ('', ''),
-    ('ARTI', 'Article'),
-    ('BLOG', 'Blog post'),
-    ('BOOK', 'Book'),
-    #('REVW', 'Book review'),
-    ('COMM', 'Comment'),
-    ('PAPR', 'Paper'),
-    #('MOVI', 'Movie'),
-    ('WWW', 'Website'),
+    ('BKBY', 'Books by Oakeshott'),
+    ('SWBY', 'Short Works by Oakeshott'),
+    ('BKAB', 'Books About Oakeshott'),
+    ('SWAB', 'Short Works About Oakeshott'),
+    ('MENT', 'Works Mentioning Oakeshott'),
 )
 
 CATEGORIES = (

@@ -45,3 +45,28 @@ class AuthorSearchTest(TestCase):
     def test_no_duplicates_when_several_authors_match(self):
         # "e" matches both Oakeshott and Berlin on the co-authored piece.
         self.assertEqual(self.search(" e "), [self.coauthored, self.solo])
+
+
+class TypeSearchTest(TestCase):
+    def setUp(self):
+        Subject.objects.create(id=UNKNOWN_ID, name="Unknown")
+        self.book = Publication.objects.create(
+            title="Rationalism in Politics", year=1962, pub_type="BKBY")
+        self.about = Publication.objects.create(
+            title="A study of Oakeshott", year=1990, pub_type="SWAB")
+
+    def test_type_filter(self):
+        query = {"lname": "", "pub_type": "BKBY", "subject": "", "keyword1": ""}
+        resp = self.client.get("/oakeshott/publications/", query)
+        self.assertEqual(list(resp.context["pub_list"]), [self.book])
+
+    def test_search_form_offers_new_types(self):
+        resp = self.client.get("/oakeshott/")
+        for label in ("Books by Oakeshott", "Short Works by Oakeshott",
+                      "Books About Oakeshott", "Short Works About Oakeshott",
+                      "Works Mentioning Oakeshott"):
+            self.assertContains(resp, label)
+
+    def test_export_uses_book_format(self):
+        resp = self.client.get(f"/oakeshott/export/{self.book.id}/")
+        self.assertEqual(resp.status_code, 200)
