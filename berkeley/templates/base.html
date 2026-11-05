@@ -1,32 +1,47 @@
-<!DOCTYPE html>
-<html>
+{% load static %}<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       {% block title %} {{ header }} {% endblock title %}
     </title>
-    {% block stylesheets %} {% load static %}
-    <link rel="stylesheet" type="text/css" href="/static/berkeley/style.css" />
+    {% block stylesheets %}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
+    <link rel="stylesheet" type="text/css" href="{% static 'berkeley/style.css' %}?v=2" />
     {% endblock stylesheets %}
   </head>
-  <body class="dashboard">
+  <body>
     <div id="container">
-      <div id="header">
-        <div id="user-tools">
-          <a class="header-title">
-            Michael Oakeshott Bibliography
+      <header id="header">
+        <div class="masthead">
+          <a class="brand" href="/oakeshott/">
+            <span class="brand-kicker">A Bibliography of Works by and about</span>
+            <span class="header-title">Michael Oakeshott</span>
+            <span class="brand-dates">1901 &ndash; 1990</span>
           </a>
-          &nbsp; &nbsp; &nbsp;
-          <a href="/oakeshott/">Search</a>
-          &nbsp;&nbsp;
-          <a href="/oakeshott/about/">About</a>
+          <img class="portrait" src="{% static 'berkeley/img/oakeshott.jpg' %}"
+               alt="Portrait of Michael Oakeshott in profile" />
         </div>
-      </div>
-      <br /><br /><br />
-      <div id="content" class="colMS">
+        <nav id="user-tools">
+          <a href="/oakeshott/">Search</a>
+          <a href="/oakeshott/about/">About</a>
+        </nav>
+      </header>
+      <main id="content">
         <div id="content-main">
           {% block content %} {% endblock content %}
         </div>
-      </div>
+      </main>
+      <footer id="footer">
+        Background: the Gate of Honour, Gonville &amp; Caius College, Cambridge
+        (19th-century photograph, public domain).
+        Portrait: LSE Library, no known copyright restrictions.
+        Images via Wikimedia Commons.
+      </footer>
     </div>
   </body>
 </html>
