@@ -2,9 +2,9 @@
 # This shell file deploys a new version to our server.
 
 export project_name=mysite
-export user_name=gcallah
+export user_name=moabiblio
 
 echo "SSHing to PythonAnywhere."
-sshpass -p $1 ssh -o "StrictHostKeyChecking no" $user_name@ssh.pythonanywhere.com << EOF
+sshpass -p "$1" ssh -o "StrictHostKeyChecking no" $user_name@ssh.pythonanywhere.com << EOF
     cd ~/$project_name; ~/$project_name/rebuild.sh $2
 EOF

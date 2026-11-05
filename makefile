@@ -9,7 +9,7 @@ container:
 prod:
 	-git commit -a 
 	git push origin master
-	ssh gcallah@ssh.pythonanywhere.com 'cd /home/gcallah/mysite; /home/gcallah/mysite/myutils/dev.sh'
+	ssh moabiblio@ssh.pythonanywhere.com 'cd /home/moabiblio/mysite; /home/moabiblio/mysite/myutils/dev.sh'
 
 tests:
 	echo "testing ... "
