@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements/requirements.txt
+
+      - name: Run tests
+        run: make tests
+
+  deploy:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Deploy to PythonAnywhere
+        env:
+          PA_PWD: ${{ secrets.PA_PWD }}
+          PA_API: ${{ secrets.PA_API }}
+        run: ./deploy.sh "$PA_PWD" "$PA_API"
