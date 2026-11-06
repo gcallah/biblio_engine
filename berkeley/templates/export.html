@@ -34,6 +34,7 @@
                     {{ pub.title_sentence }}
                     In {% if host.apa_in_editors %}{{ host.apa_in_editors }}, {% endif %}<i>{{ host.title }}</i>{% if pub.apa_pages %} ({{ pub.apa_pages }}){% endif %}.
                     {% if host.apa_place_publisher %}{{ host.apa_place_publisher }}.{% endif %}
+                    {{ pub.url }}
                     {% endwith %}
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
                     {% if pub.day and pub.month and pub.year %}

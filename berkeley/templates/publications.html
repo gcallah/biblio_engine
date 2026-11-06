@@ -35,6 +35,9 @@
                             <span class="clamp3" title="{{ pub.review_of }}">{{ pub.review_of }}</span>
                         {% endif %}
                     </a>
+                    {% if pub.url %}
+                    <a class="fulltext" href="{{ pub.url }}">full text</a>
+                    {% endif %}
                     {% if pub.abstract %}
                     <div class="abstract-pop" role="tooltip">
                         <strong>{{ pub }}</strong>

@@ -5,7 +5,8 @@
 set -e
 cd "$(dirname "$0")/.."
 for cmd in load_books_by_oakeshott load_books_about_oakeshott \
-           load_short_works_about_oakeshott load_abstracts; do
+           load_short_works_about_oakeshott \
+           load_short_works_by_oakeshott load_abstracts; do
     if [ -f "berkeley/management/commands/$cmd.py" ]; then
         echo "== $cmd"
         .venv/bin/python manage.py "$cmd"

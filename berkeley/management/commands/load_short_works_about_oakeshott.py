@@ -17,56 +17,13 @@ edits to them.
 
     python manage.py load_short_works_about_oakeshott
 """
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from berkeley.models import (
-    Authorship, Journal, Publication, Subject, UNKNOWN_ID,
-)
+from berkeley.models import Subject, UNKNOWN_ID
 
 from . import _short_works_about as data
-from ._loaders import get_person, get_publisher
-
-
-def add_people(pub, item):
-    for pos, name in enumerate(item.get("authors", []), 1):
-        Authorship.objects.create(publication=pub, person=get_person(name),
-                                  position=pos)
-    for name in item.get("editors", []):
-        pub.editors.add(get_person(name))
-
-
-def set_subject(pub, name):
-    """Give pub the named subject; returns True if it changed."""
-    subject, _ = Subject.objects.get_or_create(name=name)
-    if pub.subject_id == subject.id:
-        return False
-    pub.subject = subject
-    pub.save(update_fields=["subject"])
-    return True
-
-
-def get_host(key):
-    """The book a chapter is in: an existing Books About Oakeshott entry
-    (key is its title) or a HOSTS entry, stored as Works Mentioning."""
-    if key not in data.HOSTS:
-        try:
-            return Publication.objects.get(title=key, pub_type="BKAB")
-        except Publication.DoesNotExist:
-            raise CommandError(f"Book not in the database: {key!r}. "
-                               "Run load_books_about_oakeshott first.")
-    book = data.HOSTS[key]
-    publisher = (get_publisher(book["publisher"], data.PUBLISHERS,
-                               book.get("city"))
-                 if book.get("publisher") else None)
-    host, is_new = Publication.objects.get_or_create(
-        title=book["title"], year=book["year"], pub_type="MENT",
-        defaults={"publisher": publisher,
-                  "city": "" if publisher else book.get("city", "")})
-    if is_new:
-        add_people(host, book)
-    set_subject(host, book["subject"])
-    return host
+from ._loaders import load_short_works
 
 
 class Command(BaseCommand):
@@ -76,29 +33,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Subject.objects.get_or_create(id=UNKNOWN_ID,
                                       defaults={"name": "Uncategorized"})
-        created = updated = 0
-        works = ([(item, "journal") for item in data.ARTICLES] +
-                 [(item, "chapter") for item in data.CHAPTERS])
-        for item, kind in works:
-            fields = {f: item.get(f, "") for f in
-                      ("volume", "issue", "day", "month", "pages")}
-            if kind == "journal":
-                journal, _ = Journal.objects.get_or_create(
-                    name=item["journal"])
-                key = {"journal": journal}
-                year = item["year"]
-            else:
-                host = get_host(item["book"])
-                key = {"collection": host}
-                year = item.get("year", host.year)
-            pub, is_new = Publication.objects.get_or_create(
-                title=item["title"], year=year, pub_type="SWAB", **key,
-                defaults=fields)
-            if is_new:
-                created += 1
-                add_people(pub, item)
-            if set_subject(pub, item["subject"]):
-                updated += 1
+        created, updated, total = load_short_works(data, "SWAB", "BKAB")
         self.stdout.write(f"Added {created} short works "
-                          f"({len(works) - created} already present); "
+                          f"({total - created} already present); "
                           f"set subject on {updated}.")

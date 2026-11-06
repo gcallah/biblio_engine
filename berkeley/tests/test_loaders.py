@@ -112,7 +112,8 @@ class LoadAbstractsTest(TestCase):
         from berkeley.management.commands._abstracts import ABSTRACTS
         for command in ("load_books_by_oakeshott",
                         "load_books_about_oakeshott",
-                        "load_short_works_about_oakeshott"):
+                        "load_short_works_about_oakeshott",
+                        "load_short_works_by_oakeshott"):
             call_command(command, stdout=StringIO())
         out = StringIO()
         call_command("load_abstracts", stdout=out)
@@ -120,3 +121,25 @@ class LoadAbstractsTest(TestCase):
         # Books by Oakeshott get theirs from book_info.py instead
         self.assertEqual(Publication.objects.exclude(abstract="").exclude(
             pub_type="BKBY").count(), len(ABSTRACTS))
+
+
+class LoadShortWorksByOakeshottTest(TestCase):
+    def load(self, command="load_short_works_by_oakeshott"):
+        out = StringIO()
+        call_command(command, stdout=out)
+        return out.getvalue()
+
+    def test_loads_once_with_full_text_links(self):
+        from berkeley.management.commands import _short_works_by as data
+        self.load("load_books_by_oakeshott")
+        total = len(data.ARTICLES) + len(data.CHAPTERS)
+        self.assertIn(f"Added {total} short works", self.load())
+        self.assertIn("Added 0 short works", self.load())
+        works = Publication.objects.filter(pub_type="SWBY")
+        self.assertEqual(works.count(), total)
+        for pub in works:
+            self.assertTrue(pub.url.startswith("https://"), pub.title)
+            self.assertEqual(pub.ordered_authors()[0].lname, "Oakeshott")
+        moral = works.get(title__startswith="The Moral Life")
+        self.assertEqual(moral.collection.pub_type, "BKBY")
+        self.assertEqual(moral.year, 1962)

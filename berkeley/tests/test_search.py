@@ -199,6 +199,13 @@ class ResultsPageTest(BiblioTestCase):
         self.assertContains(
             resp, f'<span class="clamp3" title="{name}">{name}</span>')
 
+    def test_full_text_link_only_when_there_is_a_url(self):
+        self.pub("Work and Play", 1995, url="https://example.org/work")
+        self.pub("Offline", 1996)
+        resp = self.search()
+        self.assertContains(
+            resp, '<a class="fulltext" href="https://example.org/work">', 1)
+
     def test_long_titles_shown_whole_and_clamped_to_three_lines(self):
         """The full title is sent; CSS (.clamp3) limits it to three
         lines, and the title attribute shows it all on hover."""

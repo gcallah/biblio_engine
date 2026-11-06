@@ -1659,4 +1659,77 @@ ABSTRACTS = {
             "belongs to modern liberalism. The book includes a bibliography of "
             "the five thinkers' writings."
         )),
+    ('Dr. Leo Strauss on Hobbes', 1937, 'Politica'): dict(
+        source='https://oll.libertyfund.org/titles/franco-hobbes-on-civil-association',
+        abstract=(
+            "Oakeshott's review essay on Leo Strauss's The Political Philosophy"
+            ' of Hobbes (1936). He welcomes the renewed scholarly interest in '
+            "Hobbes, calls Strauss's book the most original study of Hobbes for"
+            ' many years and a work to be followed with profit, though with '
+            'some caution, and then examines its interpretation of the basis '
+            "and genesis of Hobbes's political philosophy in detail. Reprinted "
+            'in Hobbes on Civil Association; the Liberty Fund edition can be '
+            'read free at the Online Library of Liberty.'
+        )),
+    ('The "Collective Dream of Civilisation"', 1947, 'Listener'): dict(
+        source='https://oll.libertyfund.org/titles/franco-hobbes-on-civil-association',
+        abstract=(
+            'A broadcast talk, reprinted as "Leviathan: A Myth" in Hobbes on '
+            'Civil Association. Oakeshott argues that Leviathan, usually read '
+            'only as a book of philosophy and politics, is a work of art and '
+            'one of the masterpieces of English literature. A civilization, he '
+            'suggests, is at bottom a collective dream, whose substance is a '
+            'myth: an imaginative interpretation of human existence. '
+            "Literature's task is to recall and recreate that dream, and "
+            "Hobbes's book does so for its civilization. Free at the Online "
+            'Library of Liberty.'
+        )),
+    ('The Definition of a University', 1967, 'Journal of Educational Thought'): dict(
+        source='https://journalhosting.ucalgary.ca/index.php/jet/article/view/43498',
+        abstract=(
+            'The text of a lecture given at the University of Calgary on 4 '
+            'April 1967. Oakeshott describes learning as the activity in which '
+            'we come to know ourselves and the world, and teaching as the '
+            'imparting of learning to pupils, and considers what part a '
+            'university plays in both: it is the custodian of the great '
+            'enterprises of human understanding and explanation. He warns '
+            'against bending universities to the wants of a technological '
+            'society, and holds that academic freedom can mean only the freedom'
+            " to be academic. Free on the journal's site."
+        )),
+    ('Work and Play', 1995, 'First Things'): dict(
+        source='https://firstthings.com/work-and-play/',
+        abstract=(
+            "A previously unpublished essay, printed after Oakeshott's death. "
+            'Human beings, as creatures of wants, exploit the world through '
+            'work, and Oakeshott traces how, over some four centuries, work '
+            "came to be thought humanity's proper and even exclusive "
+            'occupation. Against it he sets play: activities pursued for their '
+            'own sake, among them philosophy, science and history as well as '
+            'poetry, music and the other arts. He ends by warning that '
+            'education is where the reduction of play to work is most '
+            'dangerous, recalling that "school" comes from the Greek word for '
+            'leisure. Free on the First Things site.'
+        )),
+    ('Introduction to Leviathan', 1946, 'in: Leviathan, or the Matter, Forme and Power of a Commonwealth Ecclesiasticall and Civil'): dict(
+        source='https://oll.libertyfund.org/titles/franco-hobbes-on-civil-association',
+        abstract=(
+            "Oakeshott's introduction to his 1946 Blackwell edition of "
+            'Leviathan, revised for Hobbes on Civil Association (1975). Its six'
+            " sections cover Hobbes's life, the context of Leviathan, the "
+            "character of Hobbes's mind and manner of writing, his "
+            'philosophical system, the argument of Leviathan, and some disputed'
+            ' topics. The revised version can be read free at the Online '
+            'Library of Liberty.'
+        )),
+    ('The Moral Life in the Writings of Thomas Hobbes', 1962, 'in: Rationalism in Politics and Other Essays'): dict(
+        source='https://oll.libertyfund.org/titles/franco-hobbes-on-civil-association',
+        abstract=(
+            'An essay that grew out of a lecture at the University of '
+            'Nottingham. Beginning from the observation that the moral life is '
+            'a life among human beings, an art of behaving as one ought rather '
+            'than a natural necessity, Oakeshott examines how Hobbes understood'
+            ' moral conduct and obligation. Reprinted in Hobbes on Civil '
+            'Association; free at the Online Library of Liberty.'
+        )),
 }

@@ -255,6 +255,15 @@ table.results td:first-child {
     width: auto;
 }
 
+/* link to a free full text, under the title in the results table */
+a.fulltext {
+    display: inline-block;
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
+}
+
 /* long titles wrap to at most three lines; the full title is in the
    span's title attribute (shown on hover) */
 .clamp3 {
