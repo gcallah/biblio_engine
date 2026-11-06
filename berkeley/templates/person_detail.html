@@ -3,24 +3,28 @@
     <div class="module">
     <table>
         <caption>
-            Person: {{ person.fname }} {{ person.lname }}
+            Person: {{ person.natural_name }}
         </caption>
         <tr>
+            <td>Affiliation:</td>
+            <td> {{ person.affiliation }} </td>
+        </tr>
+        <tr>
             <td>Description:</td>
-            <td> {{ person.descr }}
+            <td> {{ person.descr|default_if_none:"" }}
             </td>
         </tr>
         <tr>
             <td>Year of Birth:</td>
-            <td> {{ person.yob }} </td>
+            <td> {{ person.yob|default_if_none:"" }} </td>
         </tr>
         <tr>
             <td>Year of Death:</td>
-            <td> {{ person.yod }} </td>
+            <td> {{ person.yod|default_if_none:"" }} </td>
         </tr>
         <tr>
             <td>URL:</td>
-            <td><a href="{{ person.url }}"> {{ person.url }}</a></td>
+            <td>{% if person.url %}<a href="{{ person.url }}"> {{ person.url }}</a>{% endif %}</td>
         </tr>
     </table>
     </div>

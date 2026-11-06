@@ -136,6 +136,24 @@ class LoadAbstractsTest(TestCase):
             pub_type="BKBY").count(), len(ABSTRACTS))
 
 
+class LoadAuthorInfoTest(TestCase):
+    """Every entry in _author_info.py matches exactly one loaded person."""
+
+    def test_every_entry_applies(self):
+        from berkeley.management.commands._author_info import AUTHOR_INFO
+        for command in ("load_books_by_oakeshott",
+                        "load_books_about_oakeshott",
+                        "load_short_works_about_oakeshott",
+                        "load_short_works_by_oakeshott"):
+            call_command(command, stdout=StringIO())
+        out = StringIO()
+        call_command("load_author_info", stdout=out)
+        self.assertIn(f"Updated {len(AUTHOR_INFO)} people", out.getvalue())
+        out = StringIO()
+        call_command("load_author_info", stdout=out)
+        self.assertIn("Updated 0 people", out.getvalue())
+
+
 class LoadShortWorksByOakeshottTest(TestCase):
     def load(self, command="load_short_works_by_oakeshott"):
         out = StringIO()

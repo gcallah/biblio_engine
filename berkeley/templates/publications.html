@@ -60,7 +60,7 @@
                 </td>
                 <td>
                 {% for author in pub.ordered_authors %}
-                    <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.lname }}</a>{% if not forloop.last %},{% endif %}{% endfor %}{% with editors=pub.ordered_editors %}{% if editors %}<span class="editors">{% if pub.ordered_authors %}; {% endif %}{% for editor in editors %}<a href="/oakeshott/person_detail/{{ editor.id }}/">{{ editor.lname }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} ({% if editors|length > 1 %}eds.{% else %}ed.{% endif %})</span>{% endif %}{% endwith %}
+                    {% include "_person_link.html" with person=author %}{% if not forloop.last %},{% endif %}{% endfor %}{% with editors=pub.ordered_editors %}{% if editors %}<span class="editors">{% if pub.ordered_authors %}; {% endif %}{% for editor in editors %}{% include "_person_link.html" with person=editor %}{% if not forloop.last %}, {% endif %}{% endfor %} ({% if editors|length > 1 %}eds.{% else %}ed.{% endif %})</span>{% endif %}{% endwith %}
                 </td>
                 {% if pub.abstract %}
                 <td class="has-abstract">
@@ -85,10 +85,10 @@
         {% endfor %}
     </table>
     <script>
-    // Place each popup (abstract or citations) just below its link, or
+    // Place each popup (abstract, citations or author) just below its link, or
     // above it when there is no room below. The citations are fetched the
     // first time an Export link is hovered.
-    document.querySelectorAll('td.has-abstract, td.has-export')
+    document.querySelectorAll('td.has-abstract, td.has-export, .has-person')
             .forEach(function (cell) {
         var pop = cell.querySelector('.abstract-pop');
         function place() {

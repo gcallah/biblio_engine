@@ -465,7 +465,32 @@ a.button-link:hover, a.button-link:focus {
 table.results td.has-abstract:hover .abstract-pop,
 table.results td.has-abstract:focus-within .abstract-pop,
 table.results td.has-export:hover .abstract-pop,
-table.results td.has-export:focus-within .abstract-pop {
+table.results td.has-export:focus-within .abstract-pop,
+table.results .has-person:hover .abstract-pop,
+table.results .has-person:focus-within .abstract-pop {
+    display: block;
+}
+
+/* the author popup: hovering a name in the Author(s) column shows the
+   person's years, affiliation and description (_person_link.html) */
+.person-pop {
+    width: 24rem;
+    font-weight: normal;
+}
+
+.person-pop .life-years {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    font-weight: normal;
+}
+
+.person-pop .affiliation {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--ink-soft);
+}
+
+.person-pop .person-descr {
     display: block;
 }
 

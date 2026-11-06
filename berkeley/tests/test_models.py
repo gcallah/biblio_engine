@@ -284,3 +284,13 @@ class EditorListTest(BiblioTestCase):
         self.assertEqual(pub.apa_editors(), "A. Abel, B. Baker, & C. Cole, Eds.")
         self.assertEqual(pub.edited_by(),
                          "Edited by Ann Abel, Ben Baker, and Cy Cole.")
+
+
+class PersonLifeYearsTest(BiblioTestCase):
+    def test_life_years(self):
+        for yob, yod, want in ((1901, 1990, "(1901–1990)"),
+                               (1959, None, "(b. 1959)"),
+                               (None, 1679, "(d. 1679)"),
+                               (None, None, "")):
+            self.assertEqual(Person(lname="X", yob=yob, yod=yod).life_years(),
+                             want)

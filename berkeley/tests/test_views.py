@@ -56,6 +56,13 @@ class PagesRenderTest(BiblioTestCase):
         for gone in ("Institution:", "Department:", "Rank:"):
             self.assertNotIn(gone, text)
 
+    def test_person_detail_shows_affiliation(self):
+        self.mo.affiliation = "London School of Economics"
+        self.mo.save()
+        text = self.page_text(f"/oakeshott/person_detail/{self.mo.id}/")
+        self.assertIn("Affiliation:", text)
+        self.assertIn("London School of Economics", text)
+
     def test_journal_detail(self):
         text = self.page_text(f"/oakeshott/journal_detail/{self.journal.id}/")
         self.assertIn("Journal: Cambridge Journal", text)

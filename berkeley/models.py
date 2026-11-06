@@ -15,6 +15,7 @@ COUNTRY_NAME_LEN = 64
 YEAR_LEN = 4
 CODE_LEN = 4
 EMAIL_LEN = 80
+AFFILIATION_LEN = 128
 
 UNKNOWN_ID = 9
 
@@ -120,6 +121,8 @@ class Person(UrlModel, DescrModel, EmailModel):
     lname = models.CharField(max_length=PERSON_NAME_LEN)
     yob = models.IntegerField(blank=True, null=True)
     yod = models.IntegerField(blank=True, null=True)
+    affiliation = models.CharField(max_length=AFFILIATION_LEN, default="",
+            blank=True)
     #institution = models.ForeignKey(Institution, null=True, blank=True, on_delete=models.CASCADE,)
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
@@ -149,6 +152,20 @@ class Person(UrlModel, DescrModel, EmailModel):
         """'Oakeshott, M. J.'"""
         initials = self.initials()
         return f"{self.lname}, {initials}" if initials else self.lname
+
+    def life_years(self):
+        """'(1901–1990)', '(b. 1959)', '(d. 1679)', or '' if unknown."""
+        if self.yob and self.yod:
+            return f"({self.yob}–{self.yod})"
+        if self.yob:
+            return f"(b. {self.yob})"
+        if self.yod:
+            return f"(d. {self.yod})"
+        return ""
+
+    def has_bio(self):
+        """True if there is anything to show in an author popup."""
+        return bool(self.descr or self.affiliation or self.yob or self.yod)
 
     def apa_natural_name(self):
         """'M. J. Oakeshott'"""
