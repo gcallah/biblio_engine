@@ -191,11 +191,13 @@ class ResultsPageTest(BiblioTestCase):
         self.assertContains(resp, f'href="/oakeshott/export/{pub.id}/"')
         self.assertContains(resp, f'href="/oakeshott/person_detail/{author.id}/"')
 
-    def test_long_titles_truncated(self):
+    def test_long_titles_shown_whole_and_clamped_to_three_lines(self):
+        """The full title is sent; CSS (.clamp3) limits it to three
+        lines, and the title attribute shows it all on hover."""
         self.pub("x" * 80, 1950)
         resp = self.search()
-        self.assertNotContains(resp, "x" * 80)
-        self.assertContains(resp, "x" * 49 + "…")
+        self.assertContains(
+            resp, f'<span class="clamp3" title="{"x" * 80}">{"x" * 80}</span>')
 
     def test_results_list_authors_in_title_page_order(self):
         zed, amy = self.person("Zed", "Zulu"), self.person("Amy", "Alpha")

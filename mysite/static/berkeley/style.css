@@ -255,6 +255,16 @@ table.results td:first-child {
     width: auto;
 }
 
+/* long titles wrap to at most three lines; the full title is in the
+   span's title attribute (shown on hover) */
+.clamp3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
 /* FORMS */
 
 input[type=text], input[type=number], input[type=email],
