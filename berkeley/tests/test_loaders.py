@@ -103,3 +103,20 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
         Publication.objects.filter(pub_type="BKAB").delete()
         with self.assertRaises(CommandError):
             self.load()
+
+
+class LoadAbstractsTest(TestCase):
+    """Every abstract in _abstracts.py matches exactly one loaded entry."""
+
+    def test_every_abstract_applies(self):
+        from berkeley.management.commands._abstracts import ABSTRACTS
+        for command in ("load_books_by_oakeshott",
+                        "load_books_about_oakeshott",
+                        "load_short_works_about_oakeshott"):
+            call_command(command, stdout=StringIO())
+        out = StringIO()
+        call_command("load_abstracts", stdout=out)
+        self.assertIn(f"Set {len(ABSTRACTS)} abstracts", out.getvalue())
+        # Books by Oakeshott get theirs from book_info.py instead
+        self.assertEqual(Publication.objects.exclude(abstract="").exclude(
+            pub_type="BKBY").count(), len(ABSTRACTS))
