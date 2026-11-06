@@ -197,10 +197,8 @@ class Publication(UrlModel):
     medium = models.CharField(max_length=12, default="", blank=True)
     authors = models.ManyToManyField(Person, through="Authorship",
             related_name="authors", blank=True)
-    editors = models.ManyToManyField(Person,
-            related_name="editors", default="",
-            blank=True
-    )
+    editors = models.ManyToManyField(Person, through="Editorship",
+            related_name="editors", blank=True)
     translators = models.ManyToManyField(
         Person, default="", related_name="translators",
         blank=True
@@ -235,6 +233,16 @@ class Publication(UrlModel):
         """Authors in title-page order (Authorship.position)."""
         return [a.person for a in
                 self.authorship_set.select_related('person')]
+
+    def ordered_editors(self):
+        """Editors in title-page order (Editorship.position). Uses
+        editorship_set.all() so a prefetch of 'editorship_set__person'
+        is honoured."""
+        links = self.editorship_set.all()
+        if 'editorship_set' not in getattr(self, '_prefetched_objects_cache',
+                                           {}):
+            links = links.select_related('person')
+        return [e.person for e in links]
 
     @staticmethod
     def _sentence(text):
@@ -336,14 +344,14 @@ class Publication(UrlModel):
 
     def apa_editors(self):
         """APA 7, for after the title: 'T. Nardin & L. O'Sullivan, Eds.'"""
-        names = [e.apa_natural_name() for e in self.editors.all()]
+        names = [e.apa_natural_name() for e in self.ordered_editors()]
         if not names:
             return ''
         return self._join(names, '&') + (', Ed.' if len(names) == 1 else ', Eds.')
 
     def apa_in_editors(self):
         """APA 7, a chapter's book editors: 'C. Abel & T. Fuller (Eds.)'."""
-        names = [e.apa_natural_name() for e in self.editors.all()]
+        names = [e.apa_natural_name() for e in self.ordered_editors()]
         if not names:
             return ''
         return self._join(names, '&') + (' (Ed.)' if len(names) == 1
@@ -352,12 +360,12 @@ class Publication(UrlModel):
     def edited_by_lower(self):
         """MLA 9 / Chicago 17 chapters: 'edited by Corey Abel and
         Timothy Fuller'."""
-        names = [e.natural_name() for e in self.editors.all()]
+        names = [e.natural_name() for e in self.ordered_editors()]
         return 'edited by ' + self._join(names, 'and') if names else ''
 
     def edited_by(self):
         """MLA 9 / Chicago 17: 'Edited by Terry Nardin and Luke O'Sullivan.'"""
-        names = [e.natural_name() for e in self.editors.all()]
+        names = [e.natural_name() for e in self.ordered_editors()]
         if not names:
             return ''
         return self._sentence('Edited by ' + self._join(names, 'and'))
@@ -403,6 +411,22 @@ class Authorship(models.Model):
 
     def __str__(self):
         return f"{self.position}: {self.person} - {self.publication}"
+
+
+class Editorship(models.Model):
+    """Links an editor to a publication, with their title-page position."""
+    publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    # 1 = first-named editor; ties fall back to the order of creation.
+    position = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = 'berkeley_publication_editors'
+        unique_together = [('publication', 'person')]
+        ordering = ['position', 'id']
+
+    def __str__(self):
+        return f"{self.position}: {self.person} (ed.) - {self.publication}"
 
 
 class AdminEmail(EmailModel):

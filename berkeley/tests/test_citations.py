@@ -260,6 +260,23 @@ class CitationAuthorListTest(CitationTestCase):
             self.assertIn("Edited by Terry Nardin and Luke O&#x27;Sullivan.",
                           style)
 
+    def test_editors_in_title_page_order_not_alphabetical(self):
+        from berkeley.models import Editorship
+        pub = self.pub("Tradition", 2018, pub_type="BKAB",
+                       publisher=self.methuen)
+        callahan = self.person("Gene", "Callahan")
+        trepanier = self.person("Lee", "Trepanier")
+        # created out of order on purpose; position decides
+        Editorship.objects.create(publication=pub, person=callahan,
+                                  position=2)
+        Editorship.objects.create(publication=pub, person=trepanier,
+                                  position=1)
+        text = self.export(pub)
+        self.assertIn("(L. Trepanier &amp; G. Callahan, Eds.)", text)
+        self.assertIn("Edited by Lee Trepanier and Gene Callahan.", text)
+        page = self.page_text("/oakeshott/publications/?pub_type=BKAB")
+        self.assertRegex(page, r"Trepanier</a>, <a[^>]*>Callahan</a> \(eds\.\)")
+
     def test_no_editors(self):
         apa, mla, chicago = self.edited_book()
         self.assertIn("(2006). <i>Lectures</i>. London,", apa)

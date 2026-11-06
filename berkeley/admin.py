@@ -3,6 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from .models import Address
 from .models import Authorship
+from .models import Editorship
 from .models import AdminEmail
 from .models import Institution
 from .models import Journal
@@ -27,9 +28,15 @@ class AuthorshipInline(admin.TabularInline):
     extra = 1
 
 
+class EditorshipInline(admin.TabularInline):
+    model = Editorship
+    fields = ('person', 'position')
+    extra = 1
+
+
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
-    inlines = [AuthorshipInline]
+    inlines = [AuthorshipInline, EditorshipInline]
 
 
 admin.site.register(Publisher)

@@ -57,6 +57,8 @@ class AdminTest(BiblioTestCase):
             "authorship_set-1-publication": self.pub_.id,
             "authorship_set-1-person": berlin.id,
             "authorship_set-1-position": 1,
+            "editorship_set-TOTAL_FORMS": 0,
+            "editorship_set-INITIAL_FORMS": 0,
         })
         for field in ("editors", "translators", "reviewees", "keywords"):
             data.pop(field, None)
@@ -65,6 +67,36 @@ class AdminTest(BiblioTestCase):
                          and resp.context.get("errors"))
         self.pub_.refresh_from_db()
         self.assertEqual(self.pub_.ordered_authors(), [berlin, self.mo])
+
+    def test_set_editor_order_through_admin(self):
+        nardin = self.person("Terry", "Nardin")
+        osullivan = self.person("Luke", "O'Sullivan")
+        url = f"/admin/berkeley/publication/{self.pub_.id}/change/"
+        form = self.client.get(url).context["adminform"].form
+        data = {k: v for k, v in form.initial.items() if v is not None}
+        data.update({
+            "title": "Notebooks", "year": 2014, "pub_type": "BKBY",
+            "subject": self.unknown.id,
+            "authorship_set-TOTAL_FORMS": 1,
+            "authorship_set-INITIAL_FORMS": 1,
+            "authorship_set-0-id": self.pub_.authorship_set.get().id,
+            "authorship_set-0-publication": self.pub_.id,
+            "authorship_set-0-person": self.mo.id,
+            "authorship_set-0-position": 1,
+            "editorship_set-TOTAL_FORMS": 2,
+            "editorship_set-INITIAL_FORMS": 0,
+            "editorship_set-0-publication": self.pub_.id,
+            "editorship_set-0-person": osullivan.id,
+            "editorship_set-0-position": 2,
+            "editorship_set-1-publication": self.pub_.id,
+            "editorship_set-1-person": nardin.id,
+            "editorship_set-1-position": 1,
+        })
+        for field in ("editors", "translators", "reviewees", "keywords"):
+            data.pop(field, None)
+        resp = self.client.post(url, data)
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(self.pub_.ordered_editors(), [nardin, osullivan])
 
     def test_admin_requires_login(self):
         self.client.logout()

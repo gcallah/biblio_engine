@@ -105,7 +105,7 @@ def publications(request):
     add_filter(request, kwargs, 'keyword1', 'keywords__id')
 
     pub_list = (Publication.objects.filter(**kwargs).distinct()
-                .order_by('year').prefetch_related('editors'))
+                .order_by('year').prefetch_related('editorship_set__person'))
     for pub in pub_list:
         if pub.pub_type in REVIEW_TYPES:
             pub.review_of = pub.review_title()

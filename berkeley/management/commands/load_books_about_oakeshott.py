@@ -19,7 +19,9 @@ existing, so re-running picks up edits to them.
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from berkeley.models import Authorship, Publication, Subject, UNKNOWN_ID
+from berkeley.models import (
+    Authorship, Editorship, Publication, Subject, UNKNOWN_ID,
+)
 
 from ._loaders import get_person, get_publisher
 
@@ -347,8 +349,10 @@ class Command(BaseCommand):
                 Authorship.objects.create(publication=pub,
                                           person=get_person(name),
                                           position=pos)
-            for name in book.get("editors", []):
-                pub.editors.add(get_person(name))
+            for pos, name in enumerate(book.get("editors", []), 1):
+                Editorship.objects.create(publication=pub,
+                                          person=get_person(name),
+                                          position=pos)
         self.stdout.write(f"Added {created} books "
                           f"({len(BOOKS) - created} already present); "
                           f"set subject on {updated}.")

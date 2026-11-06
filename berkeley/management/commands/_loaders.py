@@ -28,13 +28,14 @@ def get_publisher(name, publishers, city=None):
 
 
 def add_people(pub, item):
-    """Attach item's authors (in order) and editors to pub."""
-    from berkeley.models import Authorship
+    """Attach item's authors and editors to pub, in title-page order."""
+    from berkeley.models import Authorship, Editorship
     for pos, name in enumerate(item.get("authors", []), 1):
         Authorship.objects.create(publication=pub, person=get_person(name),
                                   position=pos)
-    for name in item.get("editors", []):
-        pub.editors.add(get_person(name))
+    for pos, name in enumerate(item.get("editors", []), 1):
+        Editorship.objects.create(publication=pub, person=get_person(name),
+                                  position=pos)
 
 
 def set_subject(pub, name):

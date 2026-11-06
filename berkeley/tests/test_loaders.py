@@ -98,6 +98,13 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
         self.assertEqual(Publication.objects.filter(
             title="The Work of Michael Oakeshott").count(), 2)
 
+    def test_editors_keep_title_page_order(self):
+        self.load()
+        host = Publication.objects.get(
+            title="Conceptions of Liberty in Political Philosophy")
+        self.assertEqual([e.lname for e in host.ordered_editors()],
+                         ["Pelczynski", "Gray"])
+
     def test_needs_books_about_first(self):
         from django.core.management.base import CommandError
         Publication.objects.filter(pub_type="BKAB").delete()

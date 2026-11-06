@@ -13,16 +13,16 @@
             {% endfor %}
             </td>
         </tr>
-        {% if pub.editors.exists %}
+        {% with editors=pub.ordered_editors %}{% if editors %}
         <tr>
             <td>Editor(s):</td>
             <td>
-            {% for editor in pub.editors.all %}
+            {% for editor in editors %}
                 <a href="/oakeshott/person_detail/{{ editor.id }}/">{{ editor.natural_name }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}
             </td>
         </tr>
-        {% endif %}
+        {% endif %}{% endwith %}
         {% if pub.collection %}
         <tr>
             <td>In:</td>
