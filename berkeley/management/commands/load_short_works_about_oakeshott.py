@@ -12,7 +12,8 @@ load_books_about_oakeshott first); any other book is stored as a
 Safe to re-run: people, publishers, journals and books are matched on
 their names, and short works on title, year and journal or book, so
 running it twice does not create duplicates. Subjects are applied to
-every short work, new or existing, so re-running picks up edits to them.
+every short work and host book, new or existing, so re-running picks up
+edits to them.
 
     python manage.py load_short_works_about_oakeshott
 """
@@ -35,6 +36,16 @@ def add_people(pub, item):
         pub.editors.add(get_person(name))
 
 
+def set_subject(pub, name):
+    """Give pub the named subject; returns True if it changed."""
+    subject, _ = Subject.objects.get_or_create(name=name)
+    if pub.subject_id == subject.id:
+        return False
+    pub.subject = subject
+    pub.save(update_fields=["subject"])
+    return True
+
+
 def get_host(key):
     """The book a chapter is in: an existing Books About Oakeshott entry
     (key is its title) or a HOSTS entry, stored as Works Mentioning."""
@@ -54,6 +65,7 @@ def get_host(key):
                   "city": "" if publisher else book.get("city", "")})
     if is_new:
         add_people(host, book)
+    set_subject(host, book["subject"])
     return host
 
 
@@ -85,10 +97,7 @@ class Command(BaseCommand):
             if is_new:
                 created += 1
                 add_people(pub, item)
-            subject, _ = Subject.objects.get_or_create(name=item["subject"])
-            if pub.subject_id != subject.id:
-                pub.subject = subject
-                pub.save(update_fields=["subject"])
+            if set_subject(pub, item["subject"]):
                 updated += 1
         self.stdout.write(f"Added {created} short works "
                           f"({len(works) - created} already present); "

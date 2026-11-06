@@ -58,79 +58,98 @@ PUBLISHERS = {
 # Books that hold a chapter about Oakeshott but are not about him.
 HOSTS = {
     "austrian": dict(
+        subject=POL,
         title="Austrian Economic Perspectives on Individualism and Society: "
               "Moving Beyond Methodological Individualism",
         year=2014, publisher="Palgrave Macmillan", city="New York",
         editors=[("Guinevere", "Liberty", "Nell")]),
     "political_thinkers": dict(
+        subject=POL,
         title="Political Thinkers: From Socrates to the Present", year=2003,
         publisher="Oxford University Press",
         editors=[("D.", "", "Boucher"), ("P.", "", "Kelly")]),
     "activity_of_politics": dict(
+        subject=POL,
         title="The Activity of Politics and Related Essays", year=1989,
         publisher="Susquehanna University Press", authors=[COATS]),
     "critics": dict(
+        subject=PHIL,
         title="Critics of Enlightenment Rationalism", year=2020,
         publisher="Palgrave Macmillan", editors=[CALLAHAN, MCINTYRE]),
     "flathman": dict(
+        subject=POL,
         title="Skepticism, Individuality, and Freedom: The Reluctant "
               "Liberalism of Richard Flathman",
         year=2002, publisher="University of Minnesota Press",
         editors=[("B.", "", "Honig"), ("D.", "", "Mapel")]),
     "authority_revisited": dict(
+        subject=POL,
         title="Authority Revisited", year=1987,
         publisher="New York University Press",
         editors=[("J.", "R.", "Pennock"), ("J.", "W.", "Chapman")]),
     "reassessing": dict(
+        subject=POL,
         title="Reassessing the Liberal State: Reading Maritain's Man and "
               "the State",
         year=2001, publisher="Catholic University of America Press",
         editors=[FULLER]),
     "conservative_thinkers": dict(
+        subject=POL,
         title="Conservative Thinkers: Essays from The Salisbury Review",
         year=1988, publisher="The Claridge Press",
         editors=[("R.", "", "Scruton")]),
     "cambridge_minds": dict(
+        subject=BIO,
         title="Cambridge Minds", year=1994,
         publisher="Cambridge University Press",
         editors=[("R.", "", "Mason")]),
     "dictionary": dict(
+        subject=PHIL,
         title="The Dictionary of Twentieth-Century British Philosophers",
         year=2005, publisher="Thoemmes Continuum",
         editors=[("Stuart", "", "Brown")]),
     "political_classics": dict(
+        subject=POL,
         title="The Political Classics: Green to Dworkin", year=1996,
         publisher="Oxford University Press",
         editors=[("M.", "", "Forsyth"), ("M.", "", "Keens-Soper")]),
     "gebaendigte": dict(
+        subject=POL,
         title="Der gebändigte Kapitalismus: Sozialisten und Konservative im "
               "Wohlfahrtsstaat. Englisches politisches Denken im 20. "
               "Jahrhundert",
         year=1974, city="Munich"),
     "kestenbaum": dict(
+        subject=PHIL,
         title="The Grace and the Severity of the Ideal: John Dewey and the "
               "Transcendent",
         year=2002, publisher="University of Chicago Press",
         authors=[("V.", "", "Kestenbaum")]),
     "lessnoff": dict(
+        subject=POL,
         title="Political Philosophers of the Twentieth Century", year=1999,
         publisher="Blackwell", authors=[("M.", "H.", "Lessnoff")]),
     "liberty": dict(
+        subject=POL,
         title="Conceptions of Liberty in Political Philosophy", year=1984,
         publisher="Athlone Press",
         editors=[("Z.", "", "Pelczynski"), ("J.", "N.", "Gray")]),
     "contemporary": dict(
+        subject=POL,
         title="Contemporary Political Philosophers", year=1976,
         publisher="Methuen",
         editors=[("A.", "", "de Crespigny"), MINOGUE]),
     "fontana": dict(
+        subject=BIO,
         title="The Fontana Biographical Companion to Modern Thought",
         year=1983, publisher="Fontana",
         editors=[("A.", "", "Bullock"), ("R.", "B.", "Woodings")]),
     "blackwell_encyclopaedia": dict(
+        subject=POL,
         title="The Blackwell Encyclopaedia of Political Thought", year=1987,
         publisher="Basil Blackwell", editors=[("D.", "", "Miller")]),
     "valtapolitiikkaa": dict(
+        subject=POL,
         title="Valtapolitiikkaa – analyysejä valtapuheesta: Muistokirja "
               "Iisa Räsäselle",
         year=2000, publisher="University of Jyväskylä",

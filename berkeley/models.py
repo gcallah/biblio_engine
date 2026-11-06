@@ -243,6 +243,11 @@ class Publication(UrlModel):
             return ''
         return text if text.endswith(('.', '?', '!')) else text + '.'
 
+    def title_stop(self):
+        """'.' to close the title, or '' when it already ends in '.',
+        '?' or '!' (e.g. '... Hegel, et al.')."""
+        return '' if (self.title or '').endswith(('.', '?', '!')) else '.'
+
     def title_sentence(self):
         """The title ending in one full stop (none after '?' or '!')."""
         return self._sentence(self.title)

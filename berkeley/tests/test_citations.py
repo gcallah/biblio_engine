@@ -33,6 +33,13 @@ class BookCitationTest(CitationTestCase):
         self.assertEqual(text.count(
             "<i>Rationalism in Politics</i>. London: Methuen, 1962."), 2)
 
+    def test_title_ending_in_full_stop_gets_no_second_one(self):
+        book = self.pub("Montaigne, Hegel, et al.", 2000, pub_type="BKAB",
+                        publisher=self.methuen)
+        text = self.export(book)
+        self.assertNotIn("et al.</i>.", text)
+        self.assertEqual(text.count("<i>Montaigne, Hegel, et al.</i>"), 3)
+
     def test_books_about_use_book_format(self):
         about = self.pub("Oakeshott on Politics", 1990, pub_type="BKAB",
                          authors=[self.critic], publisher=self.methuen)
@@ -118,6 +125,15 @@ class JournalDateCitationTest(CitationTestCase):
         self.assertIn("(1991, January 28). Michael Oakeshott, RIP.", text)
         self.assertIn("<i>Political Theory</i>, 43 (January 28, 1991): 19-20.",
                       text)
+
+
+    def test_newspaper_without_volume_or_pages(self):
+        pub = self.pub("Arguing with Oakeshott", 2003, pub_type="SWAB",
+                       journal=self.journal, month="December", day="27")
+        text = self.export(pub)
+        self.assertIn("Arguing with Oakeshott. <i>Political Theory</i>.", text)
+        self.assertIn("<i>Political Theory</i> 27 December 2003.", text)
+        self.assertIn("<i>Political Theory</i> (December 27, 2003).", text)
 
 
 class MentioningCitationTest(CitationTestCase):

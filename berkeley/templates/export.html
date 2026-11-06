@@ -11,7 +11,7 @@
                 {{ pub.apa_authors }}
                 {% if pub.is_book %}
                     ({{ pub.year }}).
-                    <i>{{ pub.title }}</i>{% if pub.apa_editors %} ({{ pub.apa_editors }}){% endif %}.
+                    <i>{{ pub.title }}</i>{% if pub.apa_editors %} ({{ pub.apa_editors }}).{% else %}{{ pub.title_stop }}{% endif %}
                     {% for translator in pub.translators.all %}
                         {% if forloop.last %}
                             {% if forloop.counter > 1 %}
@@ -44,14 +44,7 @@
                         ({{ pub.year }}).
                     {% endif %}
                     {{ pub.title_sentence }}
-                    {% if pub.issue %}
-                        <i>{{ pub.journal.name }},
-                        {{ pub.volume }}</i>({{ pub.issue }}),
-                    {% else %}
-                        <i>{{ pub.journal.name }},
-                        {{ pub.volume }}</i>,
-                    {% endif %}
-                    {{ pub.pages }}.
+                    <i>{{ pub.journal.name }}{% if pub.volume %}, {{ pub.volume }}{% endif %}</i>{% if pub.issue %}({{ pub.issue }}){% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
                     {{ pub.url }}
                 {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
                     ({{ pub.year }}).
@@ -76,7 +69,7 @@
             <td>
                 {{ pub.mla_authors }}
                 {% if pub.is_book %}
-                    <i>{{ pub.title }}</i>.
+                    <i>{{ pub.title }}</i>{{ pub.title_stop }}
                     {{ pub.edited_by }}
                     {% if pub.edition %}
                         {{ pub.edition }}.
@@ -116,10 +109,7 @@
                         {{ pub.day }}
                     {% endif %}
                     {{ pub.month }}
-                    {{ pub.year }}:
-                    {% if pub.pages %}
-                        {{ pub.pages }}.
-                    {% endif %}
+                    {{ pub.year }}{% if pub.pages %}: {{ pub.pages }}{% endif %}.
                 {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
                     {% if pub.title %}"{{ pub.title }}."{% endif %}
                     {% if pub.pub_reviewed %}
@@ -149,7 +139,7 @@
             <td>
                 {{ pub.chicago_authors }}
                 {% if pub.is_book %}
-                    <i>{{ pub.title }}</i>.
+                    <i>{{ pub.title }}</i>{{ pub.title_stop }}
                     {{ pub.edited_by }}
                     {% if pub.place_publisher %}{{ pub.place_publisher }},{% endif %}
                     {{ pub.year }}.
