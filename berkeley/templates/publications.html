@@ -65,8 +65,7 @@
                 </td>
                 <td>
                 {% for author in pub.ordered_authors %}
-                    <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.lname }}</a>{% if not forloop.last %},{% endif %}
-                {% endfor %}
+                    <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.lname }}</a>{% if not forloop.last %},{% endif %}{% endfor %}{% with editors=pub.editors.all %}{% if editors %}<span class="editors">{% if pub.ordered_authors %}; {% endif %}{% for editor in editors %}<a href="/oakeshott/person_detail/{{ editor.id }}/">{{ editor.lname }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} ({% if editors|length > 1 %}eds.{% else %}ed.{% endif %})</span>{% endif %}{% endwith %}
                 </td>
                 <td>
                     <a href="/oakeshott/export/{{ pub.id }}/">

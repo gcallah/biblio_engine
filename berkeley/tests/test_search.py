@@ -1,4 +1,5 @@
 """The /publications/ search: each filter on its own and in combination."""
+import re
 from berkeley.models import Keyword, Subject
 
 from .helpers import PUBS_URL, BiblioTestCase
@@ -198,6 +199,19 @@ class ResultsPageTest(BiblioTestCase):
         resp = self.search()
         self.assertContains(
             resp, f'<span class="clamp3" title="{name}">{name}</span>')
+
+    def test_editors_shown_in_author_column(self):
+        mo = self.person("Michael", "Oakeshott")
+        collected = self.pub("The Voice of Liberal Learning", 1989,
+                             authors=[mo])
+        collected.editors.add(self.person("Timothy", "Fuller"))
+        edited = self.pub("A Companion", 2012)
+        edited.editors.add(self.person("Paul", "Franco"),
+                           self.person("Leslie", "Marsh"))
+        text = re.sub(r"<[^>]+>", "", re.sub(r"\s+", " ",
+                                             self.search().content.decode()))
+        self.assertIn("Oakeshott; Fuller (ed.)", text)
+        self.assertIn("Franco, Marsh (eds.)", text)
 
     def test_full_text_link_only_when_there_is_a_url(self):
         self.pub("Work and Play", 1995, url="https://example.org/work")
