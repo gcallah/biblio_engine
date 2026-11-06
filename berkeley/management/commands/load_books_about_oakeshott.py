@@ -11,7 +11,8 @@ against publisher and library records.
 
 Safe to re-run: people and publishers are matched on their names,
 and books on title and year, so running it twice does not create
-duplicates.
+duplicates. Subjects (SUBJECTS) are applied to every book, new or
+existing, so re-running picks up edits to them.
 
     python manage.py load_books_about_oakeshott
 """
@@ -220,6 +221,83 @@ BOOKS = [
 ]
 
 
+# Subject for each book, keyed by title.
+PHIL, POL, HIST, EDUC, IR = ("Philosophy", "Politics", "History",
+                             "Education", "International Relations")
+SUBJECTS = {
+    "Oakeshott's Philosophical Politics": POL,
+    "Reason, Revolution and Political Theory: Notes on "
+    "Oakeshott's 'Rationalism in Politics'": POL,
+    "Politics and Experience: Essays Presented to Professor "
+    "Michael Oakeshott on the Occasion of His Retirement": POL,
+    "The Political Philosophy of Michael Oakeshott": POL,
+    "Oakeshott": PHIL,
+    "The Achievement of Michael Oakeshott": PHIL,
+    "Recasting Conservatism: Oakeshott, Strauss, and the "
+    "Response to Postmodernism": POL,
+    "Sartre's Radicalism and Oakeshott's Conservatism: "
+    "The Duplicity of Freedom": POL,
+    "The Skeptic's Oakeshott": POL,
+    "Oakeshott and His Contemporaries: Montaigne, St. Augustine, "
+    "Hegel, et al.": PHIL,
+    "The Philosophy of Michael Oakeshott": PHIL,
+    "Michael Oakeshott, Philosopher: A Commemoration of the "
+    "Centenary of Oakeshott's Birth": PHIL,
+    "Oakeshott on History": HIST,
+    "In Defence of Modernity: Vision and Philosophy in "
+    "Michael Oakeshott": PHIL,
+    "The Sceptical Idealist: Michael Oakeshott as a Critic of "
+    "the Enlightenment": PHIL,
+    "Michael Oakeshott on Hobbes: A Study in the Renewal of "
+    "Philosophical Ideas": PHIL,
+    "Michael Oakeshott: An Introduction": PHIL,
+    "The Limits of Political Theory: Oakeshott's Philosophy of "
+    "Civil Association": POL,
+    "Oakeshott: le scepticisme en politique": POL,
+    "The Enemies of Perfection: Oakeshott, Plato, and the "
+    "Critique of Rationalism": POL,
+    "On World Politics: R. G. Collingwood, Michael Oakeshott "
+    "and Neotraditionalism in International Relations": IR,
+    "The Intellectual Legacy of Michael Oakeshott": PHIL,
+    "Religious and Poetic Experience in the Thought of "
+    "Michael Oakeshott": PHIL,
+    "From a 'Necessary Evil' to an Art of Contingency: Michael "
+    "Oakeshott's Conception of Political Activity": POL,
+    "Michael Oakeshott on Religion, Aesthetics, and Politics": PHIL,
+    "The Politics and Philosophy of Michael Oakeshott": POL,
+    "Michael Oakeshott: Philosoph der Politik": POL,
+    "Michael Oakeshott, the Ancient Greeks, and the "
+    "Philosophical Study of Politics": POL,
+    "Intimations Pursued: The Voice of Practice in the "
+    "Conversation of Michael Oakeshott": PHIL,
+    "Education and the Voice of Michael Oakeshott": EDUC,
+    "Michael Oakeshott": POL,
+    "The Meanings of Michael Oakeshott's Conservatism": POL,
+    "Michael Oakeshott's Skepticism": PHIL,
+    "Oakeshott on Rome and America": POL,
+    "The Cambridge Companion to Oakeshott": PHIL,
+    "A Companion to Michael Oakeshott": PHIL,
+    "Michael Oakeshott's Cold War Liberalism": POL,
+    "Education and Conversation: Exploring Oakeshott's Legacy": EDUC,
+    "Michael Oakeshott's Political Philosophy of International "
+    "Relations: Civil Association and International Society": IR,
+    "The Place of Michael Oakeshott in Contemporary Western and "
+    "Non-Western Thought": PHIL,
+    "Tradition v. Rationalism: Voegelin, Oakeshott, Hayek, "
+    "and Others": PHIL,
+    "Michael Oakeshott on Authority, Governance, and the State": POL,
+    "Michael Oakeshott and Leo Strauss: The Politics of "
+    "Renaissance and Enlightenment": POL,
+    "Michael Oakeshott and the Cambridge School on the History "
+    "of Political Thought": HIST,
+    "Michael Oakeshott as a Philosopher of the \"Creative\" "
+    "and Other Essays": PHIL,
+    "Oakeshott's Skepticism, Politics, and Aesthetics": PHIL,
+    "Michael Oakeshott on the Human Condition: Essays": PHIL,
+    "Michael Oakeshott and Liberalism Revisited": POL,
+}
+
+
 class Command(BaseCommand):
     help = "Load the Books About Oakeshott entries (idempotent)."
 
@@ -227,12 +305,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Subject.objects.get_or_create(id=UNKNOWN_ID,
                                       defaults={"name": "Uncategorized"})
-        created = 0
+        created = updated = 0
         for book in BOOKS:
             pub, is_new = Publication.objects.get_or_create(
                 title=book["title"], year=book["year"], pub_type="BKAB",
                 defaults={"publisher": get_publisher(
                     book["publisher"], PUBLISHERS, book.get("city"))})
+            subject, _ = Subject.objects.get_or_create(
+                name=SUBJECTS[book["title"]])
+            if pub.subject_id != subject.id:
+                pub.subject = subject
+                pub.save(update_fields=["subject"])
+                updated += 1
             if not is_new:
                 continue
             created += 1
@@ -243,4 +327,5 @@ class Command(BaseCommand):
             for name in book.get("editors", []):
                 pub.editors.add(get_person(name))
         self.stdout.write(f"Added {created} books "
-                          f"({len(BOOKS) - created} already present).")
+                          f"({len(BOOKS) - created} already present); "
+                          f"set subject on {updated}.")
