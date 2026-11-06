@@ -20,8 +20,7 @@ BOOK_INFO = {
             'stands above these limited modes. Reviewing it in The Cambridge '
             'Review, R. G. Collingwood called the thesis original and profound.'
             ' He judged the chapter on history an unusually penetrating study '
-            'of historical thought. The Cambridge Philosophy Classics reissue '
-            'adds a new preface by Paul Franco.'
+            'of historical thought.'
         ),
     ),
     'A Guide to the Classics, or How to Pick the Derby Winner': dict(
@@ -34,22 +33,18 @@ BOOK_INFO = {
             'generations of racing form experts had built. It argues that neat '
             'theoretical solutions fail, and that careful empirical and '
             'historical analysis serves the punter better. Oakeshott later '
-            'turned the same way of thinking against rationalism in politics. '
-            'The Imprint Academic reissue adds a new preface and a foreword by '
-            'Sean Magee and Peter Oborne.'
+            'turned the same way of thinking against rationalism in politics.'
         ),
     ),
     'A New Guide to the Derby: How to Pick the Winner': dict(
         subject='Leisure',
         source='https://www.abebooks.com/New-Guide-Derby-Pick-Winner-London/3314251875/bd',
         abstract=(
-            'This is the second edition, published by Faber and Faber in London'
-            ' in 1947, of the light-hearted guide that Guy Griffith and Michael'
-            ' Oakeshott first issued in 1936 as A Guide to the Classics, or How'
-            " to Pick the Derby Winner. It is Oakeshott's only book outside "
-            'academic work. An obituary quoted in the listing notes that he '
-            'agreed to a second edition despite the risk of raised eyebrows. '
-            'The book runs to about 133 pages.'
+            'The second edition, published by Faber and Faber in 1947, of the '
+            'light-hearted guide to picking the Derby winner that Guy Griffith '
+            'and Michael Oakeshott first issued in 1936 as A Guide to the '
+            "Classics, or How to Pick the Derby Winner. It is Oakeshott's only "
+            'book outside academic work.'
         ),
     ),
     'Political Education: An Inaugural Lecture': dict(
@@ -129,14 +124,12 @@ BOOK_INFO = {
             'and on civil association as a basis for ordered liberty: '
             'Introduction to Leviathan (1946), The Moral Life in the Writings '
             'of Thomas Hobbes (1960), Dr. Leo Strauss on Hobbes (1937) and '
-            'Leviathan: A Myth (1947). In the Liberty Fund edition, a foreword '
-            "by Paul Franco places the essays within Oakeshott's wider work. "
-            "Franco picks out three themes in Oakeshott's reading of Hobbes: "
-            'doubt about the role of reason in politics, a commitment to '
-            'individuality over collectivism, and a view of civil association '
-            'as neither instrumental nor purposive. Oakeshott calls Leviathan '
-            'the greatest, perhaps the only, masterpiece of political '
-            'philosophy written in English.'
+            'Leviathan: A Myth (1947). Running through them are a doubt about '
+            'the role of reason in politics, a commitment to individuality over'
+            ' collectivism, and a view of civil association as neither '
+            'instrumental nor purposive. Oakeshott calls Leviathan the '
+            'greatest, perhaps the only, masterpiece of political philosophy '
+            'written in English.'
         ),
     ),
     'On History and Other Essays': dict(
@@ -149,8 +142,7 @@ BOOK_INFO = {
             'part of the human condition. In the historical essays Oakeshott '
             'asks what historical inquiry is, what makes it possible and where '
             'its limits lie. He holds that historians try to understand the '
-            'past for its own sake, not for guidance on present concerns. The '
-            'Liberty Fund edition adds a foreword by Timothy Fuller.'
+            'past for its own sake, not for guidance on present concerns.'
         ),
     ),
     'The Voice of Liberal Learning: Michael Oakeshott on Education': dict(
