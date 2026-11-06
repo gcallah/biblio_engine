@@ -1640,4 +1640,23 @@ ABSTRACTS = {
             ' and liberal theory in its own right. The editor is a longtime '
             'officer of the Michael Oakeshott Association.'
         )),
+    ('The Politics of Imperfection: The Religious and Secular Traditions of Conservative Thought in England from Hooker to Oakeshott', 1978, 'Faber & Faber'): dict(
+        source='https://librarycatalog.ecu.edu/catalog/155755',
+        abstract=(
+            "This short book, which began as Quinton's T. S. Eliot Memorial "
+            "Lectures of 1976, surveys the religious and secular traditions "
+            "of conservative thought in England, from Richard Hooker in the "
+            "sixteenth century to Michael Oakeshott."
+        )),
+    ('The Defence of Natural Law: A Study of the Ideas of Law and Justice in the Writings of Lon L. Fuller, Michael Oakeshott, F. A. Hayek, Ronald Dworkin and John Finnis', 1992, 'Macmillan'): dict(
+        source='https://dx.doi.org/10.1007/978-1-349-22359-6',
+        abstract=(
+            "This book studies the legal philosophies of five twentieth-"
+            "century theorists: Lon L. Fuller, Michael Oakeshott, F. A. Hayek, "
+            "Ronald Dworkin and John Finnis. Covell argues that each of them "
+            "stayed close to the standpoint of natural law, while at the same "
+            "time defending the understanding of law and the state that "
+            "belongs to modern liberalism. The book includes a bibliography of "
+            "the five thinkers' writings."
+        )),
 }

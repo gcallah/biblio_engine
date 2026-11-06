@@ -73,6 +73,7 @@ PUBLISHERS = {
     "The Claridge Press": ("London", "England"),
     "Continuum": ("New York", "NY"),
     "Duckworth": ("London", "England"),
+    "Faber & Faber": ("London", "England"),
     "Imprint Academic": ("Exeter", "England"),
     "Lexington Books": ("Lanham", "MD"),
     "Liberty Fund": ("Carmel", "IN"),
@@ -88,6 +89,7 @@ PUBLISHERS = {
     "St. Martin's Press": ("New York", "NY"),
     "Susquehanna University Press": ("Selinsgrove", "PA"),
     "University of Missouri Press": ("Columbia", "MO"),
+    "Vita e Pensiero": ("Milan", "Italy"),
     "Yale University Press": ("New Haven", "CT"),
 }
 
@@ -101,18 +103,32 @@ BOOKS = [
                "Michael Oakeshott on the Occasion of His Retirement",
          year=1968, publisher="Cambridge University Press",
          editors=[KING, PAREKH]),
+    dict(title="The Politics of Imperfection: The Religious and Secular "
+               "Traditions of Conservative Thought in England from Hooker to "
+               "Oakeshott",
+         year=1978, publisher="Faber & Faber",
+         authors=[("Anthony", "", "Quinton")]),
     dict(title="The Political Philosophy of Michael Oakeshott", year=1990,
          publisher="Yale University Press", authors=[FRANCO]),
     dict(title="Oakeshott", year=1990, publisher="The Claridge Press",
          authors=[GRANT]),
     dict(title="The Achievement of Michael Oakeshott", year=1993,
          publisher="Duckworth", editors=[NORMAN]),
+    dict(title="The Defence of Natural Law: A Study of the Ideas of Law and "
+               "Justice in the Writings of Lon L. Fuller, Michael Oakeshott, "
+               "F. A. Hayek, Ronald Dworkin and John Finnis",
+         year=1992, publisher="Macmillan", city="Basingstoke",
+         authors=[("Charles", "", "Covell")]),
     dict(title="Recasting Conservatism: Oakeshott, Strauss, and the "
                "Response to Postmodernism",
          year=1994, publisher="Yale University Press", authors=[DEVIGNE]),
     dict(title="Sartre's Radicalism and Oakeshott's Conservatism: "
                "The Duplicity of Freedom",
          year=1998, publisher="Macmillan", authors=[FARR]),
+    dict(title="Il ragionevole disaccordo: Hayek, Oakeshott e le regole "
+               "immotivate della società",
+         year=1999, publisher="Vita e Pensiero",
+         authors=[("S.", "", "Cotellessa")]),
     dict(title="The Skeptic's Oakeshott", year=2000,
          publisher="St. Martin's Press", authors=[GERENCSER]),
     dict(title="Oakeshott and His Contemporaries: Montaigne, St. Augustine, "
@@ -225,6 +241,13 @@ BOOKS = [
 PHIL, POL, HIST, EDUC, IR = ("Philosophy", "Politics", "History",
                              "Education", "International Relations")
 SUBJECTS = {
+    "The Politics of Imperfection: The Religious and Secular Traditions of "
+    "Conservative Thought in England from Hooker to Oakeshott": POL,
+    "The Defence of Natural Law: A Study of the Ideas of Law and Justice in "
+    "the Writings of Lon L. Fuller, Michael Oakeshott, F. A. Hayek, Ronald "
+    "Dworkin and John Finnis": POL,
+    "Il ragionevole disaccordo: Hayek, Oakeshott e le regole immotivate "
+    "della società": POL,
     "Oakeshott's Philosophical Politics": POL,
     "Reason, Revolution and Political Theory: Notes on "
     "Oakeshott's 'Rationalism in Politics'": POL,
