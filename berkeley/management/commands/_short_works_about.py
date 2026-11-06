@@ -24,6 +24,7 @@ MARSH = ("Leslie", "", "Marsh")
 MCINTYRE = ("Kenneth", "B.", "McIntyre")
 MINOGUE = ("K.", "R.", "Minogue")
 TURNER = ("Stephen", "", "Turner")
+BOUCHER = ("David", "", "Boucher")
 WILLIAMS = ("Kevin", "", "Williams")
 OSULLIVAN_N = ("Noël", "", "O'Sullivan")
 SOININEN = ("Suvi", "", "Soininen")
@@ -70,7 +71,7 @@ HOSTS = {
         subject=POL,
         title="Political Thinkers: From Socrates to the Present", year=2003,
         publisher="Oxford University Press",
-        editors=[("D.", "", "Boucher"), ("P.", "", "Kelly")]),
+        editors=[BOUCHER, ("P.", "", "Kelly")]),
     "activity_of_politics": dict(
         subject=POL,
         title="The Activity of Politics and Related Essays", year=1989,
@@ -165,7 +166,7 @@ CHAPTERS = [
          title="A Danse Macabre of Wants and Satisfactions: Hayek, "
                "Oakeshott, Liberty, and Cognition",
          book="austrian", subject=PHIL),
-    dict(authors=[("D.", "", "Boucher")], title="Oakeshott",
+    dict(authors=[BOUCHER], title="Oakeshott",
          book="political_thinkers", pages="459-479", subject=POL),
     dict(authors=[("Debra", "", "Candreva")],
          title="Oakeshott and Plato: A Philosophical Conversation",
@@ -554,7 +555,7 @@ ARTICLES = [
          year=1983,
          pages='12-16',
          subject=POL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title="The Creation of the Past: British Idealism and Michael Oakeshott's Philosophy of History",
          journal='History and Theory',
          volume='23',
@@ -621,7 +622,7 @@ ARTICLES = [
          year=1989,
          pages='27-40',
          subject=POL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title='Overlap and Autonomy: The Different Worlds of Collingwood and Oakeshott',
          journal='Storia Antropologia e Scienza del Linguaggio',
          volume='4',
@@ -811,7 +812,7 @@ ARTICLES = [
          year=1991,
          pages='22-25',
          subject=POL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title='Politics in a Different Mode: An Appreciation of Michael Oakeshott',
          journal='History of Political Thought',
          volume='12',
@@ -938,7 +939,7 @@ ARTICLES = [
          year=1992,
          pages='95-121',
          subject=PHIL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title='Human Conduct, History, and Social Science in the Works of R. G. Collingwood and Michael Oakeshott',
          journal='New Literary History',
          volume='24',
@@ -1120,7 +1121,7 @@ ARTICLES = [
          year=2001,
          pages='806-832',
          subject=POL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title='The Idealism of Michael Oakeshott',
          journal='Collingwood and British Idealism Studies',
          volume='8',
@@ -1318,7 +1319,7 @@ ARTICLES = [
          year=2005,
          pages='63-82',
          subject=POL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title='The Rule of Law in the Modern European State: Oakeshott and the Enlargement of Europe',
          journal='European Journal of Political Theory',
          volume='4',
@@ -1353,7 +1354,7 @@ ARTICLES = [
          year=2007,
          pages='968-973',
          subject=POL),
-    dict(authors=[('D.', '', 'Boucher')],
+    dict(authors=[BOUCHER],
          title='Oakeshott and the History of Political Thought',
          journal='Collingwood and British Idealism Studies',
          volume='13',
@@ -1596,4 +1597,69 @@ REVIEWS = [
                  "Political Thought",
          journal=CT, volume="8", issue="10+11", year=2020, pages="83-87",
          url=CT_PDF + "2020/10/digeser_ct_vol8_iss10_11.pdf", subject=POL),
+]
+
+# More Oakeshott articles in Collingwood and British Idealism Studies (and
+# its predecessor Collingwood Studies), from the publisher's tables of
+# contents on IngentaConnect (checked 2026-11-06). Items already listed
+# above from the MOA bibliography are not repeated.
+ARTICLES += [
+    dict(authors=[MCINTYRE], title="Orwell's Despair and Oakeshott's Solution",
+         journal=CBIS, volume="15", issue="1", year=2009, pages="71-93",
+         subject=POL),
+    dict(authors=[("Christopher", "", "Rolliston")],
+         title="Oakeshott's Theory of Tradition Explanation",
+         journal=CBIS, volume="15", issue="1", year=2009, pages="95-118",
+         subject=PHIL),
+    dict(authors=[("Davide", "", "Orsi")],
+         title="Philosophy and Criticism: Conversation in Michael "
+               "Oakeshott's Thought",
+         journal=CBIS, volume="18", issue="1", year=2012, pages="7-29",
+         subject=PHIL),
+    dict(authors=[("Davide", "", "Orsi")],
+         title="Review Article: Philosophy and Politics: Recent Studies of "
+               "Oakeshott",
+         journal=CBIS, volume="19", issue="2", year=2013, pages="261-279",
+         subject=PHIL),
+    dict(authors=[("Efraim", "", "Podoksik")],
+         title="Oakeshott's Schopenhauerian Moment",
+         journal=CBIS, volume="21", issue="2", year=2015, pages="201-233",
+         subject=PHIL),
+    dict(authors=[GRANT], title="Oakeshott's Literary Culture",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="230-256",
+         subject=PHIL),
+    dict(authors=[COATS],
+         title="Politics, the Political, and Armed Force: Oakeshott, Schmitt "
+               "and Weber",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="257-277",
+         subject=POL),
+    dict(authors=[OSULLIVAN_N],
+         title="Michael Oakeshott and John Grote: On the Nature of "
+               "Self-Realization and Idealist Philosophy",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="278-298",
+         subject=PHIL),
+    dict(authors=[("Elizabeth", "Campbell", "Corey")],
+         title="Law and Contingency: Michael Oakeshott and The German "
+               "Historical School",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="299-318",
+         subject=POL),
+    dict(authors=[("D.", "W.", "Ball")],
+         title="'Ideas of Another Order': Michael Oakeshott and Confucius in "
+               "Conversation",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="350-375",
+         subject=PHIL),
+    dict(authors=[("Roy", "", "Tseng")],
+         title="Oakeshott and a Re-understanding of ‘Confucian Liberalism’",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="376-415",
+         subject=POL),
+    dict(authors=[OSULLIVAN_N],
+         title="Oakeshott's Life and Time: A Philosophical and Personal "
+               "Memoir",
+         journal=CBIS, volume="24", issue="2", year=2018, pages="199-215",
+         subject=BIO),
+    dict(authors=[BOUCHER],
+         title="Guy Griffith and Michael Oakeshott, A Guide to the Classics "
+               "or How to Pick The Derby Winner",
+         journal=CBIS, volume="28", issue="1", year=2022, pages="103-108",
+         subject="Leisure"),
 ]
