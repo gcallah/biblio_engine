@@ -27,7 +27,7 @@
         </tr>
         {% for pub in pub_list %}
             <tr>
-                <td>
+                <td{% if pub.abstract %} class="has-abstract"{% endif %}>
                     <a href="/oakeshott/pub_detail/{{ pub.id }}/">
                         {% if pub.title %}
                             {{ pub.title|truncatechars:50 }}
@@ -35,6 +35,12 @@
                             {{ pub.review_of|truncatechars:50 }}
                         {% endif %}
                     </a>
+                    {% if pub.abstract %}
+                    <div class="abstract-pop" role="tooltip">
+                        <strong>{{ pub }}</strong>
+                        {{ pub.abstract }}
+                    </div>
+                    {% endif %}
                 </td>
 
                 <td> {{ pub.year }} </td>
@@ -67,6 +73,27 @@
             </tr>
         {% endfor %}
     </table>
+    <script>
+    // Place each abstract popup just below its title, or above it when
+    // there is no room below.
+    document.querySelectorAll('td.has-abstract').forEach(function (cell) {
+        var pop = cell.querySelector('.abstract-pop');
+        function place() {
+            var r = cell.getBoundingClientRect();
+            var below = window.innerHeight - r.bottom;
+            pop.style.left = Math.max(8, Math.min(r.left + 8,
+                window.innerWidth - pop.offsetWidth - 8)) + 'px';
+            pop.style.top = (below >= pop.offsetHeight + 8 || below > r.top
+                ? r.bottom + 4 : r.top - pop.offsetHeight - 4) + 'px';
+        }
+        cell.addEventListener('mouseenter', place);
+        cell.addEventListener('focusin', place);
+        // keep an open popup attached to its title while the page scrolls
+        window.addEventListener('scroll', function () {
+            if (cell.matches(':hover, :focus-within')) place();
+        }, {passive: true});
+    });
+    </script>
     {% endif %}
     </div>
 {% endblock content %}

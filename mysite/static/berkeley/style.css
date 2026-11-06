@@ -411,3 +411,38 @@ a.button-link:hover, a.button-link:focus {
     #content { padding: 1.25rem; }
     input[type=text], select, textarea { min-width: 0; width: 100%; }
 }
+
+/* ABSTRACT POPUP: hovering a title in the results table shows its abstract */
+
+/* position: fixed lets the popup escape .module's overflow clipping;
+   publications.html sets top/left from the hovered cell. */
+.abstract-pop {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    width: 28rem;
+    max-width: 80vw;
+    padding: 0.8rem 1rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 6px 18px rgba(28, 24, 19, 0.25);
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    text-align: left;
+    white-space: normal;
+}
+
+.abstract-pop strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--serif-display);
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+table.results td.has-abstract:hover .abstract-pop,
+table.results td.has-abstract:focus-within .abstract-pop {
+    display: block;
+}

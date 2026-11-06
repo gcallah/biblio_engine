@@ -2,6 +2,8 @@
 
 Safe to re-run: people and publishers are matched on their names,
 and books on title and year, so running it twice does not create duplicates.
+Subjects and abstracts (from book_info.py) are applied to every book,
+new or existing, so re-running picks up edits to them.
 
     python manage.py load_books_by_oakeshott
 """
@@ -11,6 +13,8 @@ from django.db import transaction
 from berkeley.models import (
     Address, Authorship, Person, Publication, Publisher, Subject, UNKNOWN_ID,
 )
+
+from .book_info import BOOK_INFO
 
 # (first, middle, last)
 OAKESHOTT = ("Michael", "", "Oakeshott")
@@ -110,12 +114,22 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Subject.objects.get_or_create(id=UNKNOWN_ID,
                                       defaults={"name": "Uncategorized"})
-        created = 0
+        created = updated = 0
         for book in BOOKS:
             pub, is_new = Publication.objects.get_or_create(
                 title=book["title"], year=book["year"], pub_type="BKBY",
                 defaults={"publisher": get_publisher(book["publisher"],
                                                      book.get("city"))})
+            info = BOOK_INFO.get(book["title"])
+            if info:
+                subject, _ = Subject.objects.get_or_create(
+                    name=info["subject"])
+                if (pub.subject_id, pub.abstract) != (subject.id,
+                                                      info["abstract"]):
+                    pub.subject = subject
+                    pub.abstract = info["abstract"]
+                    pub.save(update_fields=["subject", "abstract"])
+                    updated += 1
             if not is_new:
                 continue
             created += 1
@@ -126,4 +140,5 @@ class Command(BaseCommand):
             for name in book.get("editors", []):
                 pub.editors.add(get_person(name))
         self.stdout.write(f"Added {created} books "
-                          f"({len(BOOKS) - created} already present).")
+                          f"({len(BOOKS) - created} already present); "
+                          f"set subject/abstract on {updated}.")
