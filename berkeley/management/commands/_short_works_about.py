@@ -1663,3 +1663,70 @@ ARTICLES += [
          journal=CBIS, volume="28", issue="1", year=2022, pages="103-108",
          subject="Leisure"),
 ]
+
+# Pieces substantially about Oakeshott whose titles do not name him,
+# added at the user's request (2026-11-06): contributions to Oakeshott
+# issues and symposia, kept where the text discusses Oakeshott at length
+# (counted in the PDFs). Bracketed words explain a bare title.
+MCILWAIN_SYMPOSIUM = ("a symposium on David McIlwain's Michael Oakeshott "
+                      "and Leo Strauss")
+UNNAMED = [
+    dict(authors=[CALLAHAN, ("Sanford", "", "Ikeda")],
+         title="Jane Jacobs' Critique of Rationalism in Urban Planning",
+         journal=CT, volume="1", issue="3", year=2014, pages="10-19",
+         url=CT_PDF + "2014/11/ct_1_3_callahan_ikeda.pdf", subject=POL),
+    dict(authors=[("Corey", "", "Abel")],
+         title="The Instrumental Idiom in American Politics: The 'City on "
+               "the Hill' as a Spontaneous Order",
+         journal=CT, volume="1", issue="3", year=2014, pages="48-59",
+         url=CT_PDF + "2014/11/ct_1_3_abel.pdf", subject=POL),
+    dict(authors=[("Christopher", "", "Adair-Toteff")],
+         title=f"Introduction [to {MCILWAIN_SYMPOSIUM}]",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="1",
+         url=CT_PDF + "2022/02/adair_toteff_ct_vol10_iss_1_2_intro.pdf",
+         subject=POL),
+    dict(authors=[FULLER],
+         title="Paradoxes of the Modern Moral Imagination: Reflections on "
+               "Contemplation and Action",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="2-8",
+         url=CT_PDF + "2022/02/fuller_ct_vol10_iss_1_2.pdf", subject=PHIL),
+    dict(authors=[TURNER],
+         title="Two Paths from Neo-Kantianism, Two Political Consequences",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="9-17",
+         url=CT_PDF + "2022/02/turner_ct_vol10_iss_1_2.pdf", subject=PHIL),
+    dict(authors=[("Scott", "B.", "Nelson")],
+         title="Middle Voices: F. A. Hayek",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="54-64",
+         url=CT_PDF + "2022/02/nelson_ct_vol10_iss_1_2.pdf", subject=PHIL),
+    dict(authors=[("David", "", "McIlwain")],
+         title=f"Reply [to {MCILWAIN_SYMPOSIUM}]",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="78-91",
+         url=CT_PDF + "2022/02/mcilwain_ct_vol10_iss_1_2.pdf", subject=POL),
+    dict(authors=[("Oliver", "", "Letwin")],
+         title="Reason and Unreason in Politics",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="15-21",
+         url=CT_PDF + "2022/06/letwin_ct_vol10_iss7_8.pdf", subject=POL),
+    dict(authors=[BOUCHER],
+         title="Apologia for Poetry and the Art of Conversation",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="50-61",
+         url=CT_PDF + "2022/07/boucher_ct_vol10_iss7_8_r.pdf", subject=PHIL),
+    dict(authors=[("James", "", "Alexander")],
+         title="Interview with Robert Grant",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="72-82",
+         url=CT_PDF + "2022/06/grant_alexander_ct_vol10_iss7_8_rev.pdf",
+         subject=BIO),
+    dict(authors=[("Isaac", "", "Radner")],
+         title="The Meaning of Plurality in Liberal Education",
+         journal=CT, volume="13", issue="3+4", year=2025, pages="81-95",
+         url=CT_PDF + "2025/03/Radner_CT_Vol13_Iss_3_4.pdf", subject=EDUC),
+    dict(authors=[OSULLIVAN_N],
+         title="Introduction [to an issue on Michael Oakeshott]",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="225-231",
+         subject=PHIL),
+    dict(authors=[("Luke", "Philip", "Plotica")],
+         title="Rationalism in Law: Constitutional Originalism and the "
+               "'Sovereignty of Technique'",
+         journal=CBIS, volume="22", issue="2", year=2016, pages="319-349",
+         subject=POL),
+]
+ARTICLES += UNNAMED

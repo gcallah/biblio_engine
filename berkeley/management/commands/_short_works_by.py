@@ -1,5 +1,7 @@
-"""Data for load_short_works_by_oakeshott: shorter works by Oakeshott
-whose full text can be read free online from a legitimate source.
+"""Data for load_short_works_by_oakeshott: shorter works by Oakeshott,
+chiefly those whose full text can be read free online from a legitimate
+source ("url"). A few without a free text are added at the user's
+request.
 
 Each entry records the first publication (from the Michael Oakeshott
 Association bibliography) and, in "url", where the full text can be
@@ -19,7 +21,8 @@ ARTICLES and CHAPTERS work as in _short_works_about.py; a chapter's
 "book" is the title of a Books by Oakeshott entry or a key into HOSTS.
 """
 
-PHIL, POL, EDUC = "Philosophy", "Politics", "Education"
+PHIL, POL, EDUC, HIST = ("Philosophy", "Politics", "Education",
+                         "History")
 
 OAKESHOTT = ("Michael", "", "Oakeshott")
 
@@ -57,6 +60,15 @@ ARTICLES = [
          url="https://journalhosting.ucalgary.ca/index.php/jet/article/"
              "view/43498",
          doi="10.55016/ojs/jet.v1i3.43498", subject=EDUC),
+    # Without a free text online:
+    dict(authors=[OAKESHOTT],
+         title="The University Programme: Arts Philosophy of History",
+         journal="Collingwood and British Idealism Studies", volume="8",
+         issue="1", year=2001, pages="1-5", subject=HIST),
+    dict(authors=[OAKESHOTT],
+         title="The Concept of Government in Modern Europe",
+         journal="Collingwood and British Idealism Studies", volume="12",
+         issue="2", year=2006, pages="17-35", subject=POL),
     dict(authors=[OAKESHOTT], title="Work and Play", journal="First Things",
          volume="54", month="June/July", year=1995, pages="29-33",
          url="https://firstthings.com/work-and-play/", subject=PHIL),

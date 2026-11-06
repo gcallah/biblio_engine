@@ -83,10 +83,13 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
         self.assertEqual(Publication.objects.filter(pub_type="MENT").count(),
                          len(data.HOSTS))
 
-    def test_oakeshott_in_every_title(self):
+    def test_oakeshott_in_every_title_except_the_listed_ones(self):
+        from berkeley.management.commands import _short_works_about as data
+        unnamed = {item["title"] for item in data.UNNAMED}
         self.load()
         for pub in Publication.objects.filter(pub_type="SWAB"):
-            self.assertIn("oakeshott", pub.title.lower(), pub.title)
+            if pub.title not in unnamed:
+                self.assertIn("oakeshott", pub.title.lower(), pub.title)
 
     def test_chapters_link_to_existing_books_about(self):
         self.load()
@@ -147,8 +150,13 @@ class LoadShortWorksByOakeshottTest(TestCase):
         self.assertIn("Added 0 short works", self.load())
         works = Publication.objects.filter(pub_type="SWBY")
         self.assertEqual(works.count(), total)
+        linked = {i["title"] for i in data.ARTICLES + data.CHAPTERS
+                  if i.get("url")}
         for pub in works:
-            self.assertTrue(pub.url.startswith("https://"), pub.title)
+            if pub.title in linked:
+                self.assertTrue(pub.url.startswith("https://"), pub.title)
+            else:
+                self.assertEqual(pub.url, "", pub.title)
             self.assertEqual(pub.ordered_authors()[0].lname, "Oakeshott")
         moral = works.get(title__startswith="The Moral Life")
         self.assertEqual(moral.collection.pub_type, "BKBY")
