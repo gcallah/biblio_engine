@@ -89,6 +89,7 @@ PUBLISHERS = {
     "Princeton University Press": ("Princeton", "NJ"),
     "Routledge": ("London", "England"),
     "St. Martin's Press": ("New York", "NY"),
+    "State University of New York Press": ("Albany", "NY"),
     "Susquehanna University Press": ("Selinsgrove", "PA"),
     "University of Missouri Press": ("Columbia", "MO"),
     "Vita e Pensiero": ("Milan", "Italy"),
@@ -206,6 +207,10 @@ BOOKS = [
          editors=[FRANCO, MARSH]),
     dict(title="Michael Oakeshott's Cold War Liberalism", year=2015,
          publisher="Palgrave Macmillan", city="New York", editors=[NARDIN]),
+    dict(title="Michael Oakeshott and the Conversation of Modern Political "
+               "Thought",
+         year=2015, publisher="State University of New York Press",
+         authors=[("Luke", "Philip", "Plotica")]),
     dict(title="Education and Conversation: Exploring Oakeshott's Legacy",
          year=2016, publisher="Bloomsbury Academic",
          editors=[BAKHURST, FAIRFIELD]),
@@ -243,6 +248,7 @@ BOOKS = [
 PHIL, POL, HIST, EDUC, IR = ("Philosophy", "Politics", "History",
                              "Education", "International Relations")
 SUBJECTS = {
+    "Michael Oakeshott and the Conversation of Modern Political Thought": POL,
     "The Politics of Imperfection: The Religious and Secular Traditions of "
     "Conservative Thought in England from Hooker to Oakeshott": POL,
     "The Defence of Natural Law: A Study of the Ideas of Law and Justice in "

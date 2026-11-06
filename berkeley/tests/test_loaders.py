@@ -73,10 +73,13 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
     def test_loads_every_short_work_once(self):
         from berkeley.management.commands import _short_works_about as data
         total = len(data.ARTICLES) + len(data.CHAPTERS)
-        self.assertIn(f"Added {total} short works", self.load())
+        self.assertIn(f"Added {total + len(data.REVIEWS)} short works",
+                      self.load())
         self.assertIn("Added 0 short works", self.load())
         self.assertEqual(Publication.objects.filter(pub_type="SWAB").count(),
                          total)
+        self.assertEqual(Publication.objects.filter(pub_type="RVAB").count(),
+                         len(data.REVIEWS))
         self.assertEqual(Publication.objects.filter(pub_type="MENT").count(),
                          len(data.HOSTS))
 

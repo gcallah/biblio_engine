@@ -23,6 +23,9 @@ GRANT = ("Robert", "", "Grant")
 MARSH = ("Leslie", "", "Marsh")
 MCINTYRE = ("Kenneth", "B.", "McIntyre")
 MINOGUE = ("K.", "R.", "Minogue")
+TURNER = ("Stephen", "", "Turner")
+WILLIAMS = ("Kevin", "", "Williams")
+OSULLIVAN_N = ("Noël", "", "O'Sullivan")
 SOININEN = ("Suvi", "", "Soininen")
 
 # Books About Oakeshott already in the database
@@ -258,7 +261,7 @@ CHAPTERS = [
     dict(authors=[("R.", "S.", "Peters")],
          title="Michael Oakeshott's Philosophy of Education",
          book=POLITICS_AND_EXPERIENCE, pages="43-64", subject=EDUC),
-    dict(authors=[("A.", "", "Quinton")],
+    dict(authors=[("Anthony", "", "Quinton")],
          title="Oakeshott's Philosophical Legacy",
          book=PHILOSOPHER, pages="53-54", subject=PHIL),
     dict(authors=[SOININEN],
@@ -459,7 +462,7 @@ ARTICLES = [
          year=1977,
          pages='273-323',
          subject=POL),
-    dict(authors=[('C.', '', 'Covell')],
+    dict(authors=[('Charles', '', 'Covell')],
          title='Practices and Persons: Strawson and Oakeshott',
          journal='Cambridge Review',
          volume='100',
@@ -1209,7 +1212,7 @@ ARTICLES = [
          year=2003,
          pages='55',
          subject=PHIL),
-    dict(authors=[('S.', '', 'Turner')],
+    dict(authors=[TURNER],
          title="Tradition and Cognitive Science: Oakeshott's Undoing of the Kantian Mind",
          journal='Philosophy of the Social Sciences',
          volume='33',
@@ -1441,4 +1444,156 @@ ARTICLES = [
          year=2009,
          pages='139-151',
          subject=PHIL),
+]
+
+# --- Cosmos + Taxis (open access) -----------------------------------------
+# Every article with Oakeshott in its title, from the issue pages at
+# cosmosandtaxis.org (checked 2026-11-06); pages from the PDFs, which
+# are the full-text links. Not yet included: the forthcoming "On Human
+# Conduct at 50" issue (vol. 14), announced but not published.
+CT = "Cosmos + Taxis"
+CT_PDF = "https://cosmosandtaxis.org/wp-content/uploads/"
+
+ARTICLES += [
+    dict(authors=[("Chor-Yung", "", "Cheung")],
+         title="The Critique of Rationalism and the Defense of "
+               "Individuality: Oakeshott and Hayek",
+         journal=CT, volume="1", issue="3", year=2014, pages="3-9",
+         url=CT_PDF + "2014/11/ct_1_3_cheung.pdf", subject=POL),
+    dict(authors=[OSULLIVAN_N],
+         title="Oakeshott on Modernity and the Crisis of Political "
+               "Legitimacy in Contemporary Western Liberal Democracy",
+         journal=CT, volume="1", issue="3", year=2014, pages="20-26",
+         url=CT_PDF + "2014/11/ct_1_3_osullivan.pdf", subject=POL),
+    dict(authors=[WILLIAMS],
+         title="Oakeshott and the Complex Ecology of the Moral Life",
+         journal=CT, volume="1", issue="3", year=2014, pages="27-34",
+         url=CT_PDF + "2014/11/ct_1_3_williams.pdf", subject=PHIL),
+    dict(authors=[("Thomas", "J.", "Cheeseman")],
+         title="Homo Ludens and Civil Association: The Sublime Nature of "
+               "Michael Oakeshott's Civil Condition",
+         journal=CT, volume="1", issue="3", year=2014, pages="35-47",
+         url=CT_PDF + "2014/11/ct_1_3_cheeseman.pdf", subject=POL),
+    dict(authors=[TURNER], title="Oakeshott on the Rule of Law: A Defense",
+         journal=CT, volume="1", issue="3", year=2014, pages="72-81",
+         url=CT_PDF + "2014/11/ct_1_3_turner.pdf", subject=POL),
+    dict(authors=[TURNER],
+         title="The Method of Antinomies: Oakeshott and Others",
+         journal=CT, volume="6", issue="1+2", year=2018, pages="54-63",
+         url=CT_PDF + "2018/10/turner_ct_vol6_iss1_2.pdf", subject=PHIL),
+    dict(authors=[FULLER],
+         title="What Can We Learn from Michael Oakeshott's Effort to "
+               "Understand Our World?",
+         journal=CT, volume="8", issue="12", year=2020, pages="31-37",
+         url=CT_PDF + "2020/11/fuller_ct_vol8_iss12.pdf", subject=PHIL),
+    dict(authors=[OSULLIVAN_N],
+         title="An Informal Introduction to Michael Oakeshott's Vision of "
+               "a Free, Civilized and Affirmative Life",
+         journal=CT, volume="9", issue="7+8", year=2021, pages="51-59",
+         url=CT_PDF + "2021/07/osullivan_ct_vol9_iss_7_8_r.pdf",
+         subject=PHIL),
+    dict(authors=[COATS],
+         title="Michael Oakeshott and Leo Strauss on the Individual, "
+               "Christianity, and Creativity in Thought and Action",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="18-26",
+         url=CT_PDF + "2022/02/coats_ct_vol10_iss_1_2.pdf", subject=PHIL),
+    dict(authors=[("David", "Lewis", "Schaefer")],
+         title="Political Philosophy versus Poetic Individuality: A "
+               "Response to David McIlwain's Michael Oakeshott and Leo "
+               "Strauss: The Politics of Renaissance and Enlightenment",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="27-36",
+         url=CT_PDF + "2022/02/schaefer_ct_vol10_iss_1_2.pdf",
+         subject=POL),
+    dict(authors=[("Luke", "", "O'Sullivan")],
+         title="Living in the Past: Oakeshott and Strauss on Historical "
+               "Knowing",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="37-53",
+         url=CT_PDF + "2022/02/sullivan_ct_vol10_iss_1_2.pdf", subject=HIST),
+    dict(authors=[MCINTYRE], title="On Misunderstanding Michael Oakeshott",
+         journal=CT, volume="10", issue="1+2", year=2022, pages="65-77",
+         url=CT_PDF + "2022/02/mcintyre_ct_vol10_iss_1_2.pdf",
+         subject=POL),
+    dict(authors=[("James", "", "Alexander")], title="Oakeshott-22",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="1-6",
+         url=CT_PDF + "2022/06/alexander_ct_vol10_iss7_8.pdf", subject=POL),
+    dict(authors=[("Max", "", "Skjönsberg")],
+         title="Michael Oakeshott on Libertarianism, Conservatism, and the "
+               "Freedom of the English",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="7-14",
+         url=CT_PDF + "2024/06/skjonsberg_ct_vol10_iss7_8_r2.pdf",
+         subject=POL),
+    dict(authors=[("Shal", "", "Marriott")],
+         title="Michael Oakeshott: 21st Century Radical?",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="22-25",
+         url=CT_PDF + "2022/06/marriott_ct_vol10_iss7_8_rev.pdf",
+         subject=POL),
+    dict(authors=[("Beckett", "", "Rueda")],
+         title="Rationalism in Ideal Theory: Michael Oakeshott on John "
+               "Rawls",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="26-38",
+         url=CT_PDF + "2022/06/rueda_ct_vol10_iss7_8.pdf", subject=POL),
+    dict(authors=[("Jason", "", "Dockstader")],
+         title="Oakeshott's Superficial Daoism",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="39-49",
+         url=CT_PDF + "2022/06/dockstader_ct_vol10_iss7_8.pdf",
+         subject=PHIL),
+    dict(authors=[("Christopher", "", "Fear")],
+         title="Sophists in Academic Dress: Oakeshott's “The Study of "
+               "‘Politics’ in a University”",
+         journal=CT, volume="10", issue="7+8", year=2022, pages="62-71",
+         url=CT_PDF + "2022/06/fear_ct_vol10_iss7_8.pdf", subject=EDUC),
+    dict(authors=[CALLAHAN], title="Michael Oakeshott Goes Fishing",
+         journal=CT, volume="13", issue="1+2", year=2025, pages="20-25",
+         url=CT_PDF + "2025/01/Callahan_CT_Vol13_Iss_1_2.pdf", subject=PHIL),
+    dict(authors=[("Jakob", "", "Söderbaum")],
+         title="Oakeshott Turned Conservatism into a Creed of Liberty",
+         journal=CT, volume="13", issue="1+2", year=2025, pages="26-31",
+         url=CT_PDF + "2025/01/Soderbaum_CT_Vol13_Iss_1_2.pdf", subject=POL),
+    dict(authors=[("Christopher", "", "Adair-Toteff")],
+         title="Oakeshott's Early Conception of Authority",
+         journal=CT, volume="13", issue="1+2", year=2025, pages="66-76",
+         url=CT_PDF + "2025/01/AdairToteff_Oakeshott_CT_Vol13_Iss_1_2_r1.pdf",
+         subject=POL),
+    dict(authors=[("Michael", "N.", "Jacobs")],
+         title="An Oakeshottian Analysis of Stephen Wolfe's Christian "
+               "Nationalism: Civil Associations vs. The Complete Good",
+         journal=CT, volume="13", issue="1+2", year=2025, pages="77-81",
+         url=CT_PDF + "2025/01/Jacobs_CT_Vol13_Iss_1_2.pdf", subject=POL),
+    dict(authors=[("Elizabeth", "Campbell", "Corey")],
+         title="Oakeshott and Newman on Liberal Education",
+         journal=CT, volume="13", issue="3+4", year=2025, pages="18-28",
+         url=CT_PDF + "2025/03/Corey_CT_Vol13_Iss_3_4.pdf", subject=EDUC),
+    dict(authors=[WILLIAMS],
+         title="Liberal Learning and the Legacy of Colonialism: Revisiting "
+               "Michael Oakeshott's Conversational Conception of Education",
+         journal=CT, volume="13", issue="3+4", year=2025, pages="55-69",
+         url=CT_PDF + "2025/03/Williams_CT_Vol13_Iss_3_4.pdf", subject=EDUC),
+]
+
+# --- Collingwood and British Idealism Studies ---------------------------------
+CBIS = "Collingwood and British Idealism Studies"
+
+ARTICLES += [
+    dict(authors=[CALLAHAN],
+         title="Winch on Following a Rule: A Wittgensteinian Critique of "
+               "Oakeshott",
+         journal=CBIS, volume="18", issue="2", year=2012, pages="167-175",
+         url="https://gcallah.github.io/Rationalism/WinchOnOakeshott.html",
+         subject=PHIL),
+]
+
+# Reviews of Books About Oakeshott; "reviews" is the book's title.
+REVIEWS = [
+    dict(authors=[("James", "", "Alexander")],
+         title="Oakeshott and the Cambridge School",
+         reviews="Michael Oakeshott and the Cambridge School on the "
+                 "History of Political Thought",
+         journal=CT, volume="8", issue="2+3", year=2020, pages="66-83",
+         url=CT_PDF + "2020/04/review_alexander_ct_vol8_iss_2_3.pdf",
+         subject=HIST),
+    dict(authors=[("P.", "", "Digeser")], title="",
+         reviews="Michael Oakeshott and the Conversation of Modern "
+                 "Political Thought",
+         journal=CT, volume="8", issue="10+11", year=2020, pages="83-87",
+         url=CT_PDF + "2020/10/digeser_ct_vol8_iss10_11.pdf", subject=POL),
 ]

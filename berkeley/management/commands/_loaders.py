@@ -79,9 +79,9 @@ SHORT_FIELDS = ("volume", "issue", "day", "month", "pages", "url", "doi")
 
 def load_short_works(data, pub_type, book_type):
     """Load data.ARTICLES (in a journal) and data.CHAPTERS (in a
-    book) as pub_type entries. Works are matched on title, year and
-    journal or book. Subjects, and URL/DOI, are applied on every run.
-    Returns (created, updated, total)."""
+    book) as pub_type entries, and data.REVIEWS (if any) as reviews.
+    Works are matched on title, year and journal or book. Subjects, and
+    URL/DOI, are applied on every run. Returns (created, updated, total)."""
     from berkeley.models import Journal, Publication
     created = updated = 0
     works = ([(item, "journal") for item in data.ARTICLES] +
@@ -111,4 +111,32 @@ def load_short_works(data, pub_type, book_type):
             add_people(pub, item)
         elif changed:
             updated += 1
-    return created, updated, len(works)
+    for item in getattr(data, "REVIEWS", []):
+        c, u = load_review(item)
+        created += c
+        updated += u
+    return created, updated, len(works) + len(getattr(data, "REVIEWS", []))
+
+
+def load_review(item):
+    """A review of a Books About Oakeshott entry, as a Book Reviews of
+    Books About Oakeshott (RVAB) entry. item["reviews"] is the reviewed
+    book's title; item["title"] may be "" for an untitled review.
+    Returns (created, updated) as 0/1."""
+    from django.core.management.base import CommandError
+    from berkeley.models import Journal, Publication
+    try:
+        book = Publication.objects.get(title=item["reviews"],
+                                       pub_type="BKAB")
+    except Publication.DoesNotExist:
+        raise CommandError(f"Reviewed book not in the database: "
+                           f"{item['reviews']!r}")
+    journal, _ = Journal.objects.get_or_create(name=item["journal"])
+    fields = {f: item.get(f, "") for f in SHORT_FIELDS}
+    pub, is_new = Publication.objects.get_or_create(
+        title=item["title"], year=item["year"], pub_type="RVAB",
+        journal=journal, pub_reviewed=book, defaults=fields)
+    changed = set_subject(pub, item["subject"])
+    if is_new:
+        add_people(pub, item)
+    return int(is_new), int(changed and not is_new)

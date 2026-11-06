@@ -1732,4 +1732,16 @@ ABSTRACTS = {
             ' moral conduct and obligation. Reprinted in Hobbes on Civil '
             'Association; free at the Online Library of Liberty.'
         )),
+    ('Michael Oakeshott and the Conversation of Modern Political Thought', 2015, 'State University of New York Press'): dict(
+        source='https://www.sunypress.edu/p-5996-michael-oakeshott-and-the-conve.aspx',
+        abstract=(
+            "Rather than treating Oakeshott as the author of a closed "
+            "system, Plotica reads his work as he himself understood it: as "
+            "contributions to an ongoing conversation. The book follows that "
+            "conversation through language and individual agency, "
+            "individuality between tradition and contingency, the modern "
+            "state, and democracy, setting Oakeshott beside thinkers such as "
+            "Wittgenstein, Charles Taylor, Foucault and Arendt, and drawing "
+            "from him a conversational ethos for democratic politics."
+        )),
 }
