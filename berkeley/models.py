@@ -30,6 +30,8 @@ TYPE_CHOICES = (
 )
 
 REVIEW_TYPES = ('RVBY', 'RVAB')
+BOOK_TYPES = ('BKBY', 'BKAB')
+SHORT_TYPES = ('SWBY', 'SWAB')
 
 CATEGORIES = (
     ('', ''),
@@ -239,7 +241,48 @@ class Publication(UrlModel):
         """End a citation element with exactly one full stop."""
         if not text:
             return ''
-        return text if text.endswith('.') else text + '.'
+        return text if text.endswith(('.', '?', '!')) else text + '.'
+
+    def title_sentence(self):
+        """The title ending in one full stop (none after '?' or '!')."""
+        return self._sentence(self.title)
+
+    def is_book(self):
+        """Cited as a book: Books by/about Oakeshott, and Works Mentioning
+        Oakeshott that are not in a journal or a book."""
+        return self.pub_type in BOOK_TYPES or (
+            self.pub_type == 'MENT' and not self.journal_id
+            and not self.collection_id)
+
+    def is_chapter(self):
+        """A short work that is a part of a book (its collection)."""
+        return self.pub_type in SHORT_TYPES and self.collection_id is not None
+
+    def apa_place_publisher(self):
+        """'London, England: Methuen'; just the city when there is no
+        publisher; '' when neither is known."""
+        if not self.publisher:
+            return self.city
+        addr = self.publisher.address
+        place = ', '.join(p for p in (addr.city, addr.province) if p) \
+            if addr else ''
+        return f"{place}: {self.publisher.name}" if place \
+            else self.publisher.name
+
+    def place_publisher(self):
+        """MLA / Chicago: 'London: Methuen'."""
+        if not self.publisher:
+            return self.city
+        city = self.publisher.address.city if self.publisher.address else ''
+        return f"{city}: {self.publisher.name}" if city \
+            else self.publisher.name
+
+    def apa_pages(self):
+        """'pp. 2-20', or 'p. 562' for a single page."""
+        if not self.pages:
+            return ''
+        return ('pp. ' if '-' in self.pages or ',' in self.pages
+                else 'p. ') + self.pages
 
     def apa_authors(self):
         """APA 7: 'Last, F. M., Last, F., & Last, F.'"""
@@ -292,6 +335,20 @@ class Publication(UrlModel):
         if not names:
             return ''
         return self._join(names, '&') + (', Ed.' if len(names) == 1 else ', Eds.')
+
+    def apa_in_editors(self):
+        """APA 7, a chapter's book editors: 'C. Abel & T. Fuller (Eds.)'."""
+        names = [e.apa_natural_name() for e in self.editors.all()]
+        if not names:
+            return ''
+        return self._join(names, '&') + (' (Ed.)' if len(names) == 1
+                                         else ' (Eds.)')
+
+    def edited_by_lower(self):
+        """MLA 9 / Chicago 17 chapters: 'edited by Corey Abel and
+        Timothy Fuller'."""
+        names = [e.natural_name() for e in self.editors.all()]
+        return 'edited by ' + self._join(names, 'and') if names else ''
 
     def edited_by(self):
         """MLA 9 / Chicago 17: 'Edited by Terry Nardin and Luke O'Sullivan.'"""

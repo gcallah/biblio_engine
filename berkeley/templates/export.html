@@ -9,7 +9,7 @@
             <td><strong>APA:</strong></td>
             <td>
                 {{ pub.apa_authors }}
-                {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
+                {% if pub.is_book %}
                     ({{ pub.year }}).
                     <i>{{ pub.title }}</i>{% if pub.apa_editors %} ({{ pub.apa_editors }}){% endif %}.
                     {% for translator in pub.translators.all %}
@@ -26,19 +26,24 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    {{ pub.publisher.address.city }},
-                    {{ pub.publisher.address.province }}:
-                    {{ pub.publisher.name }}.
+                    {{ pub.apa_place_publisher }}.
 
+                {% elif pub.is_chapter %}
+                    {% with host=pub.collection %}
+                    ({{ pub.year }}).
+                    {{ pub.title_sentence }}
+                    In {% if host.apa_in_editors %}{{ host.apa_in_editors }}, {% endif %}<i>{{ host.title }}</i>{% if pub.apa_pages %} ({{ pub.apa_pages }}){% endif %}.
+                    {% if host.apa_place_publisher %}{{ host.apa_place_publisher }}.{% endif %}
+                    {% endwith %}
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
-                    {% if pub.month and pub.year %}
-                        ({{ pub.year }}, {{ pub.month }}).
-                    {% elif pub.day and pub.month and pub.year %}
+                    {% if pub.day and pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
+                    {% elif pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }}).
                     {% elif pub.year %}
                         ({{ pub.year }}).
                     {% endif %}
-                    {{ pub.title }}.
+                    {{ pub.title_sentence }}
                     {% if pub.issue %}
                         <i>{{ pub.journal.name }},
                         {{ pub.volume }}</i>({{ pub.issue }}),
@@ -70,7 +75,7 @@
             <td><strong>MLA:</strong></td>
             <td>
                 {{ pub.mla_authors }}
-                {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
+                {% if pub.is_book %}
                     <i>{{ pub.title }}</i>.
                     {{ pub.edited_by }}
                     {% if pub.edition %}
@@ -94,12 +99,18 @@
                     {% if pub.volume %}
                         {{ pub.volume }}.
                     {% endif %}
-                    {{ pub.publisher.address.city }}:
-                    {{ pub.publisher.name }},
+                    {% if pub.place_publisher %}{{ pub.place_publisher }},{% endif %}
                     {{ pub.year }}.
 
+                {% elif pub.is_chapter %}
+                    {% with host=pub.collection %}
+                    "{{ pub.title_sentence }}"
+                    <i>{{ host.title }}</i>,{% if host.edited_by_lower %} {{ host.edited_by_lower }},{% endif %}
+                    {% if host.publisher %}{{ host.publisher.name }},{% endif %}
+                    {{ pub.year }}{% if pub.pages %}, {{ pub.apa_pages }}{% endif %}.
+                    {% endwith %}
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
-                    "{{ pub.title }}."
+                    "{{ pub.title_sentence }}"
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.day %}
                         {{ pub.day }}
@@ -137,22 +148,25 @@
             <td><strong>Chicago:</strong></td>
             <td>
                 {{ pub.chicago_authors }}
-                {% if pub.pub_type == 'BKBY' or pub.pub_type == 'BKAB' %}
+                {% if pub.is_book %}
                     <i>{{ pub.title }}</i>.
                     {{ pub.edited_by }}
-                    {{ pub.publisher.address.city }}:
-                    {{ pub.publisher.name }},
+                    {% if pub.place_publisher %}{{ pub.place_publisher }},{% endif %}
                     {{ pub.year }}.
 
+                {% elif pub.is_chapter %}
+                    {% with host=pub.collection %}
+                    "{{ pub.title_sentence }}"
+                    In <i>{{ host.title }}</i>{% if host.edited_by_lower %}, {{ host.edited_by_lower }}{% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
+                    {% if host.place_publisher %}{{ host.place_publisher }},{% endif %}
+                    {{ host.year }}.
+                    {% endwith %}
                 {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
-                    "{{ pub.title }}."
-                    <i>{{ pub.journal.name }}</i>,
-                    {{ pub.volume }},
-                    {% if pub.issue %}
-                        no. {{ pub.issue }}
-                    {% endif %}
-                    ({{ pub.year }}):
-                    {{ pub.pages }}.
+                    "{{ pub.title_sentence }}"
+                    <i>{{ pub.journal.name }}</i>{% if pub.volume %},
+                    {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}{% endif %}
+                    ({% if pub.day %}{{ pub.month }} {{ pub.day }}, {% elif pub.month %}{{ pub.month }} {% endif %}{{ pub.year }}){% if pub.pages %}:
+                    {{ pub.pages }}{% endif %}.
                 {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
                     {% if pub.title %}"{{ pub.title }}."{% endif %}
                     {% if pub.pub_reviewed %}

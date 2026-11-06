@@ -70,7 +70,63 @@ class ShortWorkCitationTest(CitationTestCase):
         self.assertIn('"On Oakeshott." <i>Political Theory</i>', self.export(about))
 
 
+class ChapterCitationTest(CitationTestCase):
+    def setUp(self):
+        super().setUp()
+        self.book = self.pub("The Legacy", 2005, pub_type="BKAB",
+                             publisher=self.methuen)
+        self.book.editors.add(self.person("Corey", "Abel"),
+                              self.person("Timothy", "Fuller"))
+        self.chapter = self.pub("Spinoza and Oakeshott", 2005,
+                                pub_type="SWAB", authors=[self.critic],
+                                collection=self.book, pages="62-85")
+
+    def test_apa(self):
+        self.assertIn("Critic, J. (2005). Spinoza and Oakeshott. In C. Abel "
+                      "&amp; T. Fuller (Eds.), <i>The Legacy</i> (pp. 62-85). "
+                      "London, England: Methuen.", self.export(self.chapter))
+
+    def test_mla(self):
+        self.assertIn('"Spinoza and Oakeshott." <i>The Legacy</i>, edited by '
+                      'Corey Abel and Timothy Fuller, Methuen, 2005, '
+                      'pp. 62-85.', self.export(self.chapter))
+
+    def test_chicago(self):
+        self.assertIn('"Spinoza and Oakeshott." In <i>The Legacy</i>, edited '
+                      'by Corey Abel and Timothy Fuller, 62-85. London: '
+                      'Methuen, 2005.', self.export(self.chapter))
+
+    def test_single_page_and_question_mark(self):
+        self.chapter.title = "Why Read Oakeshott?"
+        self.chapter.pages = "562"
+        self.chapter.save()
+        text = self.export(self.chapter)
+        self.assertIn("Why Read Oakeshott? In", text)
+        self.assertIn("(p. 562)", text)
+
+    def test_detail_page_links_to_book(self):
+        text = self.page_text(f"/oakeshott/pub_detail/{self.chapter.id}/")
+        self.assertIn(f'href="/oakeshott/pub_detail/{self.book.id}/"', text)
+
+
+class JournalDateCitationTest(CitationTestCase):
+    def test_newspaper_day_and_no_issue(self):
+        pub = self.pub("Michael Oakeshott, RIP", 1991, pub_type="SWAB",
+                       journal=self.journal, volume="43", month="January",
+                       day="28", pages="19-20")
+        text = self.export(pub)
+        self.assertIn("(1991, January 28). Michael Oakeshott, RIP.", text)
+        self.assertIn("<i>Political Theory</i>, 43 (January 28, 1991): 19-20.",
+                      text)
+
+
 class MentioningCitationTest(CitationTestCase):
+    def test_book_without_journal_uses_book_format(self):
+        pub = self.pub("Cambridge Minds", 1994, pub_type="MENT",
+                       publisher=self.methuen)
+        self.assertIn("(1994). <i>Cambridge Minds</i>. London, England: "
+                      "Methuen.", self.export(pub))
+
     def test_generic_format_has_authors_and_no_type_specific_parts(self):
         pub = self.pub("A Survey", 2001, pub_type="MENT", authors=[self.critic],
                        journal=self.journal)

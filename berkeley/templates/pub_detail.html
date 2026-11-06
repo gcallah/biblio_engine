@@ -13,6 +13,24 @@
             {% endfor %}
             </td>
         </tr>
+        {% if pub.editors.exists %}
+        <tr>
+            <td>Editor(s):</td>
+            <td>
+            {% for editor in pub.editors.all %}
+                <a href="/oakeshott/person_detail/{{ editor.id }}/">{{ editor.natural_name }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+        {% if pub.collection %}
+        <tr>
+            <td>In:</td>
+            <td>
+                <a href="/oakeshott/pub_detail/{{ pub.collection.id }}/">{{ pub.collection.title }}</a>{% if pub.pages %}, {{ pub.apa_pages }}{% endif %}
+            </td>
+        </tr>
+        {% endif %}
         <tr>
             <td>Year:</td>
             <td> {{ pub.year }} </td>
