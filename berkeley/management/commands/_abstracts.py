@@ -1744,4 +1744,571 @@ ABSTRACTS = {
             "Wittgenstein, Charles Taylor, Foucault and Arendt, and drawing "
             "from him a conversational ethos for democratic politics."
         )),
+    ('The Critique of Rationalism and the Defense of Individuality: Oakeshott and Hayek', 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_cheung.pdf',
+        abstract=(
+            'This article compares Oakeshott and Hayek as critics of '
+            'rationalism and defenders of individual liberty. Granting the '
+            'affinities noted by other scholars, such as their shared '
+            'opposition to central planning and their attachment to the rule of'
+            ' law, it concentrates on where the two part company. Oakeshott, it'
+            ' argues, grounds his attack on the supremacy of technique in the '
+            'claim that technical and practical knowledge always work together,'
+            ' and his view of human activity as poetic lets him value personal '
+            "style and freedom for their own sake. Hayek's case against "
+            'constructivism, by contrast, is said to lean on abstract '
+            'principles in a way that remains rationalist in manner, and his '
+            'defense of individual liberty rests finally on epistemic and '
+            'evolutionary grounds, which makes it partly instrumental.'
+        )),
+    ('Oakeshott on Modernity and the Crisis of Political Legitimacy in Contemporary Western Liberal Democracy', 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_osullivan.pdf',
+        abstract=(
+            "This essay takes up the pessimism of Oakeshott's late essay 'The "
+            "Tower of Babel', in which he feared that Western democracies, "
+            'absorbed by acquisitive and policy-driven concerns, had lost '
+            'interest in the constitutional question he took to be the heart of'
+            ' political legitimacy. After setting out why Oakeshott thought '
+            'civil association, and with it individual freedom, was under '
+            'threat, the author contends that this gloom was overstated because'
+            " of weaknesses in Oakeshott's model of civil association, notably "
+            'his rejection of the constitution as political machinery. The '
+            'essay closes by tentatively proposing revisions to that model that'
+            ' would allow a less bleak view of legitimacy in present-day '
+            'liberal democracies.'
+        )),
+    ('Oakeshott and the Complex Ecology of the Moral Life', 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_williams.pdf',
+        abstract=(
+            "This article examines the texture of moral life in Oakeshott's "
+            'work, drawing on literature and biography for illustration. It '
+            'opens with his charge against rationalist morality, in which '
+            'ideals are first settled in the abstract and then applied as '
+            'rules, and explains why he thought this paralyzes action and '
+            'breeds obsession. It then looks at the part habit plays in his '
+            'account of conduct and argues that his position leaves room for '
+            'moral reasoning. A final section shows that stated principles and '
+            'ideals still have a role in his understanding of morality, so that'
+            ' his view is more complex than a simple preference for custom.'
+        )),
+    ("Homo Ludens and Civil Association: The Sublime Nature of Michael Oakeshott's Civil Condition", 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_cheeseman.pdf',
+        abstract=(
+            "This article asks how Oakeshott's distinction between civil and "
+            'enterprise association should be understood. It rejects the '
+            'reading in which enterprise association has a positive goal while '
+            'civil association is merely a set of limits on the state. '
+            "Following Montesquieu's idea of a regime's governing emotion, and "
+            "drawing on Oakeshott's 'Work and Play' and Huizinga's Homo Ludens,"
+            ' it treats the two as distinct moral systems rooted in play and '
+            'seriousness, embodied in Homo ludens and Homo laborans. Seen '
+            'through play, it argues, civil association reconciles the formal '
+            'later Oakeshott with the traditionalist earlier one and has a '
+            'sublime character. The author also contends that Oakeshott wrongly'
+            ' dismissed a modest, historically grounded natural law.'
+        )),
+    ('Oakeshott on the Rule of Law: A Defense', 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_turner.pdf',
+        abstract=(
+            "This article argues that Oakeshott's essay 'The Rule of Law', "
+            'largely ignored in legal theory, deserves serious attention. It '
+            'begins by tracing the difficulties in the concept of the rule of '
+            "law, from rule-of-law indices to Hayek's attempt to equate it with"
+            ' the removal of official discretion. Against this background, it '
+            "places Oakeshott's account of the modern legal order alongside the"
+            ' two-level models of Kelsen, Hart and Weber, noting his debt to '
+            'Georg Jellinek. What Oakeshott shares with Kelsen and Weber, the '
+            'author contends, is a view of law as a neutral object rather than '
+            'a tool of policy, a view Oakeshott takes over and develops.'
+        )),
+    ('The Method of Antinomies: Oakeshott and Others', 2018, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2018/10/turner_ct_vol6_iss1_2.pdf',
+        abstract=(
+            'This article studies a form of argument Oakeshott shared with '
+            'thinkers such as Weber, Schmitt, Morgenthau, Shils and Mouffe: the'
+            ' antinomy, in which two opposed poles are bound together rather '
+            "than simply contradictory. Its examples include Oakeshott's "
+            'pairings of civil and enterprise association, the politics of '
+            'faith and of scepticism, and neutral law versus policy. The author'
+            ' argues that in practice neither ideal can be fully realized '
+            'without concessions to the other, and that these tensions arise '
+            'from the contingent history of institutions rather than from '
+            'philosophy. Reading such thinkers as relativists is said to be a '
+            'mistake: they deny that any ideology can resolve the antinomies, '
+            'and this amounts to a critique of standard political philosophy.'
+        )),
+    ("What Can We Learn from Michael Oakeshott's Effort to Understand Our World?", 2020, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2020/11/fuller_ct_vol8_iss12.pdf',
+        abstract=(
+            'This essay asks what kind of activity Oakeshott took political '
+            'philosophy to be and what he thought it reveals about our own '
+            "time. It points to the influence of Montaigne's essay form, "
+            "Hegel's habit of explaining the world through oppositions seeking "
+            "reconciliation, and Hume's scepticism about philosophy's claim to "
+            'rule. On this reading, the philosopher of politics describes '
+            'rather than prescribes, seeking to understand why political '
+            "arguments take the shape they do. The essay follows Oakeshott's "
+            'view of politics as attending to the arrangements of a society, '
+            'growing out of existing traditions and the pursuit of intimations '
+            'rather than abstract principles, and as a conversation rather than'
+            ' an argument.'
+        )),
+    ("An Informal Introduction to Michael Oakeshott's Vision of a Free, Civilized and Affirmative Life", 2021, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2021/07/osullivan_ct_vol9_iss_7_8_r.pdf',
+        abstract=(
+            'This lecture-style essay offers an informal introduction to '
+            "Oakeshott's thought, starting with personal recollections of him "
+            'at the LSE, including his advice that university is an interlude '
+            'for inventing a self and for discovering an inherited Greek, Roman'
+            ' and Christian identity. Against the pessimism of much twentieth-'
+            "century literature and philosophy, it presents Oakeshott's outlook"
+            ' as fundamentally affirmative. The author identifies the '
+            'conditions for this outlook, beginning with a more modest view of '
+            "humanity's place in the world that rejects anthropocentrism and "
+            'utopian hopes of ending politics, and continuing with doubts about'
+            " reason's capacity to supply absolute knowledge of reality."
+        )),
+    ('Michael Oakeshott and Leo Strauss on the Individual, Christianity, and Creativity in Thought and Action', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/coats_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This essay, part of a symposium on David McIlwain's book on "
+            'Oakeshott and Leo Strauss, looks at the deep disagreements between'
+            ' the two thinkers that the book plays down. Its central theme is '
+            'the standing of the individual as a Western ideal and how far that'
+            ' ideal depends on Christian, especially late medieval, assumptions'
+            ' about creation and incarnation that altered the Greek account of '
+            "theory, practice and production. Starting from Strauss's "
+            'discussion of Burke in Natural Right and History, including his '
+            "remarks on Burke's aesthetics and on the limited role of reason in"
+            ' founding constitutions, the essay asks how these differences '
+            "shape each thinker's sense of what to conserve in the Western "
+            "inheritance, and how far this supports McIlwain's themes."
+        )),
+    ("Political Philosophy versus Poetic Individuality: A Response to David McIlwain's Michael Oakeshott and Leo Strauss: The Politics of Renaissance and Enlightenment", 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/schaefer_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This response to David McIlwain's Michael Oakeshott and Leo "
+            "Strauss praises the book's treatment of what the two thinkers "
+            'shared, including moderation, admiration for Churchill, liberal '
+            'education and opposition to totalitarianism and technology, but '
+            'argues that it understates their differences. The main difference '
+            'concerns interpretation: Strauss, the author holds, consistently '
+            "tried to recover a thinker's own meaning before developing his own"
+            ' reflections, whereas Oakeshott tended to recast classic texts to '
+            'fit his views. The author concludes that Strauss is therefore the '
+            'better guide to philosophic texts, and begins to show this through'
+            " Oakeshott's reading of Hobbes and his early review of Strauss's "
+            'book on Hobbes.'
+        )),
+    ('Living in the Past: Oakeshott and Strauss on Historical Knowing', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/sullivan_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This essay, part of a symposium on David McIlwain's book on "
+            "Oakeshott and Strauss, begins with the book's closing passage, "
+            "which places the two thinkers on a 'spiritual stage' and asks "
+            'whether philosophers or poets are the true legislators of Western '
+            'civilization. The author argues that such a claim is neither '
+            'historical nor philosophical: it appeals to authority and assumes '
+            'a ranking of thinkers it does not establish. The essay traces the '
+            "idea of an unfathomable ground of civilization to Strauss's "
+            'readings of Stoic natural law, Heidegger and Hermann Cohen, and '
+            "uses this to contrast Strauss's position with Oakeshott's "
+            'understanding of historical knowledge.'
+        )),
+    ('On Misunderstanding Michael Oakeshott', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/mcintyre_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This essay, a contribution to the symposium on David McIlwain's "
+            "book on Oakeshott and Strauss, rejects the book's portrait of "
+            'Oakeshott as an esoteric poetic and religious mystic rather than a'
+            ' philosopher in the British Idealist tradition. The author argues '
+            'that this reading ignores most of what Oakeshott published, and '
+            "that in Oakeshott's own terms poetry and religion belong to "
+            "distinct modes of experience, so that talk of a 'poetic "
+            "philosopher' makes no sense. The essay also answers McIlwain's "
+            "criticism of the author's earlier comparison of Strauss and "
+            'Oakeshott on historical explanation, restating the view that '
+            'Strauss offers no coherent account of how the history of political'
+            ' thought should be done.'
+        )),
+    ('Oakeshott-22', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/alexander_ct_vol10_iss7_8.pdf',
+        abstract=(
+            "This essay reflects on Oakeshott's achievement on the sixtieth "
+            'anniversary of Rationalism in Politics, suggesting that events '
+            'since 2020 have shown his importance. It compares him with '
+            'Foucault: both saw the growth of technology, statistics and state '
+            'power, but Oakeshott sought to defend a threatened English '
+            "tradition grounded in law. The author notes Oakeshott's view of "
+            'the state as inherently divided between the rule of law and rule '
+            'for common purposes, and his insistence on historical awareness. '
+            'Among his achievements, the essay lists demonstrating the form a '
+            'philosophy suited to the twentieth century might take, theorizing '
+            'practice and tradition through the very abstraction he opposed, '
+            'and his long engagement with rule, authority and the state.'
+        )),
+    ('Michael Oakeshott on Libertarianism, Conservatism, and the Freedom of the English', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2024/06/skjonsberg_ct_vol10_iss7_8_r2.pdf',
+        abstract=(
+            "This essay returns to Oakeshott's critique of rationalism in "
+            'politics and links it to the distinctive idea of freedom he '
+            'associated with England. Oakeshott, it shows, set English freedom '
+            'apart from German and French notions tied to purposive, '
+            'ideological politics, and saw it as resting on the rule of law, '
+            'procedural government and the dispersal of power. Connecting the '
+            'essays of Rationalism in Politics to his other writings, including'
+            ' On Human Conduct, the author relates this idea of freedom to '
+            "Oakeshott's view of the Whig, libertarian and conservative "
+            'traditions and to civil association. The essay concludes that his '
+            'critique of rationalism applies to the contemporary right as much '
+            'as to the left.'
+        )),
+    ('Michael Oakeshott: 21st Century Radical?', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/marriott_ct_vol10_iss7_8_rev.pdf',
+        abstract=(
+            'This essay asks whether Rationalism in Politics has anything to '
+            'offer young people eager to change the world. The author recalls '
+            "reading it at twenty-two and resenting Oakeshott's view that youth"
+            " is unsuited to politics, along with the book's refusal to give "
+            "answers. Looking at 'On Being Conservative', the essay finds its "
+            'portrait of a cautious disposition of little help to frustrated '
+            'young conservatives, let alone others. It argues instead that the '
+            "book's last essay, 'The Voice of Poetry in the Conversation of "
+            "Mankind', holds the most useful lesson: a defense of conversation "
+            'and of delight against self-absorbed, answer-driven talk of the '
+            'kind now found on social media.'
+        )),
+    ('Rationalism in Ideal Theory: Michael Oakeshott on John Rawls', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/rueda_ct_vol10_iss7_8.pdf',
+        abstract=(
+            "This article asks why Oakeshott praised John Rawls's early "
+            'statement of his theory of justice in a 1965 review yet dismissed '
+            "him in 'The Rule of Law' in 1983. Part of the answer, the author "
+            "suggests, is that Rawls's conception of political philosophy was "
+            "at odds with Oakeshott's, but the earlier praise shows enough "
+            'common ground for a brief convergence. Noting that recent '
+            'historical studies of Rawlsianism have largely left Oakeshott out,'
+            ' the article explores what that common ground was and how far it '
+            "went. Along the way it argues that Oakeshott's view of ideology "
+            'was more complicated than the literature usually allows, leaving '
+            'open whether the two thinkers could be reconciled.'
+        )),
+    ("Oakeshott's Superficial Daoism", 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/dockstader_ct_vol10_iss7_8.pdf',
+        abstract=(
+            "This article examines Oakeshott's little-noticed quotations from "
+            'the Zhuangzi, the ancient Daoist text, in Rationalism in Politics '
+            'and his introduction to Leviathan. Grouping the references around '
+            'rationalist moralizing, forgetting purpose for the sake of skilled'
+            ' action, and forgetting everything for the sake of joy and calm, '
+            'the author argues that Oakeshott used the stories to support his '
+            'own conclusions while missing their real point. The Zhuangzi, on '
+            'this reading, aims at a deeper absorption in, or detachment from, '
+            'reality that goes beyond rationalism, its opposite and practice '
+            'itself. A fuller use of Daoism, the article suggests, could have '
+            'given Oakeshott a more thoroughgoing, Pyrrhonian scepticism than '
+            'his politics of scepticism.'
+        )),
+    ("Sophists in Academic Dress: Oakeshott's “The Study of ‘Politics’ in a University”", 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/fear_ct_vol10_iss7_8.pdf',
+        abstract=(
+            'This article uses Oakeshott\'s 1962 essay \'The Study of "Politics" '
+            "in a University' to address a current dispute over whether "
+            'university teaching should aim only at truth-seeking and critical '
+            'thinking or also at activism for social justice. Starting from '
+            'contrasting experiences of lecturers who kept their politics '
+            'private and those who used teaching to advocate, it argues that '
+            'politics departments show most clearly how these two aims obstruct'
+            " each other. The author finds Oakeshott's essay still relevant and"
+            ' demanding, and ends by considering how politics teachers can '
+            'answer its challenge provided they resist the pull of modern '
+            'sophistry.'
+        )),
+    ('Michael Oakeshott Goes Fishing', 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/01/Callahan_CT_Vol13_Iss_1_2.pdf',
+        abstract=(
+            'This article asks why Oakeshott offered so many binaries, among '
+            'them rationalism and practical knowledge, the politics of faith '
+            'and of scepticism, civil and enterprise association, nomocracy and'
+            ' teleocracy, and societas and universitas. It rejects two common '
+            'readings: that he kept renaming the same opposition, as David '
+            'Spitz claimed, or that he dropped earlier distinctions for '
+            "improved ones. Drawing on Oakeshott's image in On Human Conduct of"
+            ' the theorist who drops anchor and fishes the local waters, the '
+            'author argues that each binary marks a different vantage point '
+            'from which Oakeshott divided the continuum of experience to see '
+            'what it would yield.'
+        )),
+    ('Oakeshott Turned Conservatism into a Creed of Liberty', 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/01/Soderbaum_CT_Vol13_Iss_1_2.pdf',
+        abstract=(
+            'This article contends that Oakeshott played a foundational part in'
+            ' shaping modern conservatism, plausibly a larger one than that of '
+            'Russell Kirk. It traces conservatism from Burke into a '
+            'continental, social-conservative line and an Anglophone, liberal-'
+            'conservative one, noting that Burke was only recognized as the '
+            "'father of conservatism' late in the nineteenth century and that "
+            'early twentieth-century accounts gave liberty little place. '
+            'Oakeshott, the author contends, was among the first to give '
+            'Burkean conservatism philosophical substance, using parts of '
+            'Hegel, and in Rationalism in Politics and On Human Conduct he made'
+            ' ordered liberty and the conditions of freedom central to the '
+            'conservative outlook.'
+        )),
+    ("Oakeshott's Early Conception of Authority", 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/01/AdairToteff_Oakeshott_CT_Vol13_Iss_1_2_r1.pdf',
+        abstract=(
+            'This article treats authority as a thread running through '
+            "Oakeshott's work, first in relation to God and later to law, and "
+            "explores his early view of it through his 1929 essay 'The "
+            "Authority of the State'. It first discusses his review of Philip "
+            "Belasco's Authority in Church and State, which criticized the book"
+            ' for mixing a history of the Quakers with an account of the '
+            "author's own position and for lacking theoretical depth. It then "
+            'sets out the argument of the 1929 essay, offers comments and '
+            'questions on it, and aims to draw more attention to a neglected '
+            'text dealing with the nature of authority and the purpose of the '
+            'state.'
+        )),
+    ("An Oakeshottian Analysis of Stephen Wolfe's Christian Nationalism: Civil Associations vs. The Complete Good", 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/01/Jacobs_CT_Vol13_Iss_1_2.pdf',
+        abstract=(
+            "This essay assesses Stephen Wolfe's The Case for Christian "
+            "Nationalism through Oakeshott's distinction between civil and "
+            'enterprise association, explicitly setting theological questions '
+            'aside. It places the book in the debates following the January '
+            "2021 Capitol riot, then summarizes Wolfe's argument: that "
+            'Christian nationalism means a nation acting as Christian to secure'
+            ' earthly and heavenly good, and that, following a scheme of '
+            'creation, fall and redemption, humans naturally form distinct '
+            'nations whose governments direct them toward a common good. The '
+            'essay goes on to weigh this vision of a nation organized around a '
+            "complete good against Oakeshott's account of civil association."
+        )),
+    ('Oakeshott and Newman on Liberal Education', 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/03/Corey_CT_Vol13_Iss_3_4.pdf',
+        abstract=(
+            'This essay compares the views of Oakeshott and John Henry Newman '
+            'on liberal education. Both saw it as valuable in itself and '
+            'useless in the ordinary sense: Newman as cultivation of the '
+            'intellect distinct from moral or religious goodness, Oakeshott as '
+            'an interval set apart from careers and practical concerns. The '
+            "essay matches Newman's 'circle of knowledge', made up of separate "
+            "sciences, with Oakeshott's modes of experience. It argues that "
+            "such education gradually forms a character, Newman's gentleman or "
+            "Oakeshott's integrity, which is a modest moral good, and that this"
+            ' character is necessary for self-government and civil association.'
+        )),
+    ("Liberal Learning and the Legacy of Colonialism: Revisiting Michael Oakeshott's Conversational Conception of Education", 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/03/Williams_CT_Vol13_Iss_3_4.pdf',
+        abstract=(
+            "This article considers whether Oakeshott's view of education as "
+            'initiation into a conversation can answer the charge that it '
+            'neglects colonialism. It first examines the place of conversation '
+            'in his educational writings, then his conception of liberal '
+            'learning in language and literature and the plausibility of the '
+            'colonialism charge. Acknowledging that Oakeshott drew mostly on '
+            'Western sources and wrote when colonialism was rarely discussed, '
+            'and building on readings by Aline Nardo and Maxine Greene, the '
+            'author argues that his idea of liberal learning can in principle '
+            'accommodate decolonizing concerns about which literatures and '
+            'marginalized languages the curriculum includes.'
+        )),
+    ("Jane Jacobs' Critique of Rationalism in Urban Planning", 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_callahan_ikeda.pdf',
+        abstract=(
+            'This article seeks to make the mid-century critiques of '
+            'rationalism by Oakeshott and Hayek concrete by applying them to '
+            'urban planning through the work of Jane Jacobs. It first explains '
+            "what both thinkers meant by rationalism, including Oakeshott's "
+            'account of the belief that a practice can be reduced to a '
+            'guidebook of explicit rules and principles. It then describes the '
+            'rationalist character of twentieth-century planning, citing '
+            'figures such as Ebenezer Howard, Le Corbusier, Frank Lloyd Wright '
+            'and Robert Moses. Finally, it shows how Jacobs documented the real'
+            ' harm that abstract planning schemes did to city residents.'
+        )),
+    ("The Instrumental Idiom in American Politics: The 'City on the Hill' as a Spontaneous Order", 2014, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2014/11/ct_1_3_abel.pdf',
+        abstract=(
+            "This article builds on Oakeshott's few remarks about American "
+            'politics, applying his ideas, with some comparisons to Hayek, to '
+            'selected documents and episodes in American history framed by the '
+            "image of the 'city on the hill'. The author argues that the United"
+            ' States originated as a civil association rather than a deliberate'
+            ' enterprise: the Founders, Federalists and Anti-Federalists alike,'
+            ' settled on a non-purposive idea of government resting on '
+            "recognition of each citizen's agency, preferring Lockean enjoyment"
+            ' of rights to a Puritan goal. The Progressives, by contrast, '
+            'deliberately set the country on a purposive course, opening a '
+            'cultural divide that is often mistaken for a mere disagreement '
+            'over policy.'
+        )),
+    ("Introduction [to a symposium on David McIlwain's Michael Oakeshott and Leo Strauss]", 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/adair_toteff_ct_vol10_iss_1_2_intro.pdf',
+        abstract=(
+            'This introduction opens a special issue of Cosmos + Taxis devoted '
+            "to David McIlwain's Michael Oakeshott and Leo Strauss: The "
+            'Politics of Renaissance and Enlightenment (2019). The editor '
+            'stresses the international range of the contributors and praises '
+            'McIlwain and the symposiasts for trying to understand both '
+            'thinkers on their own terms rather than faulting them for not '
+            'being modern enough. The introduction notes the many figures the '
+            'contributions engage, from Plato and Augustine to Hobbes, Kant, '
+            'Schmitt and Hayek, and closes with thanks to the authors, to '
+            "McIlwain and to the journal's editor rather than a summary of the "
+            'essays.'
+        )),
+    ('Paradoxes of the Modern Moral Imagination: Reflections on Contemplation and Action', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/fuller_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This essay, part of the symposium on David McIlwain's book on "
+            'Oakeshott and Strauss, examines the modern moral imagination, '
+            'meaning the shared ways people picture their social existence. It '
+            "begins with Hobbes's appeal in Leviathan to read mankind by "
+            'reading oneself, and lists the assumptions this involves, '
+            'especially the basic similarity of all human beings. The essay '
+            "follows how this picture, extended by Hume and Smith's emphasis on"
+            " sympathy and by Kant's hopes for perpetual peace and progress, "
+            'produced the modern aspirations to lasting peace and growing '
+            'prosperity, and begins to consider the tension between '
+            'contemplation and action that this project raises.'
+        )),
+    ('Two Paths from Neo-Kantianism, Two Political Consequences', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/turner_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This contribution to the symposium on David McIlwain's book on "
+            'Oakeshott and Strauss explores a contrast the book does not: the '
+            "two thinkers' different relations to neo-Kantianism. Both were "
+            'formed as that movement was breaking up, and both rejected it '
+            'while keeping some of its assumptions. The author argues that neo-'
+            'Kantianism, in its Marburg and Southwest forms, defeated itself by'
+            ' producing competing systems instead of uniquely necessary '
+            'presuppositions, and that Strauss, through Cohen and his teacher '
+            'Cassirer, retained the idea that thought depends on '
+            'presuppositions, which underlies his critique of social science. '
+            'The essay sets out to show how these different paths led to '
+            'different political consequences.'
+        )),
+    ('Middle Voices: F. A. Hayek', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/nelson_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            "This contribution to the symposium on David McIlwain's book on "
+            'Oakeshott and Strauss adds a third voice, F. A. Hayek, who appears'
+            ' in the book alongside Oakeshott, Strauss and Schmitt in Perry '
+            "Anderson's grouping of arch-conservatives. The author questions "
+            'the habit of discrediting such thinkers by association with '
+            'fashionable villains such as neoliberalism or neoconservatism. '
+            'Noting that Hayek shares with Oakeshott and Strauss a scepticism '
+            'about democracy and a certain conservatism while being more at '
+            'home in modernity, the essay examines aristocratic themes in all '
+            'three and the long tradition of doubts about democracy, from the '
+            'Federalist to Strauss.'
+        )),
+    ("Reply [to a symposium on David McIlwain's Michael Oakeshott and Leo Strauss]", 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/02/mcilwain_ct_vol10_iss_1_2.pdf',
+        abstract=(
+            'In this reply, David McIlwain responds to the contributors to the '
+            'symposium on his book Michael Oakeshott and Leo Strauss: The '
+            'Politics of Renaissance and Enlightenment. He accepts that the '
+            'book may have chased many themes but explains its loose framework '
+            'as a way to avoid stale dichotomies. He defends his closing '
+            "remarks on philosophy and poetry against Luke O'Sullivan, denying "
+            'that the framework was Straussian. He restates his view that '
+            'individuality is the underlying theme, with Strauss as a '
+            'philosopher and Oakeshott as a poetic-religious figure, and takes '
+            "up Timothy Fuller's account of the modern moral imagination as the"
+            ' background against which both thinkers should be read.'
+        )),
+    ('Reason and Unreason in Politics', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/letwin_ct_vol10_iss7_8.pdf',
+        abstract=(
+            "This essay, written sixty years after 'Rationalism in Politics' "
+            'appeared in book form, argues that the threat Oakeshott confronted'
+            ' has changed. The rationalist ideologies he attacked, along with '
+            'Popper and Berlin, have largely disappeared, and the greater '
+            'danger now is unreason: populism, contempt for facts and talk of '
+            "'post-truth'. The author argues that unreason harms liberal "
+            'democracy by destroying reasoned political conversation, by '
+            'undermining good government and by eroding trust in democratic '
+            'institutions. In response, the essay sets out to defend the '
+            'reality of facts, truth, causes and reasons, drawing on '
+            "Wittgenstein, whose thought it considers closer to Oakeshott's "
+            'than is usually recognized.'
+        )),
+    ('Apologia for Poetry and the Art of Conversation', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/07/boucher_ct_vol10_iss7_8_r.pdf',
+        abstract=(
+            "This essay traces the development of Oakeshott's views on poetry "
+            'and art. It begins with his admission in the preface to '
+            'Rationalism in Politics that he had been wrong in Experience and '
+            'Its Modes (1933) to place beauty within the practical mode. It '
+            'follows his notebook complaints in the 1930s that science '
+            'threatened poetry, and his enthusiastic response to R. G. '
+            "Collingwood's Principles of Art (1938). The essay then explains "
+            "Collingwood's theory of art as the expression of emotion, and the "
+            "account of mind behind it, as the background to Oakeshott's later "
+            'treatment of poetry and conversation.'
+        )),
+    ('Interview with Robert Grant', 2022, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2022/06/grant_alexander_ct_vol10_iss7_8_rev.pdf',
+        abstract=(
+            'In this interview, James Alexander questions Robert Grant, '
+            "Oakeshott's biographer, about Rationalism in Politics and its "
+            "effect on Oakeshott's reputation. Grant explains that the "
+            "collection was compiled at Maurice Cranston's suggestion, and that"
+            ' it gave Oakeshott his first visible political stance, though '
+            'Grant judges him a pragmatist on policy. He recalls the views of '
+            'Brian Barry, Garry Runciman, Quentin Skinner, Isaiah Berlin and '
+            'Roger Scruton, and offers explanations for the growth of interest '
+            "in Oakeshott since about 2000, including Rorty's championship. "
+            'Grant also gives his own assessment of On Human Conduct, which he '
+            'thinks was underrated at first and has been overrated since.'
+        )),
+    ('The Meaning of Plurality in Liberal Education', 2025, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2025/03/Radner_CT_Vol13_Iss_3_4.pdf',
+        abstract=(
+            'This essay argues that plurality, of subjects, methods, views and '
+            'participants, lies at the heart of liberal education. Drawing on '
+            'Aristotle and Oakeshott, it presents liberal learning as '
+            "initiation into a community's ongoing conversation about how to "
+            'order itself, linking education with politics broadly understood. '
+            'It uses Paul Ricoeur and Charles Taylor to show how conversation '
+            "produces new meanings, and Jürgen Habermas's communicative action "
+            'to consider the rules governing such discourse. The essay then '
+            'applies this framework to the debate over the Western Canon and '
+            'curriculum design, and closes with reflections on the value of '
+            'liberal education.'
+        )),
+    ('Oakeshott and the Cambridge School', 2020, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2020/04/review_alexander_ct_vol8_iss_2_3.pdf',
+        abstract=(
+            "This review discusses Martyn P. Thompson's Michael Oakeshott and "
+            'the Cambridge School on the History of Political Thought. The '
+            'reviewer predicts the book will not become famous, since it has '
+            'nothing to offer either the liberal Harvard tradition or the '
+            'Marxist one, but judges it the best, and almost the only, book on '
+            'its subject. He notes that Oakeshott was a Cambridge figure but '
+            'had little direct influence on Skinner and Dunn, and credits the '
+            'book with identifying an important turning point in academic '
+            "political thought. Much of the review offers the reviewer's own "
+            'recollections of studying in Cambridge in the 1990s and his '
+            'reflections on how the Cambridge School came to dominate.'
+        )),
+    ('', 2020, 'Cosmos + Taxis'): dict(
+        source='https://cosmosandtaxis.org/wp-content/uploads/2020/10/digeser_ct_vol8_iss10_11.pdf',
+        abstract=(
+            "This review discusses Luke Philip Plotica's Michael Oakeshott and "
+            'the Conversation of Modern Political Thought (2015), which the '
+            "reviewer calls a wonderful book. It begins with Oakeshott's idea "
+            'of conversation as distinct from argument, inquiry and debate. It '
+            'then describes how Plotica applies that idea to Oakeshott himself,'
+            ' placing him in dialogue with Wittgenstein, MacIntyre, Shils, '
+            'Taylor, Foucault, Berlin, Arendt, Mouffe and Cavell on language, '
+            "tradition, the state and democracy. The reviewer notes Plotica's "
+            "reasons for the approach: it follows Oakeshott's own priorities, "
+            'loosens rigid ideological labels, and connects him to twentieth-'
+            'century thinkers he rarely discussed, which sets the project apart'
+            " from Wendell John Coats's work."
+        )),
 }
