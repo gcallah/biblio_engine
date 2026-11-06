@@ -57,6 +57,12 @@ def export(request, pub_id):
             'export.html', 'pub')
 
 
+def export_citations(request, pub_id):
+    """The citation rows alone, loaded into the results-table popup."""
+    pub = get_object_or_404(Publication, pk=pub_id)
+    return render(request, 'export_citations.html', {'pub': pub})
+
+
 def pub_detail(request, pub_id):
     return detail_view(request, pub_id, Publication,
             'pub_detail.html', 'pub')
@@ -105,7 +111,11 @@ def publications(request):
     add_filter(request, kwargs, 'keyword1', 'keywords__id')
 
     pub_list = (Publication.objects.filter(**kwargs).distinct()
-                .order_by('year').prefetch_related('editorship_set__person'))
+                .order_by('year')
+                .select_related('journal', 'publisher', 'collection',
+                                'subject')
+                .prefetch_related('authorship_set__person',
+                                  'editorship_set__person'))
     for pub in pub_list:
         if pub.pub_type in REVIEW_TYPES:
             pub.review_of = pub.review_title()

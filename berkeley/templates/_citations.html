@@ -1,0 +1,168 @@
+{% comment %}APA, MLA and Chicago citation rows for pub; used by export.html
+and export_citations.html (the results-table popup).{% endcomment %}
+        <tr>
+            <td><strong>APA:</strong></td>
+            <td>
+                {{ pub.apa_authors }}
+                {% if pub.is_book %}
+                    ({{ pub.year }}).
+                    <i>{{ pub.title }}</i>{% if pub.apa_editors %} ({{ pub.apa_editors }}).{% else %}{{ pub.title_stop }}{% endif %}
+                    {% for translator in pub.translators.all %}
+                        {% if forloop.last %}
+                            {% if forloop.counter > 1 %}
+                                    &
+                                ({{ translator.fname }},
+                                {{ translator.lname }}, Trans.)
+                            {% elif pub.translator == 0 %}
+                                {{ "" }}
+                            {% else %}
+                                ({{ translator.fname }},
+                                {{ translator.lname }}, Trans.)
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ pub.apa_place_publisher }}.
+
+                {% elif pub.is_chapter %}
+                    {% with host=pub.collection %}
+                    ({{ pub.year }}).
+                    {{ pub.title_sentence }}
+                    In {% if host.apa_in_editors %}{{ host.apa_in_editors }}, {% endif %}<i>{{ host.title }}</i>{% if pub.apa_pages %} ({{ pub.apa_pages }}){% endif %}.
+                    {% if host.apa_place_publisher %}{{ host.apa_place_publisher }}.{% endif %}
+                    {{ pub.url }}
+                    {% endwith %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                    {% if pub.day and pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
+                    {% elif pub.month and pub.year %}
+                        ({{ pub.year }}, {{ pub.month }}).
+                    {% elif pub.year %}
+                        ({{ pub.year }}).
+                    {% endif %}
+                    {{ pub.title_sentence }}
+                    <i>{{ pub.journal.name }}{% if pub.volume %}, {{ pub.volume }}{% endif %}</i>{% if pub.issue %}({{ pub.issue }}){% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
+                    {{ pub.url }}
+                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                    ({{ pub.year }}).
+                    {% if pub.title %}{{ pub.title }}{% endif %}
+                    {% if pub.pub_reviewed %}
+                        [Review of the book <i>{{ pub.pub_reviewed.title }}</i>{% if pub.apa_reviewed_authors %}, by {{ pub.apa_reviewed_authors }}{% endif %}].
+                    {% elif pub.title %}.{% endif %}
+                    {% if pub.issue %}
+                        <i>{{ pub.journal.name }},
+                        {{ pub.volume }}</i>({{ pub.issue }}),
+                    {% else %}
+                        <i>{{ pub.journal.name }},
+                        {{ pub.volume }}</i>,
+                    {% endif %}
+                    {{ pub.pages }}.
+                    {{ pub.url }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><strong>MLA:</strong></td>
+            <td>
+                {{ pub.mla_authors }}
+                {% if pub.is_book %}
+                    <i>{{ pub.title }}</i>{{ pub.title_stop }}
+                    {{ pub.edited_by }}
+                    {% if pub.edition %}
+                        {{ pub.edition }}.
+                    {% endif %}
+                    {% for translator in pub.translators.all %}
+                        {% if forloop.last %}
+                            {% if forloop.counter > 1 %}
+                                and
+                            {% endif %}
+                            {{ translator.fname }},
+                            {{ translator.lname }}.
+                        {% elif pub.translator == 0 %}
+                            {{ "" }}
+                        {% else %}
+                            Trans.
+                            {{ translator.fname }},
+                            {{ translator.lname }}.
+                        {% endif %}
+                    {% endfor %}
+                    {% if pub.volume %}
+                        {{ pub.volume }}.
+                    {% endif %}
+                    {% if pub.place_publisher %}{{ pub.place_publisher }},{% endif %}
+                    {{ pub.year }}.
+
+                {% elif pub.is_chapter %}
+                    {% with host=pub.collection %}
+                    "{{ pub.title_sentence }}"
+                    <i>{{ host.title }}</i>,{% if host.edited_by_lower %} {{ host.edited_by_lower }},{% endif %}
+                    {% if host.publisher %}{{ host.publisher.name }},{% endif %}
+                    {{ pub.year }}{% if pub.pages %}, {{ pub.apa_pages }}{% endif %}.
+                    {% endwith %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                    "{{ pub.title_sentence }}"
+                    <i>{{ pub.journal.name }}</i>
+                    {% if pub.day %}
+                        {{ pub.day }}
+                    {% endif %}
+                    {{ pub.month }}
+                    {{ pub.year }}{% if pub.pages %}: {{ pub.pages }}{% endif %}.
+                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                    {% if pub.title %}"{{ pub.title }}."{% endif %}
+                    {% if pub.pub_reviewed %}
+                        Review of <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}.
+                    {% endif %}
+                    <i>{{ pub.journal.name }}</i>
+                    {% if pub.day %}
+                        {{ pub.day }}
+                    {% endif %}
+                    {{ pub.month }}
+                    {{ pub.year }}:
+                    {% if pub.pages %}
+                        {{ pub.pages }}.
+                    {% endif %}
+                {% endif %}
+                {% if pub.medium %}
+                    {{ pub.medium }}.
+                {% endif %}
+                {% if pub.dateOfAccess %}
+                    {{ pub.dateOfAccess }}.
+                {% endif %}
+
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Chicago:</strong></td>
+            <td>
+                {{ pub.chicago_authors }}
+                {% if pub.is_book %}
+                    <i>{{ pub.title }}</i>{{ pub.title_stop }}
+                    {{ pub.edited_by }}
+                    {% if pub.place_publisher %}{{ pub.place_publisher }},{% endif %}
+                    {{ pub.year }}.
+
+                {% elif pub.is_chapter %}
+                    {% with host=pub.collection %}
+                    "{{ pub.title_sentence }}"
+                    In <i>{{ host.title }}</i>{% if host.edited_by_lower %}, {{ host.edited_by_lower }}{% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
+                    {% if host.place_publisher %}{{ host.place_publisher }},{% endif %}
+                    {{ host.year }}.
+                    {% endwith %}
+                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                    "{{ pub.title_sentence }}"
+                    <i>{{ pub.journal.name }}</i>{% if pub.volume %},
+                    {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}{% endif %}
+                    ({% if pub.day %}{{ pub.month }} {{ pub.day }}, {% elif pub.month %}{{ pub.month }} {% endif %}{{ pub.year }}){% if pub.pages %}:
+                    {{ pub.pages }}{% endif %}.
+                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                    {% if pub.title %}"{{ pub.title }}."{% endif %}
+                    {% if pub.pub_reviewed %}
+                        Review of <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}.
+                    {% endif %}
+                    <i>{{ pub.journal.name }}</i>
+                    {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}
+                    ({{ pub.year }}):
+                    {{ pub.pages }}.
+                {% endif %}
+
+            </td>
+        </tr>

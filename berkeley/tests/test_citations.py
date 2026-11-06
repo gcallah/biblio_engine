@@ -77,6 +77,29 @@ class ShortWorkCitationTest(CitationTestCase):
         self.assertIn('"On Oakeshott." <i>Political Theory</i>', self.export(about))
 
 
+class CitationSnippetTest(CitationTestCase):
+    """/export/<id>/citations/ - the rows the results-table popup loads."""
+
+    def test_snippet_has_citations_but_no_page_layout(self):
+        book = self.pub("Rationalism in Politics", 1962, pub_type="BKBY",
+                        authors=[self.mo], publisher=self.methuen)
+        resp = self.client.get(f"/oakeshott/export/{book.id}/citations/")
+        self.assertEqual(resp.status_code, 200)
+        html = resp.content.decode()
+        self.assertIn('<table class="cite-table">', html)
+        for style in ("APA:", "MLA:", "Chicago:"):
+            self.assertIn(style, html)
+        self.assertIn("Oakeshott, M. (1962).", " ".join(html.split()))
+        self.assertNotIn("<html", html)
+        self.assertNotIn("{#", html)
+        self.assertNotIn("comment", html)
+
+    def test_missing_publication_is_404(self):
+        self.assertEqual(
+            self.client.get("/oakeshott/export/9999/citations/").status_code,
+            404)
+
+
 class ChapterCitationTest(CitationTestCase):
     def setUp(self):
         super().setUp()

@@ -231,6 +231,32 @@ class ResultsPageTest(BiblioTestCase):
         self.assertNotIn("abstract-pop",
                          title_cell[:title_cell.index("</td>")])
 
+    def test_export_popup_on_every_row(self):
+        a = self.pub("One", 1960)
+        b = self.pub("Two", 1961)
+        html = self.search().content.decode()
+        self.assertEqual(html.count('<td class="has-export">'), 2)
+        for pub in (a, b):
+            self.assertIn(f'data-src="/oakeshott/export/{pub.id}/citations/"',
+                          html)
+
+    def test_query_count_does_not_grow_with_rows(self):
+        mo = self.person("Michael", "Oakeshott")
+
+        def queries_for(n):
+            for i in range(n):
+                pub = self.pub(f"Work {i}", 1950 + i, authors=[mo])
+                pub.editors.add(self.person(f"Ed{i}", "Editor"))
+            from django.db import connection
+            from django.test.utils import CaptureQueriesContext
+            with CaptureQueriesContext(connection) as ctx:
+                self.search()
+            return len(ctx.captured_queries)
+
+        few = queries_for(2)
+        many = queries_for(10)
+        self.assertEqual(few, many)
+
     def test_full_text_link_only_when_there_is_a_url(self):
         self.pub("Work and Play", 1995, url="https://example.org/work")
         self.pub("Offline", 1996)

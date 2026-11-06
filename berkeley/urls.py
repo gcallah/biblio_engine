@@ -11,6 +11,8 @@ urlpatterns = [
     re_path(r'^feedback/*$', views.feedback, name='feedback'),
     re_path(r'^publications/*$', views.publications, name='publications'),
     re_path(r'^export/(?P<pub_id>[0-9]+)/$', views.export, name='export'),
+    re_path(r'^export/(?P<pub_id>[0-9]+)/citations/$',
+            views.export_citations, name='export_citations'),
     re_path(r'^pub_detail/(?P<pub_id>[0-9]+)/$',
             views.pub_detail, name='pub_detail'),
     re_path(r'^edit_pub/(?P<pub_id>[0-9]+)/$',

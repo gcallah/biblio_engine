@@ -463,6 +463,31 @@ a.button-link:hover, a.button-link:focus {
 }
 
 table.results td.has-abstract:hover .abstract-pop,
-table.results td.has-abstract:focus-within .abstract-pop {
+table.results td.has-abstract:focus-within .abstract-pop,
+table.results td.has-export:hover .abstract-pop,
+table.results td.has-export:focus-within .abstract-pop {
     display: block;
+}
+
+/* the Export popup: APA, MLA and Chicago citations, fetched on hover */
+.cite-pop {
+    width: 36rem;
+}
+
+.cite-pop .cite-table {
+    width: 100%;
+    margin: 0;
+}
+
+.cite-pop .cite-table td {
+    padding: 0.3rem 0.4rem;
+    border: none;
+    vertical-align: top;
+    font-style: normal;
+    color: var(--ink);
+}
+
+.cite-pop .cite-table td:first-child {
+    width: 1%;
+    white-space: nowrap;
 }

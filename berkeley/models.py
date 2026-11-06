@@ -230,9 +230,13 @@ class Publication(UrlModel):
         return ''
 
     def ordered_authors(self):
-        """Authors in title-page order (Authorship.position)."""
-        return [a.person for a in
-                self.authorship_set.select_related('person')]
+        """Authors in title-page order (Authorship.position). Honours a
+        prefetch of 'authorship_set__person'."""
+        links = self.authorship_set.all()
+        if 'authorship_set' not in getattr(self, '_prefetched_objects_cache',
+                                           {}):
+            links = links.select_related('person')
+        return [a.person for a in links]
 
     def ordered_editors(self):
         """Editors in title-page order (Editorship.position). Uses
