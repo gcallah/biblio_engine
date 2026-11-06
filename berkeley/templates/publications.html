@@ -23,26 +23,21 @@
             <th>Journal /<br>Publisher</th>
             <th>Subject</th>
             <th>Author(s)</th>
+            <th>Abstract</th>
             <th>Export</th>
         </tr>
         {% for pub in pub_list %}
             <tr>
-                <td{% if pub.abstract %} class="has-abstract"{% endif %}>
+                <td>
                     <a href="/oakeshott/pub_detail/{{ pub.id }}/">
                         {% if pub.title %}
-                            <span class="clamp3"{% if not pub.abstract %} title="{{ pub.title }}"{% endif %}>{{ pub.title }}</span>
+                            <span class="clamp3" title="{{ pub.title }}">{{ pub.title }}</span>
                         {% elif pub.review_of %}
                             <span class="clamp3" title="{{ pub.review_of }}">{{ pub.review_of }}</span>
                         {% endif %}
                     </a>
                     {% if pub.url %}
                     <a class="fulltext" href="{{ pub.url }}">full text</a>
-                    {% endif %}
-                    {% if pub.abstract %}
-                    <div class="abstract-pop" role="tooltip">
-                        <strong>{{ pub }}</strong>
-                        {{ pub.abstract }}
-                    </div>
                     {% endif %}
                 </td>
 
@@ -67,6 +62,17 @@
                 {% for author in pub.ordered_authors %}
                     <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.lname }}</a>{% if not forloop.last %},{% endif %}{% endfor %}{% with editors=pub.ordered_editors %}{% if editors %}<span class="editors">{% if pub.ordered_authors %}; {% endif %}{% for editor in editors %}<a href="/oakeshott/person_detail/{{ editor.id }}/">{{ editor.lname }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} ({% if editors|length > 1 %}eds.{% else %}ed.{% endif %})</span>{% endif %}{% endwith %}
                 </td>
+                {% if pub.abstract %}
+                <td class="has-abstract">
+                    <a href="/oakeshott/pub_detail/{{ pub.id }}/">Abstract</a>
+                    <div class="abstract-pop" role="tooltip">
+                        <strong>{{ pub }}</strong>
+                        {{ pub.abstract }}
+                    </div>
+                </td>
+                {% else %}
+                <td></td>
+                {% endif %}
                 <td>
                     <a href="/oakeshott/export/{{ pub.id }}/">
                     Export
@@ -76,7 +82,7 @@
         {% endfor %}
     </table>
     <script>
-    // Place each abstract popup just below its title, or above it when
+    // Place each abstract popup just below its link, or above it when
     // there is no room below.
     document.querySelectorAll('td.has-abstract').forEach(function (cell) {
         var pop = cell.querySelector('.abstract-pop');

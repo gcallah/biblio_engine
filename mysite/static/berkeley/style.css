@@ -431,7 +431,8 @@ a.button-link:hover, a.button-link:focus {
     input[type=text], select, textarea { min-width: 0; width: 100%; }
 }
 
-/* ABSTRACT POPUP: hovering a title in the results table shows its abstract */
+/* ABSTRACT POPUP: hovering the "Abstract" link in the results table's
+   Abstract column shows the abstract */
 
 /* position: fixed lets the popup escape .module's overflow clipping;
    publications.html sets top/left from the hovered cell. */

@@ -213,6 +213,24 @@ class ResultsPageTest(BiblioTestCase):
         self.assertIn("Oakeshott; Fuller (ed.)", text)
         self.assertIn("Franco, Marsh (eds.)", text)
 
+    def test_abstract_column_links_and_pops_up_only_with_an_abstract(self):
+        with_abs = self.pub("Rationalism", 1962, abstract="Essays on politics.")
+        self.pub("No Abstract", 1963)
+        html = re.sub(r"\s+", " ", self.search().content.decode())
+        self.assertIn("<th>Abstract</th>", html)
+        self.assertEqual(html.count('<td class="has-abstract">'), 1)
+        self.assertIn(f'<td class="has-abstract"> <a href="/oakeshott/'
+                      f'pub_detail/{with_abs.id}/">Abstract</a>', html)
+        self.assertIn("Essays on politics.", html)
+        # the record without an abstract gets an empty cell
+        row = html[html.index("No Abstract"):]
+        row = row[:row.index("</tr>")]
+        self.assertIn("<td></td>", row)
+        # the title cell no longer carries the popup
+        title_cell = html[html.index("<td> <a href"):]
+        self.assertNotIn("abstract-pop",
+                         title_cell[:title_cell.index("</td>")])
+
     def test_full_text_link_only_when_there_is_a_url(self):
         self.pub("Work and Play", 1995, url="https://example.org/work")
         self.pub("Offline", 1996)
