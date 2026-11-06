@@ -272,7 +272,8 @@ CHAPTERS = [
 ]
 
 ARTICLES = [
-    dict(authors=[('J.', 'M.', 'C.')],
+    # signed only with initials; MOA files it as "C., J.M."
+    dict(authors=[('', '', 'J.M.C.')],
          title='Professor Michael Oakeshott: A Personal Impression',
          journal='Clare Market Review',
          volume='46',
