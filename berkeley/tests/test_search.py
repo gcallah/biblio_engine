@@ -191,6 +191,14 @@ class ResultsPageTest(BiblioTestCase):
         self.assertContains(resp, f'href="/oakeshott/export/{pub.id}/"')
         self.assertContains(resp, f'href="/oakeshott/person_detail/{author.id}/"')
 
+    def test_long_journal_names_shown_whole_and_clamped(self):
+        from berkeley.models import Journal
+        name = "Conference for the Study of Political Thought Newsletter"
+        self.pub("A Note", 1991, journal=Journal.objects.create(name=name))
+        resp = self.search()
+        self.assertContains(
+            resp, f'<span class="clamp3" title="{name}">{name}</span>')
+
     def test_long_titles_shown_whole_and_clamped_to_three_lines(self):
         """The full title is sent; CSS (.clamp3) limits it to three
         lines, and the title attribute shows it all on hover."""
