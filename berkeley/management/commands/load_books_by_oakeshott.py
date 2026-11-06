@@ -10,10 +10,9 @@ new or existing, so re-running picks up edits to them.
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from berkeley.models import (
-    Address, Authorship, Person, Publication, Publisher, Subject, UNKNOWN_ID,
-)
+from berkeley.models import Authorship, Publication, Subject, UNKNOWN_ID
 
+from ._loaders import get_person, get_publisher
 from .book_info import BOOK_INFO
 
 # (first, middle, last)
@@ -89,24 +88,6 @@ BOOKS = [
 ]
 
 
-def get_person(name):
-    fname, mname, lname = name
-    person, _ = Person.objects.get_or_create(
-        fname=fname, lname=lname, defaults={"mname": mname})
-    return person
-
-
-def get_publisher(name, city=None):
-    default_city, province = PUBLISHERS[name]
-    city = city or default_city
-    publisher = Publisher.objects.filter(name=name,
-                                         address__city=city).first()
-    if publisher is None:
-        address = Address.objects.create(city=city, province=province)
-        publisher = Publisher.objects.create(name=name, address=address)
-    return publisher
-
-
 class Command(BaseCommand):
     help = "Load the Books by Oakeshott entries (idempotent)."
 
@@ -119,6 +100,7 @@ class Command(BaseCommand):
             pub, is_new = Publication.objects.get_or_create(
                 title=book["title"], year=book["year"], pub_type="BKBY",
                 defaults={"publisher": get_publisher(book["publisher"],
+                                                     PUBLISHERS,
                                                      book.get("city"))})
             info = BOOK_INFO.get(book["title"])
             if info:
