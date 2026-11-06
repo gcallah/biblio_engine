@@ -744,7 +744,7 @@ ABSTRACTS = {
             ' resembles the understanding of freedom common in modern liberal '
             'societies.'
         )),
-    ('Oakeshott, Berlin, and Liberalism', 2003, 'Political Theory'): dict(
+    ('The Shapes of Liberal Thought: Oakeshott, Berlin, and Liberalism', 2003, 'Political Theory'): dict(
         source='https://doi.org/10.1177/0090591703254385',
         abstract=(
             'This article compares Michael Oakeshott and Isaiah Berlin, '
@@ -885,7 +885,7 @@ ABSTRACTS = {
             'politics and considers both what it has to recommend it and where '
             'its limits lie.'
         )),
-    ('Constructionism and Relativism in Oakeshott', 2005, 'in: The Intellectual Legacy of Michael Oakeshott'): dict(
+    ('Constructivism and Relativism in Oakeshott', 2005, 'in: The Intellectual Legacy of Michael Oakeshott'): dict(
         source='https://philarchive.org/rec/MARCAR-3',
         abstract=(
             "This chapter argues that Oakeshott's relativist constructivism "
@@ -1284,7 +1284,7 @@ ABSTRACTS = {
             ' may address one another but stand in no hierarchy, and neither '
             'can absorb the other without falling into contradiction.'
         )),
-    ('Oakeshottean Modes at the Crossroads of the Evolution Debates', 2009, 'Zygon: Journal of Religion & Science'): dict(
+    ('Oakeshottian Modes at the Crossroads of the Evolution Debates', 2009, 'Zygon: Journal of Religion & Science'): dict(
         source='https://doi.org/10.1111/j.1467-9744.2009.00994.x',
         abstract=(
             "This essay brings Oakeshott's theory of modes of experience to "
