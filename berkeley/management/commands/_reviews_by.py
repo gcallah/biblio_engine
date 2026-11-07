@@ -5,7 +5,11 @@ Association bibliography, michaeloakeshottassociation.org/bibliography/,
 parsed on 2026-11-06. Every "Review of ..." item there is here, plus
 three reviews MOA lists under their own titles ('J.D. Mabbott: The
 State and the Citizen', 'Stalin's Four Weak Points', 'Mr. Carr's First
-Volume'). Two review-essays are left out because they are already Short
+Volume'). MOA gives the Carr review the same pages as the T. Wilson
+review (Cambridge Journal 4, pp. 504-6); the scanned journal on the
+Internet Archive shows Carr is an article in the March 1951 issue
+(vol. 4, no. 6), pp. 344-352, and Wilson is at pp. 504-506 (May 1951).
+Two review-essays are left out because they are already Short
 Works by Oakeshott ('Dr. Leo Strauss on Hobbes') or review several
 books under one title ('The New Bentham').
 
@@ -489,7 +493,7 @@ REVIEWS = [
     dict(year=1951, title='Mr. Carr’s First Volume', names='E.H. Carr',
          reviewees=[('E.', 'H.', 'Carr')],
          book='The Bolshevik Revolution, 1917–1923, vol. 1',
-         journal='Cambridge Journal', volume='4', pages='504-506',
+         journal='Cambridge Journal', volume='4', issue='6', month='March', pages='344-352',
          subject=POL),
     dict(year=1952, names='E.M. Forster',
          reviewees=[('E.', 'M.', 'Forster')],
