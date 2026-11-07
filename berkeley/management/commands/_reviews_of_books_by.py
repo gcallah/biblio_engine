@@ -26,7 +26,7 @@ Left out:
 Corrections to MOA: journal typos 'Specator' and 'Journal of the History
 of Philsophy'; 'Annals of the American Academy of Social and Political
 Science' is the 'Annals of the American Academy of Political and Social
-Science'. G. Graham's Philosophical Quarterly 26 is 1976 (MOA: 1967, nine
+Science'; J.G. Kerwin's 'Commonwealth' 30 (1939) is Commonweal. G. Graham's Philosophical Quarterly 26 is 1976 (MOA: 1967, nine
 years before the book). D. McCabe's Commonweal is vol. 121, no. 8 (MOA
 gives '21' and '21(8)'). Collingwood's review is untitled; MOA's title
 for it, 'Oakeshott and the Modes of Experience', is that of its reprint
@@ -84,7 +84,7 @@ REVIEWS = [
     dict(book=SPD, authors=[('W.', 'G.', 'de Burgh')], journal='Mind', volume='49', year=1940, pages='100-2'),
     dict(book=SPD, authors=[('S.', 'J.', 'G.')], journal='Dublin Review', volume='205', year=1939, pages='195-7'),
     dict(book=SPD, authors=[('J.', 'L.', 'Hammond')], journal='Manchester Guardian', day='25', month='April', year=1939, pages='7'),
-    dict(book=SPD, authors=[('J.', 'G.', 'Kerwin')], journal='Commonwealth', volume='30', year=1939, pages='191'),
+    dict(book=SPD, authors=[('J.', 'G.', 'Kerwin')], journal='Commonweal', volume='30', year=1939, pages='191'),
     dict(book=SPD, authors=[('J.', 'G.', 'Kerwin')], journal='Journal of Political Economy', volume='51', year=1943, pages='278-9'),
     dict(book=SPD, authors=[('H.', '', 'Kohn')], journal='Nation', volume='149', year=1939, pages='299-300'),
     dict(book=SPD, authors=[('H.', 'D.', 'Lasswell')], journal='Annals of the American Academy of Political and Social Science', volume='229', month='September', year=1943, pages='193'),
