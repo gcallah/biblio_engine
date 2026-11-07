@@ -243,3 +243,73 @@ class LoadReviewsByOakeshottTest(TestCase):
         Publication.objects.all().delete()
         with self.assertRaises(CommandError):
             self.load()
+
+
+class LoadReviewsOfBooksByOakeshottTest(TestCase):
+    def load(self):
+        out = StringIO()
+        call_command("load_reviews_of_books_by_oakeshott", stdout=out)
+        return out.getvalue()
+
+    def setUp(self):
+        call_command("load_books_by_oakeshott", stdout=StringIO())
+
+    def test_loads_every_review_once(self):
+        from berkeley.management.commands import _reviews_of_books_by as data
+        total = len(data.REVIEWS)
+        self.assertGreater(total, 200)
+        self.assertIn(f"Added {total} reviews", self.load())
+        out = self.load()
+        self.assertIn("Added 0 reviews", out)
+        self.assertIn("updated 0", out)
+        reviews = Publication.objects.filter(pub_type="RVOB")
+        self.assertEqual(reviews.count(), total)
+        for pub in reviews:
+            self.assertEqual(pub.pub_reviewed.pub_type, "BKBY", pub.id)
+            self.assertEqual(pub.subject_id, pub.pub_reviewed.subject_id)
+            self.assertEqual([p.lname for p in pub.reviewees.all()],
+                             ["Oakeshott"])
+
+    def test_every_book_reviewed_is_a_book_by(self):
+        from berkeley.management.commands import _reviews_of_books_by as data
+        titles = set(Publication.objects.filter(pub_type="BKBY")
+                     .values_list("title", flat=True))
+        for item in data.REVIEWS:
+            self.assertIn(item["book"], titles)
+            for other in item.get("also", []):
+                self.assertIn(other, titles)
+
+    def test_ditto_and_anonymous_reviewers(self):
+        self.load()
+        ohc = Publication.objects.get(title="On Human Conduct",
+                                      pub_type="BKBY")
+        by_fuller = ohc.pub_rev.filter(authors__lname="Fuller")
+        self.assertEqual(sorted(p.journal.name for p in by_fuller),
+                         ["Journal of Politics", "Leviathan"])
+        economist = ohc.pub_rev.get(journal__name="Economist")
+        self.assertFalse(economist.authors.exists())
+
+    def test_cross_listed_review_stored_once(self):
+        self.load()
+        self.assertEqual(Publication.objects.filter(
+            pub_type="RVOB", authors__lname="Devigne").count(), 1)
+
+    def test_reuses_people_by_last_name_and_initial(self):
+        from berkeley.models import Person
+        Person.objects.create(fname="Robert", lname="Grant")
+        Person.objects.create(fname="J.", mname="S.", lname="Mackenzie")
+        self.load()
+        self.assertEqual(Person.objects.filter(lname="Grant").count(), 1)
+        self.assertEqual(Person.objects.filter(lname="Mackenzie").count(), 2)
+
+    def test_reviewed_author_search_finds_them(self):
+        self.load()
+        resp = self.client.get("/oakeshott/publications/",
+                               {"reviewed": "oakeshott", "pub_type": "RVOB"})
+        self.assertContains(resp, "Political Theory")
+
+    def test_needs_books_by_first(self):
+        from django.core.management.base import CommandError
+        Publication.objects.filter(pub_type="BKBY").delete()
+        with self.assertRaises(CommandError):
+            self.load()

@@ -7,6 +7,7 @@ cd "$(dirname "$0")/.."
 for cmd in load_books_by_oakeshott load_books_about_oakeshott \
            load_short_works_about_oakeshott \
            load_short_works_by_oakeshott load_reviews_by_oakeshott \
+           load_reviews_of_books_by_oakeshott \
            load_abstracts \
            load_author_info; do
     if [ -f "berkeley/management/commands/$cmd.py" ]; then
