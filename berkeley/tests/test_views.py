@@ -127,6 +127,11 @@ class OldUrlRedirectTest(BiblioTestCase):
         self.assertEqual(resp.status_code, 301)
         self.assertEqual(resp["Location"], "/oakeshott/publications/?lname=oake")
 
+    def test_site_root_redirects_to_bibliography(self):
+        resp = self.client.get("/")
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp["Location"], "/oakeshott/")
+
 
 class SearchFormTest(BiblioTestCase):
     def test_form_fields_in_order(self):

@@ -8,6 +8,9 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 
 urlpatterns = [
+    # bare site root: send visitors to the bibliography's search page
+    re_path(r'^$', RedirectView.as_view(pattern_name='berkeley:search',
+                                        permanent=False)),
     re_path(r'^oakeshott/', include('berkeley.urls')),
     # old URLs: send /berkeley/... to /oakeshott/...
     re_path(r'^berkeley/(?P<rest>.*)$',
