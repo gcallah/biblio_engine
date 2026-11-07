@@ -224,6 +224,12 @@ class Publication(UrlModel):
         Person, default="", related_name="reviewees",
         blank=True
     )
+    # Books that reprint this work, e.g. a review reprinted in The
+    # Concept of a Philosophical Jurisprudence. book.reprints lists them.
+    reprinted_in = models.ManyToManyField(
+        'berkeley.Publication', symmetrical=False, related_name="reprints",
+        blank=True
+    )
     keywords = models.ManyToManyField(
         Keyword, default="", related_name="keywords",
         blank=True
@@ -415,6 +421,10 @@ class Publication(UrlModel):
         if len(names) <= 1:
             return ''.join(names)
         return ', '.join(names[:-1]) + ' and ' + names[-1]
+
+    def ordered_reprints(self):
+        """Works this book reprints, oldest first."""
+        return self.reprints.order_by('year', 'id')
 
     def reviewed_title(self):
         """Title of the reviewed book, whether or not it is in the

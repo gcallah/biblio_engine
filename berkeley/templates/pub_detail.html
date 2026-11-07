@@ -31,6 +31,26 @@
             </td>
         </tr>
         {% endif %}
+        {% with books=pub.reprinted_in.all %}{% if books %}
+        <tr>
+            <td>Reprinted in:</td>
+            <td>
+            {% for book in books %}
+                <a href="/oakeshott/pub_detail/{{ book.id }}/"><i>{{ book.title }}</i></a> ({{ book.year }}){% if not forloop.last %};{% endif %}
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}{% endwith %}
+        {% with reprints=pub.ordered_reprints %}{% if reprints %}
+        <tr>
+            <td>Reprints ({{ reprints|length }}):</td>
+            <td>
+            {% for item in reprints %}
+                <a href="/oakeshott/pub_detail/{{ item.id }}/">{{ item }}</a> ({{ item.year }}){% if not forloop.last %};<br>{% endif %}
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}{% endwith %}
         {% if pub.collection %}
         <tr>
             <td>In:</td>

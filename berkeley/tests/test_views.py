@@ -42,6 +42,14 @@ class PagesRenderTest(BiblioTestCase):
         text = self.page_text(f"/oakeshott/pub_detail/{review.id}/")
         self.assertIn("Publication: Review of M. Cranston, Freedom", text)
         self.assertIn("<i>Freedom</i>, by M. Cranston", text)
+        self.assertNotIn("Reprinted in:", text)
+        review.reprinted_in.add(self.book)
+        text = self.page_text(f"/oakeshott/pub_detail/{review.id}/")
+        self.assertIn("Reprinted in:", text)
+        self.assertIn(f'href="/oakeshott/pub_detail/{self.book.id}/"', text)
+        text = self.page_text(url)
+        self.assertIn("Reprints (1):", text)
+        self.assertIn("Review of M. Cranston, Freedom", text)
 
     def test_edit_pub(self):
         text = self.page_text(f"/oakeshott/edit_pub/{self.book.id}/")

@@ -5,8 +5,12 @@ stored as a Publication: its title goes in Publication.review, its
 authors as written in Publication.reviewed_names, and its authors as
 people in Publication.reviewees (searchable as "Reviewed author").
 
+"reprinted" links a review to the books that reprint it
+(Publication.reprinted_in): Books by Oakeshott, which must be loaded
+first, or a book stored as "Works Mentioning Oakeshott".
+
 Safe to re-run: a review is matched on journal, year, reviewed title
-and pages. Subjects and reviewees are applied on every run.
+and pages. Subjects, reviewees and reprints are applied on every run.
 
     python manage.py load_reviews_by_oakeshott
 """
@@ -16,7 +20,7 @@ from django.db import transaction
 from berkeley.models import Journal, Person, Publication, Subject, UNKNOWN_ID
 
 from . import _reviews_by as data
-from ._loaders import get_person, set_subject
+from ._loaders import get_host, get_person, set_subject
 
 FIELDS = ("title", "volume", "issue", "day", "month")
 
@@ -63,6 +67,11 @@ class Command(BaseCommand):
             people = [get_reviewee(n) for n in item["reviewees"]]
             if set(pub.reviewees.all()) != set(people):
                 pub.reviewees.set(people)
+                changed = True
+            books = [get_host(key, data, "BKBY")
+                     for key in item.get("reprinted", [])]
+            if set(pub.reprinted_in.all()) != set(books):
+                pub.reprinted_in.set(books)
                 changed = True
             created += is_new
             updated += changed and not is_new

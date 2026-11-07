@@ -187,6 +187,9 @@ class LoadReviewsByOakeshottTest(TestCase):
         call_command("load_reviews_by_oakeshott", stdout=out)
         return out.getvalue()
 
+    def setUp(self):
+        call_command("load_books_by_oakeshott", stdout=StringIO())
+
     def test_loads_every_review_once(self):
         from berkeley.management.commands import _reviews_by as data
         total = len(data.REVIEWS)
@@ -208,3 +211,26 @@ class LoadReviewsByOakeshottTest(TestCase):
         self.assertEqual(Person.objects.filter(lname="Cranston").count(), 1)
         self.assertTrue(Publication.objects.filter(
             pub_type="RVBY", reviewees__fname="Maurice").exists())
+
+    def test_reprints_link_to_the_collected_volumes(self):
+        from berkeley.management.commands import _reviews_by as data
+        self.load()
+        cpj = Publication.objects.get(title=data.CPJ, pub_type="BKBY")
+        vmes = Publication.objects.get(title=data.VMES, pub_type="BKBY")
+        self.assertGreater(cpj.reprints.count(), 100)
+        self.assertGreater(vmes.reprints.count(), 50)
+        self.assertFalse(cpj.reprints.filter(year__gt=1951).exists())
+        self.assertFalse(vmes.reprints.filter(year__lt=1952).exists())
+        carr = Publication.objects.get(title__startswith="Mr. Carr")
+        self.assertEqual(list(carr.reprinted_in.all()), [cpj])
+        collingwood = Publication.objects.get(review="The Principles of Art")
+        self.assertEqual(
+            sorted(b.pub_type for b in collingwood.reprinted_in.all()),
+            ["BKBY", "MENT"])
+        self.assertIn("updated 0", self.load())
+
+    def test_needs_books_by_first(self):
+        from django.core.management.base import CommandError
+        Publication.objects.all().delete()
+        with self.assertRaises(CommandError):
+            self.load()
