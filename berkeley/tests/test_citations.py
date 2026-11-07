@@ -205,6 +205,13 @@ class ReviewCitationTest(CitationTestCase):
         self.review.save()
         self.assertIn("[Review of the book", self.export(self.review))
 
+    def test_reviews_of_books_by_oakeshott_use_review_format(self):
+        self.review.pub_type = "RVOB"
+        self.review.save()
+        text = self.export(self.review)
+        self.assertIn("[Review of the book", text)
+        self.assertIn("Review of <i>On Human Conduct</i>", text)
+
     def test_untitled_review(self):
         self.review.title = ""
         self.review.save()

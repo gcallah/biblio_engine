@@ -42,7 +42,7 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {{ pub.title_sentence }}
                     <i>{{ pub.journal.name }}{% if pub.volume %}, {{ pub.volume }}{% endif %}</i>{% if pub.issue %}({{ pub.issue }}){% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
                     {{ pub.url }}
-                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                {% elif pub.is_review %}
                     ({{ pub.year }}{% if pub.month and not pub.volume %}, {{ pub.month }}{% if pub.day %} {{ pub.day }}{% endif %}{% endif %}).
                     {% if pub.title %}{{ pub.title }}{% endif %}
                     {% if pub.reviewed_title %}
@@ -99,7 +99,7 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {% endif %}
                     {{ pub.month }}
                     {{ pub.year }}{% if pub.pages %}: {{ pub.pages }}{% endif %}.
-                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                {% elif pub.is_review %}
                     {% if pub.title %}"{{ pub.title_sentence }}"{% endif %}
                     {% if pub.reviewed_title %}
                         Review of <i>{{ pub.reviewed_title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors_sentence }}{% else %}.{% endif %}
@@ -143,7 +143,7 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}{% endif %}
                     ({% if pub.day %}{{ pub.month }} {{ pub.day }}, {% elif pub.month %}{{ pub.month }} {% endif %}{{ pub.year }}){% if pub.pages %}:
                     {{ pub.pages }}{% endif %}.
-                {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
+                {% elif pub.is_review %}
                     {% if pub.title %}"{{ pub.title_sentence }}"{% endif %}
                     {% if pub.reviewed_title %}
                         Review of <i>{{ pub.reviewed_title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors_sentence }}{% else %}.{% endif %}

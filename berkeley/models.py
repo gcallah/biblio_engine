@@ -27,10 +27,11 @@ TYPE_CHOICES = (
     ('SWAB', 'Short Works About Oakeshott'),
     ('MENT', 'Works Mentioning Oakeshott'),
     ('RVBY', 'Book Reviews by Oakeshott'),
+    ('RVOB', 'Book Reviews of Books by Oakeshott'),
     ('RVAB', 'Book Reviews of Books About Oakeshott'),
 )
 
-REVIEW_TYPES = ('RVBY', 'RVAB')
+REVIEW_TYPES = ('RVBY', 'RVOB', 'RVAB')
 BOOK_TYPES = ('BKBY', 'BKAB')
 SHORT_TYPES = ('SWBY', 'SWAB')
 
@@ -298,6 +299,10 @@ class Publication(UrlModel):
         return self.pub_type in BOOK_TYPES or (
             self.pub_type == 'MENT' and not self.journal_id
             and not self.collection_id)
+
+    def is_review(self):
+        """A book review (by Oakeshott, or of a book by or about him)."""
+        return self.pub_type in REVIEW_TYPES
 
     def is_chapter(self):
         """A short work that is a part of a book (its collection)."""
