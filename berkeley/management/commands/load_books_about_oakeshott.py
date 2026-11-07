@@ -42,10 +42,12 @@ FULLER = ("Timothy", "", "Fuller")
 GERENCSER = ("Steven", "Anthony", "Gerencser")
 GRANT = ("Robert", "", "Grant")
 GREENLEAF = ("W.", "H.", "Greenleaf")
+HENKEL = ("Michael", "", "Henkel")
 ISAACS = ("Stuart", "", "Isaacs")
 KING = ("Preston", "", "King")
 KINZEL = ("Till", "", "Kinzel")
 KOS = ("Eric", "S.", "Kos")
+LEMBCKE = ("Oliver", "", "Lembcke")
 MARSH = ("Leslie", "", "Marsh")
 MCILWAIN = ("David", "", "McIlwain")
 MCINTYRE = ("Kenneth", "B.", "McIntyre")
@@ -83,6 +85,7 @@ PUBLISHERS = {
     "Macmillan": ("London", "England"),
     "Michael Oakeshott Association": ("London", "England"),
     "Michalon": ("Paris", "France"),
+    "Mohr Siebeck": ("Tübingen", "Germany"),
     "Palgrave Macmillan": ("Cham", "Switzerland"),
     "Pennsylvania State University Press": ("University Park", "PA"),
     "People's Publishing House": ("New Delhi", "India"),
@@ -205,6 +208,8 @@ BOOKS = [
     dict(title="A Companion to Michael Oakeshott", year=2012,
          publisher="Pennsylvania State University Press",
          editors=[FRANCO, MARSH]),
+    dict(title="Praxis und Politik: Michael Oakeshott im Dialog", year=2013,
+         publisher="Mohr Siebeck", editors=[HENKEL, LEMBCKE]),
     dict(title="Michael Oakeshott's Cold War Liberalism", year=2015,
          publisher="Palgrave Macmillan", city="New York", editors=[NARDIN]),
     dict(title="Michael Oakeshott and the Conversation of Modern Political "
@@ -308,6 +313,7 @@ SUBJECTS = {
     "Oakeshott on Rome and America": POL,
     "The Cambridge Companion to Oakeshott": PHIL,
     "A Companion to Michael Oakeshott": PHIL,
+    "Praxis und Politik: Michael Oakeshott im Dialog": POL,
     "Michael Oakeshott's Cold War Liberalism": POL,
     "Education and Conversation: Exploring Oakeshott's Legacy": EDUC,
     "Michael Oakeshott's Political Philosophy of International "

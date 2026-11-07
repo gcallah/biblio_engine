@@ -91,6 +91,15 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
             if pub.title not in unnamed:
                 self.assertIn("oakeshott", pub.title.lower(), pub.title)
 
+    def test_review_essay_links_to_the_book_it_reviews(self):
+        self.load("load_books_by_oakeshott")
+        self.load()
+        essay = Publication.objects.get(title__startswith="Publication as "
+                                        "Polemic")
+        self.assertEqual(essay.pub_type, "SWAB")
+        self.assertEqual(essay.pub_reviewed.title,
+                         "What is History? and Other Essays")
+
     def test_chapters_link_to_existing_books_about(self):
         self.load()
         chapter = Publication.objects.get(title="Spinoza and Oakeshott")

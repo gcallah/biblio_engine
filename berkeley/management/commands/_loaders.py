@@ -80,9 +80,12 @@ SHORT_FIELDS = ("volume", "issue", "day", "month", "pages", "url", "doi")
 def load_short_works(data, pub_type, book_type):
     """Load data.ARTICLES (in a journal) and data.CHAPTERS (in a
     book) as pub_type entries, and data.REVIEWS (if any) as reviews.
-    Works are matched on title, year and journal or book. Subjects, and
-    URL/DOI, are applied on every run. Returns (created, updated, total)."""
-    from berkeley.models import Journal, Publication
+    Works are matched on title, year and journal or book. Subjects,
+    URL/DOI and "reviews_book" are applied on every run. A work with
+    "reviews_book" (the title of a book by or about Oakeshott) is a
+    review essay: it stays a short work but links to the book it
+    reviews. Returns (created, updated, total)."""
+    from berkeley.models import BOOK_TYPES, Journal, Publication
     created = updated = 0
     works = ([(item, "journal") for item in data.ARTICLES] +
              [(item, "chapter") for item in data.CHAPTERS])
@@ -106,6 +109,14 @@ def load_short_works(data, pub_type, book_type):
                 setattr(pub, f, v)
             pub.save(update_fields=list(links))
             changed = True
+        book = (Publication.objects.filter(
+            title=item["reviews_book"], pub_type__in=BOOK_TYPES).first()
+            if item.get("reviews_book") else None)
+        if book:  # linked once the book is loaded (load_data.sh order)
+            if pub.pub_reviewed_id != book.id:
+                pub.pub_reviewed = book
+                pub.save(update_fields=["pub_reviewed"])
+                changed = True
         if is_new:
             created += 1
             add_people(pub, item)

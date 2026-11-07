@@ -1730,3 +1730,54 @@ UNNAMED = [
          subject=POL),
 ]
 ARTICLES += UNNAMED
+
+# --- Kenneth McIntyre ------------------------------------------------------
+# Sent by McIntyre himself to the bibliography (2026-11-07). Host
+# books are the Books About Oakeshott entries; the 2015 paperback of the
+# Companion is not a separate record. Not yet included: his "Editorial
+# Introduction: On Human Conduct at 50" (with Thomas Cheeseman) and "The
+# Philosopher as Proteus: Oakeshott's Epistemological Pluralism", both
+# forthcoming in Cosmos + Taxis (2026/27) and so without a year.
+TRADITION = "Tradition v. Rationalism: Voegelin, Oakeshott, Hayek, and Others"
+PRAXIS = "Praxis und Politik: Michael Oakeshott im Dialog"
+WHAT_IS_HISTORY = "What is History? and Other Essays"
+
+CHAPTERS += [
+    dict(authors=[MCINTYRE],
+         title="The Critique of Rationalism: Ryle and Oakeshott on Tacit "
+               "Knowledge",
+         book=TRADITION, pages="133-149", subject=PHIL),
+    dict(authors=[MCINTYRE],
+         title="Philosophy and Its Moods: Oakeshott on the Practice of "
+               "Philosophy",
+         book=COMPANION, pages="70-94", subject=PHIL),
+    dict(authors=[MCINTYRE],
+         title="Prejudice, Tradition, and the Critique of Ideology: Gadamer "
+               "and Oakeshott on Practical Reason",
+         book=PRAXIS, pages="177-200", subject=PHIL),
+    dict(authors=[MCINTYRE],
+         title="One Hand Clapping: The Reception of Michael Oakeshott's Work "
+               "by American Conservatives",
+         book=MEANINGS, pages="255-267", subject=POL),
+]
+
+ARTICLES += [
+    dict(authors=[MCINTYRE],
+         title="'What's Gone and What's Past Help…': Oakeshott and Strauss "
+               "on Historical Explanation",
+         journal="Journal of the Philosophy of History", volume="4",
+         year=2010, pages="65-101", subject=HIST),
+    # The journal was still Collingwood and British Idealism Studies then.
+    dict(authors=[MCINTYRE],
+         title="Publication as Polemic: A Review Essay on the Publication of "
+               "Michael Oakeshott, What is History? and Other Essays",
+         journal=CBIS, volume="11", year=2005, pages="119-132",
+         reviews_book=WHAT_IS_HISTORY, subject=HIST),
+]
+
+REVIEWS += [
+    dict(authors=[MCINTYRE], title="Oakeshott vs. America",
+         reviews="Oakeshott on Rome and America",
+         journal="The American Conservative", year=2013, month="Jan./Feb.",
+         subject=POL),
+]
