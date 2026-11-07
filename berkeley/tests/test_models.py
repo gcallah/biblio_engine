@@ -59,7 +59,10 @@ class StrTest(BiblioTestCase):
 
 class ReviewHelpersTest(BiblioTestCase):
     def test_review_title_without_reviewed_book(self):
-        self.assertEqual(self.pub("").review_title(), "A Review of ")
+        self.assertEqual(self.pub("").review_title(), "A Review")
+        self.assertEqual(
+            self.pub("", review="Freedom", reviewed_names="M. Cranston")
+            .review_title(), "Review of M. Cranston, Freedom")
 
     def test_reviewed_authors(self):
         book = self.pub("Book", authors=[self.person("Michael", "Oakeshott")])

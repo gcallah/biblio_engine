@@ -34,14 +34,14 @@ class PagesRenderTest(BiblioTestCase):
                          f'href="/oakeshott/export/{self.book.id}/"'):
             self.assertIn(expected, text)
 
-    def test_pub_detail_review_link_only_when_present(self):
+    def test_pub_detail_review_of_only_for_reviews(self):
         url = f"/oakeshott/pub_detail/{self.book.id}/"
         self.assertNotIn("Review of:", self.page_text(url))
-        self.book.review = "https://example.com/review"
-        self.book.save()
-        text = self.page_text(url)
-        self.assertIn('href="https://example.com/review"', text)
-        self.assertIn("Review of: Rationalism in Politics", text)
+        review = self.pub("", 1950, pub_type="RVBY", authors=[self.mo],
+                          review="Freedom", reviewed_names="M. Cranston")
+        text = self.page_text(f"/oakeshott/pub_detail/{review.id}/")
+        self.assertIn("Publication: Review of M. Cranston, Freedom", text)
+        self.assertIn("<i>Freedom</i>, by M. Cranston", text)
 
     def test_edit_pub(self):
         text = self.page_text(f"/oakeshott/edit_pub/{self.book.id}/")
@@ -123,7 +123,8 @@ class OldUrlRedirectTest(BiblioTestCase):
 class SearchFormTest(BiblioTestCase):
     def test_form_fields_in_order(self):
         self.assertEqual(list(SearchForm().fields),
-                         ["lname", "pub_type", "start_year", "end_year",
+                         ["lname", "reviewed", "pub_type", "start_year",
+                          "end_year",
                           "subject", "keyword1"])
 
     def test_labels(self):

@@ -10,6 +10,8 @@ class SearchForm(forms.Form):
             max_length=PERSON_NAME_LEN)
     #fname = forms.CharField(label='Author first name:',
        #     max_length=PERSON_NAME_LEN)
+    reviewed = forms.CharField(label='Reviewed author last name:',
+            max_length=PERSON_NAME_LEN)
     pub_type = forms.ChoiceField(label='Type', choices=TYPE_CHOICES)
     start_year = forms.IntegerField(label='From year:')
     end_year = forms.IntegerField(label='To year:')

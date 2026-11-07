@@ -43,19 +43,12 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     <i>{{ pub.journal.name }}{% if pub.volume %}, {{ pub.volume }}{% endif %}</i>{% if pub.issue %}({{ pub.issue }}){% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
                     {{ pub.url }}
                 {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
-                    ({{ pub.year }}).
+                    ({{ pub.year }}{% if pub.month and not pub.volume %}, {{ pub.month }}{% if pub.day %} {{ pub.day }}{% endif %}{% endif %}).
                     {% if pub.title %}{{ pub.title }}{% endif %}
-                    {% if pub.pub_reviewed %}
-                        [Review of the book <i>{{ pub.pub_reviewed.title }}</i>{% if pub.apa_reviewed_authors %}, by {{ pub.apa_reviewed_authors }}{% endif %}].
+                    {% if pub.reviewed_title %}
+                        [Review of the book <i>{{ pub.reviewed_title }}</i>{% if pub.apa_reviewed_authors %}, by {{ pub.apa_reviewed_authors }}{% endif %}].
                     {% elif pub.title %}.{% endif %}
-                    {% if pub.issue %}
-                        <i>{{ pub.journal.name }},
-                        {{ pub.volume }}</i>({{ pub.issue }}),
-                    {% else %}
-                        <i>{{ pub.journal.name }},
-                        {{ pub.volume }}</i>,
-                    {% endif %}
-                    {{ pub.pages }}.
+                    <i>{{ pub.journal.name }}{% if pub.volume %}, {{ pub.volume }}{% endif %}</i>{% if pub.issue %}({{ pub.issue }}){% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}.
                     {{ pub.url }}
                 {% endif %}
             </td>
@@ -107,19 +100,16 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {{ pub.month }}
                     {{ pub.year }}{% if pub.pages %}: {{ pub.pages }}{% endif %}.
                 {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
-                    {% if pub.title %}"{{ pub.title }}."{% endif %}
-                    {% if pub.pub_reviewed %}
-                        Review of <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}.
+                    {% if pub.title %}"{{ pub.title_sentence }}"{% endif %}
+                    {% if pub.reviewed_title %}
+                        Review of <i>{{ pub.reviewed_title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors_sentence }}{% else %}.{% endif %}
                     {% endif %}
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.day %}
                         {{ pub.day }}
                     {% endif %}
                     {{ pub.month }}
-                    {{ pub.year }}:
-                    {% if pub.pages %}
-                        {{ pub.pages }}.
-                    {% endif %}
+                    {{ pub.year }}{% if pub.pages %}: {{ pub.pages }}{% endif %}.
                 {% endif %}
                 {% if pub.medium %}
                     {{ pub.medium }}.
@@ -154,14 +144,14 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     ({% if pub.day %}{{ pub.month }} {{ pub.day }}, {% elif pub.month %}{{ pub.month }} {% endif %}{{ pub.year }}){% if pub.pages %}:
                     {{ pub.pages }}{% endif %}.
                 {% elif pub.pub_type == 'RVBY' or pub.pub_type == 'RVAB' %}
-                    {% if pub.title %}"{{ pub.title }}."{% endif %}
-                    {% if pub.pub_reviewed %}
-                        Review of <i>{{ pub.pub_reviewed.title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}.
+                    {% if pub.title %}"{{ pub.title_sentence }}"{% endif %}
+                    {% if pub.reviewed_title %}
+                        Review of <i>{{ pub.reviewed_title }}</i>{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors_sentence }}{% else %}.{% endif %}
                     {% endif %}
-                    <i>{{ pub.journal.name }}</i>
-                    {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}
-                    ({{ pub.year }}):
-                    {{ pub.pages }}.
+                    <i>{{ pub.journal.name }}</i>{% if pub.volume %}
+                    {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}{% endif %}
+                    ({% if pub.day %}{{ pub.month }} {{ pub.day }}, {% elif pub.month %}{{ pub.month }} {% endif %}{{ pub.year }}){% if pub.pages %}:
+                    {{ pub.pages }}{% endif %}.
                 {% endif %}
 
             </td>

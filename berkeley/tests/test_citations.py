@@ -1,7 +1,7 @@
 """The /export/<id>/ page: APA, MLA and Chicago citations for each type."""
 from berkeley.models import Address, Journal, Publisher
 
-from .helpers import BiblioTestCase
+from .helpers import PUBS_URL, BiblioTestCase, squash
 
 
 class CitationTestCase(BiblioTestCase):
@@ -198,7 +198,7 @@ class ReviewCitationTest(CitationTestCase):
                   'by Michael Oakeshott. <i>Political Theory</i>')
         self.assertEqual(text.count(phrase), 2)
         self.assertIn("<i>Political Theory</i> May 1976: 1-9.", text)
-        self.assertIn("<i>Political Theory</i> 4, no. 2 (1976): 1-9.", text)
+        self.assertIn("<i>Political Theory</i> 4, no. 2 (May 1976): 1-9.", text)
 
     def test_reviews_by_oakeshott_use_review_format(self):
         self.review.pub_type = "RVBY"
@@ -225,6 +225,55 @@ class ReviewCitationTest(CitationTestCase):
         text = self.export(self.review)
         self.assertIn("[Review of the book <i>On Human Conduct</i>].", text)
         self.assertNotIn(", by", text)
+
+
+class ReviewOfBookNotInBibliographyTest(CitationTestCase):
+    """Oakeshott's reviews: the reviewed book is only a title and names."""
+    def setUp(self):
+        super().setUp()
+        self.tls = Journal.objects.create(name="Times Literary Supplement")
+
+    def review(self, **kw):
+        fields = dict(pub_type="RVBY", authors=[self.mo],
+                      review="Science, Religion and Reality",
+                      reviewed_names="J. Needham (ed.)",
+                      journal=self.journal, volume="27", pages="317-319")
+        fields.update(kw)
+        return self.pub(fields.pop("title", ""), 1926, **fields)
+
+    def test_every_style(self):
+        text = self.export(self.review())
+        self.assertIn("Oakeshott, M. (1926). [Review of the book "
+                      "<i>Science, Religion and Reality</i>, by J. Needham "
+                      "(ed.)]. <i>Political Theory, 27</i>, 317-319.", text)
+        self.assertEqual(text.count(
+            "Review of <i>Science, Religion and Reality</i>, by J. Needham "
+            "(ed.). <i>Political Theory</i>"), 2)
+        self.assertIn("<i>Political Theory</i> 27 (1926): 317-319.", text)
+
+    def test_newspaper_date_without_volume(self):
+        text = self.export(self.review(journal=self.tls, volume="",
+                                       day="15", month="January", pages="45"))
+        self.assertIn("(1926, January 15).", text)
+        self.assertIn("<i>Times Literary Supplement</i>, 45.", text)
+        self.assertIn("(January 15, 1926): 45.", text)
+        self.assertNotIn(", ,", text)
+
+    def test_names_ending_in_full_stop(self):
+        text = self.export(self.review(reviewed_names="T.A. Spragens, Jr.",
+                                       title="Logos and Telos"))
+        self.assertNotIn("Jr..", text)
+        self.assertIn('"Logos and Telos." Review of', text)
+
+    def test_listing_shows_reviewed_book(self):
+        self.review(title="Logos and Telos")
+        self.review()
+        text = squash(self.client.get(PUBS_URL, {"pub_type": "RVBY"})
+                      .content.decode())
+        self.assertIn("Review of J. Needham (ed.), Science, Religion and "
+                      "Reality", text)
+        self.assertIn("Logos and Telos [Review of J. Needham (ed.), "
+                      "Science, Religion and Reality]", text)
 
 
 class CitationAuthorListTest(CitationTestCase):

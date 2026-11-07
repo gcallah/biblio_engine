@@ -3,7 +3,7 @@
     <div class="module">
     <table>
         <caption>
-            Publication: {{ pub.title }}
+            Publication: {{ pub }}
         </caption>
         <tr>
             <td>Author(s):</td>
@@ -23,6 +23,14 @@
             </td>
         </tr>
         {% endif %}{% endwith %}
+        {% if pub.reviewed_title %}
+        <tr>
+            <td>Review of:</td>
+            <td>
+                {% if pub.pub_reviewed %}<a href="/oakeshott/pub_detail/{{ pub.pub_reviewed.id }}/">{% endif %}<i>{{ pub.reviewed_title }}</i>{% if pub.pub_reviewed %}</a>{% endif %}{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}
+            </td>
+        </tr>
+        {% endif %}
         {% if pub.collection %}
         <tr>
             <td>In:</td>
@@ -75,16 +83,6 @@
                 </a>
             </td>
         </tr>
-        {% if pub.review %}
-        <tr>
-            <td>Review:</td>
-            <td>
-                <a href="{{ pub.review }}">
-                Review of: {{ pub.title }}
-                </a>
-            </td>
-        </tr>
-        {% endif %}
     </table>
     <p>
         <strong>Abstract:</strong>

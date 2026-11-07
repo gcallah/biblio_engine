@@ -104,6 +104,7 @@ def publications(request):
     site_hdr = get_hdr()
     kwargs = {}
     add_filter(request, kwargs, 'lname', 'authors__lname__icontains')
+    add_filter(request, kwargs, 'reviewed', 'reviewees__lname__icontains')
     add_filter(request, kwargs, 'pub_type', 'pub_type')
     add_year_filter(request, kwargs, 'start_year', 'year__gte')
     add_year_filter(request, kwargs, 'end_year', 'year__lte')
@@ -114,6 +115,7 @@ def publications(request):
                 .order_by('year')
                 .select_related('journal', 'publisher', 'collection',
                                 'subject')
+                .select_related('pub_reviewed')
                 .prefetch_related('authorship_set__person',
                                   'editorship_set__person'))
     for pub in pub_list:

@@ -209,7 +209,7 @@ class Publication(UrlModel):
     issue = models.CharField(max_length=12, default="", blank=True)
     month = models.CharField(max_length=10, default="", blank=True)
     day = models.CharField(max_length=10, default="", blank=True)
-    pages = models.CharField(max_length=12, default="", blank=True)
+    pages = models.CharField(max_length=24, default="", blank=True)
     edition = models.CharField(max_length=4, default="", blank=True)
     medium = models.CharField(max_length=12, default="", blank=True)
     authors = models.ManyToManyField(Person, through="Authorship",
@@ -237,7 +237,12 @@ class Publication(UrlModel):
     language = models.CharField(max_length=32, default="", blank=True)
     abstract = models.CharField(max_length=1024, default="", blank=True)
     doi = models.CharField(max_length=DOI_LEN, default="", blank=True)
+    # A reviewed book that is not itself in the bibliography: its title,
+    # and its authors as written, e.g. "J. Needham (ed.)". The authors
+    # are also linked as reviewees, so they can be searched.
     review = models.CharField(max_length=128, default="", blank=True)
+    reviewed_names = models.CharField(max_length=128, default="",
+                                      blank=True)
 
     def __str__(self):
         if self.title:
@@ -395,23 +400,36 @@ class Publication(UrlModel):
         """Names of the reviewed book's authors, e.g. 'A B, C D and E F'."""
         return self._reviewed_names(Person.natural_name)
 
+    def reviewed_authors_sentence(self):
+        """reviewed_authors ending in one full stop ('Spragens, Jr.')."""
+        return self._sentence(self.reviewed_authors())
+
     def apa_reviewed_authors(self):
         """Reviewed book's authors with initials, e.g. 'M. Oakeshott'."""
         return self._reviewed_names(Person.apa_natural_name)
 
     def _reviewed_names(self, name_of):
         if not self.pub_reviewed:
-            return ''
+            return self.reviewed_names
         names = [name_of(p) for p in self.pub_reviewed.ordered_authors()]
         if len(names) <= 1:
             return ''.join(names)
         return ', '.join(names[:-1]) + ' and ' + names[-1]
 
-    def review_title(self):
-        rev_title = 'A Review of '
+    def reviewed_title(self):
+        """Title of the reviewed book, whether or not it is in the
+        bibliography."""
         if self.pub_reviewed:
-            rev_title = rev_title + self.pub_reviewed.title
-        return rev_title
+            return self.pub_reviewed.title
+        return self.review
+
+    def review_title(self):
+        """'Review of J. Needham (ed.), Science, Religion and Reality'."""
+        if self.pub_reviewed:
+            return 'A Review of ' + self.pub_reviewed.title
+        if self.reviewed_names:
+            return f"Review of {self.reviewed_names}, {self.review}"
+        return 'Review of ' + self.review if self.review else 'A Review'
 
     class Meta:
         ordering = ['title']

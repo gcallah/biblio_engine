@@ -179,3 +179,32 @@ class LoadShortWorksByOakeshottTest(TestCase):
         moral = works.get(title__startswith="The Moral Life")
         self.assertEqual(moral.collection.pub_type, "BKBY")
         self.assertEqual(moral.year, 1962)
+
+
+class LoadReviewsByOakeshottTest(TestCase):
+    def load(self):
+        out = StringIO()
+        call_command("load_reviews_by_oakeshott", stdout=out)
+        return out.getvalue()
+
+    def test_loads_every_review_once(self):
+        from berkeley.management.commands import _reviews_by as data
+        total = len(data.REVIEWS)
+        self.assertGreater(total, 150)
+        self.assertIn(f"Added {total} reviews", self.load())
+        self.assertIn("Added 0 reviews", self.load())
+        self.assertIn("updated 0", self.load())
+        reviews = Publication.objects.filter(pub_type="RVBY")
+        self.assertEqual(reviews.count(), total)
+        for pub in reviews:
+            self.assertEqual(pub.ordered_authors()[0].lname, "Oakeshott")
+            self.assertTrue(pub.review and pub.reviewed_names, pub.id)
+            self.assertTrue(pub.reviewees.exists(), pub.review)
+
+    def test_reuses_people_by_last_name_and_initial(self):
+        from berkeley.models import Person
+        Person.objects.create(fname="Maurice", lname="Cranston")
+        self.load()
+        self.assertEqual(Person.objects.filter(lname="Cranston").count(), 1)
+        self.assertTrue(Publication.objects.filter(
+            pub_type="RVBY", reviewees__fname="Maurice").exists())

@@ -9,7 +9,7 @@ from berkeley.models import (
 )
 
 PUBS_URL = "/oakeshott/publications/"
-BLANK_QUERY = {"lname": "", "pub_type": "", "start_year": "", "end_year": "",
+BLANK_QUERY = {"lname": "", "reviewed": "", "pub_type": "", "start_year": "", "end_year": "",
                "subject": "", "keyword1": ""}
 
 

@@ -301,3 +301,21 @@ class ResultsPageTest(BiblioTestCase):
         self.pub("Joint", 1960, authors=[zed, amy])
         html = self.search().content.decode()
         self.assertLess(html.index("Zulu"), html.index("Alpha"))
+
+
+class ReviewedAuthorSearchTest(BiblioTestCase):
+    """'Did Oakeshott ever review X?'"""
+    def setUp(self):
+        super().setUp()
+        mo = self.person("Michael", "Oakeshott")
+        self.strauss = self.person("L.", "Strauss")
+        self.review = self.pub("", 1936, pub_type="RVBY", authors=[mo],
+                               review="The Political Philosophy of Hobbes")
+        self.review.reviewees.add(self.strauss)
+        self.article = self.pub("On Strauss", 1937, authors=[self.strauss])
+
+    def test_finds_reviews_of_the_author(self):
+        self.assertEqual(self.results(reviewed="strau"), [self.review])
+
+    def test_author_filter_does_not_match_reviewees(self):
+        self.assertEqual(self.results(lname="strau"), [self.article])

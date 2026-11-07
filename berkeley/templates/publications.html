@@ -30,7 +30,9 @@
             <tr>
                 <td>
                     <a href="/oakeshott/pub_detail/{{ pub.id }}/">
-                        {% if pub.title %}
+                        {% if pub.title and pub.review_of %}
+                            <span class="clamp3" title="{{ pub.title }} [{{ pub.review_of }}]">{{ pub.title }} [{{ pub.review_of }}]</span>
+                        {% elif pub.title %}
                             <span class="clamp3" title="{{ pub.title }}">{{ pub.title }}</span>
                         {% elif pub.review_of %}
                             <span class="clamp3" title="{{ pub.review_of }}">{{ pub.review_of }}</span>
