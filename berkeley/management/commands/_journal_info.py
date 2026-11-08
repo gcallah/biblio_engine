@@ -7,7 +7,7 @@ journal's own site, or a reference page such as Wikipedia for journals no
 longer published). Leave out anything we couldn't confirm. "sources"
 records where the facts came from.
 
-The first two batches (2026-11-07) cover the 59 journals with three or more
+The batches so far (2026-11-07) cover the journals with two or more
 entries.
 """
 
@@ -731,5 +731,504 @@ JOURNAL_INFO = {
         url="https://voegelinview.com/",
         sources=[
             "https://voegelinview.com/about/",
+        ]),
+    # Third batch (2026-11-07): journals with two entries.
+    "Australasian Journal of Philosophy": dict(
+        descr=(
+            "Quarterly peer-reviewed journal of the Australasian "
+            "Association of Philosophy, founded in 1923 as the Australasian"
+            " Journal of Psychology and Philosophy and renamed in 1947. "
+            "Among the longest-running philosophy journals in English, it "
+            "accepts original work in every branch of philosophy and its "
+            "history."
+        ),
+        url="https://www.tandfonline.com/journals/rajp20",
+        sources=[
+            "https://en.wikipedia.org/wiki/Australasian_Journal_of_Philosophy",
+            "https://aap.org.au/editorial-policy",
+        ]),
+    "Australian and New Zealand Journal of Criminology": dict(
+        descr=(
+            "Peer-reviewed journal founded in 1968 as the principal journal"
+            " of the Australian and New Zealand Society of Criminology. It "
+            "carries research on crime and criminal justice, including "
+            "theory, empirical studies and policy analysis, with particular"
+            " attention to Australasia. In 2021 it was renamed the Journal "
+            "of Criminology."
+        ),
+        url="https://journals.sagepub.com/home/anj",
+        sources=[
+            "https://en.wikipedia.org/wiki/Journal_of_Criminology",
+        ]),
+    "British Book News": dict(
+        descr=(
+            "Monthly guide to new British books, begun in 1940 by the "
+            "National Book Council and renamed British Book News in 1941. "
+            "Later produced by the National Book League for the British "
+            "Council, and published by the British Council itself from 1957"
+            " to 1992, it carried short reviews and notices of current "
+            "British publications."
+        ),
+        sources=[
+            "https://discovery.nypl.org/research/research-catalog/bib/b11259713",
+            "https://orlando.cambridge.org/organizations/e7823f36-f264-492c-87db-ecb7bf375c27",
+        ]),
+    "British Journal for the History of Philosophy": dict(
+        descr=(
+            "Peer-reviewed journal of the British Society for the History "
+            "of Philosophy, published since 1993. It publishes articles on "
+            "the history of philosophy, and has helped widen the "
+            "philosophical canon to include neglected figures and "
+            "traditions."
+        ),
+        url="https://www.tandfonline.com/journals/rbjh20",
+        sources=[
+            "https://en.wikipedia.org/wiki/British_Journal_for_the_History_of_Philosophy",
+        ]),
+    "British Journal of Aesthetics": dict(
+        descr=(
+            "Journal of the British Society of Aesthetics, founded in 1960 "
+            "with Harold Osborne as its first editor. It publishes "
+            "philosophical work on beauty, aesthetic experience and "
+            "judgment, criticism, and the nature of the arts, from "
+            "painting, music and literature to film, dance and "
+            "architecture, with an extensive book review section."
+        ),
+        url="https://academic.oup.com/bjaesthetics",
+        sources=[
+            "https://academic.oup.com/bjaesthetics/pages/About",
+            "https://en.wikipedia.org/wiki/British_Journal_of_Aesthetics",
+        ]),
+    "Christian Century": dict(
+        descr=(
+            "American Protestant magazine founded in 1884 in Des Moines as "
+            "the Christian Oracle, a Disciples of Christ paper, and renamed"
+            " Christian Century in 1900. Later nondenominational and based "
+            "in Chicago, it became a leading voice of liberal mainline "
+            "Protestantism, covering religious news, theological, moral and"
+            " cultural issues, and books and the arts."
+        ),
+        url="https://www.christiancentury.org",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Christian_Century",
+        ]),
+    "Collingwood Studies": dict(
+        descr=(
+            "Journal of the R.G. Collingwood Society, produced by "
+            "Collingwood scholars at Cardiff, publishing studies of the "
+            "philosophy, history and thought of R.G. Collingwood. Its first"
+            " issues appeared in the 1990s under this title; it continues "
+            "as Collingwood and British Idealism Studies, which widened its"
+            " scope to the British Idealists."
+        ),
+        url="https://sites.cardiff.ac.uk/collingwood/publications",
+        sources=[
+            "https://sites.cardiff.ac.uk/collingwood/publications",
+            "https://libcat.library.tamu.edu/Record/in00002226880",
+        ]),
+    "Commentary": dict(
+        descr=(
+            "American monthly magazine founded in 1945 by the American "
+            "Jewish Committee, covering politics, Judaism, Israel, and "
+            "social and cultural questions. Long anti-Communist, it moved "
+            "from liberalism toward neoconservatism under Norman Podhoretz,"
+            " editor from 1960 to 1995, and became a leading forum for "
+            "neoconservative thought."
+        ),
+        url="https://www.commentary.org",
+        sources=[
+            "https://en.wikipedia.org/wiki/Commentary_(magazine)",
+        ]),
+    "Commonweal": dict(
+        descr=(
+            "American journal of opinion founded in New York in 1924 by "
+            "Michael Williams and run by Catholic lay people rather than "
+            "the Church hierarchy. Generally liberal in outlook, it "
+            "publishes editorials, essays and commentary on politics, "
+            "religion and culture, along with poetry and reviews of books, "
+            "film and theatre."
+        ),
+        url="https://www.commonwealmagazine.org",
+        sources=[
+            "https://en.wikipedia.org/wiki/Commonweal_(magazine)",
+        ]),
+    "Contemporary Review": dict(
+        descr=(
+            "British review founded in 1866, covering international and "
+            "domestic affairs, politics, literature and the arts, history, "
+            "travel and religion, with a regular section of book reviews. "
+            "In its later years it appeared less often, and its print "
+            "edition ended in 2012-13."
+        ),
+        url="https://en.wikipedia.org/wiki/The_Contemporary_Review",
+        sources=[
+            "https://en.wikipedia.org/wiki/Contemporary_Review",
+            "https://libcat.library.tamu.edu/Record/in00002778730",
+        ]),
+    "Crossbow": dict(
+        descr=(
+            "Journal of the Bow Group, the British Conservative think tank "
+            "founded in 1951. Begun in London in 1957 as a quarterly "
+            "journal of politics, it carried articles on policy and "
+            "political ideas from a Conservative perspective."
+        ),
+        sources=[
+            "https://makula.mak.ac.ug/bib/360784",
+            "https://en.wikipedia.org/wiki/Bow_Group",
+        ]),
+    "Frankfurter allgemeine Zeitung": dict(
+        descr=(
+            "German national daily newspaper founded in Frankfurt am Main "
+            "on 1 November 1949. Widely regarded as one of Germany's "
+            "newspapers of record and generally described as liberal-"
+            "conservative, it covers national and international politics, "
+            "business and culture."
+        ),
+        url="https://www.faz.net",
+        sources=[
+            "https://en.wikipedia.org/wiki/Frankfurter_Allgemeine_Zeitung",
+        ]),
+    "Hibbert Journal": dict(
+        descr=(
+            "British quarterly review of religion, theology and philosophy,"
+            " issued by the Hibbert Trust from October 1902 to 1968. L.P. "
+            "Jacks edited it from its founding until 1948. It served as a "
+            "forum for discussion of religious, theological and "
+            "philosophical questions."
+        ),
+        url="https://en.wikipedia.org/wiki/The_Hibbert_Journal",
+        sources=[
+            "https://en.wikipedia.org/wiki/Hibbert_Journal",
+        ]),
+    "Historical Journal": dict(
+        descr=(
+            "Peer-reviewed history journal published by Cambridge "
+            "University Press. It began in 1923 as the Cambridge Historical"
+            " Journal and took its present title in 1958, signalling a "
+            "broader outlook. It covers British, European and world history"
+            " from the fifteenth century onward, with research articles and"
+            " historiographical and review essays."
+        ),
+        url="https://www.cambridge.org/core/journals/historical-journal",
+        sources=[
+            "https://www.cambridge.org/core/journals/historical-journal/information/about-this-journal",
+            "https://en.wikipedia.org/wiki/The_Historical_Journal",
+        ]),
+    "History of European Ideas": dict(
+        descr=(
+            "Peer-reviewed journal of intellectual history, established in "
+            "1980 and published by Routledge. It covers the history of "
+            "European ideas from the Renaissance onward across political, "
+            "philosophical, theological, historiographical, literary and "
+            "cultural thought, with occasional editions of texts and themed"
+            " special issues."
+        ),
+        url="https://www.tandfonline.com/journals/rhei20",
+        sources=[
+            "https://en.wikipedia.org/wiki/History_of_European_Ideas",
+        ]),
+    "Indian Journal of Political Science": dict(
+        descr=(
+            "Quarterly peer-reviewed journal edited and published by the "
+            "Indian Political Science Association, first issued in 1939. It"
+            " carries research articles on political science, public "
+            "administration, international relations and governance, in "
+            "India and around the world."
+        ),
+        url="https://www.ijps.net.in",
+        sources=[
+            "https://ideasofindia.org/project/indian-journal-of-political-science",
+            "https://ijps.net.in/view/about.html",
+        ]),
+    "Journal of Philosophy": dict(
+        descr=(
+            "Monthly philosophy journal published from Columbia University "
+            "since its founding in 1904 as The Journal of Philosophy, "
+            "Psychology, and Scientific Methods; it later adopted its "
+            "shorter title. It publishes articles of current philosophical "
+            "interest, especially work on the boundaries between philosophy"
+            " and other disciplines."
+        ),
+        url="https://www.journalofphilosophy.org/",
+        sources=[
+            "http://www.journalofphilosophy.org/generalinfo.html",
+            "https://en.wikipedia.org/wiki/The_Journal_of_Philosophy",
+        ]),
+    "Law & Liberty": dict(
+        descr=(
+            "Online magazine published by Liberty Fund, launched in January"
+            " 2012 as the Library of Law and Liberty. It publishes essays, "
+            "book reviews, forum debates and podcasts on law, political "
+            "thought, policy, economics, education and culture, mostly from"
+            " classical liberal, conservative and libertarian contributors."
+        ),
+        url="https://lawliberty.org/",
+        sources=[
+            "https://lawliberty.org/about/",
+            "https://overlawyered.com/2012/01/new-liberty-fund-law-site-and-an-interview",
+        ]),
+    "Library Journal": dict(
+        descr=(
+            "American trade publication for librarians, founded in 1876 by "
+            "Melvil Dewey. It carries news of the library world, with an "
+            "emphasis on public libraries, and features on professional "
+            "practice. It is especially known for its book review section, "
+            "which reviews several hundred popular and academic books each "
+            "month."
+        ),
+        url="https://www.libraryjournal.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/Library_Journal",
+        ]),
+    "Manchester Guardian": dict(
+        descr=(
+            "British daily newspaper founded in Manchester in 1821 by the "
+            "cotton merchant John Edward Taylor. Traditionally aligned with"
+            " the Liberal Party, it became more radical under the long "
+            "editorship of C. P. Scott. It was renamed The Guardian in "
+            "1959, began printing in London in 1961, and continues under "
+            "that name."
+        ),
+        url="https://www.theguardian.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Guardian",
+        ]),
+    "New Statesman and Nation": dict(
+        descr=(
+            "London weekly review of politics and literature, founded in "
+            "1913 as the New Statesman by Sidney and Beatrice Webb with "
+            "Fabian support. A 1931 merger with the Liberal weekly The "
+            "Nation and Athenaeum produced the title New Statesman and "
+            "Nation, used until 1964. A left-wing paper, it was also known "
+            "for its books and arts pages."
+        ),
+        url="https://www.newstatesman.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/New_Statesman",
+        ]),
+    "Notre Dame Philosophical Reviews": dict(
+        descr=(
+            "Online-only journal of philosophy book reviews, published by "
+            "the University of Notre Dame's Department of Philosophy since "
+            "January 2002. It is devoted entirely to substantive reviews of"
+            " recent philosophical books, commissioned and vetted by an "
+            "international editorial board."
+        ),
+        url="https://ndpr.nd.edu/",
+        sources=[
+            "https://ndpr.nd.edu/about/",
+        ]),
+    "Perspectives on Political Science": dict(
+        descr=(
+            "Quarterly peer-reviewed journal established in 1990 through "
+            "the merger of Perspective and Teaching Political Science. Its "
+            "main focus is political philosophy, and it combines articles "
+            "with symposia on topics such as classic texts, literature, "
+            "religion, constitutional law and liberal education, as well as"
+            " long book reviews."
+        ),
+        url="https://www.tandfonline.com/journals/vpps20",
+        sources=[
+            "https://en.wikipedia.org/wiki/Perspectives_on_Political_Science",
+        ]),
+    "Perspectives on Politics": dict(
+        descr=(
+            "Peer-reviewed journal of the American Political Science "
+            "Association, established in 2003 and published by Cambridge "
+            "University Press. It aims to foster broad, synthetic "
+            "discussion across political science and with a wider public, "
+            "highlighting important topics and reflecting on the discipline"
+            " and why it matters."
+        ),
+        url="https://www.cambridge.org/core/journals/perspectives-on-politics",
+        sources=[
+            "https://www.cambridge.org/core/journals/perspectives-on-politics/information/about-this-journal",
+            "https://en.wikipedia.org/wiki/Perspectives_on_Politics",
+        ]),
+    "Philosophical Studies (Dublin)": dict(
+        descr=(
+            "Annual journal of the Philosophical Society of St Patrick's "
+            "College, Maynooth, Ireland, published from 1951 to about 1992 "
+            "with support from the National University of Ireland. It aimed"
+            " to develop the Catholic philosophical tradition through "
+            "analysis of contemporary problems, publishing articles, book "
+            "reviews, critical notices and surveys of work abroad."
+        ),
+        sources=[
+            "https://pdcnet.org/philstudies/Philosophical-Studies",
+            "https://catalogue.nli.ie/Record/vtls000012557",
+        ]),
+    "Political Research Quarterly": dict(
+        descr=(
+            "Peer-reviewed political science journal of the Western "
+            "Political Science Association. Founded in 1948 at the "
+            "University of Utah as the Western Political Quarterly, it took"
+            " its present name in the early 1990s. It publishes original "
+            "research in all areas of political science, drawing on varied "
+            "methods and theoretical approaches."
+        ),
+        url="https://journals.sagepub.com/home/prq",
+        sources=[
+            "https://en.wikipedia.org/wiki/Political_Research_Quarterly",
+            "https://wpsanet.org/publication/pqr.php",
+        ]),
+    "Political Science Quarterly": dict(
+        descr=(
+            "American scholarly journal founded in 1886 by Columbia "
+            "University's John W. Burgess, the journal of the Academy of "
+            "Political Science. It covers government, politics, public "
+            "policy and foreign affairs without a fixed ideological or "
+            "methodological line, aims to be readable by general readers as"
+            " well as specialists, and has a large book review section."
+        ),
+        url="https://academic.oup.com/psq",
+        sources=[
+            "https://academic.oup.com/psq/pages/about",
+            "https://en.wikipedia.org/wiki/Political_Science_Quarterly",
+        ]),
+    "Psychological Medicine": dict(
+        descr=(
+            "Peer-reviewed psychiatry journal founded in 1969 by Michael "
+            "Shepherd, who edited it until 1993. It publishes original "
+            "research in clinical psychiatry and the related biological, "
+            "psychological and social sciences, on the causes, course, "
+            "treatment and public health impact of mental disorders."
+        ),
+        url="https://www.cambridge.org/core/journals/psychological-medicine",
+        sources=[
+            "https://www.cambridge.org/core/journals/psychological-medicine/information/about-this-journal",
+            "https://en.wikipedia.org/wiki/Psychological_Medicine",
+        ]),
+    "Scrutiny": dict(
+        descr=(
+            "British literary quarterly founded in Cambridge in 1932 by L. "
+            "C. Knights and F. R. Leavis, with Leavis as its principal "
+            "editor until it closed in 1953. Its main concern was literary "
+            "criticism, setting out a sweeping revaluation of English "
+            "literature, but many contributors also wrote on education, "
+            "culture and politics."
+        ),
+        url="https://en.wikipedia.org/wiki/Scrutiny_(journal)",
+        sources=[
+            "https://en.wikipedia.org/wiki/Scrutiny_(journal)",
+        ]),
+    "Social Theory and Practice": dict(
+        descr=(
+            "Peer-reviewed quarterly of social philosophy, begun in 1970 "
+            "and published by the Department of Philosophy at Florida State"
+            " University. It takes up theoretical and applied questions in "
+            "social, political, legal, economic, educational and moral "
+            "philosophy, including critical studies of classic and "
+            "contemporary social philosophers."
+        ),
+        url="https://pdcnet.org/soctheory",
+        sources=[
+            "https://pdcnet.org/soctheory",
+            "https://en.wikipedia.org/wiki/Social_Theory_and_Practice",
+        ]),
+    "The World and I": dict(
+        descr=(
+            "American monthly magazine launched in 1986 by The Washington "
+            "Times and edited for years by political scientist Morton A. "
+            "Kaplan. It carried articles by scholars and experts on "
+            "politics, economics, world affairs, culture, the arts, science"
+            " and books. The print edition ended in 2004; it continued "
+            "online until 2018."
+        ),
+        url="https://en.wikipedia.org/wiki/The_World_and_I",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_World_and_I",
+        ]),
+    "Tijdschrift voor Filosofie": dict(
+        descr=(
+            "Dutch-language philosophy journal founded in Leuven in 1939, "
+            "titled Tijdschrift voor Philosophie until 1962, and based at "
+            "the Institute of Philosophy of KU Leuven. It is open to all "
+            "schools of thought and every field of philosophy, publishing "
+            "articles, discussions and reviews."
+        ),
+        sources=[
+            "https://www.jstor.org/journal/tijdfilo",
+            "https://relbib.de/Record/129502391/Details",
+        ]),
+    "Times": dict(
+        descr=(
+            "British national daily newspaper founded in London by John "
+            "Walter in 1785 as The Daily Universal Register and renamed The"
+            " Times in 1788. Long regarded as a British newspaper of "
+            "record, it covers domestic and international news, politics, "
+            "business and the arts, along with comment, letters and "
+            "obituaries."
+        ),
+        url="https://www.thetimes.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Times",
+        ]),
+    "Tradition and Discovery": dict(
+        descr=(
+            "Refereed journal of the Polanyi Society, devoted to the work "
+            "and legacy of the scientist and philosopher Michael Polanyi. "
+            "It publishes articles and reviews linking Polanyi's post-"
+            "critical thought to other thinkers in philosophy, religion and"
+            " social thought, and to the many fields, from science to "
+            "economics, that Polanyi wrote about."
+        ),
+        url="https://polanyisociety.org/tradition-discovery/",
+        sources=[
+            "https://pdcnet.org/traddisc/Tradition-and-Discovery",
+            "https://polanyisociety.org/tradition-discovery/",
+        ]),
+    "Universities Quarterly": dict(
+        descr=(
+            "British quarterly on universities and higher education, first "
+            "published in the late 1940s amid postwar debate about the "
+            "growth and purposes of the universities. It dealt with "
+            "university policy, teaching, governance and the place of "
+            "higher education in society, and in 1987 continued as Higher "
+            "Education Quarterly."
+        ),
+        sources=[
+            "https://libcat.library.tamu.edu/Record/in00000437589/Similar",
+            "https://srhe.ac.uk/publications/higher-education-quarterly/",
+        ]),
+    "Weekly Standard": dict(
+        descr=(
+            "American magazine of political news, analysis and commentary "
+            "founded in 1995 by William Kristol and Fred Barnes. Published "
+            "in Washington, it was widely seen as a leading voice of "
+            "neoconservatism, and also ran essays and reviews on books and "
+            "culture. It ceased publication in December 2018."
+        ),
+        url="https://en.wikipedia.org/wiki/The_Weekly_Standard",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Weekly_Standard",
+        ]),
+    "Western Political Quarterly": dict(
+        descr=(
+            "Political science quarterly first published by the University "
+            "of Utah in 1948, and later the official journal of the Western"
+            " Political Science Association. It published research across "
+            "the discipline, from American and comparative politics to "
+            "international relations and political theory, and was renamed "
+            "Political Research Quarterly in the early 1990s."
+        ),
+        url="https://en.wikipedia.org/wiki/Political_Research_Quarterly",
+        sources=[
+            "https://en.wikipedia.org/wiki/Political_Research_Quarterly",
+            "https://scholarly-societies.org/history/WesternPoliticalQ.html",
+        ]),
+    "Zeitschrift für Politik": dict(
+        descr=(
+            "German political science journal founded in 1907 by Adolf "
+            "Grabowsky and Richard Schmidt, revived as a new series in "
+            "1954, and the organ of the Hochschule für Politik München. It "
+            "covers political science in its full range, from political "
+            "theory and philosophy to comparative politics, international "
+            "relations, political sociology and law."
+        ),
+        url="https://www.nomos-elibrary.de/zeitschrift/0044-3360",
+        sources=[
+            "https://www.inlibra.com/en/journal/view/issn/0044-3360",
+            "https://krimdok.uni-tuebingen.de/Record/129457612",
         ]),
 }
