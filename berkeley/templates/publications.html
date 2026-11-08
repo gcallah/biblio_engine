@@ -88,8 +88,8 @@
     // Place each popup (abstract, citations, author, journal or publisher) just below its link, or
     // above it when there is no room below. The citations are fetched the
     // first time an Export link is hovered.
-    document.querySelectorAll('td.has-abstract, td.has-export, .has-person,
-                           .has-journal, .has-publisher')
+    document.querySelectorAll('td.has-abstract, td.has-export, .has-person, ' +
+                              '.has-journal, .has-publisher')
             .forEach(function (cell) {
         var pop = cell.querySelector('.abstract-pop');
         function place() {
