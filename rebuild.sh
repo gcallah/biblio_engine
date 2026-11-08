@@ -7,6 +7,10 @@ export project_name=mysite
 export virtual_env=biblio
 export WSGI_configuration_file=/var/www/moabiblio_pythonanywhere_com_wsgi.py
 
+# stop at the first failure (e.g. a git pull that cannot fast-forward), so
+# the deploy job fails instead of reporting success on stale code
+set -e
+
 # get new source code onto the server
 git pull origin master
 # activate our virtual env:
