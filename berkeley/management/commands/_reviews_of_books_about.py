@@ -33,8 +33,9 @@ Left out:
   Politics 57 (1995), pp. 346-8, on Covell; P. Coby, Choice 32 (1994), on
   Devigne; W. J. Coats, Choice 54 (May 2017), on Orsi.
 - J. L. Auspitz, 'A New Look at Michael Oakeshott' (Claremont Review of
-  Books, Spring 2014): it reviews Experience and Its Modes, and discusses
-  Callahan, the two Companions and others along the way.
+  Books, Spring 2014): it reviews Experience and Its Modes, so it is a
+  Book Reviews of Books by Oakeshott entry, though it also discusses
+  Callahan, the two Companions and others.
 - The Cosmos + Taxis 10(1+2) (2022) symposium on McIlwain's book: its
   essays are Short Works About Oakeshott entries.
 - RealClearBooks' 'Michael Oakeshott's Life of Reflection' (26 June

@@ -37,6 +37,9 @@ Political Science Review 33 (1943) (vol. 33 is 1939); J.L. Auspitz,
 National Review pp. '42, 44-88'.
 
 A year range such as '1962-3' is stored as its first year.
+
+One review is not from MOA: J. L. Auspitz, 'A New Look at Michael
+Oakeshott' (Claremont Review of Books, 2014), with its URL.
 """
 
 EIM = "Experience and Its Modes"
@@ -80,6 +83,13 @@ REVIEWS = [
     dict(book=EIM, authors=[('L.', 'R.', 'Perry')], journal='British Journal of Educational Studies', volume='16', year=1968, pages='96-7'),
     dict(book=EIM, authors=[('L.', 'S.', 'Stebbing')], journal='Mind', volume='43', year=1934, pages='403-5'),
     dict(book=EIM, authors=[('A.', '', 'Sullivan')], journal='New Republic', volume='195', day='22', month='December', year=1986, pages='28-34, 36'),
+    # Not in MOA (found 2026-11-07). A review essay on the Cambridge
+    # paperback of EIM that also discusses Callahan, Oakeshott on Rome and
+    # America; the Cambridge and Franco/Marsh Companions; Coats and
+    # Cheung, The Poetic Character of Human Activity; Henkel and Lembcke,
+    # Praxis und Politik; O'Sullivan, Oakeshott on History; and Tregenza,
+    # Michael Oakeshott on Hobbes.
+    dict(book=EIM, authors=[('Josiah', 'Lee', 'Auspitz')], title='A New Look at Michael Oakeshott', journal='Claremont Review of Books', volume='14', issue='2', month='Spring', year=2014, url='https://claremontreviewofbooks.com/a-new-look-at-michael-oakeshott/'),
     dict(book=SPD, authors=[], journal='Times Literary Supplement', day='1', month='April', year=1939, pages='182'),
     dict(book=SPD, authors=[('W.', 'G.', 'de Burgh')], journal='Mind', volume='49', year=1940, pages='100-2'),
     dict(book=SPD, authors=[('S.', 'J.', 'G.')], journal='Dublin Review', volume='205', year=1939, pages='195-7'),

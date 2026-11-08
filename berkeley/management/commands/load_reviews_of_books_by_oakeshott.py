@@ -12,7 +12,7 @@ and first initial (so "R. A. D. Grant" is "Robert Grant"), unless both
 have middle initials and they differ.
 
 Safe to re-run: a review is matched on journal, year, volume, date and
-pages. Titles, issues, book links, subjects and reviewees are applied
+pages. Titles, issues, URLs, book links, subjects and reviewees are applied
 on every run.
 
     python manage.py load_reviews_of_books_by_oakeshott
@@ -26,7 +26,7 @@ from . import _reviews_of_books_by as data
 from ._loaders import get_person, get_reviewer
 
 KEY = ("volume", "day", "month", "pages")
-FIELDS = ("title", "issue")
+FIELDS = ("title", "issue", "url")
 
 
 class Command(BaseCommand):
