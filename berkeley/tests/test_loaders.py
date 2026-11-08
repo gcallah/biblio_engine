@@ -73,13 +73,10 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
     def test_loads_every_short_work_once(self):
         from berkeley.management.commands import _short_works_about as data
         total = len(data.ARTICLES) + len(data.CHAPTERS)
-        self.assertIn(f"Added {total + len(data.REVIEWS)} short works",
-                      self.load())
+        self.assertIn(f"Added {total} short works", self.load())
         self.assertIn("Added 0 short works", self.load())
         self.assertEqual(Publication.objects.filter(pub_type="SWAB").count(),
                          total)
-        self.assertEqual(Publication.objects.filter(pub_type="RVAB").count(),
-                         len(data.REVIEWS))
         self.assertEqual(Publication.objects.filter(pub_type="MENT").count(),
                          len(data.HOSTS))
 
@@ -135,7 +132,8 @@ class LoadAbstractsTest(TestCase):
         for command in ("load_books_by_oakeshott",
                         "load_books_about_oakeshott",
                         "load_short_works_about_oakeshott",
-                        "load_short_works_by_oakeshott"):
+                        "load_short_works_by_oakeshott",
+                        "load_reviews_of_books_about_oakeshott"):
             call_command(command, stdout=StringIO())
         out = StringIO()
         call_command("load_abstracts", stdout=out)
@@ -311,5 +309,89 @@ class LoadReviewsOfBooksByOakeshottTest(TestCase):
     def test_needs_books_by_first(self):
         from django.core.management.base import CommandError
         Publication.objects.filter(pub_type="BKBY").delete()
+        with self.assertRaises(CommandError):
+            self.load()
+
+
+class LoadReviewsOfBooksAboutOakeshottTest(TestCase):
+    def load(self):
+        out = StringIO()
+        call_command("load_reviews_of_books_about_oakeshott", stdout=out)
+        return out.getvalue()
+
+    def setUp(self):
+        call_command("load_books_about_oakeshott", stdout=StringIO())
+
+    def test_loads_every_review_once(self):
+        from berkeley.management.commands import _reviews_of_books_about as data
+        total = len(data.REVIEWS)
+        self.assertGreater(total, 90)
+        self.assertIn(f"Added {total} reviews", self.load())
+        out = self.load()
+        self.assertIn("Added 0 reviews", out)
+        self.assertIn("updated 0", out)
+        reviews = Publication.objects.filter(pub_type="RVAB")
+        self.assertEqual(reviews.count(), total)
+        for pub in reviews:
+            self.assertEqual(pub.pub_reviewed.pub_type, "BKAB", pub.id)
+            self.assertEqual(pub.subject_id, pub.pub_reviewed.subject_id)
+            self.assertTrue(pub.reviewees.exists(), pub.id)
+
+    def test_match_keys_are_unique(self):
+        """Two entries with the same key would load as one review."""
+        from berkeley.management.commands import _reviews_of_books_about as data
+        from berkeley.management.commands.load_reviews_of_books_about_oakeshott \
+            import KEY
+        keys = [(r["journal"], r["year"]) + tuple(r.get(f, "") for f in KEY)
+                for r in data.REVIEWS]
+        self.assertEqual(len(keys), len(set(keys)))
+
+    def test_every_book_reviewed_is_a_book_about(self):
+        from berkeley.management.commands import _reviews_of_books_about as data
+        titles = set(Publication.objects.filter(pub_type="BKAB")
+                     .values_list("title", flat=True))
+        for item in data.REVIEWS:
+            self.assertIn(item["book"], titles)
+            for other in item.get("also", []):
+                self.assertIn(other, titles)
+
+    def test_review_of_several_books_has_all_their_authors(self):
+        self.load()
+        armour = Publication.objects.get(pub_type="RVAB",
+                                         authors__lname="Armour")
+        self.assertEqual(armour.pub_reviewed.title,
+                         "Oakeshott and His Contemporaries: Montaigne, "
+                         "St. Augustine, Hegel, et al.")
+        names = {p.lname for p in armour.reviewees.all()}
+        self.assertTrue({"Coats", "Farr", "Franco", "Nardin", "Tseng"}
+                        <= names)
+
+    def test_edited_volume_reviewees_are_its_editors(self):
+        self.load()
+        review = Publication.objects.get(pub_type="RVAB",
+                                         authors__lname="Thorsen")
+        self.assertEqual(sorted(p.lname for p in review.reviewees.all()),
+                         ["King", "Parekh"])
+
+    def test_reuses_people_by_last_name_and_initials(self):
+        from berkeley.models import Person
+        # The books loader adds Timothy Fuller and Wendell John Coats;
+        # MOA's reviewers are "T. Fuller" and "W. J. Coats".
+        Person.objects.create(fname="M.", mname="R.", lname="Bacon")
+        self.load()
+        self.assertEqual(Person.objects.filter(lname="Fuller").count(), 1)
+        self.assertEqual(Person.objects.filter(lname="Coats").count(), 1)
+        # "M. Bacon" has no middle initial, so it may be M. R. Bacon
+        self.assertEqual(Person.objects.filter(lname="Bacon").count(), 1)
+
+    def test_reviewed_author_search_finds_them(self):
+        self.load()
+        resp = self.client.get("/oakeshott/publications/",
+                               {"reviewed": "callahan", "pub_type": "RVAB"})
+        self.assertContains(resp, "University Bookman")
+
+    def test_needs_books_about_first(self):
+        from django.core.management.base import CommandError
+        Publication.objects.filter(pub_type="BKAB").delete()
         with self.assertRaises(CommandError):
             self.load()

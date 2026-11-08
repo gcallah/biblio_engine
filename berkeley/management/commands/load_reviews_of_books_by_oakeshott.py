@@ -20,26 +20,13 @@ on every run.
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from berkeley.models import Journal, Person, Publication, Subject, UNKNOWN_ID
+from berkeley.models import Journal, Publication, Subject, UNKNOWN_ID
 
 from . import _reviews_of_books_by as data
-from ._loaders import get_person
+from ._loaders import get_person, get_reviewer
 
 KEY = ("volume", "day", "month", "pages")
 FIELDS = ("title", "issue")
-
-
-def get_reviewer(name):
-    """An existing person with this last name and first initial (and no
-    conflicting middle initials), else a new one."""
-    fname, mname, lname = name
-    for person in Person.objects.filter(lname=lname):
-        if person.fname[:1] != fname[:1]:
-            continue
-        if mname and person.mname and mname != person.mname:
-            continue
-        return person
-    return get_person(name)
 
 
 class Command(BaseCommand):

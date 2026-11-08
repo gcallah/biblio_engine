@@ -1,5 +1,7 @@
 """Helpers shared by the data loaders (the leading underscore keeps
 Django from treating this module as a management command)."""
+import re
+
 from berkeley.models import Address, Person, Publisher
 
 
@@ -10,6 +12,27 @@ def get_person(name):
     person, _ = Person.objects.get_or_create(
         fname=fname, lname=lname, defaults={"mname": mname})
     return person
+
+
+def _initials(names):
+    """'John' -> 'J', 'A. J.' -> 'AJ', 'J.-P.' -> 'JP'."""
+    return "".join(w[0] for w in re.split(r"[\s.\-]+", names or "") if w)
+
+
+def get_reviewer(name):
+    """An existing person with this last name and first initial, and no
+    conflicting middle initials ("W. J." matches Wendell John), else a
+    new one. Lets a source that gives only initials reuse a person who is
+    already in the database under a full name."""
+    fname, mname, lname = name
+    for person in Person.objects.filter(lname=lname):
+        if person.fname[:1] != fname[:1]:
+            continue
+        if mname and person.mname and \
+                _initials(mname) != _initials(person.mname):
+            continue
+        return person
+    return get_person(name)
 
 
 def get_publisher(name, publishers, city=None):
@@ -79,7 +102,7 @@ SHORT_FIELDS = ("volume", "issue", "day", "month", "pages", "url", "doi")
 
 def load_short_works(data, pub_type, book_type):
     """Load data.ARTICLES (in a journal) and data.CHAPTERS (in a
-    book) as pub_type entries, and data.REVIEWS (if any) as reviews.
+    book) as pub_type entries.
     Works are matched on title, year and journal or book. Subjects,
     URL/DOI and "reviews_book" are applied on every run. A work with
     "reviews_book" (the title of a book by or about Oakeshott) is a
@@ -122,32 +145,5 @@ def load_short_works(data, pub_type, book_type):
             add_people(pub, item)
         elif changed:
             updated += 1
-    for item in getattr(data, "REVIEWS", []):
-        c, u = load_review(item)
-        created += c
-        updated += u
-    return created, updated, len(works) + len(getattr(data, "REVIEWS", []))
+    return created, updated, len(works)
 
-
-def load_review(item):
-    """A review of a Books About Oakeshott entry, as a Book Reviews of
-    Books About Oakeshott (RVAB) entry. item["reviews"] is the reviewed
-    book's title; item["title"] may be "" for an untitled review.
-    Returns (created, updated) as 0/1."""
-    from django.core.management.base import CommandError
-    from berkeley.models import Journal, Publication
-    try:
-        book = Publication.objects.get(title=item["reviews"],
-                                       pub_type="BKAB")
-    except Publication.DoesNotExist:
-        raise CommandError(f"Reviewed book not in the database: "
-                           f"{item['reviews']!r}")
-    journal, _ = Journal.objects.get_or_create(name=item["journal"])
-    fields = {f: item.get(f, "") for f in SHORT_FIELDS}
-    pub, is_new = Publication.objects.get_or_create(
-        title=item["title"], year=item["year"], pub_type="RVAB",
-        journal=journal, pub_reviewed=book, defaults=fields)
-    changed = set_subject(pub, item["subject"])
-    if is_new:
-        add_people(pub, item)
-    return int(is_new), int(changed and not is_new)

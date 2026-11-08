@@ -1583,21 +1583,7 @@ ARTICLES += [
          subject=PHIL),
 ]
 
-# Reviews of Books About Oakeshott; "reviews" is the book's title.
-REVIEWS = [
-    dict(authors=[("James", "", "Alexander")],
-         title="Oakeshott and the Cambridge School",
-         reviews="Michael Oakeshott and the Cambridge School on the "
-                 "History of Political Thought",
-         journal=CT, volume="8", issue="2+3", year=2020, pages="66-83",
-         url=CT_PDF + "2020/04/review_alexander_ct_vol8_iss_2_3.pdf",
-         subject=HIST),
-    dict(authors=[("P.", "", "Digeser")], title="",
-         reviews="Michael Oakeshott and the Conversation of Modern "
-                 "Political Thought",
-         journal=CT, volume="8", issue="10+11", year=2020, pages="83-87",
-         url=CT_PDF + "2020/10/digeser_ct_vol8_iss10_11.pdf", subject=POL),
-]
+# Reviews of books about Oakeshott are in _reviews_of_books_about.py.
 
 # More Oakeshott articles in Collingwood and British Idealism Studies (and
 # its predecessor Collingwood Studies), from the publisher's tables of
@@ -1773,11 +1759,4 @@ ARTICLES += [
                "Michael Oakeshott, What is History? and Other Essays",
          journal=CBIS, volume="11", year=2005, pages="119-132",
          reviews_book=WHAT_IS_HISTORY, subject=HIST),
-]
-
-REVIEWS += [
-    dict(authors=[MCINTYRE], title="Oakeshott vs. America",
-         reviews="Oakeshott on Rome and America",
-         journal="The American Conservative", year=2013, month="Jan./Feb.",
-         subject=POL),
 ]
