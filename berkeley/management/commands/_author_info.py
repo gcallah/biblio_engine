@@ -2391,7 +2391,7 @@ AUTHOR_INFO = {
             'Russian existentialist and religious philosopher (Lev '
             'Shestov), a critic of rationalism and positivism. Oakeshott '
             "reviewed the English translation of his In Job's Balances "
-            "(listed as In Jacob's Balance) in Scrutiny (1933)."
+            'in Scrutiny (1933).'
         ),
         sources=dict(
             yob='https://en.wikipedia.org/wiki/Lev_Shestov',
