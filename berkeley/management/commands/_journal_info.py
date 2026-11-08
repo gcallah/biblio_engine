@@ -7,7 +7,7 @@ journal's own site, or a reference page such as Wikipedia for journals no
 longer published). Leave out anything we couldn't confirm. "sources"
 records where the facts came from.
 
-The first batch (2026-11-07) covers the 31 journals with five or more
+The first two batches (2026-11-07) cover the 59 journals with three or more
 entries.
 """
 
@@ -364,4 +364,372 @@ JOURNAL_INFO = {
         url="https://www.aapss.org/",
         sources=[
             "https://en.wikipedia.org/wiki/The_Annals_of_the_American_Academy_of_Political_and_Social_Science"]),
+    # Second batch (2026-11-07): journals with three or four entries.
+    "Contemporary Political Theory": dict(
+        descr=(
+            "Peer-reviewed quarterly of political theory, published by "
+            "Palgrave Macmillan since 2002. It is broad in approach, "
+            "ranging from analytic philosophy to post-structuralist, "
+            "feminist and critical theory, and welcomes work from "
+            "neighbouring fields such as international relations, "
+            "geography, anthropology, gender and cultural studies."
+        ),
+        url="https://link.springer.com/journal/41296",
+        sources=[
+            "https://www.palgrave.com/gp/journal/41296/authors/aims-scope",
+            "https://en.wikipedia.org/wiki/Contemporary_Political_Theory",
+        ]),
+    "Daily Telegraph": dict(
+        descr=(
+            "London daily broadsheet newspaper first published in June 1855"
+            " as The Daily Telegraph and Courier. It covers national and "
+            "international news, politics, business and sport, along with "
+            "opinion and commentary. Known for its conservative outlook, it"
+            " has backed the Conservative Party at every general election "
+            "since 1945, and it absorbed The Morning Post in 1937."
+        ),
+        url="https://www.telegraph.co.uk/",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Daily_Telegraph",
+        ]),
+    "Durham University Journal": dict(
+        descr=(
+            "Official journal of Durham University in England, published "
+            "from 1876 until it ceased in 1995. In its early decades it "
+            "mainly reported news of the university itself; from the "
+            "interwar years onward it became a general academic periodical,"
+            " carrying scholarly articles unrelated to university business."
+        ),
+        url="https://en.wikipedia.org/wiki/Durham_University_Journal",
+        sources=[
+            "https://en.wikipedia.org/wiki/Durham_University_Journal",
+            "https://archiveshub.jisc.ac.uk/data/gb33-und-k",
+        ]),
+    "Ethics": dict(
+        descr=(
+            "Peer-reviewed journal of moral, political and legal "
+            "philosophy, founded in 1890 as the International Journal of "
+            "Ethics and renamed Ethics in 1938; published by the University"
+            " of Chicago Press since 1923. It draws on social and political"
+            " theory, law and economics, and publishes both theoretical "
+            "work and applications to current moral questions."
+        ),
+        url="https://www.journals.uchicago.edu/toc/et/current",
+        sources=[
+            "https://en.wikipedia.org/wiki/Ethics_(journal)",
+        ]),
+    "Government and Opposition": dict(
+        descr=(
+            "Peer-reviewed quarterly of comparative politics, founded in "
+            "1965 with Ghita Ionescu as its first editor, and now published"
+            " by Cambridge University Press on behalf of Government and "
+            "Opposition Ltd. It covers politics in any region and on a wide"
+            " range of topics, and also runs substantial review articles."
+        ),
+        url="https://www.cambridge.org/core/journals/government-and-opposition",
+        sources=[
+            "https://www.cambridge.org/core/journals/government-and-opposition/information/about-this-journal",
+            "https://en.wikipedia.org/wiki/Government_and_Opposition",
+        ]),
+    "Heythrop Journal": dict(
+        descr=(
+            "Peer-reviewed journal on the meeting ground of philosophy and "
+            "theology, founded in 1960 by Bruno Brinkman SJ at Heythrop "
+            "College, London, and now published by Wiley-Blackwell. Its "
+            "range includes philosophy of religion, ethics, hermeneutics, "
+            "biblical exegesis, religious studies and pastoral theology, "
+            "and it encourages dialogue between the two disciplines."
+        ),
+        url="https://onlinelibrary.wiley.com/journal/14682265",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Heythrop_Journal",
+        ]),
+    "Philosophical Books": dict(
+        descr=(
+            "British philosophy journal devoted to reviews of new books, "
+            "first issued in January 1960 by Basil Blackwell of Oxford. It "
+            "aimed to publish informed assessments of worthwhile new "
+            "philosophy books soon after they appeared. In 2011 it was "
+            "renamed Analytic Philosophy, under which title Wiley still "
+            "publishes it."
+        ),
+        url="https://en.wikipedia.org/wiki/Analytic_Philosophy_(journal)",
+        sources=[
+            "https://en.wikipedia.org/wiki/Analytic_Philosophy_(journal)",
+            "https://libcat.library.tamu.edu/Record/in00000758482/Description",
+        ]),
+    "Political Studies Review": dict(
+        descr=(
+            "Peer-reviewed journal of the Political Studies Association of "
+            "the UK, published since 2003 and now issued by SAGE. It covers"
+            " political science and international relations, and is known "
+            "for its review articles and large book review section, "
+            "alongside original research and symposia."
+        ),
+        url="https://journals.sagepub.com/home/psw",
+        sources=[
+            "https://en.wikipedia.org/wiki/Political_Studies_Review",
+        ]),
+    "Review of Metaphysics": dict(
+        descr=(
+            "Quarterly journal of philosophy founded in 1947 by Paul Weiss "
+            "and published by the Philosophy Education Society, with the "
+            "Catholic University of America as its chief sponsor. Tied to "
+            "no school of thought, it publishes work on fundamental "
+            "philosophical questions, especially metaphysics and the "
+            "history of philosophy, with an extensive book review section."
+        ),
+        url="https://reviewofmetaphysics.org/",
+        sources=[
+            "https://reviewofmetaphysics.org/",
+            "https://en.wikipedia.org/wiki/The_Review_of_Metaphysics",
+        ]),
+    "American Scholar": dict(
+        descr=(
+            "Quarterly magazine published by the Phi Beta Kappa Society "
+            "since 1932, named after Ralph Waldo Emerson's 1837 address "
+            '"The American Scholar". Written for general readers, it '
+            "carries essays, criticism and poetry on public affairs, "
+            "literature, science, history and culture."
+        ),
+        url="https://theamericanscholar.org/",
+        sources=[
+            "https://theamericanscholar.org/about-us/",
+            "https://en.wikipedia.org/wiki/The_American_Scholar_(magazine)",
+        ]),
+    "Australian Journal of Politics and History": dict(
+        descr=(
+            "Peer-reviewed journal founded in 1955 by Gordon Greenwood, now"
+            " published by Wiley. It covers history, political studies and "
+            "international affairs, with particular attention to Australia,"
+            " New Zealand and the Asia-Pacific region, and also publishes "
+            "work on European politics, intellectual history and the "
+            "history of political thought."
+        ),
+        url="https://onlinelibrary.wiley.com/journal/14678497",
+        sources=[
+            "https://en.wikipedia.org/wiki/Australian_Journal_of_Politics_and_History",
+        ]),
+    "British Journal of Educational Studies": dict(
+        descr=(
+            "Peer-reviewed education journal established in 1952 and "
+            "published by Taylor & Francis on behalf of the Society for "
+            "Educational Studies. It publishes scholarly, research-based "
+            "articles on education, drawing chiefly on historical, "
+            "philosophical and sociological analysis."
+        ),
+        url="https://www.tandfonline.com/journals/rbje20",
+        sources=[
+            "https://en.wikipedia.org/wiki/British_Journal_of_Educational_Studies",
+        ]),
+    "Economist": dict(
+        descr=(
+            "London weekly founded in 1843 by the Scottish economist James "
+            "Wilson to campaign for repeal of the Corn Laws; it still calls"
+            " itself a newspaper. It covers world affairs, politics, "
+            "economics, business and finance, science and technology, and "
+            "books and the arts, from a broadly classical-liberal, free-"
+            "market position."
+        ),
+        url="https://www.economist.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Economist",
+        ]),
+    "First Things": dict(
+        descr=(
+            "American journal of religion and public life founded in 1990 "
+            "by Richard John Neuhaus, who edited it until his death in "
+            "2009, and published in New York by the Institute on Religion "
+            "and Public Life. It seeks a religiously informed public "
+            "philosophy from a chiefly Christian and Jewish standpoint, "
+            "covering theology, culture, education, politics and "
+            "literature."
+        ),
+        url="https://www.firstthings.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/First_Things",
+        ]),
+    "History and Theory": dict(
+        descr=(
+            "Quarterly journal on the theory and philosophy of history, "
+            "founded in 1960 by George H. Nadel and published at Wesleyan "
+            "University with Wiley. It carries articles and review essays "
+            "on the philosophy of history, historiography and its history, "
+            "historical method, and the relation of history to other "
+            "disciplines, with an annual theme issue."
+        ),
+        url="https://historyandtheory.org/",
+        sources=[
+            "https://historyandtheory.org/about/",
+            "https://en.wikipedia.org/wiki/History_and_Theory",
+        ]),
+    "Independent Review": dict(
+        descr=(
+            "Quarterly peer-reviewed journal of political economy published"
+            " since 1996 by the Independent Institute, an American "
+            "libertarian think tank. It offers critical analysis of "
+            "government policy, drawing on economics, political science, "
+            "law, history, philosophy and sociology."
+        ),
+        url="https://www.independent.org/publications/tir/",
+        sources=[
+            "https://www.independent.org/publications/tir/",
+            "https://en.wikipedia.org/wiki/The_Independent_Review",
+        ]),
+    "Journal of Philosophy of Education": dict(
+        descr=(
+            "Journal of the Philosophy of Education Society of Great "
+            "Britain, founded in 1967 and published by Oxford University "
+            "Press since 2023 (previously Wiley-Blackwell). Drawing on a "
+            "wide range of philosophical traditions, it treats fundamental "
+            "questions about education and critical analysis of educational"
+            " practice and policy."
+        ),
+        url="https://academic.oup.com/jope",
+        sources=[
+            "https://academic.oup.com/jope/pages/About",
+            "https://en.wikipedia.org/wiki/Journal_of_Philosophy_of_Education",
+        ]),
+    "Journal of the History of Ideas": dict(
+        descr=(
+            "Quarterly journal founded in 1940 by Arthur O. Lovejoy and "
+            "Philip P. Wiener, published by the University of Pennsylvania "
+            "Press since 2006. It covers intellectual and conceptual "
+            "history in the broadest sense, across philosophy, literature "
+            "and the arts, the natural and social sciences, religion and "
+            "political thought."
+        ),
+        url="https://www.pennpress.org/journals/journal/journal-of-the-history-of-ideas/",
+        sources=[
+            "https://en.wikipedia.org/wiki/Journal_of_the_History_of_Ideas",
+        ]),
+    "Listener": dict(
+        descr=(
+            "Weekly magazine published by the BBC from 1929 until 1991. "
+            "Intended as an aid to the intelligent reception of "
+            "broadcasting, it printed transcripts of broadcast talks, along"
+            " with previews of major literary and musical broadcasts, book "
+            "reviews, and listings of the week's more serious programmes."
+        ),
+        url="https://en.wikipedia.org/wiki/The_Listener_(magazine)",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Listener_(magazine)",
+        ]),
+    "Modern Age": dict(
+        descr=(
+            "American quarterly of conservative thought, founded in 1957 by"
+            " Russell Kirk with the support of publisher Henry Regnery, and"
+            " published since 1976 by the Intercollegiate Studies "
+            "Institute. Broadly traditionalist in outlook, it carries "
+            "essays and book reviews on political philosophy, history, "
+            "literature, religion and culture."
+        ),
+        url="https://modernagejournal.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/Modern_Age_(periodical)",
+        ]),
+    "Modern Language Review": dict(
+        descr=(
+            "Quarterly scholarly journal published by the Modern Humanities"
+            " Research Association since 1905. It prints articles and book "
+            "reviews, all in English, on medieval and modern European "
+            "languages, literatures and cultures, with sections on English "
+            "and American, French, Italian, Hispanic, Germanic, and "
+            "Slavonic and East European studies."
+        ),
+        url="https://www.mhra.org.uk/journals/MLR",
+        sources=[
+            "https://www.mhra.org.uk/journals/MLR",
+            "https://en.wikipedia.org/wiki/Modern_Language_Review",
+        ]),
+    "New Republic": dict(
+        descr=(
+            "American magazine of politics and culture founded in 1914 by "
+            "Herbert Croly, Walter Lippmann and Walter Weyl. Long a weekly,"
+            " it covers national politics, public affairs, books and the "
+            "arts. Founded as a liberal and progressive voice, it moved "
+            "toward the political centre under owner Martin Peretz."
+        ),
+        url="https://newrepublic.com/",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_New_Republic",
+        ]),
+    "Philosophy of the Social Sciences": dict(
+        descr=(
+            "Peer-reviewed journal founded in 1971 and published by SAGE, "
+            "an interdisciplinary forum on the philosophical foundations of"
+            " the social sciences. It runs articles and symposia on topics "
+            "such as methodology, individualism versus holism, rationality "
+            "and the history of social-scientific concepts, without "
+            "favouring any single school."
+        ),
+        url="https://journals.sagepub.com/home/pos",
+        sources=[
+            "https://en.wikipedia.org/wiki/Philosophy_of_the_Social_Sciences_(journal)",
+        ]),
+    "Politica": dict(
+        descr=(
+            "Journal of the London School of Economics and Political "
+            "Science, launched in 1934 as a companion to the School's "
+            "journal Economica. Economica kept economics, economic history "
+            "and statistics, while Politica took the School's other "
+            "subjects, chiefly politics and related social studies. Library"
+            " records give its run as 1934 to 1939."
+        ),
+        sources=[
+            "https://ideas.repec.org/h/pal/palchp/978-1-137-58274-4_6.html",
+            "https://folio.caval.edu.au/Record/c000166010",
+        ]),
+    "Sunday Telegraph": dict(
+        descr=(
+            "British national Sunday broadsheet first published on 5 "
+            "February 1961 as the Sunday companion to The Daily Telegraph. "
+            "Conservative in outlook, it covers news, politics, comment, "
+            "business, books and the arts."
+        ),
+        url="https://www.telegraph.co.uk/",
+        sources=[
+            "https://en.wikipedia.org/wiki/The_Sunday_Telegraph",
+        ]),
+    "Time and Tide": dict(
+        descr=(
+            "British weekly review of politics and literature founded in "
+            "1920 by Margaret, Lady Rhondda. It began as a left-leaning "
+            "feminist paper, then moved rightward with its owner's views, "
+            "and published writers such as Virginia Woolf, George Orwell "
+            "and C. S. Lewis. It later became monthly and ceased in 1979, "
+            "apart from a brief revival in 1984-86."
+        ),
+        url="https://en.wikipedia.org/wiki/Time_and_Tide_(magazine)",
+        sources=[
+            "https://en.wikipedia.org/wiki/Time_and_Tide_(magazine)",
+        ]),
+    "Utilitas": dict(
+        descr=(
+            "Interdisciplinary journal founded in 1989 and published by "
+            "Cambridge University Press, with the backing of the "
+            "International Society for Utilitarian Studies. It covers the "
+            "history of utilitarian thought and the fields to which "
+            "utilitarianism has contributed: moral and political "
+            "philosophy, economic theory, jurisprudence and intellectual "
+            "history."
+        ),
+        url="https://www.cambridge.org/core/journals/utilitas",
+        sources=[
+            "https://www.cambridge.org/core/journals/utilitas/information/about-this-journal",
+            "https://en.wikipedia.org/wiki/Utilitas",
+        ]),
+    "VoegelinView": dict(
+        descr=(
+            "Online journal founded in 2009 by Frederick Wagner and "
+            "published by the Eric Voegelin Society. It began as a resource"
+            " for the study of the political philosopher Eric Voegelin and "
+            "has broadened into a general arts and humanities journal, "
+            "publishing essays, reviews and interviews on philosophy, "
+            "literature, culture and current affairs."
+        ),
+        url="https://voegelinview.com/",
+        sources=[
+            "https://voegelinview.com/about/",
+        ]),
 }
