@@ -74,7 +74,7 @@ REVIEWS = [
     dict(book=EIM, authors=[('R.', 'G.', 'Collingwood')], journal='Cambridge Review', volume='55', year=1933, pages='249-50'),
     dict(book=EIM, authors=[('I.', '', 'Crowther')], journal='Salisbury Review', volume='5', month='April', year=1987, pages='71'),
     dict(book=EIM, authors=[('R.', '', 'Franks')], journal='Congregational Quarterly', year=1935),
-    dict(book=EIM, authors=[('J.', 'W.', 'Hunkin')], journal='Church of England Newspaper', day='2', month='March', year=1934),
+    dict(book=EIM, authors=[('J.', 'W.', 'Humkin')], journal='Church of England Newspaper', day='2', month='March', year=1934),
     dict(book=EIM, authors=[('T.', 'E.', 'Jessop')], journal='Philosophy', volume='9', year=1934, pages='357-9'),
     dict(book=EIM, authors=[('T.', 'E.', 'Jessop')], journal='Jahrbuch für die idealistische Philosophie', year=1934),
     dict(book=EIM, authors=[('T.', 'M.', 'Knox')], journal='Oxford Magazine', volume='52', year=1934, pages='551-2'),

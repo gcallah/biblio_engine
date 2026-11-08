@@ -1408,6 +1408,767 @@ CANDIDATES = {
             ),
         ],
     ),
+    ('Bromwich', 'D.', ''): dict(
+        candidate='David Bromwich',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/David_Bromwich',
+        affiliation='Yale University',
+        descr=(
+            'American literary scholar and critic, Sterling Professor of '
+            'English at Yale, who writes on Romantic literature, Burke and '
+            "politics. He reviewed Oakeshott's The Voice of Liberal "
+            'Learning in the New Republic (1989).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/David_Bromwich'
+        ),
+        works=[
+            (
+                'author: A Review of The Voice of Liberal Learning: Michael'
+                ' Oakeshott on Education (1989) [Book Reviews of Books by '
+                'Oakeshott] — New Republic'
+            ),
+        ],
+    ),
+    ('Armour', 'L.', ''): dict(
+        candidate='Leslie Armour',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Leslie_Armour',
+        affiliation='University of Ottawa',
+        yob=1931,
+        yod=2014,
+        descr=(
+            'Canadian philosopher and social economist, Emeritus Professor '
+            'at the University of Ottawa and Fellow of the Royal Society of'
+            ' Canada, known for histories of Canadian philosophy. He '
+            'reviewed a book on Oakeshott in the British Journal for the '
+            'History of Philosophy (2005).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Leslie_Armour'
+        ),
+        works=[
+            (
+                'author: Michael Oakeshott – A Fish Too Big or Too '
+                'Slippery? (2005) [Book Reviews of Books About Oakeshott] —'
+                ' British Journal for the History of Philosophy'
+            ),
+        ],
+    ),
+    ('Charlton', 'B.', ''): dict(
+        candidate='Bruce Charlton',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Bruce_Charlton',
+        affiliation='Newcastle University',
+        descr=(
+            'British medical doctor and theoretical-medicine writer, Reader'
+            ' in Evolutionary Psychiatry at Newcastle University and editor'
+            " of Medical Hypotheses (2003-10). He reviewed Oakeshott's "
+            'Morality and Politics in Modern Europe in Psychological '
+            'Medicine (1995).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Bruce_Charlton'
+        ),
+        works=[
+            (
+                'author: A Review of Morality and Politics in Modern '
+                'Europe: The Harvard Lectures (1995) [Book Reviews of Books'
+                ' by Oakeshott] — Psychological Medicine'
+            ),
+        ],
+    ),
+    ('Bourke', 'R.', ''): dict(
+        candidate='Richard Bourke',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Richard_Bourke_(academic)',
+        affiliation='University of Cambridge',
+        yob=1965,
+        descr=(
+            'Irish historian of political thought, formerly at Queen Mary, '
+            'University of London, and since 2018 Professor of the History '
+            'of Political Thought at Cambridge; author of Empire and '
+            "Revolution on Burke. He reviewed Efraim Podoksik's In Defence "
+            'of Modernity in the European Legacy (2005).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Richard_Bourke_(academic)'
+        ),
+        works=[
+            (
+                'author: A Review of In Defence of Modernity: Vision and '
+                'Philosophy in Michael Oakeshott (2005) [Book Reviews of '
+                'Books About Oakeshott] — European Legacy'
+            ),
+        ],
+    ),
+    ('Altham', 'J.', 'E. J.'): dict(
+        candidate='J. E. J. Altham',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Jimmy_Altham',
+        affiliation='Gonville and Caius College, Cambridge',
+        yob=1944,
+        descr=(
+            'British philosopher (James Edward John "Jimmy" Altham), '
+            'lecturer in the Cambridge philosophy faculty from the early '
+            '1970s and Fellow of Gonville and Caius College, writing on '
+            'logic, ethics and political philosophy. He reviewed On Human '
+            'Conduct in the Cambridge Review (1975).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Jimmy_Altham'
+        ),
+        works=[
+            (
+                'author: A Review of On Human Conduct (1975) [Book Reviews '
+                'of Books by Oakeshott] — Cambridge Review'
+            ),
+        ],
+    ),
+    ('Berard', 'R.', 'N.'): dict(
+        candidate='Robert Nicholas Berard',
+        confidence='medium',
+        affiliation='Mount Saint Vincent University',
+        url=(
+            'https://www.msvu.ca/academics/faculty-of-education/faculty-pro'
+            'files/dr-robert-berard/'
+        ),
+        descr=(
+            'Robert Nicholas Berard, Canadian historian of education with '
+            'an MA and PhD in history from McMaster, who taught history at '
+            "Dalhousie and King's College, Halifax, and education at Mount "
+            'Saint Vincent University. He reviewed On History and Other '
+            'Essays in two journals (1984, 1985).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: htt'
+            'ps://cchahistory.ca/journal/CCHA1997/List%20of%20Contributors.'
+            'htm https://www.msvu.ca/academics/faculty-of-education/faculty'
+            '-profiles/dr-robert-berard/'
+        ),
+        works=[
+            (
+                'author: A Review of On History and Other Essays (1985) '
+                '[Book Reviews of Books by Oakeshott] — History Teacher'
+            ),
+            (
+                'author: A Review of On History and Other Essays (1984) '
+                '[Book Reviews of Books by Oakeshott] — International '
+                'History Review'
+            ),
+        ],
+    ),
+    ('Edel', 'A.', ''): dict(
+        candidate='Abraham Edel',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Abraham_Edel',
+        yob=1908,
+        yod=2007,
+        affiliation='City College of New York',
+        descr=(
+            'American philosopher and ethicist, educated at McGill, Oxford '
+            'and Columbia, who taught for many years at City College of New'
+            ' York. He reviewed Morality and Politics in Modern Europe in '
+            'Society (1995).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Abraham_Edel'
+        ),
+        works=[
+            (
+                'author: A Review of Morality and Politics in Modern '
+                'Europe: The Harvard Lectures (1995) [Book Reviews of Books'
+                ' by Oakeshott] — Society'
+            ),
+        ],
+    ),
+    ('Emmet', 'D.', ''): dict(
+        candidate='Dorothy Emmet',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Dorothy_Emmet',
+        yob=1904,
+        yod=2000,
+        affiliation='University of Manchester',
+        descr=(
+            'British philosopher who headed the philosophy department at '
+            'Manchester University for some twenty years and co-founded the'
+            ' Epiphany Philosophers. She reviewed Rationalism in Politics '
+            'in the Philosophical Quarterly (1963).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Dorothy_Emmet'
+        ),
+        works=[
+            (
+                'author: A Review of Rationalism in Politics and Other '
+                'Essays (1963) [Book Reviews of Books by Oakeshott] — '
+                'Philosophical Quarterly'
+            ),
+        ],
+    ),
+    ('Gottfried', 'P.', ''): dict(
+        candidate='Paul Gottfried',
+        confidence='medium',
+        url='https://en.wikipedia.org/wiki/Paul_Gottfried',
+        yob=1941,
+        affiliation='Elizabethtown College',
+        descr=(
+            'American paleoconservative political philosopher and '
+            'intellectual historian, long a professor of humanities at '
+            'Elizabethtown College. He reviewed the expanded edition of '
+            'Rationalism in Politics in Modern Age (1992).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Paul_Gottfried'
+        ),
+        works=[
+            (
+                'author: A Review of Rationalism in Politics and Other '
+                'Essays: New and Expanded Edition (1992) [Book Reviews of '
+                'Books by Oakeshott] — Modern Age'
+            ),
+        ],
+    ),
+    ('Dunstan', 'G.', 'R.'): dict(
+        candidate='Gordon Reginald Dunstan',
+        confidence='medium',
+        affiliation="King's College London",
+        yob=1917,
+        yod=2004,
+        url=(
+            'https://history.rcplondon.ac.uk/inspiring-physicians/gordon-re'
+            'ginald-dunstan'
+        ),
+        descr=(
+            'Gordon Reginald Dunstan, Anglican priest and theological '
+            'ethicist, F. D. Maurice Professor of Moral and Social Theology'
+            " at King's College London and a leading figure in British "
+            'medical ethics. He reviewed On Human Conduct in the Law '
+            'Quarterly Review (1976).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: htt'
+            'ps://archiveshub.ac.uk/search/archives/5b207522-775e-343b-abdd'
+            '-cc1fdb972cd0 https://history.rcplondon.ac.uk/inspiring-physic'
+            'ians/gordon-reginald-dunstan'
+        ),
+        works=[
+            (
+                'author: A Review of On Human Conduct (1976) [Book Reviews '
+                'of Books by Oakeshott] — Law Quarterly Review'
+            ),
+        ],
+    ),
+    ('Franklin', 'J.', 'H.'): dict(
+        candidate='Julian H. Franklin',
+        confidence='medium',
+        affiliation='Columbia University',
+        yob=1925,
+        url='https://prabook.com/web/julian_harold.franklin/1697632',
+        descr=(
+            'Julian H. Franklin, American historian of political thought '
+            'and professor of political science at Columbia University, '
+            'known for work on absolutism and constitutionalism in the '
+            'sixteenth and seventeenth centuries, notably on Bodin. He '
+            'reviewed Rationalism in Politics in the Journal of Philosophy '
+            '(1963).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://prabook.com/web/julian_harold.franklin/1697632 '
+            'https://www.routledge.com/products/9780754625452'
+        ),
+        works=[
+            (
+                'author: A Review of Rationalism in Politics and Other '
+                'Essays (1963) [Book Reviews of Books by Oakeshott] — '
+                'Journal of Philosophy'
+            ),
+        ],
+    ),
+    ('Esler', 'A.', ''): dict(
+        candidate='Anthony James Esler',
+        confidence='medium',
+        affiliation='College of William & Mary',
+        yob=1934,
+        url=(
+            'https://www.encyclopedia.com/arts/culture-magazines/esler-anth'
+            'ony-james'
+        ),
+        descr=(
+            'Anthony James Esler, American historian and novelist who '
+            'taught history at the College of William & Mary (professor '
+            '1972-99), author of The Human Venture and Bombs, Beards, and '
+            'Barricades. He reviewed On History and Other Essays in the '
+            'Social Science Journal (1985).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: htt'
+            'ps://www.encyclopedia.com/arts/culture-magazines/esler-anthony'
+            '-james'
+        ),
+        works=[
+            (
+                'author: A Review of On History and Other Essays (1985) '
+                '[Book Reviews of Books by Oakeshott] — Social Science '
+                'Journal'
+            ),
+        ],
+    ),
+    ('Fahey', 'D.', 'M.'): dict(
+        candidate='David M. Fahey',
+        confidence='medium',
+        affiliation='Miami University',
+        yob=1937,
+        url='https://en.wikipedia.org/wiki/David_M._Fahey',
+        descr=(
+            'David M. Fahey, American historian of modern Britain and of '
+            'temperance movements, professor (now emeritus) at Miami '
+            'University in Oxford, Ohio. He reviewed On History and Other '
+            'Essays in Clio (1984).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/David_M._Fahey https://miamioh.e'
+            'du/cas/academics/departments/history/emeriti-faculty/fahey/ind'
+            'ex.html'
+        ),
+        works=[
+            (
+                'author: A Review of On History and Other Essays (1984) '
+                '[Book Reviews of Books by Oakeshott] — Clio'
+            ),
+        ],
+    ),
+    ('Eccleshall', 'R.', ''): dict(
+        candidate='Robert Eccleshall',
+        confidence='medium',
+        affiliation="Queen's University Belfast",
+        descr=(
+            'Robert Eccleshall, British political theorist in the '
+            "Department of Politics at Queen's University Belfast, author "
+            'of English Conservatism since the Restoration and writings on '
+            'conservative ideology. He reviewed On History and Other Essays'
+            ' in Political Studies (1984).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://www.librarything.com/author/eccleshallrobert '
+            'https://www.taylorfrancis.com/books/9780203205181'
+        ),
+        works=[
+            (
+                'author: A Review of On History and Other Essays (1984) '
+                '[Book Reviews of Books by Oakeshott] — Political Studies'
+            ),
+        ],
+    ),
+    ('Hartle', 'A.', ''): dict(
+        candidate='Ann Hartle',
+        confidence='medium',
+        affiliation='Emory University',
+        url='https://philosophy.emory.edu/people/bios/hartle-ann.html',
+        descr=(
+            'Ann Hartle, American philosopher and professor emerita at '
+            'Emory University, known for her books on Montaigne. She '
+            'reviewed The Politics of Faith and the Politics of Scepticism '
+            'in the Review of Metaphysics (1997).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://philosophy.emory.edu/people/bios/hartle-ann.html'
+        ),
+        works=[
+            (
+                'author: A Review of The Politics of Faith and the Politics'
+                ' of Scepticism (1997) [Book Reviews of Books by Oakeshott]'
+                ' — Review of Metaphysics'
+            ),
+        ],
+    ),
+    ('Heath', 'E.', ''): dict(
+        candidate='Eugene Heath',
+        confidence='medium',
+        affiliation='State University of New York at New Paltz',
+        url='https://press.uchicago.edu/ucp/books/author/H/E/au25581489.html',
+        descr=(
+            'Eugene Heath, American philosopher at SUNY New Paltz who '
+            'writes on Adam Ferguson and the ethics of markets, author or '
+            'editor of Morality and the Market. He reviewed The Politics of'
+            ' Faith and the Politics of Scepticism in the Independent '
+            'Review (1998).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: htt'
+            'ps://press.uchicago.edu/ucp/books/author/H/E/au25581489.html'
+        ),
+        works=[
+            (
+                'author: A Review of The Politics of Faith and the Politics'
+                ' of Scepticism (1998) [Book Reviews of Books by Oakeshott]'
+                ' — Independent Review'
+            ),
+        ],
+    ),
+    ('Dearden', 'R.', 'F.'): dict(
+        candidate='R. F. Dearden',
+        confidence='medium',
+        yob=1934,
+        yod=2005,
+        descr=(
+            'R. F. Dearden, British philosopher of education and former '
+            "primary-school teacher who joined R. S. Peters's circle at the"
+            ' London Institute of Education and wrote The Philosophy of '
+            'Primary Education (1968). He reviewed The Voice of Liberal '
+            'Learning in the Journal of Educational Administration and '
+            'History (1990).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://libmast.utm.my/Record/KOHA-OAI-TEST:472069/Description'
+        ),
+        works=[
+            (
+                'author: A Review of The Voice of Liberal Learning: Michael'
+                ' Oakeshott on Education (1990) [Book Reviews of Books by '
+                'Oakeshott] — Journal of Educational Administration and '
+                'History'
+            ),
+        ],
+    ),
+    ('Graham', 'G.', ''): dict(
+        candidate='Gordon Graham',
+        confidence='medium',
+        affiliation='Princeton Theological Seminary',
+        yob=1949,
+        url='https://en.wikipedia.org/wiki/L._Gordon_Graham',
+        descr=(
+            'Gordon Graham, Irish-born philosopher who was Lecturer in '
+            'Moral Philosophy at St Andrews (from 1975), later Regius '
+            'Professor of Moral Philosophy at Aberdeen and a professor at '
+            'Princeton Theological Seminary. He reviewed On Human Conduct '
+            'in the St Andrews-based Philosophical Quarterly (1976).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/L._Gordon_Graham '
+            'https://www.gordon-graham.net/philosophy.html'
+        ),
+        works=[
+            (
+                'author: A Review of On Human Conduct (1976) [Book Reviews '
+                'of Books by Oakeshott] — Philosophical Quarterly'
+            ),
+        ],
+    ),
+    ('Munz', 'P.', ''): dict(
+        candidate='Peter Munz',
+        confidence='medium',
+        yob=1921,
+        yod=2006,
+        affiliation='Victoria University of Wellington',
+        descr=(
+            'Peter Munz was a German-born New Zealand historian and '
+            'philosopher, a professor at Victoria University of Wellington '
+            'and one of the few students of both Popper and Wittgenstein, '
+            'who wrote on the philosophy of history. He reviewed '
+            "Oakeshott's On History and Other Essays in European History "
+            'Quarterly.'
+        ),
+        url='https://en.wikipedia.org/wiki/Peter_Munz',
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/Peter_Munz'
+        ),
+        works=[
+            (
+                'author: A Review of On History and Other Essays (1984) '
+                '[Book Reviews of Books by Oakeshott] — European History '
+                'Quarterly'
+            ),
+        ],
+    ),
+    ('Searle', 'J.', 'R.'): dict(
+        candidate='John Searle',
+        confidence='medium',
+        yob=1932,
+        yod=2025,
+        affiliation='University of California, Berkeley',
+        descr=(
+            'John Searle was an American philosopher of language and mind '
+            'at Berkeley, known for speech-act theory and the Chinese room '
+            'argument. His 1990 New York Review of Books essay "The Storm '
+            'Over the University", on books about the state of higher '
+            "education, is listed as a review of Oakeshott's The Voice of "
+            'Liberal Learning.'
+        ),
+        url='https://en.wikipedia.org/wiki/John_Searle',
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/John_Searle'
+        ),
+        works=[
+            (
+                'author: A Review of The Voice of Liberal Learning: Michael'
+                ' Oakeshott on Education (1990) [Book Reviews of Books by '
+                'Oakeshott] — New York Review of Books'
+            ),
+        ],
+    ),
+    ('Partridge', 'P.', 'H.'): dict(
+        candidate='Percy Herbert Partridge',
+        confidence='medium',
+        yob=1910,
+        yod=1988,
+        affiliation='Australian National University',
+        url='https://adb.anu.edu.au/biography/partridge-percy-herbert-15021',
+        descr=(
+            'Percy Herbert Partridge was an Australian social and political'
+            ' philosopher and educationist who taught at Sydney and '
+            'Melbourne before taking the foundation chair of social '
+            'philosophy at the Australian National University in 1952. He '
+            'wrote on Oakeshott and the study of politics in the Australian'
+            ' Journal of Politics and History (1963).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://adb.anu.edu.au/biography/partridge-percy-herbert-15021'
+        ),
+        works=[
+            (
+                'author: The Study of Politics (1963) [Book Reviews of '
+                'Books by Oakeshott] — Australian Journal of Politics and '
+                'History'
+            ),
+        ],
+    ),
+    ('Roucek', 'J.', 'S.'): dict(
+        candidate='Joseph Slabey Roucek',
+        confidence='medium',
+        yob=1902,
+        yod=1984,
+        affiliation='University of Bridgeport',
+        url='https://snaccooperative.org/view/21038783',
+        descr=(
+            'Joseph Slabey Roucek was a Czech-born American sociologist and'
+            ' political scientist, a prolific author and editor on Central '
+            'Europe and the Balkans who taught at the University of '
+            "Bridgeport and Hofstra. He reviewed Oakeshott's The Social and"
+            ' Political Doctrines of Contemporary Europe in two American '
+            'journals in 1939.'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://snaccooperative.org/view/21038783'
+        ),
+        works=[
+            (
+                'author: A Review of The Social and Political Doctrines of '
+                'Contemporary Europe (1939) [Book Reviews of Books by '
+                'Oakeshott] — American Sociological Review'
+            ),
+            (
+                'author: A Review of The Social and Political Doctrines of '
+                'Contemporary Europe (1939) [Book Reviews of Books by '
+                'Oakeshott] — Annals of the American Academy of Political '
+                'and Social Science'
+            ),
+        ],
+    ),
+    ('Rubinoff', 'L.', ''): dict(
+        candidate='Lionel Rubinoff',
+        confidence='medium',
+        yob=1930,
+        affiliation='Trent University',
+        url='https://archives.trentu.ca/index.php/lionel-rubinoff',
+        descr=(
+            'Lionel Rubinoff is a Canadian philosopher who taught at the '
+            'University of Toronto and York University before joining Trent'
+            ' University in 1971; a Collingwood scholar, he edited '
+            "Collingwood's Faith and Reason and wrote The Pornography of "
+            'Power. He reviewed Oakeshott\'s On Human Conduct in "On '
+            'Theorizing Human Conduct" (1979).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://archives.trentu.ca/index.php/lionel-rubinoff https://w'
+            'ww.encyclopedia.com/arts/culture-magazines/rubinoff-lionel'
+        ),
+        works=[
+            (
+                'author: On Theorizing Human Conduct (1979) [Book Reviews '
+                'of Books by Oakeshott] — Canadian Journal of Political and'
+                ' Social Theory'
+            ),
+        ],
+    ),
+    ('Sandelius', 'W.', ''): dict(
+        candidate='Walter E. Sandelius',
+        confidence='medium',
+        affiliation='University of Kansas',
+        descr=(
+            'Walter E. Sandelius was an American political scientist, '
+            'professor of political science at the University of Kansas. He'
+            " reviewed Oakeshott's The Social and Political Doctrines of "
+            'Contemporary Europe in the American Political Science Review '
+            '(1939).'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: htt'
+            'ps://digital.lib.ku.edu/islandora/object/ku-udk%3A193919/datas'
+            'tream/OCR/download'
+        ),
+        works=[
+            (
+                'author: A Review of The Social and Political Doctrines of '
+                'Contemporary Europe (1939) [Book Reviews of Books by '
+                'Oakeshott] — American Political Science Review'
+            ),
+        ],
+    ),
+    ('de Crespigny', 'A.', ''): dict(
+        candidate='Anthony de Crespigny',
+        confidence='medium',
+        affiliation='University of Cape Town',
+        descr=(
+            'Anthony de Crespigny, a political philosopher at the '
+            'University of Cape Town, co-edited with Kenneth Minogue '
+            'Contemporary Political Philosophers (1975/1976), a survey of '
+            'twentieth-century political thinkers that includes a chapter '
+            'on Oakeshott.'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: htt'
+            'ps://www.cambridge.org/core/journals/government-and-opposition'
+            '/article/political-philosophy-now-anthony-de-crespigny-and-ken'
+            'neth-minogue-eds-contemporary-political-philosophers-methuen-l'
+            'ondon-1976-xvii-296-pages-275/579410970E82289BF427CABBAF278E22'
+            ' https://www.schweitzer-online.de/en/buch/Minogue/Contemporary'
+            '-Political-Philosophers-Routledge-Revivals/9780415614337/A1100'
+            '868/'
+        ),
+        works=[
+            (
+                'editor: Contemporary Political Philosophers (1976) [Works '
+                'Mentioning Oakeshott]'
+            ),
+        ],
+    ),
+    ('Walton', 'C.', ''): dict(
+        candidate='Craig Walton',
+        confidence='medium',
+        yob=1934,
+        yod=2007,
+        descr=(
+            'Craig Walton was an American historian of philosophy who wrote'
+            " on Malebranche's ethics and on Hobbes, co-editing a volume on"
+            ' Hobbes\'s "Science of Natural Justice" (1987), and reviewed '
+            'regularly for the Journal of the History of Philosophy, which '
+            "published a memorial notice in 2008. He reviewed Oakeshott's "
+            'Hobbes on Civil Association in that journal.'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://dc2.philarchive.org/s/Delvy%20Craig%20Walton '
+            'https://www.philosophie.ch/profil/walton-c'
+        ),
+        works=[
+            (
+                'author: A Review of Hobbes on Civil Association (1976) '
+                '[Book Reviews of Books by Oakeshott] — Journal of the '
+                'History of Philosophy'
+            ),
+        ],
+    ),
+    ('Whitworth', 'J.', ''): dict(
+        candidate='John Whitworth',
+        confidence='medium',
+        yob=1945,
+        yod=2019,
+        url='https://en.wikipedia.org/wiki/John_Whitworth_(poet)',
+        descr=(
+            'John Whitworth was a British poet, educated at Merton College,'
+            ' Oxford, known for witty metrical light verse and a frequent '
+            'contributor to Quadrant and the Spectator. His collected verse'
+            ' includes philosophical patter songs on Oakeshott; "The '
+            'Oakeshott Upshot" appeared in Quadrant in 2003.'
+        ),
+        evidence=(
+            'Matched on name, field and period only; no source names this '
+            'person as the author of the work. Sources for the details: '
+            'https://en.wikipedia.org/wiki/John_Whitworth_(poet) '
+            'https://www.ablemusepress.com/node/537 (Selected Poems blurb '
+            'mentions patter songs on Oakeshott); https://quadrant.org.au/m'
+            'agazine/uncategorized/john-whitworth-1945-2019/'
+        ),
+        works=[
+            (
+                'author: The Oakeshott Upshot (2003) [Short Works About '
+                'Oakeshott] — Quadrant'
+            ),
+        ],
+    ),
+    ('Humkin', 'J.', 'W.'): dict(
+        candidate='Joseph Wellington Hunkin',
+        confidence='medium',
+        affiliation='Gonville and Caius College, Cambridge',
+        yob=1887,
+        yod=1950,
+        url='https://en.wikipedia.org/wiki/Joseph_Hunkin_(bishop)',
+        descr=(
+            'Joseph Wellington Hunkin, an Anglican clergyman educated at '
+            "Gonville and Caius College, Cambridge (Oakeshott's college), "
+            'where he was Dean of Chapel after serving as a First World War'
+            ' chaplain; he was Bishop of Truro from 1935 to 1950.'
+        ),
+        evidence=(
+            'No "J. W. Humkin" found anywhere; probably a misreading of '
+            'Hunkin. J. W. Hunkin was a Caius churchman in Cambridge in '
+            '1934, but no source confirms the review. Sources for the '
+            'details: https://en.wikipedia.org/wiki/Joseph_Hunkin_(bishop)'
+        ),
+        works=[
+            (
+                'author: A Review of Experience and Its Modes (1934) [Book '
+                'Reviews of Books by Oakeshott] — Church of England '
+                'Newspaper'
+            ),
+        ],
+    ),
 }
 
 UNIDENTIFIED = {
