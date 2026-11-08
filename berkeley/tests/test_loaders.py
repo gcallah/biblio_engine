@@ -143,6 +143,42 @@ class LoadAbstractsTest(TestCase):
             pub_type="BKBY").count(), len(ABSTRACTS))
 
 
+class LoadKeywordsTest(TestCase):
+    """Every keyed entry matches one loaded entry; book keywords reach
+    the book's reviews; a second run adds nothing."""
+
+    def load_all(self):
+        for command in ("load_books_by_oakeshott",
+                        "load_books_about_oakeshott",
+                        "load_short_works_about_oakeshott",
+                        "load_short_works_by_oakeshott",
+                        "load_reviews_by_oakeshott",
+                        "load_reviews_of_books_by_oakeshott",
+                        "load_reviews_of_books_about_oakeshott"):
+            call_command(command, stdout=StringIO())
+
+    def keywords(self):
+        out = StringIO()
+        call_command("load_keywords", stdout=out)
+        return out.getvalue()
+
+    def test_loads_and_is_idempotent(self):
+        self.load_all()
+        self.assertNotIn("Added 0 ", self.keywords())
+        self.assertIn("Added 0 keyword links", self.keywords())
+
+    def test_reviews_inherit_book_keywords(self):
+        self.load_all()
+        self.keywords()
+        book = Publication.objects.get(title="Hobbes on Civil Association")
+        reviews = Publication.objects.filter(pub_reviewed=book)
+        self.assertTrue(reviews.exists())
+        for pub in [book, *reviews]:
+            self.assertEqual(
+                sorted(pub.keywords.values_list("name", flat=True)),
+                ["Hobbes", "civil association"])
+
+
 class LoadAuthorInfoTest(TestCase):
     """Every entry in _author_info.py matches exactly one loaded person."""
 
