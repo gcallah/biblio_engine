@@ -472,9 +472,20 @@ table.results .has-person:focus-within .abstract-pop {
 }
 
 /* the author popup: hovering a name in the Author(s) column shows the
-   person's years, affiliation and description (_person_link.html) */
+   person's full name, years, affiliation and description (_person_link.html) */
+table.results .has-person {
+    cursor: help;
+    color: var(--accent);
+    border-bottom: 1px dotted currentColor;
+}
+
+table.results .has-person:focus {
+    outline: 1px dotted var(--accent);
+}
+
 .person-pop {
     width: 24rem;
+    cursor: auto;
     font-weight: normal;
 }
 

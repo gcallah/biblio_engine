@@ -18,6 +18,12 @@ def squash(html):
     return re.sub(r"\s+", " ", html)
 
 
+def strip_person_pops(html):
+    """Drop the author popups from the results table, leaving the surnames."""
+    return re.sub(r'<span class="abstract-pop person-pop".*?</span>(?=</span>)',
+                  "", html, flags=re.S)
+
+
 class BiblioTestCase(TestCase):
     """TestCase with the 'Unknown' subject every Publication defaults to."""
 

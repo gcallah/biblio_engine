@@ -2,7 +2,7 @@
 import re
 from berkeley.models import Keyword, Subject
 
-from .helpers import PUBS_URL, BiblioTestCase
+from .helpers import PUBS_URL, BiblioTestCase, strip_person_pops
 
 
 class KeywordSearchTest(BiblioTestCase):
@@ -190,7 +190,8 @@ class ResultsPageTest(BiblioTestCase):
         resp = self.search()
         self.assertContains(resp, f'href="/oakeshott/pub_detail/{pub.id}/"')
         self.assertContains(resp, f'href="/oakeshott/export/{pub.id}/"')
-        self.assertContains(resp, f'href="/oakeshott/person_detail/{author.id}/"')
+        # authors are hover popups, not links to a separate page
+        self.assertNotContains(resp, "/oakeshott/person_detail/")
 
     def test_long_journal_names_shown_whole_and_clamped(self):
         from berkeley.models import Journal
@@ -208,8 +209,8 @@ class ResultsPageTest(BiblioTestCase):
         edited = self.pub("A Companion", 2012)
         edited.editors.add(self.person("Paul", "Franco"),
                            self.person("Leslie", "Marsh"))
-        text = re.sub(r"<[^>]+>", "", re.sub(r"\s+", " ",
-                                             self.search().content.decode()))
+        html = strip_person_pops(self.search().content.decode())
+        text = re.sub(r"<[^>]+>", "", re.sub(r"\s+", " ", html))
         self.assertIn("Oakeshott; Fuller (ed.)", text)
         self.assertIn("Franco, Marsh (eds.)", text)
 
@@ -231,28 +232,29 @@ class ResultsPageTest(BiblioTestCase):
         self.assertNotIn("abstract-pop",
                          title_cell[:title_cell.index("</td>")])
 
-    def test_author_popup_only_for_people_with_details(self):
+    def test_every_author_gets_popup_not_link(self):
         mo = self.person("Michael", "Oakeshott", yob=1901, yod=1990,
                          affiliation="London School of Economics",
                          descr="English philosopher.")
         plain = self.person("Anne", "Nobody")
         self.pub("Rationalism", 1962, authors=[mo, plain])
         html = self.search().content.decode()
-        self.assertEqual(html.count('<span class="has-person">'), 1)
+        self.assertEqual(html.count('<span class="has-person" tabindex="0">'),
+                         2)
         for expected in ("(1901–1990)", "London School of Economics",
-                         "English philosopher."):
+                         "English philosopher.", "Anne Nobody"):
             self.assertIn(expected, html)
-        # a person with no details is a bare link, with no space before
-        # the comma that follows the previous name
-        self.assertIn(f'</span></span>,<ahref="/oakeshott/person_detail/'
-                      f'{plain.id}/">Nobody</a>', re.sub(r"\s+", "", html))
+        self.assertNotIn("/oakeshott/person_detail/", html)
+        # no space before the comma that follows the previous name
+        self.assertIn('</span></span>,<spanclass="has-person"tabindex="0">'
+                      'Nobody<', re.sub(r"\s+", "", html))
 
     def test_editor_gets_author_popup(self):
         ed = self.person("Timothy", "Fuller", affiliation="Colorado College")
         pub = self.pub("Voice", 1989)
         pub.editors.add(ed)
         html = self.search().content.decode()
-        self.assertIn('<span class="has-person">', html)
+        self.assertIn('<span class="has-person" tabindex="0">Fuller<', html)
         self.assertIn("Colorado College", html)
 
     def test_export_popup_on_every_row(self):

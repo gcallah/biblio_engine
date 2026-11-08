@@ -185,8 +185,8 @@ class ListPunctuationTest(BiblioTestCase):
 
     def test_results_list(self):
         text = self.page_text("/oakeshott/publications/")
-        self.assertIn(f'Oakeshott</a>, <a href="/oakeshott/person_detail/{self.gg.id}/">Griffith</a> </td>', text)
-        self.assertIn(">Oakeshott</a> </td>", text)
+        self.assertIn('</span></span>, <span class="has-person" tabindex="0">Griffith<', text)
+        self.assertIn("</span></span> </td>", text)
         self.assertNotIn("Griffith,", text)
         self.assertNotIn("nbsp;>", text)
 

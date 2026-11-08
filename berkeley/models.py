@@ -164,10 +164,6 @@ class Person(UrlModel, DescrModel, EmailModel):
             return f"(d. {self.yod})"
         return ""
 
-    def has_bio(self):
-        """True if there is anything to show in an author popup."""
-        return bool(self.descr or self.affiliation or self.yob or self.yod)
-
     def apa_natural_name(self):
         """'M. J. Oakeshott'"""
         return " ".join(n for n in (self.initials(), self.lname) if n)

@@ -1,7 +1,8 @@
 """The /export/<id>/ page: APA, MLA and Chicago citations for each type."""
-from berkeley.models import Address, Journal, Publisher
+import re
 
-from .helpers import PUBS_URL, BiblioTestCase, squash
+from berkeley.models import Address, Journal, Publisher
+from .helpers import PUBS_URL, BiblioTestCase, squash, strip_person_pops
 
 
 class CitationTestCase(BiblioTestCase):
@@ -353,8 +354,9 @@ class CitationAuthorListTest(CitationTestCase):
         text = self.export(pub)
         self.assertIn("(L. Trepanier &amp; G. Callahan, Eds.)", text)
         self.assertIn("Edited by Lee Trepanier and Gene Callahan.", text)
-        page = self.page_text("/oakeshott/publications/?pub_type=BKAB")
-        self.assertRegex(page, r"Trepanier</a>, <a[^>]*>Callahan</a> \(eds\.\)")
+        page = re.sub(r"<[^>]+>", "", strip_person_pops(
+            self.page_text("/oakeshott/publications/?pub_type=BKAB")))
+        self.assertIn("Trepanier, Callahan (eds.)", page)
 
     def test_no_editors(self):
         apa, mla, chicago = self.edited_book()
