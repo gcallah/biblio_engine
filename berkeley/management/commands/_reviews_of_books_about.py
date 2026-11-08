@@ -49,8 +49,8 @@ is listed as 'Understanding Sartre's Radicalism ...'; the database
 title has no 'Understanding'. A year range such as '1966-7' is stored
 as its first year.
 
-Kept as MOA gives them, though doubtful: C. B. Macpherson, Political
-Science Quarterly 36 (1971) (PSQ's 1971 volume is 86).
+C. B. Macpherson's review is in Political Science Quarterly 86 (1971);
+MOA has 36.
 
 MOA's 'K. Reschauer' (Canadian Journal of Political Science, 1970) is
 Ken Reshaur, as Cambridge Core lists him.
@@ -277,7 +277,7 @@ REVIEWS = [
     dict(book=KING_PAREKH, authors=[('M.', '', 'Beloff')],
          journal='Cambridge Review', volume='90', year=1969, pages='239-40'),
     dict(book=KING_PAREKH, authors=[('C.', 'B.', 'Macpherson')],
-         journal='Political Science Quarterly', volume='36', year=1971,
+         journal='Political Science Quarterly', volume='86', year=1971,
          pages='310-11'),
     dict(book=KING_PAREKH, authors=[('Ken', '', 'Reshaur')],
          journal='Canadian Journal of Political Science', volume='3',
