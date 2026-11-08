@@ -48,14 +48,14 @@
                     {% if pub.journal.id %}
                         <a href="/oakeshott/journal_detail/{{ pub.journal.id }}/">
                         <span class="clamp3" title="{{ pub.journal.name }}">{{ pub.journal.name }}</span>
+                        </a>
                     {% elif pub.publisher.id %}
-                        <a href="/oakeshott/publisher_detail/{{ pub.publisher.id }}/">
-                        <span class="clamp3" title="{{ pub.publisher.name }}">{{ pub.publisher.name }}</span>
+                        {% include "_publisher_link.html" with publisher=pub.publisher %}
                     {% elif pub.collection.id %}
                         <a href="/oakeshott/pub_detail/{{ pub.collection.id }}/">
                         <span class="clamp3" title="{{ pub.collection.title }}">{{ pub.collection.title }}</span>
+                        </a>
                     {% endif %}
-                    </a>
                 </td>
                 <td>
                     {{ pub.subject }}
@@ -87,10 +87,11 @@
         {% endfor %}
     </table>
     <script>
-    // Place each popup (abstract, citations or author) just below its link, or
+    // Place each popup (abstract, citations, author or publisher) just below its link, or
     // above it when there is no room below. The citations are fetched the
     // first time an Export link is hovered.
-    document.querySelectorAll('td.has-abstract, td.has-export, .has-person')
+    document.querySelectorAll('td.has-abstract, td.has-export, .has-person,
+                           .has-publisher')
             .forEach(function (cell) {
         var pop = cell.querySelector('.abstract-pop');
         function place() {

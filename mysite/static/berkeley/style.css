@@ -467,27 +467,34 @@ table.results td.has-abstract:focus-within .abstract-pop,
 table.results td.has-export:hover .abstract-pop,
 table.results td.has-export:focus-within .abstract-pop,
 table.results .has-person:hover .abstract-pop,
-table.results .has-person:focus-within .abstract-pop {
+table.results .has-person:focus-within .abstract-pop,
+table.results .has-publisher:hover .abstract-pop,
+table.results .has-publisher:focus-within .abstract-pop {
     display: block;
 }
 
 /* the author popup: hovering a name in the Author(s) column shows the
    person's full name, years, affiliation and description (_person_link.html) */
-/* styled like the Abstract and Export links (see LINKS above) */
-table.results .has-person {
+/* styled like the Abstract and Export links (see LINKS above); the
+   publisher popup (_publisher_link.html) works the same way */
+table.results .has-person,
+table.results .has-publisher {
     cursor: pointer;
     color: var(--accent);
     border-bottom: 1px solid rgba(122, 31, 43, 0.25);
 }
 
 table.results .has-person:hover,
-table.results .has-person:focus {
+table.results .has-person:focus,
+table.results .has-publisher:hover,
+table.results .has-publisher:focus {
     color: var(--accent-dark);
     border-bottom-color: var(--accent-dark);
     outline: none;
 }
 
-.person-pop {
+.person-pop,
+.publisher-pop {
     width: 24rem;
     cursor: auto;
     font-weight: normal;
@@ -507,6 +514,23 @@ table.results .has-person:focus {
 
 .person-pop .person-descr {
     display: block;
+}
+
+.publisher-pop .place {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--ink-soft);
+}
+
+.publisher-pop .publisher-descr,
+.publisher-pop .publisher-url {
+    display: block;
+}
+
+.publisher-pop .publisher-url {
+    margin-top: 0.35rem;
+    color: var(--ink-soft);
+    overflow-wrap: anywhere;
 }
 
 /* the Export popup: APA, MLA and Chicago citations, fetched on hover */
