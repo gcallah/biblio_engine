@@ -468,6 +468,8 @@ table.results td.has-export:hover .abstract-pop,
 table.results td.has-export:focus-within .abstract-pop,
 table.results .has-person:hover .abstract-pop,
 table.results .has-person:focus-within .abstract-pop,
+table.results .has-journal:hover .abstract-pop,
+table.results .has-journal:focus-within .abstract-pop,
 table.results .has-publisher:hover .abstract-pop,
 table.results .has-publisher:focus-within .abstract-pop {
     display: block;
@@ -476,8 +478,10 @@ table.results .has-publisher:focus-within .abstract-pop {
 /* the author popup: hovering a name in the Author(s) column shows the
    person's full name, years, affiliation and description (_person_link.html) */
 /* styled like the Abstract and Export links (see LINKS above); the
-   publisher popup (_publisher_link.html) works the same way */
+   journal and publisher popups (_journal_link.html, _publisher_link.html)
+   work the same way */
 table.results .has-person,
+table.results .has-journal,
 table.results .has-publisher {
     cursor: pointer;
     color: var(--accent);
@@ -486,6 +490,8 @@ table.results .has-publisher {
 
 table.results .has-person:hover,
 table.results .has-person:focus,
+table.results .has-journal:hover,
+table.results .has-journal:focus,
 table.results .has-publisher:hover,
 table.results .has-publisher:focus {
     color: var(--accent-dark);
@@ -494,7 +500,7 @@ table.results .has-publisher:focus {
 }
 
 .person-pop,
-.publisher-pop {
+.venue-pop {
     width: 24rem;
     cursor: auto;
     font-weight: normal;
@@ -516,18 +522,18 @@ table.results .has-publisher:focus {
     display: block;
 }
 
-.publisher-pop .place {
+.venue-pop .place {
     display: block;
     margin-bottom: 0.35rem;
     color: var(--ink-soft);
 }
 
-.publisher-pop .publisher-descr,
-.publisher-pop .publisher-url {
+.venue-pop .venue-descr,
+.venue-pop .venue-url {
     display: block;
 }
 
-.publisher-pop .publisher-url {
+.venue-pop .venue-url {
     margin-top: 0.35rem;
     color: var(--ink-soft);
     overflow-wrap: anywhere;

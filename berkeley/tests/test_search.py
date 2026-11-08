@@ -198,8 +198,27 @@ class ResultsPageTest(BiblioTestCase):
         name = "Conference for the Study of Political Thought Newsletter"
         self.pub("A Note", 1991, journal=Journal.objects.create(name=name))
         resp = self.search()
-        self.assertContains(
-            resp, f'<span class="clamp3" title="{name}">{name}</span>')
+        # clamped to three lines in the table; the hover popup shows it whole
+        self.assertContains(resp, f'<span class="clamp3">{name}</span>')
+        self.assertContains(resp, f'role="tooltip"><strong>{name}</strong>')
+
+    def test_journals_and_publishers_are_popups(self):
+        from berkeley.models import Address, Journal, Publisher
+        publisher = Publisher.objects.create(
+            name="Faber & Faber",
+            address=Address.objects.create(city="London", country="England"))
+        journal = Journal.objects.create(name="Political Studies",
+                                         publisher=publisher)
+        self.pub("An Essay", 1950, journal=journal)
+        self.pub("A Book", 1962, publisher=publisher)
+        resp = self.search()
+        self.assertContains(resp, 'class="has-journal"')
+        self.assertContains(resp, 'class="has-publisher"')
+        self.assertContains(resp, '<em class="place">London, England</em>')
+        self.assertContains(resp, '<em class="place">Faber &amp; Faber</em>')
+        # hover popups, not links to a separate page
+        self.assertNotContains(resp, "/oakeshott/journal_detail/")
+        self.assertNotContains(resp, "/oakeshott/publisher_detail/")
 
     def test_editors_shown_in_author_column(self):
         mo = self.person("Michael", "Oakeshott")

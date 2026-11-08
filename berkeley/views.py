@@ -113,7 +113,7 @@ def publications(request):
 
     pub_list = (Publication.objects.filter(**kwargs).distinct()
                 .order_by('year')
-                .select_related('journal', 'publisher', 'collection',
+                .select_related('journal__publisher', 'publisher', 'collection',
                                 'subject')
                 .select_related('pub_reviewed')
                 .prefetch_related('authorship_set__person',
