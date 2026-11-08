@@ -1,5 +1,6 @@
 """Apply author details (from _author_info.py) to people already in the
-database: affiliation, years of birth and death, and a short description.
+database: affiliation, years of birth and death, a short description
+and a URL for a page about the person (e.g. Wikipedia).
 
 People are matched on (last name, first name, middle name). Fields left
 empty in _author_info.py are not touched, so a later lookup can fill
@@ -14,13 +15,14 @@ from berkeley.models import Person
 
 from ._author_info import AUTHOR_INFO
 
-FIELDS = ("affiliation", "yob", "yod", "descr")
+FIELDS = ("affiliation", "yob", "yod", "descr", "url")
 MAX_LEN = {f: Person._meta.get_field(f).max_length
-           for f in ("affiliation", "descr")}
+           for f in ("affiliation", "descr", "url")}
 
 
 class Command(BaseCommand):
-    help = "Apply author affiliations, years and descriptions (idempotent)."
+    help = ("Apply author affiliations, years, descriptions and URLs "
+            "(idempotent).")
 
     @transaction.atomic
     def handle(self, *args, **options):

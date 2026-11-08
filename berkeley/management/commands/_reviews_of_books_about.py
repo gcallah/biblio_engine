@@ -290,7 +290,7 @@ REVIEWS = [
     dict(book=KING_PAREKH, authors=[('J.', 'B.', 'Sanderson')],
          journal='Durham University Journal', volume='62', year=1969,
          pages='130-2'),
-    dict(book=KING_PAREKH, authors=[('T.', 'L.', 'Thorsen')],
+    dict(book=KING_PAREKH, authors=[('T.', 'L.', 'Thorson')],
          journal='American Political Science Review', volume='63',
          year=1969, pages='934-5'),
     # Nardin

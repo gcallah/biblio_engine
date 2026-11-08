@@ -151,7 +151,10 @@ class LoadAuthorInfoTest(TestCase):
         for command in ("load_books_by_oakeshott",
                         "load_books_about_oakeshott",
                         "load_short_works_about_oakeshott",
-                        "load_short_works_by_oakeshott"):
+                        "load_short_works_by_oakeshott",
+                        "load_reviews_by_oakeshott",
+                        "load_reviews_of_books_by_oakeshott",
+                        "load_reviews_of_books_about_oakeshott"):
             call_command(command, stdout=StringIO())
         out = StringIO()
         call_command("load_author_info", stdout=out)
@@ -369,7 +372,7 @@ class LoadReviewsOfBooksAboutOakeshottTest(TestCase):
     def test_edited_volume_reviewees_are_its_editors(self):
         self.load()
         review = Publication.objects.get(pub_type="RVAB",
-                                         authors__lname="Thorsen")
+                                         authors__lname="Thorson")
         self.assertEqual(sorted(p.lname for p in review.reviewees.all()),
                          ["King", "Parekh"])
 
