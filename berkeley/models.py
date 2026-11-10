@@ -301,8 +301,19 @@ class Publication(UrlModel):
         return self.pub_type in REVIEW_TYPES
 
     def is_chapter(self):
-        """A short work that is a part of a book (its collection)."""
-        return self.pub_type in SHORT_TYPES and self.collection_id is not None
+        """A short work, or a Works Mentioning Oakeshott entry, that is a
+        part of a book (its collection)."""
+        return (self.pub_type in SHORT_TYPES or self.pub_type == 'MENT') \
+            and self.collection_id is not None
+
+    def is_article(self):
+        """Cited as an article (journal, volume, pages): a short work
+        that is not a chapter, or a Works Mentioning Oakeshott entry in a
+        journal."""
+        if self.collection_id is not None:
+            return False
+        return self.pub_type in SHORT_TYPES or (
+            self.pub_type == 'MENT' and self.journal_id is not None)
 
     def apa_place_publisher(self):
         """'London, England: Methuen'; just the city when there is no

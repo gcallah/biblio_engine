@@ -167,12 +167,21 @@ class MentioningCitationTest(CitationTestCase):
         self.assertIn("(1994). <i>Cambridge Minds</i>. London, England: "
                       "Methuen.", self.export(pub))
 
-    def test_generic_format_has_authors_and_no_type_specific_parts(self):
+    def test_article_uses_article_format(self):
         pub = self.pub("A Survey", 2001, pub_type="MENT", authors=[self.critic],
-                       journal=self.journal)
+                       journal=self.journal, volume="12", pages="1-9")
         text = self.export(pub)
         self.assertIn("Critic, Jane.", text)
-        self.assertNotIn("Political Theory", text)
+        self.assertIn("(2001). A Survey. <i>Political Theory, 12</i>, 1-9.",
+                      " ".join(text.split()))
+
+    def test_chapter_uses_chapter_format(self):
+        host = self.pub("Cambridge Minds", 1994, pub_type="MENT",
+                        publisher=self.methuen)
+        pub = self.pub("A Chapter", 1994, pub_type="MENT",
+                       authors=[self.critic], collection=host, pages="5-20")
+        self.assertIn("In <i>Cambridge Minds</i> (pp. 5-20).",
+                      " ".join(self.export(pub).split()))
 
 
 class ReviewCitationTest(CitationTestCase):

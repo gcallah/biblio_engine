@@ -31,7 +31,7 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {% if host.apa_place_publisher %}{{ host.apa_place_publisher }}.{% endif %}
                     {{ pub.url }}
                     {% endwith %}
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                {% elif pub.is_article %}
                     {% if pub.day and pub.month and pub.year %}
                         ({{ pub.year }}, {{ pub.month }} {{ pub.day }}).
                     {% elif pub.month and pub.year %}
@@ -91,7 +91,7 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {% if host.publisher %}{{ host.publisher.name }},{% endif %}
                     {{ pub.year }}{% if pub.pages %}, {{ pub.apa_pages }}{% endif %}.
                     {% endwith %}
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                {% elif pub.is_article %}
                     "{{ pub.title_sentence }}"
                     <i>{{ pub.journal.name }}</i>
                     {% if pub.day %}
@@ -137,7 +137,7 @@ and export_citations.html (the results-table popup).{% endcomment %}
                     {% if host.place_publisher %}{{ host.place_publisher }},{% endif %}
                     {{ host.year }}.
                     {% endwith %}
-                {% elif pub.pub_type == 'SWBY' or pub.pub_type == 'SWAB' %}
+                {% elif pub.is_article %}
                     "{{ pub.title_sentence }}"
                     <i>{{ pub.journal.name }}</i>{% if pub.volume %},
                     {{ pub.volume }}{% if pub.issue %}, no. {{ pub.issue }}{% endif %}{% endif %}
