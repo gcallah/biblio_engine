@@ -171,6 +171,7 @@ BOOKS = [
     dict(title="On World Politics: R. G. Collingwood, Michael Oakeshott "
                "and Neotraditionalism in International Relations",
          year=2005, publisher="Palgrave Macmillan", city="New York",
+         province="NY",
          authors=[ASTROV]),
     dict(title="The Intellectual Legacy of Michael Oakeshott", year=2005,
          publisher="Imprint Academic", editors=[ABEL, FULLER]),
@@ -211,7 +212,8 @@ BOOKS = [
     dict(title="Praxis und Politik: Michael Oakeshott im Dialog", year=2013,
          publisher="Mohr Siebeck", editors=[HENKEL, LEMBCKE]),
     dict(title="Michael Oakeshott's Cold War Liberalism", year=2015,
-         publisher="Palgrave Macmillan", city="New York", editors=[NARDIN]),
+         publisher="Palgrave Macmillan", city="New York",
+         province="NY", editors=[NARDIN]),
     dict(title="Michael Oakeshott and the Conversation of Modern Political "
                "Thought",
          year=2015, publisher="State University of New York Press",
@@ -347,7 +349,8 @@ class Command(BaseCommand):
             pub, is_new = Publication.objects.get_or_create(
                 title=book["title"], year=book["year"], pub_type="BKAB",
                 defaults={"publisher": get_publisher(
-                    book["publisher"], PUBLISHERS, book.get("city"))})
+                    book["publisher"], PUBLISHERS, book.get("city"),
+                    book.get("province"))})
             subject, _ = Subject.objects.get_or_create(
                 name=SUBJECTS[book["title"]])
             if pub.subject_id != subject.id:

@@ -66,6 +66,7 @@ HOSTS = {
         title="Austrian Economic Perspectives on Individualism and Society: "
               "Moving Beyond Methodological Individualism",
         year=2014, publisher="Palgrave Macmillan", city="New York",
+        province="NY",
         editors=[("Guinevere", "Liberty", "Nell")]),
     "political_thinkers": dict(
         subject=POL,

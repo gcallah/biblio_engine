@@ -35,13 +35,17 @@ def get_reviewer(name):
     return get_person(name)
 
 
-def get_publisher(name, publishers, city=None):
+def get_publisher(name, publishers, city=None, province=None):
     """publishers maps a name to its usual (city, province); city
-    overrides the usual one. The same press in another city is stored as
-    its own Publisher, since citations take the place from its address.
-    A blank city is stored as ""."""
-    default_city, province = publishers.get(name, ("", ""))
-    city = city or default_city or ""
+    overrides the usual one, and then province is the one given (the
+    usual province belongs to the usual city). The same press in another
+    city is stored as its own Publisher, since citations take the place
+    from its address. A blank city is stored as ""."""
+    default_city, default_province = publishers.get(name, ("", ""))
+    if city and city != default_city:
+        province = province or ""
+    else:
+        city, province = default_city or "", default_province
     publisher = Publisher.objects.filter(name=name,
                                          address__city=city).first()
     if publisher is None:
@@ -77,7 +81,7 @@ def make_book(book, data, pub_type):
     authors, editors, url, doi) as a pub_type entry, matched on title
     and year."""
     publisher = (get_publisher(book["publisher"], data.PUBLISHERS,
-                               book.get("city"))
+                               book.get("city"), book.get("province"))
                  if book.get("publisher") else None)
     from berkeley.models import Publication
     pub, is_new = Publication.objects.get_or_create(

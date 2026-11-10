@@ -28,10 +28,12 @@ Left out:
 - R. Orr, LSE Magazine, p. 32 (on Grant): MOA gives no date.
 - Leads not confirmed (no page, URL or DOI seen), 2026-11-07: a Political
   Studies Review notice of Candreva (quoted on Amazon); a Spanish review
-  of Botwinick (Universidad de Navarra repository, by "Alonso"?); C. F.
-  Murphy, Philosophical Quarterly 45 (1995), and P. Franco, Review of
-  Politics 57 (1995), pp. 346-8, on Covell; P. Coby, Choice 32 (1994), on
-  Devigne; W. J. Coats, Choice 54 (May 2017), on Orsi.
+  of Botwinick (Universidad de Navarra repository, by "Alonso"?); W. J.
+  Coats, Choice 54 (May 2017), on Orsi. (Murphy, Franco and Coby were
+  confirmed from MOA section 4 and Crossref on 2026-11-10; see the end.)
+- J. Raz, Political Studies 41 (1993), pp. 718-9, which MOA section 4
+  gives as a review of Devigne: that book is from 1994, so MOA has the
+  book or the year wrong, and we could not check which.
 - J. L. Auspitz, 'A New Look at Michael Oakeshott' (Claremont Review of
   Books, Spring 2014): it reviews Experience and Its Modes, so it is a
   Book Reviews of Books by Oakeshott entry, though it also discusses
@@ -544,4 +546,27 @@ REVIEWS = [
          journal="Law & Liberty", day="25", month="June", year=2024,
          url="https://lawliberty.org/classic/"
              "michael-oakeshotts-life-of-reflection/"),
+    # From MOA section 4 ("Other Published Works"), added 2026-11-10.
+    # Franco's review is of Devigne, as Cambridge Core lists it ('Sources
+    # of Contemporary Conservatism'); MOA has it under Covell. MOA files
+    # the Political Studies notice under L. D. O'Sullivan; kept as it is.
+    dict(book=DEVIGNE, authors=[("P.", "", "Coby")], journal="Choice",
+         volume="32", year=1994, pages="532"),
+    dict(book=DEVIGNE, authors=[("Paul", "", "Franco")],
+         title="Sources of Contemporary Conservatism",
+         journal="Review of Politics", volume="57", year=1995,
+         pages="346-348", doi="10.1017/s0034670500026966"),
+    dict(book=DEVIGNE, authors=[("W.", "", "Mathie")],
+         journal="Canadian Journal of Political Science", volume="27",
+         month="December", year=1994, pages="851-852",
+         doi="10.1017/s000842390002240x"),
+    dict(book=DEVIGNE, authors=[("Luke", "", "O'Sullivan")],
+         journal="Political Studies", volume="43", year=1995,
+         pages="778-779", exact=True),
+    dict(book=COVELL, authors=[("I.", "", "Harris")],
+         journal="Times Literary Supplement", day="20", month="August",
+         year=1993, pages="26"),
+    dict(book=COVELL, authors=[("C.", "F.", "Murphy")],
+         journal="Philosophical Quarterly", volume="45", month="July",
+         year=1995, pages="399-400", doi="10.2307/2219667"),
 ]

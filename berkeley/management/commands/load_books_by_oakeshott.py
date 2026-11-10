@@ -103,7 +103,8 @@ class Command(BaseCommand):
                 title=book["title"], year=book["year"], pub_type="BKBY",
                 defaults={"publisher": get_publisher(book["publisher"],
                                                      PUBLISHERS,
-                                                     book.get("city"))})
+                                                     book.get("city"),
+                    book.get("province"))})
             info = BOOK_INFO.get(book["title"])
             if info:
                 subject, _ = Subject.objects.get_or_create(

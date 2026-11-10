@@ -300,4 +300,8 @@ REVIEWS = [
     dict(book=LHPT, authors=[('L.', '', 'Marsh')], title='A History of Political Experience', journal='European Journal of Political Theory', volume='5', year=2006, pages='504-10'),
     dict(book=LHPT, authors=[('K.', '', 'Minogue')], journal='Times Literary Supplement', day='24', month='March', year=2006, pages='32'),
     dict(book=LHPT, authors=[('B.', '', 'Swaim')], title='The Right Stuff', journal='Weekly Standard', day='21', month='April', year=2008),
+    # From MOA section 4 ("Other Published Works"), added 2026-11-10,
+    # where MOA lists them without naming the book they review.
+    dict(book=RIP91, authors=[('P.', '', 'Anderson')], title='The Intransigent Right at the End of the Century', journal='London Review of Books', volume='14', issue='18', day='24', month='September', year=1992, pages='7-11', url='https://www.lrb.co.uk/the-paper/v14/n18/perry-anderson/the-intransigent-right-at-the-end-of-the-century'),
+    dict(book=OHC, authors=[('S.', 'S.', 'Wolin')], title='The Politics of Self-Disclosure', journal='Political Theory', volume='4', issue='3', month='August', year=1976, pages='321-334', url='https://doi.org/10.1177/009059177600400305'),
 ]
