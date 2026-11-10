@@ -160,6 +160,12 @@ ARTICLES = [
          journal="International Politics", volume="44", issue="5",
          year=2007, pages="513-530", doi="10.1057/palgrave.ip.8800204",
          subject=IR),
+    # Confirmed by the author (2026-11-10); the abstract draws on his
+    # earlier blog version of the paper.
+    dict(authors=[("Gene", "", "Callahan")],
+         title="Ideal Types and the Historical Method",
+         journal="Collingwood and British Idealism Studies", volume="13",
+         issue="1", year=2007, pages="53-68", subject=HIST),
     dict(authors=[("K.", "R.", "Minogue")],
          title="Parts and Wholes: Twentieth Century Interpretation of "
                "Thomas Hobbes",

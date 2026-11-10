@@ -2617,6 +2617,19 @@ ABSTRACTS.update({
             "between states, and also draws on Hobbes on Civil "
             "Association."
         )),
+    ('Ideal Types and the Historical Method', 2007,
+     'Collingwood and British Idealism Studies'): dict(
+        # The author's earlier blog version of the paper.
+        source='https://gene-callahan.blogspot.com/2005/01/'
+               'ideal-types-and-historical-method.html',
+        abstract=(
+            "Callahan builds on Oakeshott's critique of ideal types in On "
+            "History. Following Oakeshott's argument that ideal types "
+            "freeze change and so cannot account for a passage of "
+            "historical change, he argues that explaining the past by "
+            "ideal types, as Weber, Mises and Schutz do, is coherent and "
+            "useful, but does not capture what is distinctively historical."
+        )),
     ('Parts and Wholes: Twentieth Century Interpretation of Thomas Hobbes',
      1974, 'Anales de la Cátedra Francisco Suárez'): dict(
         source='https://revistaseug.ugr.es/index.php/acfs/article/download/'
