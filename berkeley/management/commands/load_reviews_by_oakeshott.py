@@ -20,7 +20,8 @@ from django.db import transaction
 from berkeley.models import Journal, Person, Publication, Subject, UNKNOWN_ID
 
 from . import _reviews_by as data
-from ._loaders import get_host, get_person, set_subject
+from ._loaders import (add_missing, fill_blanks, get_host, get_person,
+                       set_subject)
 
 FIELDS = ("title", "volume", "issue", "day", "month")
 
@@ -55,23 +56,17 @@ class Command(BaseCommand):
                 review=item["book"], pages=item.get("pages", ""),
                 defaults=fields)
             changed = set_subject(pub, item["subject"])
-            if not is_new:
-                stale = [f for f, v in fields.items() if getattr(pub, f) != v]
-                for f in stale:
-                    setattr(pub, f, fields[f])
-                if stale:
-                    pub.save(update_fields=stale)
-                    changed = True
+            # fill blank fields only: editors may have changed the rest
+            if not is_new and fill_blanks(pub, fields):
+                changed = True
             if not pub.authors.exists():
                 pub.authors.add(oakeshott)
             people = [get_reviewee(n) for n in item["reviewees"]]
-            if set(pub.reviewees.all()) != set(people):
-                pub.reviewees.set(people)
+            if add_missing(pub.reviewees, people):
                 changed = True
             books = [get_host(key, data, "BKBY")
                      for key in item.get("reprinted", [])]
-            if set(pub.reprinted_in.all()) != set(books):
-                pub.reprinted_in.set(books)
+            if add_missing(pub.reprinted_in, books):
                 changed = True
             created += is_new
             updated += changed and not is_new

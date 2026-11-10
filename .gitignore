@@ -10,3 +10,4 @@ backups/*.csv
 # Superset workspaces
 .venv/
 .superset/config.local.json
+db.sqlite3.*

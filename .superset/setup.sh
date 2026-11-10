@@ -29,7 +29,11 @@ if [ -n "$ROOT" ] && [ -d "$ROOT" ] && [ "$ROOT" != "$WS" ]; then
   for f in "$ROOT"/.env "$ROOT"/.env.*; do
     [ -f "$f" ] && copy_if_missing "$(basename "$f")"
   done
-  # Migrations are gitignored but db.sqlite3 (tracked) already records them;
+  # db.sqlite3 is not in git (the live database is the master copy); work
+  # on a copy of the main checkout's, or fetch the live one with
+  # bin/pull_live_db.sh.
+  copy_if_missing db.sqlite3
+  # Migrations are gitignored but db.sqlite3 already records them;
   # without these, makemigrations would generate a conflicting 0001.
   for f in "$ROOT"/berkeley/migrations/*.py; do
     [ -f "$f" ] && copy_if_missing "berkeley/migrations/$(basename "$f")"
@@ -38,6 +42,6 @@ else
   echo "SUPERSET_ROOT_PATH not set or same as workspace; skipping file copy"
 fi
 
-# 3. Smoke test. (No migrate: db.sqlite3 is tracked and must not be rewritten.)
+# 3. Smoke test. (No migrate here: apply migrations deliberately.)
 .venv/bin/python manage.py check
 echo "Setup complete. Use the Run button (or ./.superset/run.sh) to start the dev server."

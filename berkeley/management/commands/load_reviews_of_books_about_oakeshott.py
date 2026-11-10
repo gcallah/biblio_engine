@@ -26,7 +26,7 @@ from django.db import transaction
 from berkeley.models import Journal, Publication, Subject, UNKNOWN_ID
 
 from . import _reviews_of_books_about as data
-from ._loaders import get_person, get_reviewer
+from ._loaders import add_missing, fill_blanks, get_person, get_reviewer
 
 KEY = ("volume", "day", "month", "pages")
 FIELDS = ("title", "issue", "url", "doi")
@@ -68,20 +68,15 @@ class Command(BaseCommand):
                 pub_type="RVAB", journal=journal, year=item["year"], **key,
                 defaults=fields)
             changed = False
-            if not is_new:
-                stale = [f for f, v in fields.items() if getattr(pub, f) != v]
-                for f in stale:
-                    setattr(pub, f, fields[f])
-                if stale:
-                    pub.save(update_fields=stale)
-                    changed = True
+            # fill blank fields only: editors may have changed the rest
+            if not is_new and fill_blanks(pub, fields):
+                changed = True
             if is_new:
                 match = get_person if item.get("exact") else get_reviewer
                 for pos, name in enumerate(item["authors"], 1):
                     pub.authorship_set.create(person=match(name),
                                               position=pos)
-            if set(pub.reviewees.all()) != set(reviewees):
-                pub.reviewees.set(reviewees)
+            if add_missing(pub.reviewees, reviewees):
                 changed = True
             created += is_new
             updated += changed and not is_new

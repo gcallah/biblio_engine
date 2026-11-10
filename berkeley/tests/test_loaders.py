@@ -505,3 +505,47 @@ class GetPublisherTest(TestCase):
         self.assertEqual((other.address.city, other.address.province),
                          ("New York", "NY"))
         self.assertEqual(bare.address.province, "")
+
+
+class LoadersKeepEditsTest(TestCase):
+    """Editors change the live database on the site, so re-running a
+    loader fills blank fields but never overwrites a value."""
+
+    def setUp(self):
+        for command in ("load_books_by_oakeshott",
+                        "load_books_about_oakeshott",
+                        "load_short_works_about_oakeshott",
+                        "load_short_works_by_oakeshott",
+                        "load_reviews_of_books_about_oakeshott",
+                        "load_works_mentioning_oakeshott",
+                        "load_abstracts"):
+            call_command(command, stdout=StringIO())
+
+    def rerun(self):
+        for command in ("load_books_about_oakeshott",
+                        "load_works_mentioning_oakeshott",
+                        "load_abstracts"):
+            call_command(command, stdout=StringIO())
+
+    def test_edited_abstract_subject_and_doi_survive(self):
+        from berkeley.models import Subject
+        pub = Publication.objects.get(title__startswith="Trust the People!")
+        pub.abstract = "An editor's abstract."
+        pub.doi = "10.0/edited"
+        pub.subject = Subject.objects.get(name="History")
+        pub.save()
+        self.rerun()
+        pub.refresh_from_db()
+        self.assertEqual(pub.abstract, "An editor's abstract.")
+        self.assertEqual(pub.doi, "10.0/edited")
+        self.assertEqual(pub.subject.name, "History")
+
+    def test_blank_fields_are_filled(self):
+        pub = Publication.objects.get(title__startswith="Trust the People!")
+        abstract = pub.abstract
+        pub.abstract = pub.doi = ""
+        pub.save()
+        self.rerun()
+        pub.refresh_from_db()
+        self.assertEqual(pub.abstract, abstract)
+        self.assertEqual(pub.doi, "10.1111/1467-9248.00184")

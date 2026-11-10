@@ -14,6 +14,7 @@ from django.db import transaction
 from berkeley.models import Journal
 
 from ._journal_info import JOURNAL_INFO
+from ._loaders import fill_blanks
 
 FIELDS = ("descr", "url")
 MAX_LEN = {f: Journal._meta.get_field(f).max_length for f in FIELDS}
@@ -33,12 +34,8 @@ class Command(BaseCommand):
             if len(matches) != 1:
                 raise CommandError(f"{len(matches)} journals named {name}")
             journal = matches[0]
-            changed = [f for f in FIELDS
-                       if info.get(f) and getattr(journal, f) != info[f]]
-            for field in changed:
-                setattr(journal, field, info[field])
-            if changed:
-                journal.save(update_fields=changed)
+            # fill blank fields only: editors may have changed the rest
+            if fill_blanks(journal, {f: info.get(f) for f in FIELDS}):
                 updated += 1
         self.stdout.write(f"Updated {updated} journals "
                           f"({len(JOURNAL_INFO) - updated} unchanged).")

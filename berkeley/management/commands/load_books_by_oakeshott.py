@@ -14,7 +14,7 @@ from berkeley.models import (
     Authorship, Editorship, Publication, Subject, UNKNOWN_ID,
 )
 
-from ._loaders import get_person, get_publisher
+from ._loaders import fill_blanks, get_person, get_publisher
 from .book_info import BOOK_INFO
 
 # (first, middle, last)
@@ -109,11 +109,9 @@ class Command(BaseCommand):
             if info:
                 subject, _ = Subject.objects.get_or_create(
                     name=info["subject"])
-                if (pub.subject_id, pub.abstract) != (subject.id,
-                                                      info["abstract"]):
-                    pub.subject = subject
-                    pub.abstract = info["abstract"]
-                    pub.save(update_fields=["subject", "abstract"])
+                # fill blanks only: editors may have changed them
+                if fill_blanks(pub, {"subject": subject,
+                                     "abstract": info["abstract"]}):
                     updated += 1
             if not is_new:
                 continue

@@ -14,6 +14,7 @@ from django.db import transaction
 from berkeley.models import Person
 
 from ._author_info import AUTHOR_INFO
+from ._loaders import fill_blanks
 
 FIELDS = ("affiliation", "yob", "yod", "descr", "url")
 MAX_LEN = {f: Person._meta.get_field(f).max_length
@@ -38,12 +39,8 @@ class Command(BaseCommand):
                 raise CommandError(f"{len(matches)} people match "
                                    f"{fname} {mname} {lname}")
             person = matches[0]
-            changed = [f for f in FIELDS
-                       if info.get(f) and getattr(person, f) != info[f]]
-            for field in changed:
-                setattr(person, field, info[field])
-            if changed:
-                person.save(update_fields=changed)
+            # fill blank fields only: editors may have changed the rest
+            if fill_blanks(person, {f: info.get(f) for f in FIELDS}):
                 updated += 1
         self.stdout.write(f"Updated {updated} people "
                           f"({len(AUTHOR_INFO) - updated} unchanged).")

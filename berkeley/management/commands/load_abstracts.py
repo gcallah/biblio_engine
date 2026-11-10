@@ -13,6 +13,7 @@ from django.db import transaction
 from berkeley.models import Publication
 
 from ._abstracts import ABSTRACTS
+from ._loaders import fill_blanks
 
 MAX_LEN = Publication._meta.get_field("abstract").max_length
 
@@ -42,9 +43,8 @@ class Command(BaseCommand):
                 raise CommandError(f"{len(matches)} entries match "
                                    f"{title!r} ({year}, {place!r})")
             pub = matches[0]
-            if pub.abstract != info["abstract"]:
-                pub.abstract = info["abstract"]
-                pub.save(update_fields=["abstract"])
+            # never overwrite an abstract an editor has written or changed
+            if fill_blanks(pub, {"abstract": info["abstract"]}):
                 updated += 1
         self.stdout.write(f"Set {updated} abstracts "
                           f"({len(ABSTRACTS) - updated} unchanged).")

@@ -23,7 +23,7 @@ from berkeley.models import (
     Authorship, Editorship, Publication, Subject, UNKNOWN_ID,
 )
 
-from ._loaders import get_person, get_publisher
+from ._loaders import fill_blanks, get_person, get_publisher
 
 # (first, middle, last). Person has no suffix field, so "Jr." is dropped.
 ABEL = ("Corey", "", "Abel")
@@ -353,9 +353,8 @@ class Command(BaseCommand):
                     book.get("province"))})
             subject, _ = Subject.objects.get_or_create(
                 name=SUBJECTS[book["title"]])
-            if pub.subject_id != subject.id:
-                pub.subject = subject
-                pub.save(update_fields=["subject"])
+            # fill a blank subject only: editors may have changed it
+            if fill_blanks(pub, {"subject": subject}):
                 updated += 1
             if not is_new:
                 continue

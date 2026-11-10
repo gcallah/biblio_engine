@@ -65,11 +65,45 @@ def add_people(pub, item):
                                   position=pos)
 
 
+def is_blank(obj, field):
+    """A field the loaders may fill: empty, or (for a subject) still the
+    default "Uncategorized"."""
+    from berkeley.models import UNKNOWN_ID
+    if field in ("subject", "subject_id"):
+        return getattr(obj, "subject_id") in (None, UNKNOWN_ID)
+    return getattr(obj, field) in (None, "")
+
+
+def fill_blanks(obj, values):
+    """Set the fields in values that are blank on obj (is_blank) and save
+    them. The live database is the master copy and editors change it on
+    the site, so the loaders never overwrite a field that has a value.
+    Returns the fields that were set."""
+    changed = [f for f, v in values.items()
+               if v not in (None, "") and is_blank(obj, f)
+               and getattr(obj, f) != v]
+    for f in changed:
+        setattr(obj, f, values[f])
+    if changed:
+        obj.save(update_fields=changed)
+    return changed
+
+
+def add_missing(manager, objs):
+    """Link objs through a many-to-many manager without unlinking anything
+    (an editor may have added links). Returns True if any were added."""
+    missing = [o for o in objs if o not in set(manager.all())]
+    if missing:
+        manager.add(*missing)
+    return bool(missing)
+
+
 def set_subject(pub, name):
-    """Give pub the named subject; returns True if it changed."""
+    """Give pub the named subject, unless an editor has already given it
+    one (see fill_blanks); returns True if it changed."""
     from berkeley.models import Subject
     subject, _ = Subject.objects.get_or_create(name=name)
-    if pub.subject_id == subject.id:
+    if pub.subject_id == subject.id or not is_blank(pub, "subject"):
         return False
     pub.subject = subject
     pub.save(update_fields=["subject"])
@@ -126,7 +160,8 @@ def load_short_works(data, pub_type, book_type):
     Works are matched on title, year and journal or book (and on their
     authors too, if "match_authors" is set). book_type is the type, or
     tuple of types, of an existing host book. Subjects,
-    URL/DOI and "reviews_book" are applied on every run. A work with
+    URL/DOI and "reviews_book" fill blank fields on every run (they
+    never overwrite an editor's change; see fill_blanks). A work with
     "reviews_book" (the title of a book by or about Oakeshott) is a
     review essay: it stays a short work but links to the book it
     reviews. Returns (created, updated, total)."""
@@ -160,17 +195,13 @@ def load_short_works(data, pub_type, book_type):
                 title=item["title"], year=year, pub_type=pub_type, **key,
                 defaults=fields)
         changed = set_subject(pub, item["subject"])
-        links = {f: fields[f] for f in ("url", "doi") if fields[f]}
-        if any(getattr(pub, f) != v for f, v in links.items()):
-            for f, v in links.items():
-                setattr(pub, f, v)
-            pub.save(update_fields=list(links))
+        if fill_blanks(pub, {f: fields[f] for f in ("url", "doi")}):
             changed = True
         book = (Publication.objects.filter(
             title=item["reviews_book"], pub_type__in=BOOK_TYPES).first()
             if item.get("reviews_book") else None)
         if book:  # linked once the book is loaded (load_data.sh order)
-            if pub.pub_reviewed_id != book.id:
+            if pub.pub_reviewed_id is None:
                 pub.pub_reviewed = book
                 pub.save(update_fields=["pub_reviewed"])
                 changed = True
