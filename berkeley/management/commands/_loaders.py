@@ -72,29 +72,45 @@ def set_subject(pub, name):
     return True
 
 
-def get_host(key, data, book_type):
-    """The book a chapter is in: an existing book of book_type (key is
-    its title) or a data.HOSTS entry, stored as Works Mentioning."""
-    from django.core.management.base import CommandError
-    from berkeley.models import Publication
-    if key not in data.HOSTS:
-        try:
-            return Publication.objects.get(title=key, pub_type=book_type)
-        except Publication.DoesNotExist:
-            raise CommandError(f"Book not in the database: {key!r}. "
-                               "Run the book loaders first.")
-    book = data.HOSTS[key]
+def make_book(book, data, pub_type):
+    """Store book (a dict: title, year, subject, publisher or city,
+    authors, editors, url, doi) as a pub_type entry, matched on title
+    and year."""
     publisher = (get_publisher(book["publisher"], data.PUBLISHERS,
                                book.get("city"))
                  if book.get("publisher") else None)
-    host, is_new = Publication.objects.get_or_create(
-        title=book["title"], year=book["year"], pub_type="MENT",
+    from berkeley.models import Publication
+    pub, is_new = Publication.objects.get_or_create(
+        title=book["title"], year=book["year"], pub_type=pub_type,
         defaults={"publisher": publisher,
-                  "city": "" if publisher else book.get("city", "")})
+                  "city": "" if publisher else book.get("city", ""),
+                  "url": book.get("url", ""), "doi": book.get("doi", "")})
     if is_new:
-        add_people(host, book)
-    set_subject(host, book["subject"])
-    return host
+        add_people(pub, book)
+    changed = set_subject(pub, book["subject"])
+    return pub, is_new, changed
+
+
+def get_host(key, data, book_type):
+    """The book a chapter is in: an existing book of book_type (a type,
+    or a tuple of types; key is its title) or a data.HOSTS entry, stored
+    as Works Mentioning."""
+    from django.core.management.base import CommandError
+    from berkeley.models import Publication
+    if key not in data.HOSTS:
+        types = (book_type,) if isinstance(book_type, str) else book_type
+        try:
+            return Publication.objects.get(title=key, pub_type__in=types)
+        except Publication.DoesNotExist:
+            raise CommandError(f"Book not in the database: {key!r}. "
+                               "Run the book loaders first.")
+    return make_book(data.HOSTS[key], data, "MENT")[0]
+
+
+def same_people(pub, item):
+    """True if pub's authors are item's authors (first and last names)."""
+    have = {(p.fname, p.lname) for p in pub.ordered_authors()}
+    return have == {(f, l) for f, _, l in item.get("authors", [])}
 
 
 SHORT_FIELDS = ("volume", "issue", "day", "month", "pages", "url", "doi")
@@ -103,7 +119,9 @@ SHORT_FIELDS = ("volume", "issue", "day", "month", "pages", "url", "doi")
 def load_short_works(data, pub_type, book_type):
     """Load data.ARTICLES (in a journal) and data.CHAPTERS (in a
     book) as pub_type entries.
-    Works are matched on title, year and journal or book. Subjects,
+    Works are matched on title, year and journal or book (and on their
+    authors too, if "match_authors" is set). book_type is the type, or
+    tuple of types, of an existing host book. Subjects,
     URL/DOI and "reviews_book" are applied on every run. A work with
     "reviews_book" (the title of a book by or about Oakeshott) is a
     review essay: it stays a short work but links to the book it
@@ -122,9 +140,21 @@ def load_short_works(data, pub_type, book_type):
             host = get_host(item["book"], data, book_type)
             key = {"collection": host}
             year = item.get("year", host.year)
-        pub, is_new = Publication.objects.get_or_create(
-            title=item["title"], year=year, pub_type=pub_type, **key,
-            defaults=fields)
+        if item.get("match_authors"):
+            # Several pieces with one title in one place (e.g. the
+            # obituaries in one newspaper): told apart by their authors.
+            pub = next((p for p in Publication.objects.filter(
+                title=item["title"], year=year, pub_type=pub_type, **key)
+                if same_people(p, item)), None)
+            is_new = pub is None
+            if is_new:
+                pub = Publication.objects.create(
+                    title=item["title"], year=year, pub_type=pub_type,
+                    **key, **fields)
+        else:
+            pub, is_new = Publication.objects.get_or_create(
+                title=item["title"], year=year, pub_type=pub_type, **key,
+                defaults=fields)
         changed = set_subject(pub, item["subject"])
         links = {f: fields[f] for f in ("url", "doi") if fields[f]}
         if any(getattr(pub, f) != v for f, v in links.items()):

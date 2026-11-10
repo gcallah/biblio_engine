@@ -1,12 +1,14 @@
 """Load the "Short Works About Oakeshott" entries into the database.
 
 A short work counts as being about Oakeshott if his name is in its
-title. The data, and where it comes from, is in _short_works_about.py.
+title, or if it is one of the listed pieces substantially about him
+whose titles do not name him. The data, and where it comes from, is in
+_short_works_about.py.
 
 Journal articles are linked to a Journal. Chapters are linked
 (Publication.collection) to their book. If the book is a Books About
-Oakeshott entry it must already be in the database (run
-load_books_about_oakeshott first); any other book is stored as a
+or Books by Oakeshott entry it must already be in the database (run
+the book loaders first); any other book is stored as a
 "Works Mentioning Oakeshott" entry.
 
 Safe to re-run: people, publishers, journals and books are matched on
@@ -33,7 +35,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         Subject.objects.get_or_create(id=UNKNOWN_ID,
                                       defaults={"name": "Uncategorized"})
-        created, updated, total = load_short_works(data, "SWAB", "BKAB")
+        created, updated, total = load_short_works(
+            data, "SWAB", ("BKAB", "BKBY"))
         self.stdout.write(f"Added {created} short works "
                           f"({total - created} already present); "
                           f"set subject on {updated}.")

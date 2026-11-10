@@ -2312,3 +2312,447 @@ ABSTRACTS = {
             " from Wendell John Coats's work."
         )),
 }
+
+# --- Works Mentioning Oakeshott ---------------------------------------------
+# These abstracts say how each work deals with Oakeshott, not what the work
+# as a whole is about. Each is drawn from the source named (a search inside
+# the book or its index, or the publisher's abstract), checked 2026-11-09/10.
+AI = "https://archive.org/details/"
+ABSTRACTS.update({
+    ('The Idea of History', 1946, 'Clarendon Press'): dict(
+        source=AI + 'in.ernet.dli.2015.168203?q=Oakeshott',
+        abstract=(
+            "In the part on recent English philosophy of history, "
+            "Collingwood gives several pages (pp. 151-9) to Oakeshott's "
+            "Experience and Its Modes. He praises its account of history "
+            "as a mode of experience, an arrest of experience at a certain "
+            "point, as brilliant and penetrating, and as a vindication of "
+            "the autonomy of historical thought. He then objects that "
+            "Oakeshott does not explain why history arises as a necessary "
+            "form of experience, and argues that there is a way between "
+            "the horns of Oakeshott's dilemma about the past and the "
+            "present. Oakeshott is mentioned again on pp. 180 and 289."
+        )),
+    ('Laws and Explanation in History', 1957, 'Oxford University Press'): dict(
+        source=AI + 'lawsexplanationi0000dray?q=Oakeshott',
+        abstract=(
+            "Dray treats Oakeshott, as the author of Experience and Its "
+            "Modes, as a leading idealist opponent of the covering-law "
+            "model of historical explanation. He sets out (pp. 8-10) "
+            "Oakeshott's claim that general laws have no place in history "
+            "and that to explain by them would be to abandon history, "
+            "contrasts him with Collingwood and Walsh, and returns to his "
+            "view of explanation as a continuous series of events at "
+            "several later points (pp. 89-90, 112-16)."
+        )),
+    ('Philosophy of History', 1964, 'Prentice-Hall'): dict(
+        source=AI + 'philosophyofhist0000dray_b4s6?q=Oakeshott',
+        abstract=(
+            "In the chapter on historical understanding (pp. 7-10), Dray "
+            "presents Oakeshott, with Collingwood, as an idealist "
+            "philosopher of history. He sets out Oakeshott's view that "
+            "the historian is concerned with the individual, that "
+            "explaining events by general laws would mean the complete "
+            "destruction of history, and that the historian's method is "
+            "never to explain by generalization. Oakeshott is mentioned "
+            "again on pp. 13, 15 and 37."
+        )),
+    ('Scepticism and Historical Knowledge', 1965, 'Random House'): dict(
+        source=AI + 'scepticismhistor00meil?q=Oakeshott',
+        abstract=(
+            "Chapter 2, 'Oakeshott: Is History Concerned with Past "
+            "Events?' (from p. 41), examines the account of history in "
+            "Experience and Its Modes as a form of historical scepticism. "
+            "It covers the postulates of historical thought, Oakeshott's "
+            "denial that history yields practical wisdom, and his claim "
+            "that history is not concerned with a past independent of "
+            "present evidence. Chapter 3, on Collingwood, opens by "
+            "comparing him with Oakeshott and argues that Collingwood does "
+            "not succeed in refuting him."
+        )),
+    ('An Introduction to Philosophy of History', 1967, 'Hutchinson'): dict(
+        source=AI + 'introductiontoph0000whwa?q=Oakeshott',
+        abstract=(
+            "In the chapter on truth and fact in history, Walsh discusses "
+            "Oakeshott as the leading defender of the coherence theory of "
+            "historical truth, and one who has also been a working "
+            "historian. Over several pages (around pp. 83-4) he examines "
+            "the argument of Experience and Its Modes, including its use "
+            "of Maitland as an illustration and its claim that historical "
+            "thinking is not fully satisfactory, and argues that the "
+            "practising historian could not accept the position."
+        )),
+    ('Philosophy, History and Politics: Studies in Contemporary English '
+     'Philosophy of History', 1976, 'Martinus Nijhoff'): dict(
+        source=AI + 'philosophyhistor0000rote?q=Oakeshott',
+        abstract=(
+            "The book has a chapter on Oakeshott, 'History, Tradition and "
+            "Politics: Michael Oakeshott' (from about p. 109). It discusses "
+            "Experience and Its Modes and Rationalism in Politics, and the "
+            "sharp distinction Oakeshott draws between the historical past "
+            "and the practical uses of the past, including the way "
+            "tradition connects past and present in political activity."
+        )),
+    ('The English Idea of History from Coleridge to Collingwood', 2000,
+     'Ashgate'): dict(
+        source='https://www.google.com/books/feeds/volumes?q=Oakeshott+'
+               '%22English+idea+of+history%22',
+        abstract=(
+            "Parker discusses Oakeshott's philosophy of history at some "
+            "length (about pp. 135-60). Against readings such as David "
+            "Boucher's, he argues that Oakeshott's 'historical past' is "
+            "not, in the broadest terms, a philosophical issue but a "
+            "political one. He also discusses W. H. Walsh's largely "
+            "admiring treatment of Oakeshott's distinction between the "
+            "practical and the historical past."
+        )),
+    ('Are There Any Lessons of History? The English School and the '
+     'Activity of Being an Historian', 2007, 'International Politics'): dict(
+        source='https://research.aber.ac.uk/en/publications/are-there-any-'
+               'lessons-of-history-the-english-school-and-the-activ/',
+        abstract=(
+            "Bain argues that Hedley Bull and Herbert Butterfield cannot "
+            "fully support the English School's claim that historical "
+            "knowledge matters to the study of international relations, "
+            "and turns to Oakeshott's account of history, in which the "
+            "past is told as a kind of fable, to fill the gap. His title "
+            "echoes Oakeshott's essay 'The Activity of Being an "
+            "Historian'. He concludes that English School theorists can "
+            "keep a place for history only by denying it any didactic or "
+            "practical function."
+        )),
+})
+
+PE = ("in: Politics and Experience: Essays Presented to Professor Michael "
+      "Oakeshott on the Occasion of His Retirement")
+SPECTATOR_1969 = ("https://archive.spectator.co.uk/article/31st-january-"
+                  "1969/16/cracks-in-the-ice-cap")
+ABSTRACTS.update({
+    ('Our Age: Portrait of a Generation', 1990,
+     'Weidenfeld and Nicolson'): dict(
+        source=AI + 'ourageportraitof00anna',
+        abstract=(
+            "Annan gives Oakeshott a chapter of his own, 'The Deviants - "
+            "Michael Oakeshott', among the figures who stood against the "
+            "outlook of his generation. He allows that on one count "
+            "Oakeshott was of his times and no deviant, quotes what he "
+            "calls an unforgettable passage of his, and is often critical, "
+            "remarking that Oakeshott exercised his negative capability at "
+            "rather a cheap rate. He also argues that it was Hayek and "
+            "Friedman, rather than Oakeshott, who inspired the new "
+            "conservatism."
+        )),
+    ('Contemporary Political Thinkers', 1982, 'Martin Robertson'): dict(
+        source=AI + 'contemporarypoli00pare',
+        abstract=(
+            "Chapter 5, 'Michael Oakeshott', is one of seven chapters "
+            "that each introduce and assess a major contemporary political "
+            "thinker. Parekh sets out Oakeshott's philosophy, including "
+            "the theory of modes of experience from Experience and Its "
+            "Modes (for instance, science as the pursuit of absolutely "
+            "general knowledge)."
+        )),
+    ('The Redefinition of Conservatism: Politics and Doctrine', 1986,
+     'Macmillan'): dict(
+        source=AI + 'redefinitionofco0000cove',
+        abstract=(
+            "Chapter 4, 'Michael Oakeshott' (from p. 93), is devoted to "
+            "Oakeshott, and chapter 5, 'Two Oakeshottians: Maurice Cowling "
+            "and Shirley Robin Letwin', follows his influence. Covell reads "
+            "Oakeshott and Letwin from the perspective of a procedural "
+            "natural law."
+        )),
+    ('Inside Right: A Study of Conservatism', 1977, 'Hutchinson'): dict(
+        source=AI + 'insiderightstudy0000gilm',
+        abstract=(
+            "Chapter 8, 'Michael Oakeshott' (pp. 92-100), is devoted to "
+            "Oakeshott. Gilmour, a Conservative politician, quotes him with "
+            "his permission, and notes "
+            "that Oakeshott had recently expanded his ideas in On Human "
+            "Conduct (1975)."
+        )),
+    ('In Defence of Politics', 1964, 'Penguin'): dict(
+        source=AI + 'in-defence-of-politics',
+        abstract=(
+            "In the chapter 'A Defence of Politics against its Friends' "
+            "(pp. 114-20 of the Pelican edition) Crick criticizes "
+            "Oakeshott's Rationalism in Politics. He quotes Oakeshott on "
+            "pure empiricism as an approach to lunacy and on politics as "
+            "a conversation with tradition, and argues that the view is "
+            "so general as to be a truism and no guide to political "
+            "conduct, and that tradition gives a poor picture of the "
+            "inventiveness states need. An appendix, 'A Footnote to Rally "
+            "the Academic' (pp. 194-5), calls Oakeshott an anarchist and "
+            "mocks his claim that his inaugural lecture, Political "
+            "Education, was in the indicative mood."
+        )),
+    ('Religion and Public Doctrine in Modern England', 1980,
+     'Cambridge University Press'): dict(
+        source=AI + 'religionpublicdo0001cowl',
+        abstract=(
+            "Volume I has a section on Oakeshott (around pp. 257-69). "
+            "Cowling traces the development of Oakeshott's thought, his "
+            "sharing of Collingwood's attitude to the past as it was, and "
+            "the way he extended his interests over the years, and praises "
+            "the relentlessness that has given him his place among English "
+            "men of letters."
+        )),
+    ('The Conquest of Politics: Liberal Philosophy in Democratic Times',
+     1988, 'Princeton University Press'): dict(
+        source=AI + 'conquestofpoliti0000barb',
+        abstract=(
+            "Chapter 6, 'Conserving Politics: Michael Oakeshott and the "
+            "Conversation of Political Theory' (from p. 152), is devoted "
+            "to Oakeshott. It revises Barber's earlier article on "
+            "Oakeshott in Government and Opposition. Barber criticizes "
+            "Oakeshott for trying to keep the pure theorist apart from "
+            "practice, and turns Oakeshott's own insistence on the "
+            "primacy of practice and conversation against him."
+        )),
+    ('Beyond Ideology: The Revival of Political Theory', 1967,
+     'Harper and Row'): dict(
+        source=AI + 'beyondideologyre00germ',
+        abstract=(
+            "The chapter 'The Contemporary Revival of Political Theory: "
+            "Oakeshott, Arendt, Jouvenel, and Strauss' (from p. 131) "
+            "singles out Oakeshott as particularly worthy of attention. "
+            "Germino discusses Experience and Its Modes, The Voice of "
+            "Poetry in the Conversation of Mankind and Oakeshott's edition "
+            "of Leviathan, counts him among the twentieth-century revivers "
+            "of political theory, and criticizes a claim to transcendence "
+            "made with reference to Croce and Oakeshott."
+        )),
+    ('Toward a Liberalism', 1989, 'Cornell University Press'): dict(
+        source=AI + 'oapen-20.500.12657-62062',
+        abstract=(
+            "In chapter 1, 'Theory and Practice, Skepticism and "
+            "Liberalism' (about pp. 25-45), Flathman sets out at length "
+            "Oakeshott's account of the relation between theory and "
+            "practice, alongside the later Wittgenstein's, drawing on "
+            "Experience and Its Modes, On Human Conduct and Oakeshott's "
+            "attack on 'theoreticians'. He argues that their arguments do "
+            "not support the restrictive conclusions Oakeshott draws, and "
+            "that both views entail something like a liberal respect for "
+            "persons; he agrees with W. J. Coats that Oakeshott's thought "
+            "is a coherent liberal view. Oakeshott's adverbial rules and "
+            "On Human Conduct return in chapters 2-4."
+        )),
+    ('Endgames: Questions in Late Modern Political Thought', 1997,
+     'Polity Press'): dict(
+        source=AI + 'endgamesquestion0000gray',
+        abstract=(
+            "Chapter 8, 'Berlin, Oakeshott and Enlightenment' (first "
+            "published in Common Knowledge), compares Oakeshott with "
+            "Isaiah Berlin and suggests that at a deep level they agree. "
+            "Gray draws on Rationalism in Politics, On Human Conduct and "
+            "Experience and Its Modes, a work which, he says, Oakeshott "
+            "was never able to improve and whose central claims he never "
+            "retracted."
+        )),
+    ('British Idealism and Political Theory', 2000,
+     'Edinburgh University Press'): dict(
+        source=AI + 'britishidealismp0000bouc',
+        abstract=(
+            "Chapter 7, 'Michael Oakeshott: The Non-Economic Character of "
+            "Civil Association', is devoted to Oakeshott, treated among "
+            "the British Idealists. It covers his philosophy and the modes of "
+            "Experience and Its Modes, the conversation of mankind and The "
+            "Voice of Poetry, and the theory of civil association in On "
+            "Human Conduct."
+        )),
+    ('Political Theory and Practice: Eight Essays on a Theme', 2003,
+     'Susquehanna University Press'): dict(
+        source='https://catalog.lib.msu.edu/Record/folio.in00002747742/TOC',
+        abstract=(
+            "Two of the eight essays are on Oakeshott: chapter 3, "
+            "'Oakeshott's Descartes, Vico's Descartes', and chapter 7, "
+            "'Michael Oakeshott and the Poetic Character of Human "
+            "Activity'."
+        )),
+    ('The Anglo-American Conception of the Rule of Law', 2019,
+     'Palgrave Macmillan'): dict(
+        source='https://doi.org/10.1007/978-3-030-26361-4_8',
+        abstract=(
+            "Chapter 8, 'Oakeshott' (pp. 243-82), is one of the chapters "
+            "on the thinkers who elaborated Dicey's idea of the rule of "
+            "law, with Leoni, Fuller and Hayek. Its terms include "
+            "Oakeshott's distinction between civil and enterprise "
+            "association, from On Human Conduct."
+        )),
+    ('The Idea of a Social Science and Its Relation to Philosophy', 1958,
+     'Routledge and Kegan Paul'): dict(
+        source=AI + 'ideaofsocialscie0000winc',
+        abstract=(
+            "In chapter II, in the sections on rules and habits and on "
+            "reflectiveness, Winch discusses the Cambridge Journal essays "
+            "later collected in Rationalism in Politics, on rationalism "
+            "and on the habitual and reflective forms of moral life. He "
+            "endorses Oakeshott's criticism of the rationalist picture of "
+            "conduct and generalizes his point about learning how to do "
+            "something, but argues that Oakeshott is wrong to oppose "
+            "habit to the following of rules."
+        )),
+    ('Law, Morality, and the Relations of States', 1983,
+     'Princeton University Press'): dict(
+        source=AI + 'lawmoralityrelat0000nard',
+        abstract=(
+            "Nardin acknowledges that readers of Oakeshott will see how "
+            "much he relies on him. His account of practices draws on On "
+            "Human Conduct, and he takes Oakeshott's distinction between "
+            "association in terms of common purposes and association in "
+            "terms of rules (civil association) as the frame for his "
+            "account of international society. He also draws on Oakeshott's "
+            "discussion of the modern state."
+        )),
+    ('The Global Covenant: Human Conduct in a World of States', 2000,
+     'Oxford University Press'): dict(
+        source=AI + 'globalcovenanthu0000jack',
+        abstract=(
+            "Jackson builds his account of international society on the "
+            "political theory of human conduct in Oakeshott's Rationalism "
+            "in Politics and On Human Conduct, with Collingwood's; the "
+            "subtitle echoes Oakeshott. He discusses Oakeshott's idea of "
+            "civil association, based on non-instrumental relations, notes "
+            "that Oakeshott himself denies that civil association exists "
+            "between states, and also draws on Hobbes on Civil "
+            "Association."
+        )),
+    ('Parts and Wholes: Twentieth Century Interpretation of Thomas Hobbes',
+     1974, 'Anales de la Cátedra Francisco Suárez'): dict(
+        source='https://revistaseug.ugr.es/index.php/acfs/article/download/'
+               '26435/24419',
+        abstract=(
+            "In this survey of twentieth-century readings of Hobbes, "
+            "Minogue gives a section (about pp. 88-93) to Oakeshott's 1946 "
+            "Introduction to Leviathan, which he calls more elevated and "
+            "more romantic than earlier readings. He sets out Oakeshott's "
+            "three traditions of political philosophy (Reason and Nature, "
+            "Will and Artifice, and the Rational Will), with Leviathan as "
+            "the masterpiece of Will and Artifice, contrasts Oakeshott's "
+            "account of Hobbes's moral theory with Leslie Stephen's "
+            "psychological egoism, and returns to Oakeshott at about pp. "
+            "105-6."
+        )),
+    ('The Irony of Modern Conservatism', 1987,
+     'International Political Science Review'): dict(
+        source='https://doi.org/10.1177/019251218700800405',
+        abstract=(
+            "Oakeshott and Leo Strauss are the two subjects of this "
+            "article, which argues that modern conservatism often "
+            "dissolves into a form of liberalism. The paradox appears, "
+            "Staal argues, in the political teachings of both: each offers "
+            "modern man a choice between Hobbesian liberalism and mass "
+            "democracy or totalitarianism, so that Oakeshott's "
+            "traditionalism, like Strauss's classicism, is paradoxical or "
+            "ironical."
+        )),
+    ('Enterprise Association or Civil Association? The UK National Health '
+     'Service', 1995, 'Journal of Medicine and Philosophy'): dict(
+        source='https://pubmed.ncbi.nlm.nih.gov/8861573/',
+        abstract=(
+            "Edgar takes Oakeshott's distinction between civil association "
+            "and enterprise association, from On Human Conduct, as the "
+            "perspective from which to view the moral debate over health "
+            "care reform. The second part of the article sets out the "
+            "distinction, and the third uses it to analyse the moral and "
+            "political constitution of the UK National Health Service."
+        )),
+    ('Trust the People! Populism and the Two Faces of Democracy', 1999,
+     'Political Studies'): dict(
+        source='https://doi.org/10.1111/1467-9248.00184',
+        abstract=(
+            "Canovan adapts Oakeshott's distinction between the politics "
+            "of faith and the politics of scepticism, from his posthumous "
+            "The Politics of Faith and the Politics of Scepticism, to "
+            "describe democracy as having two opposed faces, a pragmatic "
+            "and a redemptive one. She argues that the gap between them is "
+            "what makes populism a perennial possibility in democracies."
+        )),
+    ('Populism as a Spectre of Democracy: A Response to Canovan', 2004,
+     'Political Studies'): dict(
+        # The source is the Spanish version of the article.
+        source='https://www.redalyc.org/pdf/421/42119105.pdf',
+        abstract=(
+            "Arditi examines at length Margaret Canovan's use of "
+            "Oakeshott's distinction between the politics of faith and the "
+            "politics of scepticism. He draws on Oakeshott's figure of the "
+            "trimmer and the middle region between the two styles, his "
+            "description of them as a concordia discors, and his remarks "
+            "on the ambiguity of political vocabulary, and argues that if "
+            "the gap between the styles is built into modern politics it "
+            "explains political radicalism in general, not populism in "
+            "particular."
+        )),
+    ('Conversation Across Boundaries: Political Theory and Global '
+     'Diversity', 2001, 'Millennium: Journal of International Studies'): dict(
+        source='https://doi.org/10.1177/03058298010300021101',
+        abstract=(
+            "Dallmayr starts from Oakeshott's essay The Voice of Poetry in "
+            "the Conversation of Mankind and its defence of a mode of "
+            "discourse not subservient to science or technical utility. "
+            "He explores what Oakeshott's model of conversation offers a "
+            "non-hegemonic global discourse, arguing that an Oakeshottian "
+            "conversation of humankind must steer between hegemonic "
+            "universalism and self-enclosed particularism, and contrasts "
+            "it with Habermas's idea of cosmopolitan discourse."
+        )),
+    ('The Boundaries of Conversation: A Response to Dallmayr', 2001,
+     'Millennium: Journal of International Studies'): dict(
+        source='https://research-portal.st-andrews.ac.uk/en/publications/'
+               'the-boundaries-of-conversation-a-response-to-dallmayr/',
+        abstract=(
+            "Rengger agrees with Fred Dallmayr that Oakeshott's work is an "
+            "important stimulus for thinking about political theory and "
+            "global diversity, but dissents on three points: Dallmayr's "
+            "reading of Oakeshott's metaphor of conversation, the "
+            "substantive points he draws from it, and the implications of "
+            "his argument, which in Oakeshott's terms are 'practical'."
+        )),
+    ('An Essay on Historical, Philosophical and Theological Attitudes to '
+     'Modern Political Thought', 2004, 'History of Political Thought'): dict(
+        source='https://philarchive.org/rec/ALEAEO-2',
+        abstract=(
+            "Alexander criticizes the historical and philosophical "
+            "attitudes to political thought found in the writings of John "
+            "Dunn and of Oakeshott, whose philosophical attitude is one "
+            "of the essay's two main targets. He argues that history and "
+            "philosophy, as recently practised, have limits that can only "
+            "be addressed by recognizing a third, theological attitude."
+        )),
+    ('Revolution, Tradition and Political Continuity', 1968, PE): dict(
+        source=SPECTATOR_1969,
+        abstract=(
+            "Minogue's essay in Oakeshott's Festschrift examines "
+            "Oakeshott's traditionalism. As Geoffrey Barraclough's review "
+            "of the volume describes it, Minogue shows that Oakeshott does "
+            "not solve the dilemma of all traditionalists: either they "
+            "rationalize their tradition, which then ceases to be a "
+            "tradition, or they refuse to, and become upholders of a "
+            "mystical trust in existing political arrangements."
+        )),
+    ('Democratic Citizenship and the Political Community', 1992,
+     'in: Dimensions of Radical Democracy: Pluralism, Citizenship, '
+     'Community'): dict(
+        source=AI + 'dimensionsofradi0000unse',
+        abstract=(
+            "In a section titled 'The Political Community: Universitas or "
+            "Societas?', Mouffe argues that Oakeshott's On Human Conduct "
+            "can be very illuminating for a radical democratic idea of "
+            "citizenship. She takes up his distinction between societas "
+            "and universitas and his idea of the respublica as an "
+            "alternative to the limits of liberalism, but objects that "
+            "what is completely missing in Oakeshott is division and "
+            "antagonism."
+        )),
+    ("Wittgenstein's Later Work in Relation to Conservatism", 1982,
+     'in: Wittgenstein and His Times'): dict(
+        source=AI + 'wittgensteinhist0000unse',
+        abstract=(
+            "Nyiri argues that the later Wittgenstein has conservative "
+            "affinities by comparing his reflections with those of "
+            "Oakeshott, 'the well-known English conservative theorist'. He "
+            "expounds the essays of Rationalism in Politics, Oakeshott's "
+            "account of Rationalism and of conservatism as a disposition, "
+            "and draws out their similarity to Wittgenstein's thought."
+        )),
+})

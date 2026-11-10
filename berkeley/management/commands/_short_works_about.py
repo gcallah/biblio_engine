@@ -1760,3 +1760,185 @@ ARTICLES += [
          journal=CBIS, volume="11", year=2005, pages="119-132",
          reviews_book=WHAT_IS_HISTORY, subject=HIST),
 ]
+
+# --- MOA section 4: pieces about Oakeshott whose titles do not name him ----
+# Added 2026-11-09 while sorting MOA's "Other Published Works" for the
+# Works Mentioning Oakeshott entries (see _works_mentioning.py). These
+# are about him rather than merely mentioning him: chapters in books
+# about him, editors' introductions to his own books, obituaries, and
+# reports of his LSE appointment and inaugural lecture. Doubtful items
+# are in docs/works_mentioning_triage.csv, not here. Obituaries in the
+# same paper on the same day are told apart by their authors
+# (match_authors). Reprints are left out, as above.
+ACHIEVEMENT = "The Achievement of Michael Oakeshott"
+VOICE_OF_LIBERAL_LEARNING = ("The Voice of Liberal Learning: Michael "
+                             "Oakeshott on Education")
+RIP_1991 = "Rationalism in Politics and Other Essays: New and Expanded Edition"
+HARVARD_LECTURES = ("Morality and Politics in Modern Europe: The Harvard "
+                    "Lectures")
+LECTURES_HPT = "Lectures in the History of Political Thought"
+JURISPRUDENCE = ("The Concept of a Philosophical Jurisprudence: Essays and "
+                 "Reviews 1926–51")
+VOCABULARY = ("The Vocabulary of a Modern European State: Essays and "
+              "Reviews 1952–88")
+OSULLIVAN_L = ("Luke", "", "O'Sullivan")
+OBIT = "Obituary [of Michael Oakeshott]"
+
+MOA_UNNAMED_CHAPTERS = [
+    dict(authors=[("Corey", "", "Abel")], title="Appropriating Aristotle",
+         book=INTELLECTUAL_LEGACY, pages="37-60", subject=PHIL),
+    dict(authors=[("J.", "L.", "Auspitz")],
+         title="Modality and Compossibility",
+         book=INTELLECTUAL_LEGACY, pages="86-116", subject=PHIL),
+    dict(authors=[MARSH], title="Constructionism and Relativism in Oakeshott",
+         book=INTELLECTUAL_LEGACY, pages="238-262", subject=PHIL),
+    dict(authors=[("K.", "", "Sutherland")],
+         title="Rationalism in Politics and Cognitive Science",
+         book=INTELLECTUAL_LEGACY, pages="263-280", subject=PHIL),
+    dict(authors=[("Martyn", "P.", "Thompson")],
+         title="Imitations of Poetry in Practical Life",
+         book=INTELLECTUAL_LEGACY, pages="281-292", subject=PHIL),
+    dict(authors=[FULLER], title="Foreword", book=INTELLECTUAL_LEGACY,
+         pages="vi-ix", subject=PHIL),
+    dict(authors=[MARSH], title="Convenor's Message", book=PHILOSOPHER,
+         pages="11-17", subject=BIO),
+    dict(authors=[("J.", "", "Jascoll")], title="The Sin of the Academic",
+         book=PHILOSOPHER, pages="57-59", subject=BIO),
+    dict(authors=[("E.", "", "Kedourie")], title="A Colleague's View",
+         book=ACHIEVEMENT, pages="97-100", subject=BIO),
+    # Editors' introductions to Oakeshott's own books
+    dict(authors=[FULLER], title="Introduction",
+         book=VOICE_OF_LIBERAL_LEARNING, pages="1-16", subject=EDUC),
+    dict(authors=[FULLER], title="Foreword", book=RIP_1991,
+         pages="xii-xxvi", subject=POL),
+    dict(authors=[MINOGUE], title="Introduction", book=HARVARD_LECTURES,
+         pages="vii-xii", subject=POL),
+    dict(authors=[("Terry", "", "Nardin"), OSULLIVAN_L],
+         title="Editors' Introduction", book=LECTURES_HPT, pages="1-30",
+         subject=POL),
+    dict(authors=[OSULLIVAN_L], title="Introduction", book=WHAT_IS_HISTORY,
+         pages="1-30", subject=HIST),
+    dict(authors=[OSULLIVAN_L], title="Introduction", book=JURISPRUDENCE,
+         pages="1-36", subject=PHIL),
+    dict(authors=[OSULLIVAN_L], title="Introduction", book=VOCABULARY,
+         pages="1-37", subject=POL),
+]
+
+MOA_UNNAMED_ARTICLES = [
+    # His appointment to Laski's LSE chair, announced in October 1950,
+    # and his inaugural lecture, 'Political Education' (6 March 1951).
+    dict(title="He Succeeds Laski", journal="Daily Express", year=1950,
+         month="October", day="13", subject=BIO),
+    dict(title="Reducing Risk of False Ideas",
+         journal="Manchester Guardian", year=1951, month="March", day="7",
+         subject=BIO),
+    # Obituaries
+    dict(title=OBIT, journal="Daily Telegraph", year=1990,
+         month="December", day="21", pages="19", match_authors=True,
+         subject=BIO),
+    dict(authors=[("J.", "", "Casey")], title=OBIT,
+         journal="Daily Telegraph", year=1990, month="December", day="21",
+         pages="19", match_authors=True, subject=BIO),
+    dict(authors=[("P.", "", "Worsthorne")], title=OBIT,
+         journal="Daily Telegraph", year=1990, month="December", day="21",
+         pages="19", match_authors=True, subject=BIO),
+    dict(title=OBIT, journal="Times", year=1990, month="December",
+         day="22", subject=BIO),
+    dict(authors=[("B.", "", "Crick")],
+         title="Ideal Scourge of the Idealists", journal="Guardian",
+         year=1990, month="December", day="22", pages="19", subject=BIO),
+    dict(authors=[("G.", "", "Fowler")], title=OBIT,
+         journal="New York Times", year=1990, month="December", day="22",
+         pages="33", subject=BIO),
+    dict(authors=[OSULLIVAN_N], title=OBIT, journal="Independent",
+         year=1990, month="December", day="22", match_authors=True,
+         subject=BIO),
+    dict(authors=[("B.", "C.", "Parekh")], title=OBIT, journal="Independent",
+         year=1990, month="December", day="22", match_authors=True,
+         subject=BIO),
+    dict(authors=[("C.", "", "Brooke")], title=OBIT, journal="Independent",
+         year=1990, month="December", day="29", match_authors=True,
+         subject=BIO),
+    dict(authors=[("H.", "C.", "Ewing")], title=OBIT, journal="Independent",
+         year=1990, month="December", day="29", match_authors=True,
+         subject=BIO),
+    dict(authors=[("J.", "", "Casey")], title=OBIT, journal="Caian",
+         year=1991, month="November", pages="97-103", match_authors=True,
+         subject=BIO),
+    dict(authors=[("C.", "", "Brooke")], title=OBIT, journal="Caian",
+         year=1991, month="November", pages="103-104", match_authors=True,
+         subject=BIO),
+    dict(authors=[("B.", "C.", "Parekh")], title="Living as an Immortal",
+         journal="Cambridge Review", volume="112", year=1991,
+         month="October", pages="99-106", subject=BIO),
+]
+
+# Replies to Oakeshott and exchanges about him, from the same sorting
+# (evidence for each is noted in docs/works_mentioning_triage.csv).
+MOA_UNNAMED_CHAPTERS += [
+    # In Oakeshott's Festschrift: a commentary on his distinction
+    # between the practical and the historical past.
+    dict(authors=[("W.", "H.", "Walsh")],
+         title="The Practical and the Historical Past",
+         book=POLITICS_AND_EXPERIENCE, pages="5-18", subject=HIST),
+]
+
+MOA_UNNAMED_ARTICLES += [
+    # Replies to 'Rationalism in Politics' (Cambridge Journal, 1947). MOA
+    # gives volume 1 as '1947-8'; both appeared in 1948 (Krook's in the
+    # April issue), as the database already has it for that volume.
+    dict(authors=[("M.", "M.", "Postan")], title="The Revulsion from Thought",
+         journal="Cambridge Journal", volume="1", year=1948,
+         pages="395-408", subject=POL),
+    dict(authors=[("D.", "", "Krook")],
+         title="Rationalism in Politics: A Comment",
+         journal="Cambridge Journal", volume="1", year=1948,
+         pages="439-447", subject=POL),
+    # The exchange on his Introduction to Leviathan that began with
+    # J. M. Brown's 'A Note on Professor Oakeshott's Introduction'
+    dict(authors=[("D.", "", "Krook")], title="Mr. Brown's Note Annotated",
+         journal="Political Studies", volume="1", year=1953,
+         pages="216-227", doi="10.1111/j.1467-9248.1953.tb01003.x",
+         subject=POL),
+    dict(authors=[("J.", "M.", "Brown")], title="Hobbes: A Rejoinder",
+         journal="Political Studies", volume="2", year=1954,
+         pages="168-172", doi="10.1111/j.1467-9248.1954.tb01022.x",
+         subject=POL),
+    # The last piece of the 1982 Political Studies exchange on him; MOA
+    # names only Hall.
+    dict(authors=[("D.", "", "Hall"), ("T.", "", "Modood")],
+         title="A Reply to Liddington", journal="Political Studies",
+         volume="30", year=1982, pages="184-189",
+         doi="10.1111/j.1467-9248.1982.tb00531.x", subject=PHIL),
+    # On his civil association
+    dict(authors=[("D.", "", "Mapel")],
+         title="Civil Association and the Idea of Contingency",
+         journal="Political Theory", volume="18", issue="3", year=1990,
+         pages="392-410", doi="10.1177/0090591790018003003", subject=POL),
+    dict(authors=[("D.", "", "Mapel")],
+         title="Purpose and Politics: Can There Be a Non-Instrumental Civil "
+               "Association?",
+         journal="Political Science Reviewer", volume="21", year=1992,
+         pages="63-80", subject=POL),
+    dict(authors=[("R.", "B.", "Friedman")],
+         title="What Is a Non-Instrumental Law?",
+         journal="Political Science Reviewer", volume="21", year=1992,
+         pages="81-98", subject=POL),
+    # Profiles and tributes
+    dict(title="Knowledge v. Pet Ideas", journal="Time", volume="56",
+         year=1950, month="October", day="23", pages="60-62", subject=BIO),
+    dict(title="Philosopher of Conversation", journal="Spectator",
+         volume="254", year=1985, month="May", day="25", pages="18-19",
+         subject=BIO),
+    dict(authors=[("Andrew", "", "Sullivan")], title="Taken Unseriously",
+         journal="New Republic", volume="204", year=1991, month="May",
+         day="6", pages="42", subject=BIO),
+    dict(authors=[("C.", "", "Moore")],
+         title="The Sea-captain Who Threw His Coat into the Stormy Sea and "
+               "Said, Take That!",
+         journal="Spectator", volume="266", year=1991, month="June",
+         day="15", pages="8", subject=BIO),
+]
+
+CHAPTERS += MOA_UNNAMED_CHAPTERS
+ARTICLES += MOA_UNNAMED_ARTICLES

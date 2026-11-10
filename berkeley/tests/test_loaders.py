@@ -68,6 +68,7 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
         return out.getvalue()
 
     def setUp(self):
+        self.load("load_books_by_oakeshott")
         self.load("load_books_about_oakeshott")
 
     def test_loads_every_short_work_once(self):
@@ -82,14 +83,14 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
 
     def test_oakeshott_in_every_title_except_the_listed_ones(self):
         from berkeley.management.commands import _short_works_about as data
-        unnamed = {item["title"] for item in data.UNNAMED}
+        unnamed = {item["title"] for item in data.UNNAMED +
+                   data.MOA_UNNAMED_ARTICLES + data.MOA_UNNAMED_CHAPTERS}
         self.load()
         for pub in Publication.objects.filter(pub_type="SWAB"):
             if pub.title not in unnamed:
                 self.assertIn("oakeshott", pub.title.lower(), pub.title)
 
     def test_review_essay_links_to_the_book_it_reviews(self):
-        self.load("load_books_by_oakeshott")
         self.load()
         essay = Publication.objects.get(title__startswith="Publication as "
                                         "Polemic")
@@ -133,7 +134,8 @@ class LoadAbstractsTest(TestCase):
                         "load_books_about_oakeshott",
                         "load_short_works_about_oakeshott",
                         "load_short_works_by_oakeshott",
-                        "load_reviews_of_books_about_oakeshott"):
+                        "load_reviews_of_books_about_oakeshott",
+                        "load_works_mentioning_oakeshott"):
             call_command(command, stdout=StringIO())
         out = StringIO()
         call_command("load_abstracts", stdout=out)
@@ -154,7 +156,8 @@ class LoadKeywordsTest(TestCase):
                         "load_short_works_by_oakeshott",
                         "load_reviews_by_oakeshott",
                         "load_reviews_of_books_by_oakeshott",
-                        "load_reviews_of_books_about_oakeshott"):
+                        "load_reviews_of_books_about_oakeshott",
+                        "load_works_mentioning_oakeshott"):
             call_command(command, stdout=StringIO())
 
     def keywords(self):
@@ -190,7 +193,8 @@ class LoadAuthorInfoTest(TestCase):
                         "load_short_works_by_oakeshott",
                         "load_reviews_by_oakeshott",
                         "load_reviews_of_books_by_oakeshott",
-                        "load_reviews_of_books_about_oakeshott"):
+                        "load_reviews_of_books_about_oakeshott",
+                        "load_works_mentioning_oakeshott"):
             call_command(command, stdout=StringIO())
         out = StringIO()
         call_command("load_author_info", stdout=out)
@@ -434,3 +438,52 @@ class LoadReviewsOfBooksAboutOakeshottTest(TestCase):
         Publication.objects.filter(pub_type="BKAB").delete()
         with self.assertRaises(CommandError):
             self.load()
+
+
+class LoadWorksMentioningOakeshottTest(TestCase):
+    """load_works_mentioning_oakeshott, on top of the books by and about
+    Oakeshott."""
+
+    def load(self, command="load_works_mentioning_oakeshott"):
+        out = StringIO()
+        call_command(command, stdout=out)
+        return out.getvalue()
+
+    def setUp(self):
+        self.load("load_books_by_oakeshott")
+        self.load("load_books_about_oakeshott")
+
+    def test_loads_every_work_once(self):
+        from berkeley.management.commands import _works_mentioning as data
+        total = len(data.BOOKS) + len(data.ARTICLES) + len(data.CHAPTERS)
+        self.assertIn(f"Added {total} works mentioning", self.load())
+        self.assertIn("Added 0 works mentioning", self.load())
+        self.assertEqual(Publication.objects.filter(pub_type="MENT").count(),
+                         total + len(data.HOSTS))
+
+    def test_every_work_has_an_abstract(self):
+        from berkeley.management.commands import _works_mentioning as data
+        for command in ("load_short_works_about_oakeshott",
+                        "load_short_works_by_oakeshott",
+                        "load_reviews_of_books_about_oakeshott"):
+            self.load(command)
+        self.load()
+        self.load("load_abstracts")
+        for item in data.BOOKS + data.ARTICLES + data.CHAPTERS:
+            pub = Publication.objects.get(title=item["title"],
+                                          pub_type="MENT")
+            self.assertTrue(pub.abstract, pub.title)
+
+    def test_chapter_in_a_book_about_oakeshott(self):
+        self.load()
+        chapter = Publication.objects.get(
+            title="Revolution, Tradition and Political Continuity")
+        self.assertEqual(chapter.collection.pub_type, "BKAB")
+        self.assertEqual(chapter.year, 1968)
+        self.assertTrue(chapter.is_chapter())
+
+    def test_article_is_cited_as_an_article(self):
+        self.load()
+        pub = Publication.objects.get(title__startswith="Trust the People!")
+        self.assertTrue(pub.is_article())
+        self.assertFalse(pub.is_book())
