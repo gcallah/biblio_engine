@@ -3,7 +3,7 @@
     <div class="module">
     <table>
         <caption>
-            Journal: {{ journal.name }}
+            Journal: {{ journal.name }}{% include "_edit_pencil.html" with model="journal" id=journal.id %}
         </caption>
         <tr>
             <td>Publisher:</td>

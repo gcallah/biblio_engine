@@ -3,7 +3,7 @@
     <div class="module">
     <table>
         <caption>
-            Publisher: {{ publisher.name }}
+            Publisher: {{ publisher.name }}{% include "_edit_pencil.html" with model="publisher" id=publisher.id %}
         </caption>
         <tr>
             <td>Description:</td>

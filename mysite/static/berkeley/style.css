@@ -561,3 +561,50 @@ table.results .has-publisher:focus {
     width: 1%;
     white-space: nowrap;
 }
+
+/* EDITING (logged-in editors only) */
+
+/* "Log out" is a button in a form (Django logs out on POST), made to look
+   like the other menu links */
+#user-tools form.logout {
+    display: inline;
+    margin: 0;
+}
+
+#user-tools form.logout button {
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+    color: #f3e9d4;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+}
+
+#user-tools form.logout button:hover,
+#user-tools form.logout button:focus {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+}
+
+/* the edit pencil (_edit_pencil.html), linking to the admin page */
+a.edit-pencil:link, a.edit-pencil:visited {
+    margin-left: 0.35em;
+    color: var(--accent);
+    border-bottom: none;
+    font-size: 1.05em;
+    text-decoration: none;
+}
+
+a.edit-pencil:hover, a.edit-pencil:focus {
+    color: var(--gold);
+}
+
+.form-error {
+    color: var(--accent);
+    font-weight: 600;
+}

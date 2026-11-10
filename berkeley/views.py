@@ -1,8 +1,11 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, get_list_or_404, render
+from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
+from django.urls import reverse
 
 from .models import AdminEmail
 from .models import Journal
@@ -68,9 +71,24 @@ def pub_detail(request, pub_id):
             'pub_detail.html', 'pub')
 
 
+@login_required
 def edit_pub(request, pub_id):
-    return detail_view(request, pub_id, Publication,
-            'edit_pub.html', 'pub')
+    """Editing is done in the Django admin: send the editor to the
+    entry's admin page."""
+    pub = get_object_or_404(Publication, pk=pub_id)
+    return redirect(reverse('admin:berkeley_publication_change',
+                            args=[pub.id]))
+
+
+class LoginView(auth_views.LoginView):
+    """The editors' login page, in the site's own style. There is no
+    sign-up: logins are made by an administrator (manage.py add_editor)."""
+    template_name = 'login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = get_hdr()
+        return context
 
 
 def person_detail(request, person_id):

@@ -1,3 +1,4 @@
+from django.contrib.auth import views as auth_views
 from django.urls import re_path
 
 from . import views
@@ -8,6 +9,8 @@ app_name = 'berkeley'
 urlpatterns = [
     re_path(r'^$', views.search, name='search'),
     re_path(r'^about/*$', views.about, name='about'),
+    re_path(r'^login/$', views.LoginView.as_view(), name='login'),
+    re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     re_path(r'^feedback/*$', views.feedback, name='feedback'),
     re_path(r'^publications/*$', views.publications, name='publications'),
     re_path(r'^export/(?P<pub_id>[0-9]+)/$', views.export, name='export'),

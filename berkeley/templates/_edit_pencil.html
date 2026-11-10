@@ -1,0 +1,4 @@
+{% comment %}The edit pencil, shown only to logged-in editors: a link to the
+record's admin page. Include with model (publication, person, journal or
+publisher) and id, e.g.
+{% include "_edit_pencil.html" with model="person" id=person.id %}{% endcomment %}{% if user.is_authenticated %}<a class="edit-pencil" href="/admin/berkeley/{{ model }}/{{ id }}/change/" title="Edit this {{ model }}" aria-label="Edit this {{ model }}">&#9998;</a>{% endif %}

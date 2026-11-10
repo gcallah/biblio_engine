@@ -66,7 +66,7 @@
                 <td class="has-abstract">
                     <a href="/oakeshott/pub_detail/{{ pub.id }}/">Abstract</a>
                     <div class="abstract-pop" role="tooltip">
-                        <strong>{{ pub }}</strong>
+                        <strong>{{ pub }}{% include "_edit_pencil.html" with model="publication" id=pub.id %}</strong>
                         {{ pub.abstract }}
                     </div>
                 </td>
@@ -77,7 +77,7 @@
                     <a href="/oakeshott/export/{{ pub.id }}/">Export</a>
                     <div class="abstract-pop cite-pop" role="tooltip"
                          data-src="/oakeshott/export/{{ pub.id }}/citations/">
-                        <strong>{{ pub }}</strong>
+                        <strong>{{ pub }}{% include "_edit_pencil.html" with model="publication" id=pub.id %}</strong>
                         <span class="cite-body">Loading citations…</span>
                     </div>
                 </td>
@@ -86,7 +86,9 @@
     </table>
     <script>
     // Place each popup (abstract, citations, author, journal or publisher) just below its link, or
-    // above it when there is no room below. The citations are fetched the
+    // above it when there is no room below. It touches the link, with no
+    // gap, so the mouse can move into it (to an editor's edit pencil)
+    // without closing it. The citations are fetched the
     // first time an Export link is hovered.
     document.querySelectorAll('td.has-abstract, td.has-export, .has-person, ' +
                               '.has-journal, .has-publisher')
@@ -98,7 +100,7 @@
             pop.style.left = Math.max(8, Math.min(r.left + 8,
                 window.innerWidth - pop.offsetWidth - 8)) + 'px';
             pop.style.top = (below >= pop.offsetHeight + 8 || below > r.top
-                ? r.bottom + 4 : r.top - pop.offsetHeight - 4) + 'px';
+                ? r.bottom : r.top - pop.offsetHeight) + 'px';
         }
         function load() {
             var src = pop.dataset.src;

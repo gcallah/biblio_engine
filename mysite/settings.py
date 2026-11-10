@@ -120,6 +120,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+# Logins: trusted editors only (no sign-up). Anyone logged in can edit
+# every record, through the Django admin.
+LOGIN_URL = "/oakeshott/login/"
+LOGIN_REDIRECT_URL = "/oakeshott/"
+LOGOUT_REDIRECT_URL = "/oakeshott/"
+
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "mysite", "static", ),

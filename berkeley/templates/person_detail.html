@@ -3,7 +3,7 @@
     <div class="module">
     <table>
         <caption>
-            Person: {{ person.natural_name }}
+            Person: {{ person.natural_name }}{% include "_edit_pencil.html" with model="person" id=person.id %}
         </caption>
         <tr>
             <td>Affiliation:</td>

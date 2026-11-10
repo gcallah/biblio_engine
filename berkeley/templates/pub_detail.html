@@ -3,7 +3,7 @@
     <div class="module">
     <table>
         <caption>
-            Publication: {{ pub }}
+            Publication: {{ pub }}{% include "_edit_pencil.html" with model="publication" id=pub.id %}
         </caption>
         <tr>
             <td>Author(s):</td>

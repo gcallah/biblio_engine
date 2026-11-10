@@ -127,6 +127,10 @@ class Person(UrlModel, DescrModel, EmailModel):
     #institution = models.ForeignKey(Institution, null=True, blank=True, on_delete=models.CASCADE,)
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
+    def get_absolute_url(self):
+        """Its page on the site (the admin's "View on site" link)."""
+        return f"/oakeshott/person_detail/{self.id}/"
+
     def __str__(self):
         return self.natural_name()
 
@@ -175,6 +179,10 @@ class Person(UrlModel, DescrModel, EmailModel):
 class Publisher(SingleNameModel, UrlModel, DescrModel):
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE,)
 
+    def get_absolute_url(self):
+        """Its page on the site (the admin's "View on site" link)."""
+        return f"/oakeshott/publisher_detail/{self.id}/"
+
 
 class Collection(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE,)
@@ -187,6 +195,10 @@ class Subject(SingleNameModel):
 class Journal(SingleNameModel, UrlModel, DescrModel):
     publisher = models.ForeignKey(Publisher, blank=True, null=True, on_delete=models.CASCADE,)
     subject = models.ForeignKey(Subject, default=UNKNOWN_ID, on_delete=models.CASCADE,)
+
+    def get_absolute_url(self):
+        """Its page on the site (the admin's "View on site" link)."""
+        return f"/oakeshott/journal_detail/{self.id}/"
 
 
 class Publication(UrlModel):
@@ -246,6 +258,10 @@ class Publication(UrlModel):
     review = models.CharField(max_length=128, default="", blank=True)
     reviewed_names = models.CharField(max_length=128, default="",
                                       blank=True)
+
+    def get_absolute_url(self):
+        """Its page on the site (the admin's "View on site" link)."""
+        return f"/oakeshott/pub_detail/{self.id}/"
 
     def __str__(self):
         if self.title:

@@ -51,10 +51,10 @@ class PagesRenderTest(BiblioTestCase):
         self.assertIn("Reprints (1):", text)
         self.assertIn("Review of M. Cranston, Freedom", text)
 
-    def test_edit_pub(self):
-        text = self.page_text(f"/oakeshott/edit_pub/{self.book.id}/")
-        self.assertIn("Edit Publication: Rationalism in Politics", text)
-        self.assertIn("Michael Oakeshott", text)
+    def test_edit_pub_needs_login(self):
+        resp = self.client.get(f"/oakeshott/edit_pub/{self.book.id}/")
+        self.assertEqual(resp.status_code, 302)
+        self.assertTrue(resp["Location"].startswith("/oakeshott/login/"))
 
     def test_person_detail(self):
         text = self.page_text(f"/oakeshott/person_detail/{self.mo.id}/")
@@ -82,7 +82,7 @@ class PagesRenderTest(BiblioTestCase):
         self.assertIn("Publisher: Methuen", text)
 
     def test_missing_objects_are_404(self):
-        for route in ("pub_detail", "edit_pub", "export", "person_detail",
+        for route in ("pub_detail", "export", "person_detail",
                       "journal_detail", "publisher_detail"):
             url = f"/oakeshott/{route}/9999/"
             self.assertEqual(self.client.get(url).status_code, 404, url)
@@ -190,8 +190,8 @@ class ListPunctuationTest(BiblioTestCase):
         self.assertNotIn("Griffith,", text)
         self.assertNotIn("nbsp;>", text)
 
-    def test_detail_and_edit_pages(self):
-        for route in ("pub_detail", "edit_pub"):
+    def test_detail_page(self):
+        for route in ("pub_detail",):
             text = self.page_text(f"/oakeshott/{route}/{self.both.id}/")
             self.assertIn("Michael Oakeshott</a>, <a", text, route)
             self.assertIn("Guy Griffith</a> </td>", text, route)
