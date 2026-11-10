@@ -70,7 +70,9 @@ class EditorshipInline(admin.TabularInline):
 class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
-        fields = "__all__"
+        # authors and editors are edited in the ordered inlines below; the
+        # plain many-to-many boxes would add people with no position
+        exclude = ("authors", "editors")
         widgets = {"abstract": forms.Textarea(attrs={"rows": 8,
                                                      "cols": 80})}
 

@@ -21,6 +21,10 @@ through the Django admin, reached by the edit pencils on the site.
   `bin/push_live_db.sh`, which refuses if anyone has edited the site
   since the download. Both need the moabiblio password in
   `MOABIBLIO_PWD`. Loaders only fill blank fields of existing records,
-  so they never overwrite an editor's change, but `bin/load_data.sh`
-  (all loaders) is only for building a database from scratch: it refuses
-  to run on a database that has editor logins.
+  so they never overwrite an editor's change. But they find existing
+  records by title, so re-running an old loader on the live data would
+  load a record again if an editor has corrected its title: run only the
+  new loader. `bin/load_data.sh` (all loaders) is for building a database
+  from scratch, and refuses to run on a database that has editor logins.
+- **Corrections** are made in the admin on the live site, not by editing
+  the loaders' data files.

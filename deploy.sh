@@ -22,7 +22,12 @@ cd ~/mysite
 mkdir -p ~/db_backups
 stamp=$(date +%Y%m%d-%H%M%S)
 backup=~/db_backups/db-$stamp.sqlite3
-cp -p db.sqlite3 "$backup" || { echo "Could not back up db.sqlite3"; exit 1; }
+# sqlite3's .backup copies consistently even if the site writes meanwhile
+if command -v sqlite3 > /dev/null; then
+    sqlite3 db.sqlite3 ".backup '$backup'"
+else
+    cp -p db.sqlite3 "$backup"
+fi || { echo "Could not back up db.sqlite3"; exit 1; }
 echo "Backed up the live database to $backup"
 ls -1t ~/db_backups/db-*.sqlite3 | tail -n +31 | xargs -r rm --
 
@@ -41,6 +46,9 @@ if [ "$tracked" = yes ] || [ ! -f db.sqlite3 ]; then
 fi
 [ "$status" -eq 0 ] || exit "$status"
 
+# from here on, any failure (e.g. a migration) fails the deploy
+set -e
+set +u   # virtualenv's activate script may read unset variables
 source ~/.virtualenvs/biblio/bin/activate
 python manage.py migrate --noinput
 touch /var/www/moabiblio_pythonanywhere_com_wsgi.py
