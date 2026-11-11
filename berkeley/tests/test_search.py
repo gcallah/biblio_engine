@@ -245,7 +245,7 @@ class ResultsPageTest(BiblioTestCase):
         # the record without an abstract gets an empty cell
         row = html[html.index("No Abstract"):]
         row = row[:row.index("</tr>")]
-        self.assertIn("<td></td>", row)
+        self.assertIn('<td class="no-abstract"></td>', row)
         # the title cell no longer carries the popup
         title_cell = html[html.index("<td> <a href"):]
         self.assertNotIn("abstract-pop",

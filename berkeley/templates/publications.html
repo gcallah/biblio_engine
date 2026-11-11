@@ -71,7 +71,8 @@
                     </div>
                 </td>
                 {% else %}
-                <td></td>
+                {# no abstract: give an editor something to click #}
+                <td class="no-abstract">{% include "_edit_pencil.html" with model="publication" id=pub.id %}</td>
                 {% endif %}
                 <td class="has-export">
                     <a href="/oakeshott/export/{{ pub.id }}/">Export</a>

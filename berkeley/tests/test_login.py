@@ -43,6 +43,9 @@ class AnonymousTest(LoginTestCase):
         self.assertNotIn("Log out", html)
         self.assertNotIn("Change password", html)
 
+    def test_empty_abstract_cell_has_no_pencil(self):
+        self.assertIn('<td class="no-abstract"></td>', self.results())
+
     def test_no_pencils(self):
         self.assertNotIn(PENCIL, self.results())
         html = self.client.get(
@@ -96,6 +99,12 @@ class EditorTest(LoginTestCase):
                            ("publication", self.book)):
             self.assertIn(f'href="/admin/berkeley/{model}/{obj.id}/change/"',
                           html, model)
+
+    def test_pencil_in_empty_abstract_cell(self):
+        html = self.results()
+        self.assertIn('<td class="no-abstract"><a class="edit-pencil" '
+                      f'href="/admin/berkeley/publication/{self.article.id}'
+                      '/change/"', html)
 
     def test_pencils_on_detail_pages(self):
         for route, model, obj in (("person_detail", "person", self.mo),
