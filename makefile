@@ -3,9 +3,6 @@ MUDIR = myutils
 UDIR = utils
 TDIR = tests
 
-container:
-	docker build -t biblio docker
-
 prod:
 	-git commit -a 
 	git push origin master
