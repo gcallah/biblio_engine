@@ -30,6 +30,7 @@
           <a href="/oakeshott/">Search</a>
           <a href="/oakeshott/about/">About</a>
           {% if user.is_authenticated %}
+          <a href="{% url 'admin:password_change' %}">Change password</a>
           <form class="logout" action="{% url 'berkeley:logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" title="Logged in as {{ user.get_username }}">Log out</button>

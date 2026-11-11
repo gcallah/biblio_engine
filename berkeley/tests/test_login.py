@@ -41,6 +41,7 @@ class AnonymousTest(LoginTestCase):
         self.assertIn('href="/oakeshott/login/?next=/oakeshott/">Login</a>',
                       html)
         self.assertNotIn("Log out", html)
+        self.assertNotIn("Change password", html)
 
     def test_no_pencils(self):
         self.assertNotIn(PENCIL, self.results())
@@ -67,7 +68,14 @@ class AnonymousTest(LoginTestCase):
                              fetch_redirect_response=False)
         html = self.client.get("/oakeshott/about/").content.decode()
         self.assertIn("Log out", html)
+        self.assertIn('href="/admin/password_change/">Change password</a>',
+                      html)
         self.assertNotIn(">Login</a>", html)
+
+    def test_change_password_page(self):
+        self.login()
+        resp = self.client.get("/admin/password_change/")
+        self.assertContains(resp, "Old password")
 
 
 class EditorTest(LoginTestCase):
