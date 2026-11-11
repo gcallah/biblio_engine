@@ -1925,6 +1925,11 @@ MOA_UNNAMED_ARTICLES += [
          title="What Is a Non-Instrumental Law?",
          journal="Political Science Reviewer", volume="21", year=1992,
          pages="81-98", subject=POL),
+    # Its title names him, though misspelt (the title is as MOA gives it)
+    dict(authors=[("J.", "L.", "Mayer")],
+         title="Managers, Machiavelli, and Oakshott, M. – Caveat",
+         journal="Publius: The Journal of Federalism", volume="6",
+         issue="4", year=1976, pages="101-105", subject=POL),
     # Profiles and tributes
     dict(title="Knowledge v. Pet Ideas", journal="Time", volume="56",
          year=1950, month="October", day="23", pages="60-62", subject=BIO),
