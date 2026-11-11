@@ -28,3 +28,10 @@ through the Django admin, reached by the edit pencils on the site.
   from scratch, and refuses to run on a database that has editor logins.
 - **Corrections** are made in the admin on the live site, not by editing
   the loaders' data files.
+- **The editors' to-do list** is on the To do page (on the menu for
+  editors): open questions about entries, and possible entries still to
+  decide on. Both are kept in the live database and edited in the admin.
+  `manage.py load_editors_todo` started the list of possible entries
+  from `docs/works_mentioning_triage.csv`; since then the live database,
+  not the CSV, is the up-to-date list. Editors add new entries with the
+  Add entry link on the menu.

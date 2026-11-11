@@ -509,3 +509,66 @@ class Editorship(models.Model):
 class AdminEmail(EmailModel):
     def __str__(self):
         return self.email_addr
+
+
+class OpenQuestion(models.Model):
+    """Something about existing entries that the editors still have to
+    decide (e.g. whether three obituaries are really one piece). Listed
+    on the editors' to-do page; settled ones drop off it."""
+    title = models.CharField(max_length=256)
+    details = models.TextField(blank=True, default="")
+    entries = models.ManyToManyField(
+        Publication, blank=True, related_name="open_questions",
+        help_text="The entries this question is about.")
+    settled = models.BooleanField(default=False)
+    resolution = models.TextField(
+        blank=True, default="", help_text="What was decided, and why.")
+    created = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['settled', 'created', 'id']
+
+    def __str__(self):
+        return self.title
+
+
+class Candidate(models.Model):
+    """A work that might belong in the bibliography but is not in it
+    (yet): from the "other works" list in MOA, sorted for the Works
+    Mentioning Oakeshott section (first kept in
+    docs/works_mentioning_triage.csv). Editors decide on each one, and
+    link it to its entry once it is added."""
+    UNDECIDED = "edge"
+    NOT_CHECKED = "unchecked"
+    ADDED = "added"
+    LEFT_OUT = "left_out"
+    STATUS_CHOICES = (
+        (UNDECIDED, "Undecided: researched, but we could not tell"),
+        (NOT_CHECKED, "Not checked yet"),
+        (ADDED, "Added to the bibliography"),
+        (LEFT_OUT, "Left out"),
+    )
+    author = models.CharField(max_length=128, blank=True, default="")
+    citation = models.CharField(max_length=512)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES,
+                              default=NOT_CHECKED)
+    reason = models.TextField(
+        blank=True, default="",
+        help_text="What we found, and why it was decided this way.")
+    evidence = models.CharField(max_length=512, blank=True, default="",
+                                help_text="A link to what we found.")
+    entry = models.ForeignKey(
+        Publication, blank=True, null=True, on_delete=models.SET_NULL,
+        related_name="candidates",
+        help_text="Its entry, once it has been added.")
+    moa_line = models.PositiveIntegerField(
+        blank=True, null=True, unique=True,
+        help_text="Its line in the MOA source list, if it came from there.")
+    research_id = models.CharField(max_length=8, blank=True, default="")
+
+    class Meta:
+        ordering = ['author', 'citation']
+
+    def __str__(self):
+        return f"{self.author}: {self.citation}" if self.author \
+            else self.citation

@@ -8,6 +8,8 @@ from django.shortcuts import get_object_or_404, get_list_or_404, redirect, rende
 from django.urls import reverse
 
 from .models import AdminEmail
+from .models import Candidate
+from .models import OpenQuestion
 from .models import Journal
 from .models import Person
 from .models import Publisher
@@ -78,6 +80,23 @@ def edit_pub(request, pub_id):
     pub = get_object_or_404(Publication, pk=pub_id)
     return redirect(reverse('admin:berkeley_publication_change',
                             args=[pub.id]))
+
+
+@login_required
+def todo(request):
+    """The editors' to-do page: open questions about existing entries,
+    then the possible entries still to decide on. Both are kept up to date
+    in the admin."""
+    questions = (OpenQuestion.objects.filter(settled=False)
+                 .prefetch_related('entries'))
+    candidates = Candidate.objects.filter(
+        status__in=(Candidate.UNDECIDED, Candidate.NOT_CHECKED))
+    groups = [(label, [c for c in candidates if c.status == status])
+              for status, label in Candidate.STATUS_CHOICES
+              if status in (Candidate.UNDECIDED, Candidate.NOT_CHECKED)]
+    return render(request, 'todo.html', {
+        'header': get_hdr(), 'questions': questions, 'groups': groups,
+        'decided': Candidate.objects.count() - len(candidates)})
 
 
 class LoginView(auth_views.LoginView):

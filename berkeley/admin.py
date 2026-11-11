@@ -8,6 +8,8 @@ from .models import Address
 from .models import Authorship
 from .models import Editorship
 from .models import AdminEmail
+from .models import Candidate
+from .models import OpenQuestion
 from .models import Institution
 from .models import Journal
 from .models import Keyword
@@ -87,3 +89,21 @@ class PublicationAdmin(admin.ModelAdmin):
     autocomplete_fields = ("publisher", "journal", "collection",
                            "pub_reviewed", "translators", "reviewees",
                            "reprinted_in", "keywords")
+
+
+@admin.register(OpenQuestion)
+class OpenQuestionAdmin(admin.ModelAdmin):
+    """Questions for the editors, listed on the to-do page."""
+    list_display = ("title", "settled", "created")
+    list_filter = ("settled",)
+    search_fields = ("title", "details")
+    autocomplete_fields = ("entries",)
+
+
+@admin.register(Candidate)
+class CandidateAdmin(admin.ModelAdmin):
+    """Possible entries, listed on the to-do page."""
+    list_display = ("author", "citation", "status")
+    list_filter = ("status",)
+    search_fields = ("author", "citation", "reason")
+    autocomplete_fields = ("entry",)

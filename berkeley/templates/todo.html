@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% comment %}The editors' to-do page (editors only): open questions about
+existing entries, then possible entries still to decide on. Both are edited
+in the admin; the pencils lead there.{% endcomment %}
+{% block content %}
+<div class="module todo">
+  <h2>To do</h2>
+  <p>Questions and possible entries for the editors. Everything here is
+  kept in the admin: click a pencil to edit one, or to settle it.</p>
+
+  <h3>Open questions</h3>
+  {% if questions %}
+  <ul class="todo-list">
+    {% for q in questions %}
+    <li>
+      <strong>{{ q.title }}</strong><a class="edit-pencil" href="{% url 'admin:berkeley_openquestion_change' q.id %}" title="Edit or settle this question" aria-label="Edit or settle this question">&#9998;</a>
+      {% if q.details %}<p>{{ q.details|linebreaksbr }}</p>{% endif %}
+      {% if q.entries.all %}
+      <p class="todo-entries">Entries:
+        {% for pub in q.entries.all %}<a href="{% url 'berkeley:pub_detail' pub.id %}">{{ pub }}{% for a in pub.ordered_authors %}{% if forloop.first %} ({% endif %}{{ a.lname }}{% if forloop.last %}){% else %}, {% endif %}{% endfor %}</a>{% if not forloop.last %}; {% endif %}{% endfor %}
+      </p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>None.</p>
+  {% endif %}
+  <p><a href="{% url 'admin:berkeley_openquestion_add' %}">Add a question</a></p>
+
+  <h3>Possible entries</h3>
+  <p>Works that might belong in the bibliography, mostly from MOA's list
+  of other works. When you decide on one, set its status (and, if you add
+  it, link it to its new entry); it then leaves this list.
+  {% if decided %}{{ decided }} have been decided already.{% endif %}
+  <a href="{% url 'admin:berkeley_candidate_add' %}">Add a possible entry</a></p>
+  {% for label, candidates in groups %}
+  <details class="todo-group"{% if forloop.first %} open{% endif %}>
+    <summary>{{ label }} ({{ candidates|length }})</summary>
+    <ul class="todo-list">
+      {% for c in candidates %}
+      <li>
+        {% if c.author %}{{ c.author }}, {% endif %}{{ c.citation }}<a class="edit-pencil" href="{% url 'admin:berkeley_candidate_change' c.id %}" title="Decide on this possible entry" aria-label="Decide on this possible entry">&#9998;</a>
+        {% if c.reason %}<p class="todo-reason">{{ c.reason }}{% if c.evidence %} <a href="{{ c.evidence }}">Source</a>{% endif %}</p>{% endif %}
+      </li>
+      {% empty %}
+      <li>None.</li>
+      {% endfor %}
+    </ul>
+  </details>
+  {% endfor %}
+</div>
+{% endblock content %}
