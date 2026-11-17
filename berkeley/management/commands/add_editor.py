@@ -13,6 +13,7 @@ from getpass import getpass
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
+from django.urls import reverse
 
 
 class Command(BaseCommand):
@@ -41,4 +42,4 @@ class Command(BaseCommand):
         user.save()
         verb = "Created" if is_new else "Updated"
         self.stdout.write(f"{verb} editor {username!r}; they can log in at "
-                          "/oakeshott/login/.")
+                          f"{reverse('berkeley:login')}.")

@@ -9,7 +9,7 @@
             Try removing a filter, or leave every field blank to see all entries.
         </p>
         <p>
-            <a class="button-link" href="/oakeshott/">Back to search</a>
+            <a class="button-link" href="{% url 'berkeley:search' %}">Back to search</a>
         </p>
     </div>
     {% else %}
@@ -29,7 +29,7 @@
         {% for pub in pub_list %}
             <tr>
                 <td>
-                    <a href="/oakeshott/pub_detail/{{ pub.id }}/">
+                    <a href="{% url 'berkeley:pub_detail' pub.id %}">
                         {% if pub.title and pub.review_of %}
                             <span class="clamp3" title="{{ pub.title }} [{{ pub.review_of }}]">{{ pub.title }} [{{ pub.review_of }}]</span>
                         {% elif pub.title %}
@@ -50,7 +50,7 @@
                     {% elif pub.publisher.id %}
                         {% include "_publisher_link.html" with publisher=pub.publisher %}
                     {% elif pub.collection.id %}
-                        <a href="/oakeshott/pub_detail/{{ pub.collection.id }}/">
+                        <a href="{% url 'berkeley:pub_detail' pub.collection.id %}">
                         <span class="clamp3" title="{{ pub.collection.title }}">{{ pub.collection.title }}</span>
                         </a>
                     {% endif %}
@@ -64,7 +64,7 @@
                 </td>
                 {% if pub.abstract %}
                 <td class="has-abstract">
-                    <a href="/oakeshott/pub_detail/{{ pub.id }}/">Abstract</a>
+                    <a href="{% url 'berkeley:pub_detail' pub.id %}">Abstract</a>
                     <div class="abstract-pop" role="tooltip">
                         <strong>{{ pub }}{% include "_edit_pencil.html" with model="publication" id=pub.id %}</strong>
                         {{ pub.abstract }}
@@ -75,9 +75,9 @@
                 <td class="no-abstract">{% include "_edit_pencil.html" with model="publication" id=pub.id %}</td>
                 {% endif %}
                 <td class="has-export">
-                    <a href="/oakeshott/export/{{ pub.id }}/">Export</a>
+                    <a href="{% url 'berkeley:export' pub.id %}">Export</a>
                     <div class="abstract-pop cite-pop" role="tooltip"
-                         data-src="/oakeshott/export/{{ pub.id }}/citations/">
+                         data-src="{% url 'berkeley:export_citations' pub.id %}">
                         <strong>{{ pub }}{% include "_edit_pencil.html" with model="publication" id=pub.id %}</strong>
                         <span class="cite-body">Loading citations…</span>
                     </div>

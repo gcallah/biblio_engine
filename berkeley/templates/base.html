@@ -18,7 +18,7 @@
     <div id="container">
       <header id="header">
         <div class="masthead">
-          <a class="brand" href="/oakeshott/">
+          <a class="brand" href="{% url 'berkeley:search' %}">
             <span class="brand-kicker">A Bibliography of Works by and about</span>
             <span class="header-title">Michael Oakeshott</span>
             <span class="brand-dates">1901 &ndash; 1990</span>
@@ -27,8 +27,8 @@
                alt="Portrait of Michael Oakeshott in profile" />
         </div>
         <nav id="user-tools">
-          <a href="/oakeshott/">Search</a>
-          <a href="/oakeshott/about/">About</a>
+          <a href="{% url 'berkeley:search' %}">Search</a>
+          <a href="{% url 'berkeley:about' %}">About</a>
           {% if user.is_authenticated %}
           <a href="{% url 'admin:berkeley_publication_add' %}">Add entry</a>
           <a href="{% url 'berkeley:todo' %}">To do</a>
@@ -38,7 +38,7 @@
             <button type="submit" title="Logged in as {{ user.get_username }}">Log out</button>
           </form>
           {% else %}
-          <a href="{% url 'berkeley:login' %}{% if request.path != '/oakeshott/login/' %}?next={{ request.get_full_path|urlencode }}{% endif %}">Login</a>
+          {% url 'berkeley:login' as login_url %}<a href="{{ login_url }}{% if request.path != login_url %}?next={{ request.get_full_path|urlencode }}{% endif %}">Login</a>
           {% endif %}
         </nav>
       </header>
@@ -49,9 +49,9 @@
       </main>
       <footer id="footer">
         <nav class="footer-nav">
-          <a href="/oakeshott/">Search</a>
+          <a href="{% url 'berkeley:search' %}">Search</a>
           <span class="sep">&middot;</span>
-          <a href="/oakeshott/about/">About</a>
+          <a href="{% url 'berkeley:about' %}">About</a>
           <span class="sep">&middot;</span>
           <a href="https://github.com/gcallah/biblio_engine">Source on GitHub</a>
         </nav>

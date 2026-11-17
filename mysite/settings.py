@@ -122,9 +122,17 @@ USE_TZ = True
 
 # Logins: trusted editors only (no sign-up). Anyone logged in can edit
 # every record, through the Django admin.
-LOGIN_URL = "/oakeshott/login/"
-LOGIN_REDIRECT_URL = "/oakeshott/"
-LOGOUT_REDIRECT_URL = "/oakeshott/"
+LOGIN_URL = "berkeley:login"
+LOGIN_REDIRECT_URL = "berkeley:search"
+LOGOUT_REDIRECT_URL = "berkeley:search"
+
+# Where the bibliography is mounted: /<BIBLIO_URL_PREFIX>/ (e.g.
+# /oakeshott/). Links are built with reverse() and {% url %}, so this is
+# the only place the prefix is set.
+BIBLIO_URL_PREFIX = "oakeshott"
+# Earlier prefixes, permanently redirected to the current one so old
+# links keep working.
+BIBLIO_OLD_URL_PREFIXES = ("berkeley",)
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (

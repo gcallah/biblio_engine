@@ -48,7 +48,9 @@ that site unchanged. Check the live site after each one.
 1. **No hardcoded `/oakeshott/`.** Use `reverse()` and
    `{% url 'berkeley:...' %}`, and make the mount prefix a setting.
    Oakeshott keeps `/oakeshott/` (existing links); the `/berkeley/`
-   redirect stays Oakeshott-only.
+   redirect stays Oakeshott-only. *Done 2026-11-17: settings
+   `BIBLIO_URL_PREFIX` and `BIBLIO_OLD_URL_PREFIXES`; `LOGIN_*` use URL
+   names; empty publisher/journal links no longer rendered.*
 2. **Site identity in settings.** A `BIBLIO_SITE` setting (short name,
    full name, portrait, admin titles) exposed through a context processor.
    Pub-type labels built from the short name ("Books by {short}"), with

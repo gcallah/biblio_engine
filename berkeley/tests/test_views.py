@@ -34,6 +34,21 @@ class PagesRenderTest(BiblioTestCase):
                          f'href="/oakeshott/export/{self.book.id}/"'):
             self.assertIn(expected, text)
 
+    def test_pub_detail_without_publisher_or_journal(self):
+        """No empty links to /publisher_detail// or /journal_detail//."""
+        bare = self.pub("A bare entry", 1970, pub_type="SWAB")
+        text = self.page_text(f"/oakeshott/pub_detail/{bare.id}/")
+        self.assertIn("A bare entry", text)
+        self.assertNotIn("publisher_detail/", text)
+        self.assertNotIn("journal_detail/", text)
+
+    def test_journal_detail_without_publisher(self):
+        journal = Journal.objects.create(name="Unpublished Quarterly")
+        text = self.page_text(f"/oakeshott/journal_detail/{journal.id}/")
+        self.assertIn("Unpublished Quarterly", text)
+        self.assertNotIn("None", text)
+        self.assertNotIn("publisher_detail/", text)
+
     def test_pub_detail_review_of_only_for_reviews(self):
         url = f"/oakeshott/pub_detail/{self.book.id}/"
         self.assertNotIn("Review of:", self.page_text(url))

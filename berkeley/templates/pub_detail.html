@@ -9,7 +9,7 @@
             <td>Author(s):</td>
             <td>
             {% for author in pub.ordered_authors %}
-                <a href="/oakeshott/person_detail/{{ author.id }}/">{{ author.fname }} {{ author.lname }}</a>{% if not forloop.last %},{% endif %}
+                <a href="{% url 'berkeley:person_detail' author.id %}">{{ author.fname }} {{ author.lname }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}
             </td>
         </tr>
@@ -18,7 +18,7 @@
             <td>Editor(s):</td>
             <td>
             {% for editor in editors %}
-                <a href="/oakeshott/person_detail/{{ editor.id }}/">{{ editor.natural_name }}</a>{% if not forloop.last %},{% endif %}
+                <a href="{% url 'berkeley:person_detail' editor.id %}">{{ editor.natural_name }}</a>{% if not forloop.last %},{% endif %}
             {% endfor %}
             </td>
         </tr>
@@ -27,7 +27,7 @@
         <tr>
             <td>Review of:</td>
             <td>
-                {% if pub.pub_reviewed %}<a href="/oakeshott/pub_detail/{{ pub.pub_reviewed.id }}/">{% endif %}<i>{{ pub.reviewed_title }}</i>{% if pub.pub_reviewed %}</a>{% endif %}{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}
+                {% if pub.pub_reviewed %}<a href="{% url 'berkeley:pub_detail' pub.pub_reviewed.id %}">{% endif %}<i>{{ pub.reviewed_title }}</i>{% if pub.pub_reviewed %}</a>{% endif %}{% if pub.reviewed_authors %}, by {{ pub.reviewed_authors }}{% endif %}
             </td>
         </tr>
         {% endif %}
@@ -36,7 +36,7 @@
             <td>Reprinted in:</td>
             <td>
             {% for book in books %}
-                <a href="/oakeshott/pub_detail/{{ book.id }}/"><i>{{ book.title }}</i></a> ({{ book.year }}){% if not forloop.last %};{% endif %}
+                <a href="{% url 'berkeley:pub_detail' book.id %}"><i>{{ book.title }}</i></a> ({{ book.year }}){% if not forloop.last %};{% endif %}
             {% endfor %}
             </td>
         </tr>
@@ -46,7 +46,7 @@
             <td>Reprints ({{ reprints|length }}):</td>
             <td>
             {% for item in reprints %}
-                <a href="/oakeshott/pub_detail/{{ item.id }}/">{{ item }}</a> ({{ item.year }}){% if not forloop.last %};<br>{% endif %}
+                <a href="{% url 'berkeley:pub_detail' item.id %}">{{ item }}</a> ({{ item.year }}){% if not forloop.last %};<br>{% endif %}
             {% endfor %}
             </td>
         </tr>
@@ -55,7 +55,7 @@
         <tr>
             <td>In:</td>
             <td>
-                <a href="/oakeshott/pub_detail/{{ pub.collection.id }}/">{{ pub.collection.title }}</a>{% if pub.pages %}, {{ pub.apa_pages }}{% endif %}
+                <a href="{% url 'berkeley:pub_detail' pub.collection.id %}">{{ pub.collection.title }}</a>{% if pub.pages %}, {{ pub.apa_pages }}{% endif %}
             </td>
         </tr>
         {% endif %}
@@ -70,17 +70,17 @@
         <tr>
             <td>Publisher:</td>
             <td>
-                <a href="/oakeshott/publisher_detail/{{ pub.publisher.id }}/">
+                {% if pub.publisher %}<a href="{% url 'berkeley:publisher_detail' pub.publisher.id %}">
                 {{ pub.publisher.name }}
-                </a>
+                </a>{% endif %}
              </td>
         </tr>
         <tr>
             <td>Journal:</td>
             <td>
-                <a href="/oakeshott/journal_detail/{{ pub.journal.id }}/">
+                {% if pub.journal %}<a href="{% url 'berkeley:journal_detail' pub.journal.id %}">
                 {{ pub.journal.name }}
-                </a>
+                </a>{% endif %}
              </td>
         </tr>
         <tr>
@@ -98,7 +98,7 @@
         <tr>
             <td>Export:</td>
             <td>
-                <a href="/oakeshott/export/{{ pub.id }}/">
+                <a href="{% url 'berkeley:export' pub.id %}">
                 Export
                 </a>
             </td>

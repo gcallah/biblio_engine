@@ -8,7 +8,10 @@ app_name = 'berkeley'
 
 urlpatterns = [
     re_path(r'^$', views.search, name='search'),
-    re_path(r'^about/*$', views.about, name='about'),
+    # named route reverses to about/; the unnamed one after it still
+    # accepts /about and /about//
+    re_path(r'^about/$', views.about, name='about'),
+    re_path(r'^about/*$', views.about),
     re_path(r'^login/$', views.LoginView.as_view(), name='login'),
     re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     re_path(r'^todo/$', views.todo, name='todo'),

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 HEADER_LEN = 128
@@ -129,7 +130,7 @@ class Person(UrlModel, DescrModel, EmailModel):
 
     def get_absolute_url(self):
         """Its page on the site (the admin's "View on site" link)."""
-        return f"/oakeshott/person_detail/{self.id}/"
+        return reverse("berkeley:person_detail", args=[self.id])
 
     def __str__(self):
         return self.natural_name()
@@ -181,7 +182,7 @@ class Publisher(SingleNameModel, UrlModel, DescrModel):
 
     def get_absolute_url(self):
         """Its page on the site (the admin's "View on site" link)."""
-        return f"/oakeshott/publisher_detail/{self.id}/"
+        return reverse("berkeley:publisher_detail", args=[self.id])
 
 
 class Collection(SingleNameModel, UrlModel, DescrModel):
@@ -198,7 +199,7 @@ class Journal(SingleNameModel, UrlModel, DescrModel):
 
     def get_absolute_url(self):
         """Its page on the site (the admin's "View on site" link)."""
-        return f"/oakeshott/journal_detail/{self.id}/"
+        return reverse("berkeley:journal_detail", args=[self.id])
 
 
 class Publication(UrlModel):
@@ -261,7 +262,7 @@ class Publication(UrlModel):
 
     def get_absolute_url(self):
         """Its page on the site (the admin's "View on site" link)."""
-        return f"/oakeshott/pub_detail/{self.id}/"
+        return reverse("berkeley:pub_detail", args=[self.id])
 
     def __str__(self):
         if self.title:
