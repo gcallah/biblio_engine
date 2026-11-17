@@ -2592,6 +2592,25 @@ ABSTRACTS.update({
             "something, but argues that Oakeshott is wrong to oppose "
             "habit to the following of rules."
         )),
+    ('Law, Legislation and Liberty', 1973, 'Routledge and Kegan Paul'): dict(
+        # Hayek's 1968 IEA lecture, a sketch for this book; the passage
+        # in the book itself has not been checked
+        source='https://iea.org.uk/wp-content/uploads/2016/07/upldbook508.pdf',
+        abstract=(
+            "In The Confusion of Language in Political Thought (IEA, 1968), "
+            "which he presents as a sketch from his then unfinished study "
+            "of the relations between law, legislation and liberty, Hayek "
+            "credits Oakeshott with combining two of his distinctions into "
+            "the concepts of nomocracy and teleocracy. He equates nomocracy "
+            "with his spontaneous order (cosmos), resting on general rules "
+            "of just conduct, and teleocracy with a made organisation "
+            "(taxis) directed to particular ends, and argues that the "
+            "pursuit of 'social' justice turns a nomocracy into a "
+            "teleocracy. Law, Legislation and Liberty develops these "
+            "distinctions at length, in Rules and Order (1973) and The "
+            "Mirage of Social Justice (1976). Where and how the book itself "
+            "cites Oakeshott has not yet been checked against its text."
+        )),
     ('Law, Morality, and the Relations of States', 1983,
      'Princeton University Press'): dict(
         source=AI + 'lawmoralityrelat0000nard',

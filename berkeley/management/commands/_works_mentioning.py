@@ -145,6 +145,11 @@ BOOKS = [
          title="The Idea of a Social Science and Its Relation to "
                "Philosophy",
          year=1958, publisher="Routledge and Kegan Paul", subject=PHIL),
+    # an edge case (C24), added at the editors' request on 2026-11-17;
+    # three volumes, 1973, 1976 and 1979, stored under the first
+    dict(authors=[("F.", "A.", "Hayek")],
+         title="Law, Legislation and Liberty", year=1973,
+         publisher="Routledge and Kegan Paul", subject=POL),
     dict(authors=[("Terry", "", "Nardin")],
          title="Law, Morality, and the Relations of States", year=1983,
          publisher="Princeton University Press", subject=IR),

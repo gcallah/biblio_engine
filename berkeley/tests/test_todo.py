@@ -98,7 +98,7 @@ class EditorTodoTest(TodoTestCase):
         self.assertIn("(Casey)", html)
         self.assertIn("Tradition and Some Other Forms of Order", html)
         self.assertIn("A Preface to the Philosophy of the State", html)
-        self.assertIn("Undecided: researched, but we could not tell (86)",
+        self.assertIn("Undecided: researched, but we could not tell (85)",
                       html)
         self.assertIn("Not checked yet (146)", html)
         # decided ones are not listed
