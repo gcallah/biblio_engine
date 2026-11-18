@@ -22,8 +22,9 @@ from django.db import transaction
 from berkeley.models import (
     Authorship, Editorship, Publication, Subject, UNKNOWN_ID,
 )
+from berkeley.management.commands._loaders import (
+    fill_blanks, get_person, get_publisher)
 
-from ._loaders import fill_blanks, get_person, get_publisher
 
 # (first, middle, last). Person has no suffix field, so "Jr." is dropped.
 ABEL = ("Corey", "", "Abel")

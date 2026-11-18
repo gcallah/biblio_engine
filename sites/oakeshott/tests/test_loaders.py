@@ -1,10 +1,10 @@
-"""Data-loading management commands."""
+"""The Oakeshott data-loading commands."""
 from io import StringIO
 
 from django.core.management import call_command
 from django.test import TestCase
 
-from berkeley.management.commands.load_books_by_oakeshott import BOOKS
+from sites.oakeshott.management.commands.load_books_by_oakeshott import BOOKS
 from berkeley.models import Publication, Publisher
 
 
@@ -72,7 +72,8 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
         self.load("load_books_about_oakeshott")
 
     def test_loads_every_short_work_once(self):
-        from berkeley.management.commands import _short_works_about as data
+        from sites.oakeshott.management.commands import (
+            _short_works_about as data)
         total = len(data.ARTICLES) + len(data.CHAPTERS)
         self.assertIn(f"Added {total} short works", self.load())
         self.assertIn("Added 0 short works", self.load())
@@ -82,7 +83,8 @@ class LoadShortWorksAboutOakeshottTest(TestCase):
                          len(data.HOSTS))
 
     def test_oakeshott_in_every_title_except_the_listed_ones(self):
-        from berkeley.management.commands import _short_works_about as data
+        from sites.oakeshott.management.commands import (
+            _short_works_about as data)
         unnamed = {item["title"] for item in data.UNNAMED +
                    data.MOA_UNNAMED_ARTICLES + data.MOA_UNNAMED_CHAPTERS}
         self.load()
@@ -129,7 +131,7 @@ class LoadAbstractsTest(TestCase):
     """Every abstract in _abstracts.py matches exactly one loaded entry."""
 
     def test_every_abstract_applies(self):
-        from berkeley.management.commands._abstracts import ABSTRACTS
+        from sites.oakeshott.management.commands._abstracts import ABSTRACTS
         for command in ("load_books_by_oakeshott",
                         "load_books_about_oakeshott",
                         "load_short_works_about_oakeshott",
@@ -186,7 +188,8 @@ class LoadAuthorInfoTest(TestCase):
     """Every entry in _author_info.py matches exactly one loaded person."""
 
     def test_every_entry_applies(self):
-        from berkeley.management.commands._author_info import AUTHOR_INFO
+        from sites.oakeshott.management.commands._author_info import (
+            AUTHOR_INFO)
         for command in ("load_books_by_oakeshott",
                         "load_books_about_oakeshott",
                         "load_short_works_about_oakeshott",
@@ -211,7 +214,8 @@ class LoadShortWorksByOakeshottTest(TestCase):
         return out.getvalue()
 
     def test_loads_once_with_full_text_links(self):
-        from berkeley.management.commands import _short_works_by as data
+        from sites.oakeshott.management.commands import (
+            _short_works_by as data)
         self.load("load_books_by_oakeshott")
         total = len(data.ARTICLES) + len(data.CHAPTERS)
         self.assertIn(f"Added {total} short works", self.load())
@@ -241,7 +245,8 @@ class LoadReviewsByOakeshottTest(TestCase):
         call_command("load_books_by_oakeshott", stdout=StringIO())
 
     def test_loads_every_review_once(self):
-        from berkeley.management.commands import _reviews_by as data
+        from sites.oakeshott.management.commands import (
+            _reviews_by as data)
         total = len(data.REVIEWS)
         self.assertGreater(total, 150)
         self.assertIn(f"Added {total} reviews", self.load())
@@ -263,7 +268,8 @@ class LoadReviewsByOakeshottTest(TestCase):
             pub_type="RVBY", reviewees__fname="Maurice").exists())
 
     def test_reprints_link_to_the_collected_volumes(self):
-        from berkeley.management.commands import _reviews_by as data
+        from sites.oakeshott.management.commands import (
+            _reviews_by as data)
         self.load()
         cpj = Publication.objects.get(title=data.CPJ, pub_type="BKBY")
         vmes = Publication.objects.get(title=data.VMES, pub_type="BKBY")
@@ -296,7 +302,8 @@ class LoadReviewsOfBooksByOakeshottTest(TestCase):
         call_command("load_books_by_oakeshott", stdout=StringIO())
 
     def test_loads_every_review_once(self):
-        from berkeley.management.commands import _reviews_of_books_by as data
+        from sites.oakeshott.management.commands import (
+            _reviews_of_books_by as data)
         total = len(data.REVIEWS)
         self.assertGreater(total, 200)
         self.assertIn(f"Added {total} reviews", self.load())
@@ -312,7 +319,8 @@ class LoadReviewsOfBooksByOakeshottTest(TestCase):
                              ["Oakeshott"])
 
     def test_every_book_reviewed_is_a_book_by(self):
-        from berkeley.management.commands import _reviews_of_books_by as data
+        from sites.oakeshott.management.commands import (
+            _reviews_of_books_by as data)
         titles = set(Publication.objects.filter(pub_type="BKBY")
                      .values_list("title", flat=True))
         for item in data.REVIEWS:
@@ -366,7 +374,8 @@ class LoadReviewsOfBooksAboutOakeshottTest(TestCase):
         call_command("load_books_about_oakeshott", stdout=StringIO())
 
     def test_loads_every_review_once(self):
-        from berkeley.management.commands import _reviews_of_books_about as data
+        from sites.oakeshott.management.commands import (
+            _reviews_of_books_about as data)
         total = len(data.REVIEWS)
         self.assertGreater(total, 90)
         self.assertIn(f"Added {total} reviews", self.load())
@@ -382,15 +391,18 @@ class LoadReviewsOfBooksAboutOakeshottTest(TestCase):
 
     def test_match_keys_are_unique(self):
         """Two entries with the same key would load as one review."""
-        from berkeley.management.commands import _reviews_of_books_about as data
-        from berkeley.management.commands.load_reviews_of_books_about_oakeshott \
-            import KEY
-        keys = [(r["journal"], r["year"]) + tuple(r.get(f, "") for f in KEY)
+        from sites.oakeshott.management.commands import (
+            _reviews_of_books_about as data)
+        from sites.oakeshott.management.commands import (
+            load_reviews_of_books_about_oakeshott as loader)
+        keys = [(r["journal"], r["year"])
+                + tuple(r.get(f, "") for f in loader.KEY)
                 for r in data.REVIEWS]
         self.assertEqual(len(keys), len(set(keys)))
 
     def test_every_book_reviewed_is_a_book_about(self):
-        from berkeley.management.commands import _reviews_of_books_about as data
+        from sites.oakeshott.management.commands import (
+            _reviews_of_books_about as data)
         titles = set(Publication.objects.filter(pub_type="BKAB")
                      .values_list("title", flat=True))
         for item in data.REVIEWS:
@@ -454,7 +466,8 @@ class LoadWorksMentioningOakeshottTest(TestCase):
         self.load("load_books_about_oakeshott")
 
     def test_loads_every_work_once(self):
-        from berkeley.management.commands import _works_mentioning as data
+        from sites.oakeshott.management.commands import (
+            _works_mentioning as data)
         total = len(data.BOOKS) + len(data.ARTICLES) + len(data.CHAPTERS)
         self.assertIn(f"Added {total} works mentioning", self.load())
         self.assertIn("Added 0 works mentioning", self.load())
@@ -462,7 +475,8 @@ class LoadWorksMentioningOakeshottTest(TestCase):
                          total + len(data.HOSTS))
 
     def test_every_work_has_an_abstract(self):
-        from berkeley.management.commands import _works_mentioning as data
+        from sites.oakeshott.management.commands import (
+            _works_mentioning as data)
         for command in ("load_short_works_about_oakeshott",
                         "load_short_works_by_oakeshott",
                         "load_reviews_of_books_about_oakeshott"):
@@ -487,24 +501,6 @@ class LoadWorksMentioningOakeshottTest(TestCase):
         pub = Publication.objects.get(title__startswith="Trust the People!")
         self.assertTrue(pub.is_article())
         self.assertFalse(pub.is_book())
-
-
-class GetPublisherTest(TestCase):
-    """A press in other than its usual city doesn't take the usual
-    city's province."""
-
-    def test_other_city_takes_given_province(self):
-        from berkeley.management.commands._loaders import get_publisher
-        presses = {"Palgrave Macmillan": ("Cham", "Switzerland")}
-        usual = get_publisher("Palgrave Macmillan", presses)
-        other = get_publisher("Palgrave Macmillan", presses, "New York",
-                              "NY")
-        bare = get_publisher("Palgrave Macmillan", presses, "Boston")
-        self.assertEqual((usual.address.city, usual.address.province),
-                         ("Cham", "Switzerland"))
-        self.assertEqual((other.address.city, other.address.province),
-                         ("New York", "NY"))
-        self.assertEqual(bare.address.province, "")
 
 
 class LoadersKeepEditsTest(TestCase):

@@ -12,9 +12,9 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from berkeley.models import Journal
+from berkeley.management.commands._loaders import fill_blanks
 
 from ._journal_info import JOURNAL_INFO
-from ._loaders import fill_blanks
 
 FIELDS = ("descr", "url")
 MAX_LEN = {f: Journal._meta.get_field(f).max_length for f in FIELDS}

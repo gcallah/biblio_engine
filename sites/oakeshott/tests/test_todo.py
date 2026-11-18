@@ -3,10 +3,10 @@ from io import StringIO
 
 from django.core.management import call_command
 
-from berkeley.management.commands._short_works_about import OBIT
+from sites.oakeshott.management.commands._short_works_about import OBIT
 from berkeley.models import Candidate, Journal, OpenQuestion
 
-from .test_login import LoginTestCase
+from berkeley.tests.test_login import LoginTestCase
 
 TODO_URL = "/oakeshott/todo/"
 DT_QUESTION = ("Are the three Daily Telegraph obituaries (21 December "

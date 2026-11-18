@@ -11,9 +11,9 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from berkeley.models import Publication
+from berkeley.management.commands._loaders import fill_blanks
 
 from ._abstracts import ABSTRACTS
-from ._loaders import fill_blanks
 
 MAX_LEN = Publication._meta.get_field("abstract").max_length
 

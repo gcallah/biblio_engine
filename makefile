@@ -9,7 +9,7 @@ prod:
 	ssh moabiblio@ssh.pythonanywhere.com 'cd /home/moabiblio/mysite; /home/moabiblio/mysite/myutils/dev.sh'
 
 tests:
-	python manage.py test berkeley
+	python manage.py test berkeley sites.oakeshott
 
 dev_env:
 	pip install -r requirements/requirements.txt

@@ -18,10 +18,10 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from berkeley.models import Journal, Person, Publication, Subject, UNKNOWN_ID
+from berkeley.management.commands._loaders import (
+    add_missing, fill_blanks, get_host, get_person, set_subject)
 
 from . import _reviews_by as data
-from ._loaders import (add_missing, fill_blanks, get_host, get_person,
-                       set_subject)
 
 FIELDS = ("title", "volume", "issue", "day", "month")
 

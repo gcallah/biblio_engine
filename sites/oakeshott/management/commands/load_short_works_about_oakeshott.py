@@ -23,9 +23,9 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from berkeley.models import Subject, UNKNOWN_ID
+from berkeley.management.commands._loaders import load_short_works
 
 from . import _short_works_about as data
-from ._loaders import load_short_works
 
 
 class Command(BaseCommand):

@@ -21,9 +21,10 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from berkeley.models import Journal, Publication, Subject, UNKNOWN_ID
+from berkeley.management.commands._loaders import (
+    add_missing, fill_blanks, get_person, get_reviewer)
 
 from . import _reviews_of_books_by as data
-from ._loaders import add_missing, fill_blanks, get_person, get_reviewer
 
 KEY = ("volume", "day", "month", "pages")
 FIELDS = ("title", "issue", "url")

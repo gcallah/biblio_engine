@@ -16,7 +16,7 @@ come later if there are many sites.
 | `/oakeshott/` URL prefix | Hardcoded about 40 times: `get_absolute_url`-style methods in `models.py`, every template, `settings.LOGIN_*`, `admin.site_url`, `add_editor.py`, `bin/check_pages.py`. |
 | `base.html`, `about.html`, `static/berkeley/img/` | Header, footer, portrait, about text. |
 | `admin.py` | Admin site header and title. |
-| `management/commands/` | Nearly all of its ~21.8k lines are Oakeshott data. Only `_loaders.py` and `add_editor.py` are generic. |
+| `management/commands/` | Nearly all of its ~21.8k lines were Oakeshott data; since phase 4 they are in `sites/oakeshott/management/commands/`, and the engine keeps only `_loaders.py` and `add_editor.py`. |
 | `deploy.sh`, `rebuild.sh`, `makefile` | `moabiblio` account, WSGI path and virtualenv hardcoded. |
 | `migrations/0004`, `0005`, `0011` | Choice labels with "Oakeshott" serialized in. |
 
@@ -78,6 +78,14 @@ that site unchanged. Check the live site after each one.
    `load_editors_todo`, their tests and `bin/load_data.sh` move to
    `sites/oakeshott/`. Engine tests run under a fake-subject test settings
    module, and CI runs the suite once per site.
+   *First part done 2026-11-18: the data modules, `book_info`, the
+   `load_*` commands and their tests (`test_loaders`, `test_todo`) are
+   in `sites/oakeshott/`; the engine keeps `_loaders.py` (its test is
+   `berkeley/tests/test_loader_helpers.py`) and `add_editor`. The tests
+   run with `manage.py test berkeley sites.oakeshott` (`make tests`,
+   `bin/run_tests.sh`). A database built from scratch with
+   `bin/load_data.sh` is identical before and after the move. Still to
+   do: the fake-subject test settings and one CI run per site.*
 5. **Deployment.** Parameterize `deploy.sh`, `rebuild.sh` and `makefile`
    (account, WSGI path, virtualenv, settings module). A second CI deploy
    job with Voegelin's secrets. Static files: set `STATIC_ROOT`, run

@@ -12,9 +12,9 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from berkeley.models import Person
+from berkeley.management.commands._loaders import fill_blanks
 
 from ._author_info import AUTHOR_INFO
-from ._loaders import fill_blanks
 
 FIELDS = ("affiliation", "yob", "yod", "descr", "url")
 MAX_LEN = {f: Person._meta.get_field(f).max_length
