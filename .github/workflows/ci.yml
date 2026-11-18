@@ -23,8 +23,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements/requirements.txt
 
-      - name: Run tests
-        run: make tests
+      # the engine on its own, as a made-up site, then each real site
+      # (the engine's tests again, plus the site's own)
+      - name: Engine tests (made-up site)
+        run: make engine_tests
+
+      - name: Oakeshott site tests
+        run: make oakeshott_tests
 
   deploy:
     needs: test

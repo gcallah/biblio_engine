@@ -10,7 +10,7 @@ from berkeley.models import (
     AdminEmail, Journal, Keyword, Publisher, Site, pub_type_choices,
 )
 
-from .helpers import BiblioTestCase
+from .helpers import ROOT, BiblioTestCase
 
 
 class PagesRenderTest(BiblioTestCase):
@@ -27,58 +27,58 @@ class PagesRenderTest(BiblioTestCase):
         self.book.keywords.add(self.kw)
 
     def test_static_pages(self):
-        for url in ("/oakeshott/", "/oakeshott/about/", "/oakeshott/about",
-                    "/oakeshott/feedback/", "/oakeshott/publications/"):
+        for url in (ROOT, f"{ROOT}about/", f"{ROOT}about",
+                    f"{ROOT}feedback/", f"{ROOT}publications/"):
             self.assertEqual(self.client.get(url).status_code, 200, url)
 
     def test_pub_detail(self):
-        text = self.page_text(f"/oakeshott/pub_detail/{self.book.id}/")
+        text = self.page_text(f"{ROOT}pub_detail/{self.book.id}/")
         for expected in ("Rationalism in Politics", "Michael Oakeshott",
                          "1962", "Methuen", "Cambridge Journal",
                          "conversation", "Essays.",
-                         f'href="/oakeshott/person_detail/{self.mo.id}/"',
-                         f'href="/oakeshott/export/{self.book.id}/"'):
+                         f'href="{ROOT}person_detail/{self.mo.id}/"',
+                         f'href="{ROOT}export/{self.book.id}/"'):
             self.assertIn(expected, text)
 
     def test_pub_detail_without_publisher_or_journal(self):
         """No empty links to /publisher_detail// or /journal_detail//."""
         bare = self.pub("A bare entry", 1970, pub_type="SWAB")
-        text = self.page_text(f"/oakeshott/pub_detail/{bare.id}/")
+        text = self.page_text(f"{ROOT}pub_detail/{bare.id}/")
         self.assertIn("A bare entry", text)
         self.assertNotIn("publisher_detail/", text)
         self.assertNotIn("journal_detail/", text)
 
     def test_journal_detail_without_publisher(self):
         journal = Journal.objects.create(name="Unpublished Quarterly")
-        text = self.page_text(f"/oakeshott/journal_detail/{journal.id}/")
+        text = self.page_text(f"{ROOT}journal_detail/{journal.id}/")
         self.assertIn("Unpublished Quarterly", text)
         self.assertNotIn("None", text)
         self.assertNotIn("publisher_detail/", text)
 
     def test_pub_detail_review_of_only_for_reviews(self):
-        url = f"/oakeshott/pub_detail/{self.book.id}/"
+        url = f"{ROOT}pub_detail/{self.book.id}/"
         self.assertNotIn("Review of:", self.page_text(url))
         review = self.pub("", 1950, pub_type="RVBY", authors=[self.mo],
                           review="Freedom", reviewed_names="M. Cranston")
-        text = self.page_text(f"/oakeshott/pub_detail/{review.id}/")
+        text = self.page_text(f"{ROOT}pub_detail/{review.id}/")
         self.assertIn("Publication: Review of M. Cranston, Freedom", text)
         self.assertIn("<i>Freedom</i>, by M. Cranston", text)
         self.assertNotIn("Reprinted in:", text)
         review.reprinted_in.add(self.book)
-        text = self.page_text(f"/oakeshott/pub_detail/{review.id}/")
+        text = self.page_text(f"{ROOT}pub_detail/{review.id}/")
         self.assertIn("Reprinted in:", text)
-        self.assertIn(f'href="/oakeshott/pub_detail/{self.book.id}/"', text)
+        self.assertIn(f'href="{ROOT}pub_detail/{self.book.id}/"', text)
         text = self.page_text(url)
         self.assertIn("Reprints (1):", text)
         self.assertIn("Review of M. Cranston, Freedom", text)
 
     def test_edit_pub_needs_login(self):
-        resp = self.client.get(f"/oakeshott/edit_pub/{self.book.id}/")
+        resp = self.client.get(f"{ROOT}edit_pub/{self.book.id}/")
         self.assertEqual(resp.status_code, 302)
-        self.assertTrue(resp["Location"].startswith("/oakeshott/login/"))
+        self.assertTrue(resp["Location"].startswith(f"{ROOT}login/"))
 
     def test_person_detail(self):
-        text = self.page_text(f"/oakeshott/person_detail/{self.mo.id}/")
+        text = self.page_text(f"{ROOT}person_detail/{self.mo.id}/")
         self.assertIn("Person: Michael Oakeshott", text)
         self.assertIn("1901", text)
         self.assertIn("1990", text)
@@ -88,49 +88,44 @@ class PagesRenderTest(BiblioTestCase):
     def test_person_detail_shows_affiliation(self):
         self.mo.affiliation = "London School of Economics"
         self.mo.save()
-        text = self.page_text(f"/oakeshott/person_detail/{self.mo.id}/")
+        text = self.page_text(f"{ROOT}person_detail/{self.mo.id}/")
         self.assertIn("Affiliation:", text)
         self.assertIn("London School of Economics", text)
 
     def test_journal_detail(self):
-        text = self.page_text(f"/oakeshott/journal_detail/{self.journal.id}/")
+        text = self.page_text(f"{ROOT}journal_detail/{self.journal.id}/")
         self.assertIn("Journal: Cambridge Journal", text)
-        self.assertIn(f'href="/oakeshott/publisher_detail/{self.publisher.id}/"',
+        self.assertIn(f'href="{ROOT}publisher_detail/{self.publisher.id}/"',
                       text)
 
     def test_publisher_detail(self):
-        text = self.page_text(f"/oakeshott/publisher_detail/{self.publisher.id}/")
+        text = self.page_text(f"{ROOT}publisher_detail/{self.publisher.id}/")
         self.assertIn("Publisher: Methuen", text)
 
     def test_missing_objects_are_404(self):
         for route in ("pub_detail", "export", "person_detail",
                       "journal_detail", "publisher_detail"):
-            url = f"/oakeshott/{route}/9999/"
+            url = f"{ROOT}{route}/9999/"
             self.assertEqual(self.client.get(url).status_code, 404, url)
 
     def test_non_numeric_id_is_404(self):
-        self.assertEqual(self.client.get("/oakeshott/pub_detail/abc/").status_code,
+        self.assertEqual(self.client.get(f"{ROOT}pub_detail/abc/").status_code,
                          404)
 
 
 class SiteHeaderTest(BiblioTestCase):
     def test_default_header(self):
-        self.assertContains(self.client.get("/oakeshott/"),
+        self.assertContains(self.client.get(ROOT),
                             "Bibliography Search")
 
     def test_header_from_site_record(self):
         Site.objects.create(name="biblio", header="Oakeshott Bibliography")
-        resp = self.client.get("/oakeshott/about/")
+        resp = self.client.get(f"{ROOT}about/")
         self.assertContains(resp, "Oakeshott Bibliography")
         self.assertNotContains(resp, "Bibliography Search")
 
 
 class AboutPageTest(BiblioTestCase):
-    def test_site_about_page_replaces_the_engines(self):
-        resp = self.client.get("/oakeshott/about/")
-        self.assertContains(resp, "About the Michael Oakeshott Bibliography")
-        self.assertContains(resp, "Adnan Bin Hoq")
-
     def test_engine_about_page_for_a_site_without_one(self):
         engine_only = copy.deepcopy(settings.TEMPLATES)
         engine_only[0]["APP_DIRS"] = False
@@ -138,7 +133,7 @@ class AboutPageTest(BiblioTestCase):
             Path(__file__).resolve().parents[1] / "templates"]
         site = dict(settings.BIBLIO_SITE, name="Eric Voegelin")
         with override_settings(TEMPLATES=engine_only, BIBLIO_SITE=site):
-            resp = self.client.get("/oakeshott/about/")
+            resp = self.client.get(f"{ROOT}about/")
         self.assertContains(resp, "About the Eric Voegelin Bibliography")
         self.assertNotContains(resp, "Adnan Bin Hoq")
 
@@ -147,29 +142,19 @@ class FeedbackTest(BiblioTestCase):
     def test_mailto_lists_all_admin_emails(self):
         AdminEmail.objects.create(email_addr="a@example.com")
         AdminEmail.objects.create(email_addr="b@example.com")
-        self.assertContains(self.client.get("/oakeshott/feedback/"),
+        self.assertContains(self.client.get(f"{ROOT}feedback/"),
                             'action="mailto:a@example.com,b@example.com"')
 
     def test_no_admin_emails(self):
-        self.assertContains(self.client.get("/oakeshott/feedback/"),
+        self.assertContains(self.client.get(f"{ROOT}feedback/"),
                             'action="mailto:"')
 
 
-class OldUrlRedirectTest(BiblioTestCase):
-    def test_berkeley_urls_redirect_permanently(self):
-        resp = self.client.get("/berkeley/about/")
-        self.assertEqual(resp.status_code, 301)
-        self.assertEqual(resp["Location"], "/oakeshott/about/")
-
-    def test_redirect_keeps_query_string(self):
-        resp = self.client.get("/berkeley/publications/?lname=oake")
-        self.assertEqual(resp.status_code, 301)
-        self.assertEqual(resp["Location"], "/oakeshott/publications/?lname=oake")
-
+class SiteRootTest(BiblioTestCase):
     def test_site_root_redirects_to_bibliography(self):
         resp = self.client.get("/")
         self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp["Location"], "/oakeshott/")
+        self.assertEqual(resp["Location"], ROOT)
 
 
 class SearchFormTest(BiblioTestCase):
@@ -186,14 +171,14 @@ class SearchFormTest(BiblioTestCase):
         self.assertEqual(form["end_year"].label, "To year:")
 
     def test_search_page_renders_every_field_and_type(self):
-        resp = self.client.get("/oakeshott/")
+        resp = self.client.get(ROOT)
         for name in SearchForm().fields:
             self.assertContains(resp, f'name="{name}"')
         for code, label in pub_type_choices():
             if code:
                 self.assertContains(resp, f'value="{code}"')
                 self.assertContains(resp, label)
-        self.assertContains(resp, 'action="/oakeshott/publications"')
+        self.assertContains(resp, f'action="{ROOT}publications"')
 
     def test_site_identity_comes_from_settings(self):
         site = dict(settings.BIBLIO_SITE, name="Eric Voegelin",
@@ -202,7 +187,7 @@ class SearchFormTest(BiblioTestCase):
                     credits="Portrait: a test credit.",
                     pub_type_labels={"MENT": "Works Discussing Voegelin"})
         with override_settings(BIBLIO_SITE=site):
-            html = self.client.get("/oakeshott/").content.decode()
+            html = self.client.get(ROOT).content.decode()
         for expected in ('<span class="header-title">Eric Voegelin</span>',
                          "1901 \u2013 1985", 'alt="Portrait of Eric Voegelin"',
                          "The Eric Voegelin Bibliography",
@@ -213,21 +198,17 @@ class SearchFormTest(BiblioTestCase):
         self.assertNotIn("Oakeshott<", html)
 
     def test_background_comes_from_settings(self):
-        html = self.client.get("/oakeshott/").content.decode()
-        self.assertIn(
-            'url("/static/berkeley/img/caius-gate-of-honour.jpg")', html)
         site = dict(settings.BIBLIO_SITE, background="voegelin/img/bg.jpg")
         with override_settings(BIBLIO_SITE=site):
-            html = self.client.get("/oakeshott/").content.decode()
+            html = self.client.get(ROOT).content.decode()
         self.assertIn('url("/static/voegelin/img/bg.jpg")', html)
-        self.assertNotIn("caius", html)
         site = {k: v for k, v in site.items() if k != "background"}
         with override_settings(BIBLIO_SITE=site):
-            html = self.client.get("/oakeshott/").content.decode()
+            html = self.client.get(ROOT).content.decode()
         self.assertNotIn("url(", html)
 
     def test_no_field_is_required_in_the_browser(self):
-        self.assertNotContains(self.client.get("/oakeshott/"), "required")
+        self.assertNotContains(self.client.get(ROOT), "required")
 
     def test_keywords_listed_case_insensitively(self):
         for name in ("beta", "Alpha", "gamma"):
@@ -254,7 +235,7 @@ class ListPunctuationTest(BiblioTestCase):
                                Keyword.objects.create(name="wit"))
 
     def test_results_list(self):
-        text = self.page_text("/oakeshott/publications/")
+        text = self.page_text(f"{ROOT}publications/")
         self.assertIn('</span></span>, <span class="has-person" tabindex="0">Griffith<', text)
         self.assertIn("</span></span> </td>", text)
         self.assertNotIn("Griffith,", text)
@@ -262,7 +243,7 @@ class ListPunctuationTest(BiblioTestCase):
 
     def test_detail_page(self):
         for route in ("pub_detail",):
-            text = self.page_text(f"/oakeshott/{route}/{self.both.id}/")
+            text = self.page_text(f"{ROOT}{route}/{self.both.id}/")
             self.assertIn("Michael Oakeshott</a>, <a", text, route)
             self.assertIn("Guy Griffith</a> </td>", text, route)
             self.assertIn("racing, wit </td>", text, route)

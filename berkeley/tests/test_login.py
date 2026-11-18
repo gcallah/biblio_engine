@@ -8,7 +8,7 @@ from django.core.management import call_command
 
 from berkeley.models import Address, Journal, Publisher
 
-from .helpers import BLANK_QUERY, PUBS_URL, BiblioTestCase
+from .helpers import BLANK_QUERY, PUBS_URL, ROOT, BiblioTestCase
 
 PENCIL = 'class="edit-pencil"'
 
@@ -37,8 +37,8 @@ class LoginTestCase(BiblioTestCase):
 
 class AnonymousTest(LoginTestCase):
     def test_menu_has_login_link(self):
-        html = self.client.get("/oakeshott/").content.decode()
-        self.assertIn('href="/oakeshott/login/?next=/oakeshott/">Login</a>',
+        html = self.client.get(ROOT).content.decode()
+        self.assertIn(f'href="{ROOT}login/?next={ROOT}">Login</a>',
                       html)
         self.assertNotIn("Log out", html)
         self.assertNotIn("Change password", html)
@@ -49,27 +49,27 @@ class AnonymousTest(LoginTestCase):
     def test_no_pencils(self):
         self.assertNotIn(PENCIL, self.results())
         html = self.client.get(
-            f"/oakeshott/pub_detail/{self.book.id}/").content.decode()
+            f"{ROOT}pub_detail/{self.book.id}/").content.decode()
         self.assertNotIn(PENCIL, html)
 
     def test_login_page(self):
-        resp = self.client.get("/oakeshott/login/")
+        resp = self.client.get(f"{ROOT}login/")
         self.assertContains(resp, "Editor login")
         # no "next" loop back to the login page itself
-        self.assertContains(resp, 'href="/oakeshott/login/">Login</a>')
+        self.assertContains(resp, f'href="{ROOT}login/">Login</a>')
 
     def test_bad_password(self):
-        resp = self.client.post("/oakeshott/login/",
+        resp = self.client.post(f"{ROOT}login/",
                                 {"username": "editor", "password": "no"})
         self.assertContains(resp, "didn't match")
 
     def test_logging_in_returns_to_the_page(self):
-        resp = self.client.post("/oakeshott/login/",
+        resp = self.client.post(f"{ROOT}login/",
                                 {"username": "editor", "password": "pw",
-                                 "next": "/oakeshott/about/"})
-        self.assertRedirects(resp, "/oakeshott/about/",
+                                 "next": f"{ROOT}about/"})
+        self.assertRedirects(resp, f"{ROOT}about/",
                              fetch_redirect_response=False)
-        html = self.client.get("/oakeshott/about/").content.decode()
+        html = self.client.get(f"{ROOT}about/").content.decode()
         self.assertIn("Log out", html)
         self.assertIn('href="/admin/password_change/">Change password</a>',
                       html)
@@ -88,7 +88,7 @@ class EditorTest(LoginTestCase):
 
     def test_pencil_on_publication_page(self):
         html = self.client.get(
-            f"/oakeshott/pub_detail/{self.book.id}/").content.decode()
+            f"{ROOT}pub_detail/{self.book.id}/").content.decode()
         self.assertIn(f'href="/admin/berkeley/publication/{self.book.id}'
                       '/change/" title="Edit this publication"', html)
 
@@ -112,12 +112,12 @@ class EditorTest(LoginTestCase):
                                   ("publisher_detail", "publisher",
                                    self.methuen)):
             html = self.client.get(
-                f"/oakeshott/{route}/{obj.id}/").content.decode()
+                f"{ROOT}{route}/{obj.id}/").content.decode()
             self.assertIn(f'href="/admin/berkeley/{model}/{obj.id}/change/"',
                           html, route)
 
     def test_edit_pub_goes_to_admin(self):
-        resp = self.client.get(f"/oakeshott/edit_pub/{self.book.id}/")
+        resp = self.client.get(f"{ROOT}edit_pub/{self.book.id}/")
         self.assertRedirects(
             resp, f"/admin/berkeley/publication/{self.book.id}/change/")
 
@@ -142,8 +142,8 @@ class EditorTest(LoginTestCase):
         self.assertContains(resp, "Oakeshott")
 
     def test_log_out(self):
-        resp = self.client.post("/oakeshott/logout/")
-        self.assertRedirects(resp, "/oakeshott/",
+        resp = self.client.post(f"{ROOT}logout/")
+        self.assertRedirects(resp, ROOT,
                              fetch_redirect_response=False)
         self.assertNotIn(PENCIL, self.results())
 

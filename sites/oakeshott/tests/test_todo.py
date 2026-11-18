@@ -1,4 +1,5 @@
-"""The editors' to-do page, its menu links, and load_editors_todo."""
+"""load_editors_todo: the Oakeshott possible entries and open question
+(the engine's tests cover the to-do page itself)."""
 from io import StringIO
 
 from django.core.management import call_command
@@ -32,32 +33,10 @@ class TodoTestCase(LoginTestCase):
         return out.getvalue()
 
 
-class AnonymousTodoTest(TodoTestCase):
-    def test_no_editor_links_in_menu(self):
-        html = self.client.get("/oakeshott/").content.decode()
-        self.assertNotIn("Add entry", html)
-        self.assertNotIn("To do", html)
-
-    def test_todo_page_needs_a_login(self):
-        resp = self.client.get(TODO_URL)
-        self.assertRedirects(resp, f"/oakeshott/login/?next={TODO_URL}",
-                             fetch_redirect_response=False)
-
-
 class EditorTodoTest(TodoTestCase):
     def setUp(self):
         super().setUp()
         self.login()
-
-    def test_menu_links(self):
-        html = self.client.get("/oakeshott/").content.decode()
-        self.assertIn('href="/admin/berkeley/publication/add/">Add entry</a>',
-                      html)
-        self.assertIn(f'href="{TODO_URL}">To do</a>', html)
-
-    def test_add_entry_page(self):
-        resp = self.client.get("/admin/berkeley/publication/add/")
-        self.assertEqual(resp.status_code, 200)
 
     def test_loader_is_idempotent(self):
         self.assertIn("Added 351 possible entries and 1 open questions",
@@ -106,17 +85,3 @@ class EditorTodoTest(TodoTestCase):
         acton = Candidate.objects.get(moa_line=837)
         self.assertIn(f'href="/admin/berkeley/candidate/{acton.id}/change/"',
                       html)
-
-    def test_settled_questions_leave_the_page(self):
-        self.load()
-        OpenQuestion.objects.update(settled=True)
-        html = self.client.get(TODO_URL).content.decode()
-        self.assertNotIn(DT_QUESTION, html)
-
-    def test_admin_lists(self):
-        self.load()
-        for url in ("/admin/berkeley/openquestion/",
-                    "/admin/berkeley/candidate/",
-                    "/admin/berkeley/openquestion/add/",
-                    "/admin/berkeley/candidate/add/"):
-            self.assertEqual(self.client.get(url).status_code, 200, url)

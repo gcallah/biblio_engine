@@ -2,7 +2,7 @@
 import re
 
 from berkeley.models import Address, Journal, Publisher
-from .helpers import PUBS_URL, BiblioTestCase, squash, strip_person_pops
+from .helpers import PUBS_URL, ROOT, BiblioTestCase, squash, strip_person_pops
 
 
 class CitationTestCase(BiblioTestCase):
@@ -15,7 +15,7 @@ class CitationTestCase(BiblioTestCase):
         self.journal = Journal.objects.create(name="Political Theory")
 
     def export(self, pub):
-        return self.page_text(f"/oakeshott/export/{pub.id}/")
+        return self.page_text(f"{ROOT}export/{pub.id}/")
 
 
 class BookCitationTest(CitationTestCase):
@@ -84,7 +84,7 @@ class CitationSnippetTest(CitationTestCase):
     def test_snippet_has_citations_but_no_page_layout(self):
         book = self.pub("Rationalism in Politics", 1962, pub_type="BKBY",
                         authors=[self.mo], publisher=self.methuen)
-        resp = self.client.get(f"/oakeshott/export/{book.id}/citations/")
+        resp = self.client.get(f"{ROOT}export/{book.id}/citations/")
         self.assertEqual(resp.status_code, 200)
         html = resp.content.decode()
         self.assertIn('<table class="cite-table">', html)
@@ -97,7 +97,7 @@ class CitationSnippetTest(CitationTestCase):
 
     def test_missing_publication_is_404(self):
         self.assertEqual(
-            self.client.get("/oakeshott/export/9999/citations/").status_code,
+            self.client.get(f"{ROOT}export/9999/citations/").status_code,
             404)
 
 
@@ -136,8 +136,8 @@ class ChapterCitationTest(CitationTestCase):
         self.assertIn("(p. 562)", text)
 
     def test_detail_page_links_to_book(self):
-        text = self.page_text(f"/oakeshott/pub_detail/{self.chapter.id}/")
-        self.assertIn(f'href="/oakeshott/pub_detail/{self.book.id}/"', text)
+        text = self.page_text(f"{ROOT}pub_detail/{self.chapter.id}/")
+        self.assertIn(f'href="{ROOT}pub_detail/{self.book.id}/"', text)
 
 
 class JournalDateCitationTest(CitationTestCase):
@@ -364,7 +364,7 @@ class CitationAuthorListTest(CitationTestCase):
         self.assertIn("(L. Trepanier &amp; G. Callahan, Eds.)", text)
         self.assertIn("Edited by Lee Trepanier and Gene Callahan.", text)
         page = re.sub(r"<[^>]+>", "", strip_person_pops(
-            self.page_text("/oakeshott/publications/?pub_type=BKAB")))
+            self.page_text(f"{ROOT}publications/?pub_type=BKAB")))
         self.assertIn("Trepanier, Callahan (eds.)", page)
 
     def test_no_editors(self):
@@ -377,4 +377,5 @@ class CitationAuthorListTest(CitationTestCase):
         self.assertIn("(1960). <i>Anonymous</i>.", self.export(pub))
 
     def test_missing_publication_is_404(self):
-        self.assertEqual(self.client.get("/oakeshott/export/999/").status_code, 404)
+        self.assertEqual(
+            self.client.get(f"{ROOT}export/999/").status_code, 404)

@@ -2,7 +2,7 @@
 import re
 from berkeley.models import Keyword, Subject
 
-from .helpers import PUBS_URL, BiblioTestCase, strip_person_pops
+from .helpers import PUBS_URL, ROOT, BiblioTestCase, strip_person_pops
 
 
 class KeywordSearchTest(BiblioTestCase):
@@ -181,17 +181,17 @@ class ResultsPageTest(BiblioTestCase):
     def test_no_results_page(self):
         resp = self.search(lname="nobody")
         self.assertContains(resp, "No publications found")
-        self.assertContains(resp, 'href="/oakeshott/"')
+        self.assertContains(resp, f'href="{ROOT}"')
         self.assertNotContains(resp, "<caption>")
 
     def test_results_table_links(self):
         author = self.person("Michael", "Oakeshott")
         pub = self.pub("Experience and its Modes", 1933, authors=[author])
         resp = self.search()
-        self.assertContains(resp, f'href="/oakeshott/pub_detail/{pub.id}/"')
-        self.assertContains(resp, f'href="/oakeshott/export/{pub.id}/"')
+        self.assertContains(resp, f'href="{ROOT}pub_detail/{pub.id}/"')
+        self.assertContains(resp, f'href="{ROOT}export/{pub.id}/"')
         # authors are hover popups, not links to a separate page
-        self.assertNotContains(resp, "/oakeshott/person_detail/")
+        self.assertNotContains(resp, f"{ROOT}person_detail/")
 
     def test_long_journal_names_shown_whole_and_clamped(self):
         from berkeley.models import Journal
@@ -217,8 +217,8 @@ class ResultsPageTest(BiblioTestCase):
         self.assertContains(resp, '<em class="place">London, England</em>')
         self.assertContains(resp, '<em class="place">Faber &amp; Faber</em>')
         # hover popups, not links to a separate page
-        self.assertNotContains(resp, "/oakeshott/journal_detail/")
-        self.assertNotContains(resp, "/oakeshott/publisher_detail/")
+        self.assertNotContains(resp, f"{ROOT}journal_detail/")
+        self.assertNotContains(resp, f"{ROOT}publisher_detail/")
 
     def test_editors_shown_in_author_column(self):
         mo = self.person("Michael", "Oakeshott")
@@ -239,7 +239,7 @@ class ResultsPageTest(BiblioTestCase):
         html = re.sub(r"\s+", " ", self.search().content.decode())
         self.assertIn("<th>Abstract</th>", html)
         self.assertEqual(html.count('<td class="has-abstract">'), 1)
-        self.assertIn(f'<td class="has-abstract"> <a href="/oakeshott/'
+        self.assertIn(f'<td class="has-abstract"> <a href="{ROOT}'
                       f'pub_detail/{with_abs.id}/">Abstract</a>', html)
         self.assertIn("Essays on politics.", html)
         # the record without an abstract gets an empty cell
@@ -263,7 +263,7 @@ class ResultsPageTest(BiblioTestCase):
         for expected in ("(1901–1990)", "London School of Economics",
                          "English philosopher.", "Anne Nobody"):
             self.assertIn(expected, html)
-        self.assertNotIn("/oakeshott/person_detail/", html)
+        self.assertNotIn(f"{ROOT}person_detail/", html)
         # no space before the comma that follows the previous name
         self.assertIn('</span></span>,<spanclass="has-person"tabindex="0">'
                       'Nobody<', re.sub(r"\s+", "", html))
@@ -282,7 +282,7 @@ class ResultsPageTest(BiblioTestCase):
         html = self.search().content.decode()
         self.assertEqual(html.count('<td class="has-export">'), 2)
         for pub in (a, b):
-            self.assertIn(f'data-src="/oakeshott/export/{pub.id}/citations/"',
+            self.assertIn(f'data-src="{ROOT}export/{pub.id}/citations/"',
                           html)
 
     def test_query_count_does_not_grow_with_rows(self):

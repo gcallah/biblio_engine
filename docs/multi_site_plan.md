@@ -84,8 +84,17 @@ that site unchanged. Check the live site after each one.
    `berkeley/tests/test_loader_helpers.py`) and `add_editor`. The tests
    run with `manage.py test berkeley sites.oakeshott` (`make tests`,
    `bin/run_tests.sh`). A database built from scratch with
-   `bin/load_data.sh` is identical before and after the move. Still to
-   do: the fake-subject test settings and one CI run per site.*
+   `bin/load_data.sh` is identical before and after the move.
+   Second part done 2026-11-18: `mysite/settings_engine_test.py` is a
+   made-up site (Jane Example at `/testbib/`, no `sites.oakeshott`).
+   The engine tests build their URLs from `BIBLIO_URL_PREFIX` and pass
+   under it as well as under Oakeshott's settings; CI runs
+   `make engine_tests` and `make oakeshott_tests` (`make tests` and
+   `bin/run_tests.sh` run both). The Oakeshott-only checks (its About
+   page, background, `/berkeley/` redirects) are in
+   `sites/oakeshott/tests/test_site.py`, and the engine has its own
+   to-do page tests. Left over: `todo.html` and the `Candidate`
+   docstring still mention MOA's list, which is Oakeshott's source.*
 5. **Deployment.** Parameterize `deploy.sh`, `rebuild.sh` and `makefile`
    (account, WSGI path, virtualenv, settings module). A second CI deploy
    job with Voegelin's secrets. Static files: set `STATIC_ROOT`, run

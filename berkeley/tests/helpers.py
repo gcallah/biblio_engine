@@ -1,6 +1,7 @@
 """Shared fixtures for the berkeley test suite."""
 import re
 
+from django.conf import settings
 from django.test import TestCase
 
 from berkeley.models import (
@@ -8,7 +9,9 @@ from berkeley.models import (
     Subject, UNKNOWN_ID,
 )
 
-PUBS_URL = "/oakeshott/publications/"
+# where the bibliography is mounted, e.g. "/oakeshott/"
+ROOT = f"/{settings.BIBLIO_URL_PREFIX}/"
+PUBS_URL = f"{ROOT}publications/"
 BLANK_QUERY = {"lname": "", "reviewed": "", "pub_type": "", "start_year": "", "end_year": "",
                "subject": "", "keyword1": ""}
 
