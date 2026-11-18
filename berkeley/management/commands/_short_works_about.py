@@ -1749,19 +1749,32 @@ CHAPTERS += [
 ]
 
 # Chapters 6, 11 and 12 of Tradition v. Rationalism, added at the
-# editors' request on 2026-11-17 (pages not yet known)
+# editors' request on 2026-11-17 (pages from Crossref, DOIs
+# 10.5040/9798216533047.ch06, .ch11, .ch12)
 CHAPTERS += [
     dict(authors=[FULLER],
          title="Liberalism and the Prospect of Rational Order in Hobbes's "
                "Political Philosophy and the Responses of Oakeshott, Strauss "
                "and Voegelin",
-         book=TRADITION, subject=POL),
+         book=TRADITION, pages="109-132", subject=POL),
     dict(authors=[CALLAHAN], title="Hayek and Oakeshott on Rationalism",
-         book=TRADITION, subject=PHIL),
+         book=TRADITION, pages="211-230", subject=PHIL),
     dict(authors=[("Zoltán", "", "Balázs")],
          title="Rationalism and Irrationalism: Aurel Kolnai and Michael "
                "Oakeshott",
-         book=TRADITION, subject=PHIL),
+         book=TRADITION, pages="231-248", subject=PHIL),
+]
+
+# Chapter 7 of Oakeshott's Skepticism, Politics, and Aesthetics, added at
+# the editors' request on 2026-11-17 (Crossref, DOI
+# 10.1007/978-3-030-83055-7_7)
+CHAPTERS += [
+    dict(authors=[("Luke", "C.", "Sheahan"), CALLAHAN],
+         title="The Understanding of Rationalism in C.S. Lewis and Michael "
+               "Oakeshott: Tradition, Experience, and the Reading of Old "
+               "Books",
+         book="Oakeshott's Skepticism, Politics, and Aesthetics",
+         pages="89-110", subject=PHIL),
 ]
 
 ARTICLES += [
