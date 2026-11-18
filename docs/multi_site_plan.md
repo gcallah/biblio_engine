@@ -131,8 +131,8 @@ that site unchanged. Check the live site after each one.
    *6a done 2026-11-18 (code only, no deploy): `sites/voegelin` (app
    label `voegelin_site`, the engine's own About page) and
    `mysite/settings_voegelin.py` (`/voegelin/`, 1901 – 1985; the
-   Wikipedia portrait, added the same day under fair use; no background
-   yet; the engine's base.html now leaves the
+   Wikipedia portrait, under fair use; background: William West's
+   Israelites in the wilderness, from the Met, CC0; the engine's base.html now leaves the
    portrait and credits out when a site has none). CI runs a third test
    suite, `make voegelin_tests`. 6b done 2026-11-18: `bin/setup_pa_site.sh voegelin
    mysite.settings_voegelin ...` set up the `voegelin` account once
@@ -143,8 +143,7 @@ that site unchanged. Check the live site after each one.
    voegelin.pythonanywhere.com/voegelin/. 6c: CI's `deploy_voegelin`
    job deploys it on every push, with the `VOEGELIN_PWD` and
    `VOEGELIN_API` secrets and its own concurrency group. Still open:
-   editor logins (createsuperuser on the server), a background picture,
-   and how Voegelin's data comes in.*
+   editor logins (createsuperuser on the server) and how Voegelin's data comes in.*
 
 Later: links between sites (e.g. Voegelin works on Oakeshott, a
 Collingwood site). Stable per-site URLs plus an "also in" field on

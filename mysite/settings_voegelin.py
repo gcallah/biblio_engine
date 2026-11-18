@@ -16,8 +16,7 @@ INSTALLED_APPS = ["sites.voegelin"] + INSTALLED_APPS  # noqa: F405
 BIBLIO_URL_PREFIX = "voegelin"
 BIBLIO_OLD_URL_PREFIXES = ()
 
-# See mysite/settings.py for what each key does. No background picture
-# yet.
+# See mysite/settings.py for what each key does.
 BIBLIO_SITE = {
     "name": "Eric Voegelin",
     "short_name": "Voegelin",
@@ -30,7 +29,15 @@ BIBLIO_SITE = {
     "portrait": "voegelin/img/voegelin.jpg",
     "portrait_version": "1",
     "portrait_alt": "Portrait of Eric Voegelin",
-    "credits": "Portrait: via VoegelinView (voegelinview.com), used "
-               "under fair use.",
+    # the Israelites' journey through the wilderness, for Voegelin's
+    # "In Search of Order". Source: Wikimedia Commons, "A Column of
+    # Oriental Travelers Scattered by a Dust Storm ... MET DP805116.jpg"
+    # (CC0), cropped to the picture and scaled to 1600 px.
+    "background": "voegelin/img/israelites-in-the-wilderness.jpg",
+    "credits": ("Background: William West, The Israelites Passing "
+                "through the Wilderness, Preceded by the Pillar of Clouds "
+                "(c. 1820\u201340), The Metropolitan Museum of Art "
+                "(public domain). Portrait: via VoegelinView "
+                "(voegelinview.com), used under fair use."),
     "pub_type_labels": {},
 }
