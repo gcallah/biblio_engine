@@ -49,8 +49,32 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
-      - name: Deploy to PythonAnywhere
+      - name: Deploy to PythonAnywhere (moabiblio, Oakeshott)
         env:
           PA_PWD: ${{ secrets.PA_PWD }}
           PA_API: ${{ secrets.PA_API }}
+        run: ./deploy.sh "$PA_PWD" "$PA_API"
+
+  # the Voegelin site, on its own PythonAnywhere account (set up once by
+  # bin/setup_pa_site.sh); its own concurrency group, as it is another
+  # server
+  deploy_voegelin:
+    needs: test
+    concurrency:
+      group: deploy-voegelin
+      cancel-in-progress: false
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Deploy to PythonAnywhere (voegelin)
+        env:
+          PA_PWD: ${{ secrets.VOEGELIN_PWD }}
+          PA_API: ${{ secrets.VOEGELIN_API }}
+          PA_USER: voegelin
+          DJANGO_SETTINGS_MODULE: mysite.settings_voegelin
         run: ./deploy.sh "$PA_PWD" "$PA_API"

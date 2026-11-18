@@ -134,13 +134,17 @@ that site unchanged. Check the live site after each one.
    Wikipedia portrait, added the same day under fair use; no background
    yet; the engine's base.html now leaves the
    portrait and credits out when a site has none). CI runs a third test
-   suite, `make voegelin_tests`. Still to do: 6b, a one-off bootstrap of
-   the `voegelin` PythonAnywhere account (clone, virtualenv, migrate,
-   the "Unknown"/"Uncategorized" subject with id 9 that every entry
-   defaults to, a superuser, WSGI file and shell set
-   `DJANGO_SETTINGS_MODULE=mysite.settings_voegelin`, `/static/` mapped
-   to `~/mysite/static_collected`); 6c, a second deploy job with its own
-   secrets and concurrency group.*
+   suite, `make voegelin_tests`. 6b done 2026-11-18: `bin/setup_pa_site.sh voegelin
+   mysite.settings_voegelin ...` set up the `voegelin` account once
+   (Flask demo moved aside, clone, Python 3.12 virtualenv,
+   `DJANGO_SETTINGS_MODULE` in `~/.bashrc` and the WSGI file, empty
+   migrated database with subject 9 "Uncategorized", `/static/` mapped
+   to `~/mysite/static_collected`); the site is live at
+   voegelin.pythonanywhere.com/voegelin/. 6c: CI's `deploy_voegelin`
+   job deploys it on every push, with the `VOEGELIN_PWD` and
+   `VOEGELIN_API` secrets and its own concurrency group. Still open:
+   editor logins (createsuperuser on the server), a background picture,
+   and how Voegelin's data comes in.*
 
 Later: links between sites (e.g. Voegelin works on Oakeshott, a
 Collingwood site). Stable per-site URLs plus an "also in" field on
