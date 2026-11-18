@@ -46,7 +46,7 @@ that site unchanged. Check the live site after each one.
    the regression net. *Done 2026-11-17: Django==6.1.3,
    django-extensions==4.1, matching PythonAnywhere.*
 1. **No hardcoded `/oakeshott/`.** Use `reverse()` and
-   `{% url 'berkeley:...' %}`, and make the mount prefix a setting.
+   Django's `url` template tag, and make the mount prefix a setting.
    Oakeshott keeps `/oakeshott/` (existing links); the `/berkeley/`
    redirect stays Oakeshott-only. *Done 2026-11-17: settings
    `BIBLIO_URL_PREFIX` and `BIBLIO_OLD_URL_PREFIXES`; `LOGIN_*` use URL
