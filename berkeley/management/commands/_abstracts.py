@@ -2805,3 +2805,15 @@ ABSTRACTS.update({
             "and draws out their similarity to Wittgenstein's thought."
         )),
 })
+
+# Supplied by the chapter's author, Gene Callahan, on 2026-11-17.
+ABSTRACTS[("Hayek and Oakeshott on Rationalism", 2018,
+           "in: Tradition v. Rationalism: Voegelin, Oakeshott, Hayek, "
+           "and Others")] = dict(
+    source="the author (Gene Callahan), 2026-11-17",
+    abstract=(
+        "Hayek and Oakeshott both critiqued something they called "
+        "'rationalism.' But did they mean the same thing by it? This paper "
+        "argues that, given their different philosophical starting points, "
+        "in fact, they did not."
+    ))

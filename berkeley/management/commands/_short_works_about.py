@@ -1748,10 +1748,14 @@ CHAPTERS += [
          book=MEANINGS, pages="255-267", subject=POL),
 ]
 
-# Chapter 11 of Tradition v. Rationalism, added at the editors' request
-# on 2026-11-17 (pages not yet known)
+# Chapters 11 and 12 of Tradition v. Rationalism, added at the editors'
+# request on 2026-11-17 (pages not yet known)
 CHAPTERS += [
     dict(authors=[CALLAHAN], title="Hayek and Oakeshott on Rationalism",
+         book=TRADITION, subject=PHIL),
+    dict(authors=[("Zoltán", "", "Balázs")],
+         title="Rationalism and Irrationalism: Aurel Kolnai and Michael "
+               "Oakeshott",
          book=TRADITION, subject=PHIL),
 ]
 
