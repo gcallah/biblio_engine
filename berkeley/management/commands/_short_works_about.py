@@ -1913,6 +1913,15 @@ MOA_UNNAMED_CHAPTERS += [
          book=POLITICS_AND_EXPERIENCE, pages="5-18", subject=HIST),
 ]
 
+# Callahan's chapter in The Meanings of Michael Oakeshott's Conservatism
+# (Part II, History): title and abstract from the author, 2026-11-17
+# (pages not yet known). A Short Work About although its title does not
+# name Oakeshott: it uses him to critique Jared Diamond.
+MOA_UNNAMED_CHAPTERS += [
+    dict(authors=[CALLAHAN], title="Geography Cannot Replace History",
+         book=MEANINGS, subject=HIST),
+]
+
 MOA_UNNAMED_ARTICLES += [
     # Replies to 'Rationalism in Politics' (Cambridge Journal, 1947). MOA
     # gives volume 1 as '1947-8'; both appeared in 1948 (Krook's in the

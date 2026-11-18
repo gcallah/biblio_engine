@@ -2817,3 +2817,13 @@ ABSTRACTS[("Hayek and Oakeshott on Rationalism", 2018,
         "argues that, given their different philosophical starting points, "
         "in fact, they did not."
     ))
+
+# Supplied by the chapter's author, Gene Callahan, on 2026-11-17.
+ABSTRACTS[("Geography Cannot Replace History", 2010,
+           "in: The Meanings of Michael Oakeshott's Conservatism")] = dict(
+    source="the author (Gene Callahan), 2026-11-17",
+    abstract=(
+        "Callahan uses Oakeshott to critique Jared Diamond's attempt to "
+        "replace genuine historical understanding with geographical "
+        "determinism."
+    ))
