@@ -1,23 +1,14 @@
 {% extends "base.html" %}
+{% comment %}
+    The engine's default About page. A site replaces it with an about.html
+    of its own (e.g. sites/oakeshott/templates/about.html).
+{% endcomment %}
 {% block content %}
     <div class="module">
-        <h2>About the Michael Oakeshott Bibliography</h2>
+        <h2>About the {{ biblio.name }} Bibliography</h2>
         <p>
-        This is an open source project written by:
-        <ul class="nested"> 
-         <li> Gene Callahan</li>
-         <li>Adnan Bin Hoq</li>
-	 <li> Dennis Fenchenko</li>
-	 <li> Wenxuan Ma</li>
-	 <li> Kyra Thompson</li>
-        </ul>
-        </p>
-        <p>
-        with the aid of Paul Logston.<br> <br>
-        </p>
-        <p>
-        The Michael Oakeshott Bibliography is a searchable bibliography of works by and about Michael Oakeshott.
-        The engine allows easy imports and exports, and search on multiple fields.
+        The {{ biblio.name }} Bibliography is a searchable bibliography of
+        works by and about {{ biblio.name }}.
         </p>
      </div>
 {% endblock content %}

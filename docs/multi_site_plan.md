@@ -65,6 +65,14 @@ that site unchanged. Check the live site after each one.
    before the engine's. `about.html` becomes wholly per-site; `base.html`
    gets its header, portrait and footer from settings. Move
    `oakeshott.jpg` and the Caius gate image into `sites/oakeshott/`.
+   *Done 2026-11-18, except moving the images: `sites/oakeshott` is a
+   Django app listed before `berkeley`, so its templates win; it has
+   `about.html`, and the engine keeps a generic one. The background
+   picture is `BIBLIO_SITE["background"]`, no longer in `style.css`.
+   The images stay in `mysite/static/` for now, because on
+   PythonAnywhere a static-files mapping serves `/static/` straight
+   from that folder (Django never sees those requests). Moving them is
+   part of phase 5.*
 4. **Data out of the engine.** All `_*.py` data modules, the
    `load_*_oakeshott` commands, `book_info`, `_keywords`,
    `load_editors_todo`, their tests and `bin/load_data.sh` move to
@@ -72,7 +80,13 @@ that site unchanged. Check the live site after each one.
    module, and CI runs the suite once per site.
 5. **Deployment.** Parameterize `deploy.sh`, `rebuild.sh` and `makefile`
    (account, WSGI path, virtualenv, settings module). A second CI deploy
-   job with Voegelin's secrets.
+   job with Voegelin's secrets. Static files: set `STATIC_ROOT`, run
+   `collectstatic` in `deploy.sh`, then repoint each server's `/static/`
+   mapping (PythonAnywhere Web tab) at `STATIC_ROOT`; only after that,
+   move the Oakeshott images into `sites/oakeshott/static/`. Note that
+   `collectstatic` will also replace the very old admin files committed
+   in `mysite/static/admin` (jQuery 2.1.4) with Django 6.1's, so check
+   the admin add/change forms on the live site after that push.
 6. **Voegelin.** Skeleton site package, empty migrated database, local
    smoke test, then deploy. Choose how its data comes in: loader modules
    like Oakeshott's, or a generic CSV/BibTeX import in the engine that

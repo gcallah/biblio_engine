@@ -31,6 +31,8 @@ ALLOWED_HOSTS = [ "moabiblio.pythonanywhere.com", "gcallah.pythonanywhere.com", 
 # Application definition
 
 INSTALLED_APPS = [
+    # the site comes before the engine, so its templates win
+    'sites.oakeshott',
     'berkeley',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -144,6 +146,8 @@ BIBLIO_SITE = {
     "portrait": "berkeley/img/oakeshott.jpg",   # a static file
     "portrait_version": "3",           # bump to refresh browser caches
     "portrait_alt": "Portrait of Michael Oakeshott in profile",
+    # page background, a static file shown behind a dark tint (optional)
+    "background": "berkeley/img/caius-gate-of-honour.jpg",
     "credits": ("Background: the Gate of Honour, Gonville & Caius "
                 "College, Cambridge (19th-century photograph, public "
                 "domain). Portrait: LSE Library, no known copyright "

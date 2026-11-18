@@ -1,4 +1,7 @@
 """Every page renders, missing objects 404, and old URLs redirect."""
+import copy
+from pathlib import Path
+
 from django.conf import settings
 from django.test import override_settings
 
@@ -122,6 +125,24 @@ class SiteHeaderTest(BiblioTestCase):
         self.assertNotContains(resp, "Bibliography Search")
 
 
+class AboutPageTest(BiblioTestCase):
+    def test_site_about_page_replaces_the_engines(self):
+        resp = self.client.get("/oakeshott/about/")
+        self.assertContains(resp, "About the Michael Oakeshott Bibliography")
+        self.assertContains(resp, "Adnan Bin Hoq")
+
+    def test_engine_about_page_for_a_site_without_one(self):
+        engine_only = copy.deepcopy(settings.TEMPLATES)
+        engine_only[0]["APP_DIRS"] = False
+        engine_only[0]["DIRS"] = [
+            Path(__file__).resolve().parents[1] / "templates"]
+        site = dict(settings.BIBLIO_SITE, name="Eric Voegelin")
+        with override_settings(TEMPLATES=engine_only, BIBLIO_SITE=site):
+            resp = self.client.get("/oakeshott/about/")
+        self.assertContains(resp, "About the Eric Voegelin Bibliography")
+        self.assertNotContains(resp, "Adnan Bin Hoq")
+
+
 class FeedbackTest(BiblioTestCase):
     def test_mailto_lists_all_admin_emails(self):
         AdminEmail.objects.create(email_addr="a@example.com")
@@ -190,6 +211,20 @@ class SearchFormTest(BiblioTestCase):
                          "Voegelin<", ">Works Discussing Voegelin<"):
             self.assertIn(expected, html)
         self.assertNotIn("Oakeshott<", html)
+
+    def test_background_comes_from_settings(self):
+        html = self.client.get("/oakeshott/").content.decode()
+        self.assertIn(
+            'url("/static/berkeley/img/caius-gate-of-honour.jpg")', html)
+        site = dict(settings.BIBLIO_SITE, background="voegelin/img/bg.jpg")
+        with override_settings(BIBLIO_SITE=site):
+            html = self.client.get("/oakeshott/").content.decode()
+        self.assertIn('url("/static/voegelin/img/bg.jpg")', html)
+        self.assertNotIn("caius", html)
+        site = {k: v for k, v in site.items() if k != "background"}
+        with override_settings(BIBLIO_SITE=site):
+            html = self.client.get("/oakeshott/").content.decode()
+        self.assertNotIn("url(", html)
 
     def test_no_field_is_required_in_the_browser(self):
         self.assertNotContains(self.client.get("/oakeshott/"), "required")

@@ -32,9 +32,9 @@ body {
     font-family: var(--serif-text);
     line-height: 1.55;
     background-color: var(--night);
+    /* base.html adds the site's background picture under this tint */
     background-image:
-        linear-gradient(rgba(28, 24, 19, 0.55), rgba(28, 24, 19, 0.80)),
-        url("img/caius-gate-of-honour.jpg");
+        linear-gradient(rgba(28, 24, 19, 0.55), rgba(28, 24, 19, 0.80));
     background-size: cover;
     background-position: center top;
     background-attachment: fixed;
