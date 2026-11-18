@@ -1748,6 +1748,13 @@ CHAPTERS += [
          book=MEANINGS, pages="255-267", subject=POL),
 ]
 
+# Chapter 11 of Tradition v. Rationalism, added at the editors' request
+# on 2026-11-17 (pages not yet known)
+CHAPTERS += [
+    dict(authors=[CALLAHAN], title="Hayek and Oakeshott on Rationalism",
+         book=TRADITION, subject=PHIL),
+]
+
 ARTICLES += [
     dict(authors=[MCINTYRE],
          title="'What's Gone and What's Past Help…': Oakeshott and Strauss "
