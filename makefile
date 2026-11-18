@@ -12,14 +12,17 @@ prod:
 	git push origin master
 	ssh $(PA_USER)@ssh.pythonanywhere.com 'cd /home/$(PA_USER)/mysite; /home/$(PA_USER)/mysite/myutils/dev.sh'
 
-# the engine on its own (a made-up site), then the Oakeshott site
-tests: engine_tests oakeshott_tests
+# the engine on its own (a made-up site), then each real site
+tests: engine_tests oakeshott_tests voegelin_tests
 
 engine_tests:
 	python manage.py test berkeley --settings=mysite.settings_engine_test
 
 oakeshott_tests:
 	python manage.py test berkeley sites.oakeshott
+
+voegelin_tests:
+	python manage.py test berkeley sites.voegelin --settings=mysite.settings_voegelin
 
 dev_env:
 	pip install -r requirements/requirements.txt

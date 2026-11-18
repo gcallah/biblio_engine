@@ -128,6 +128,18 @@ that site unchanged. Check the live site after each one.
    smoke test, then deploy. Choose how its data comes in: loader modules
    like Oakeshott's, or a generic CSV/BibTeX import in the engine that
    later sites can reuse.
+   *6a done 2026-11-18 (code only, no deploy): `sites/voegelin` (app
+   label `voegelin_site`, the engine's own About page) and
+   `mysite/settings_voegelin.py` (`/voegelin/`, 1901 – 1985, no
+   portrait or background yet; the engine's base.html now leaves the
+   portrait and credits out when a site has none). CI runs a third test
+   suite, `make voegelin_tests`. Still to do: 6b, a one-off bootstrap of
+   the `voegelin` PythonAnywhere account (clone, virtualenv, migrate,
+   the "Unknown"/"Uncategorized" subject with id 9 that every entry
+   defaults to, a superuser, WSGI file and shell set
+   `DJANGO_SETTINGS_MODULE=mysite.settings_voegelin`, `/static/` mapped
+   to `~/mysite/static_collected`); 6c, a second deploy job with its own
+   secrets and concurrency group.*
 
 Later: links between sites (e.g. Voegelin works on Oakeshott, a
 Collingwood site). Stable per-site URLs plus an "also in" field on

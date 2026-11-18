@@ -32,8 +32,10 @@
             <span class="header-title">{{ biblio.name }}</span>
             <span class="brand-dates">{{ biblio.dates }}</span>
           </a>
+          {% if biblio.portrait %}
           <img class="portrait" src="{% static biblio.portrait %}?v={{ biblio.portrait_version }}"
                alt="{{ biblio.portrait_alt }}" />
+          {% endif %}
         </div>
         <nav id="user-tools">
           <a href="{% url 'berkeley:search' %}">Search</a>
@@ -65,7 +67,9 @@
           <a href="https://github.com/gcallah/biblio_engine">Source on GitHub</a>
         </nav>
         <p class="footer-name">The {{ biblio.name }} Bibliography</p>
+        {% if biblio.credits %}
         <p class="credits">{{ biblio.credits }}</p>
+        {% endif %}
       </footer>
     </div>
   </body>

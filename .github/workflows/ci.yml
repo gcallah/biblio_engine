@@ -31,6 +31,9 @@ jobs:
       - name: Oakeshott site tests
         run: make oakeshott_tests
 
+      - name: Voegelin site tests
+        run: make voegelin_tests
+
   deploy:
     needs: test
     # one deploy at a time: two overlapping `git pull`s on the server left

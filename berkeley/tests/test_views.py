@@ -157,6 +157,19 @@ class SiteRootTest(BiblioTestCase):
         self.assertEqual(resp["Location"], ROOT)
 
 
+class SiteWithoutPicturesTest(BiblioTestCase):
+    """A new site may start with no portrait, background or credits."""
+    def test_no_portrait_background_or_credits(self):
+        site = {k: v for k, v in settings.BIBLIO_SITE.items()
+                if k not in ("portrait", "background", "credits")}
+        with self.settings(BIBLIO_SITE=site):
+            html = self.client.get(ROOT).content.decode()
+        self.assertNotIn('class="portrait"', html)
+        self.assertNotIn("background-image", html)
+        self.assertNotIn('class="credits"', html)
+        self.assertIn(site["name"], html)
+
+
 class SearchFormTest(BiblioTestCase):
     def test_form_fields_in_order(self):
         self.assertEqual(list(SearchForm().fields),
@@ -183,6 +196,7 @@ class SearchFormTest(BiblioTestCase):
     def test_site_identity_comes_from_settings(self):
         site = dict(settings.BIBLIO_SITE, name="Eric Voegelin",
                     short_name="Voegelin", dates="1901 \u2013 1985",
+                    portrait="example/img/portrait.jpg",
                     portrait_alt="Portrait of Eric Voegelin",
                     credits="Portrait: a test credit.",
                     pub_type_labels={"MENT": "Works Discussing Voegelin"})
