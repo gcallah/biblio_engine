@@ -1748,9 +1748,14 @@ CHAPTERS += [
          book=MEANINGS, pages="255-267", subject=POL),
 ]
 
-# Chapters 11 and 12 of Tradition v. Rationalism, added at the editors'
-# request on 2026-11-17 (pages not yet known)
+# Chapters 6, 11 and 12 of Tradition v. Rationalism, added at the
+# editors' request on 2026-11-17 (pages not yet known)
 CHAPTERS += [
+    dict(authors=[FULLER],
+         title="Liberalism and the Prospect of Rational Order in Hobbes's "
+               "Political Philosophy and the Responses of Oakeshott, Strauss "
+               "and Voegelin",
+         book=TRADITION, subject=POL),
     dict(authors=[CALLAHAN], title="Hayek and Oakeshott on Rationalism",
          book=TRADITION, subject=PHIL),
     dict(authors=[("Zoltán", "", "Balázs")],
