@@ -145,6 +145,10 @@ BOOKS = [
          title="The Idea of a Social Science and Its Relation to "
                "Philosophy",
          year=1958, publisher="Routledge and Kegan Paul", subject=PHIL),
+    # an edge case (C13), added at the editors' request on 2026-11-17
+    dict(authors=[("R.", "", "Rorty")],
+         title="Contingency, Irony, and Solidarity", year=1989,
+         publisher="Cambridge University Press", subject=PHIL),
     # an edge case (C24), added at the editors' request on 2026-11-17;
     # three volumes, 1973, 1976 and 1979, stored under the first
     dict(authors=[("F.", "A.", "Hayek")],

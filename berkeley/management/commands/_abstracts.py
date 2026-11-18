@@ -2611,6 +2611,23 @@ ABSTRACTS.update({
             "Mirage of Social Justice (1976). Where and how the book itself "
             "cites Oakeshott has not yet been checked against its text."
         )),
+    ('Contingency, Irony, and Solidarity', 1989,
+     'Cambridge University Press'): dict(
+        source=AI + 'contingencyirony00rort_0',
+        abstract=(
+            "In the chapter on the contingency of a liberal community, "
+            "Rorty names Oakeshott, with Dewey and Rawls, among those who "
+            "have helped undermine the Kantian view of morality. He quotes "
+            "On Human Conduct's account of a morality as neither a system "
+            "of general principles nor a code of rules but a vernacular "
+            "language, and uses it as a springboard for his own argument, "
+            "building on the anti-Kantian claim that Oakeshott takes for "
+            "granted. He finds Oakeshott's view coinciding with Wilfrid "
+            "Sellars's and develops what he calls 'this Oakeshott-Sellars "
+            "way of looking at morality'. He also describes a liberal "
+            "society with Oakeshott's distinction between a societas and a "
+            "universitas."
+        )),
     ('Law, Morality, and the Relations of States', 1983,
      'Princeton University Press'): dict(
         source=AI + 'lawmoralityrelat0000nard',
