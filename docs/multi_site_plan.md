@@ -14,7 +14,7 @@ come later if there are many sites.
 |---|---|
 | `berkeley/models.py` `TYPE_CHOICES` | "Books by Oakeshott" etc. The codes (BKBY, SWAB, ...) are already generic. |
 | `/oakeshott/` URL prefix | Hardcoded about 40 times: `get_absolute_url`-style methods in `models.py`, every template, `settings.LOGIN_*`, `admin.site_url`, `add_editor.py`, `bin/check_pages.py`. |
-| `base.html`, `about.html`, `static/berkeley/img/` | Header, footer, portrait, about text. |
+| `base.html`, `about.html`, `static/berkeley/img/` | Header, footer, portrait, about text (now settings, `sites/oakeshott/templates/` and `sites/oakeshott/static/`). |
 | `admin.py` | Admin site header and title. |
 | `management/commands/` | Nearly all of its ~21.8k lines were Oakeshott data; since phase 4 they are in `sites/oakeshott/management/commands/`, and the engine keeps only `_loaders.py` and `add_editor.py`. |
 | `deploy.sh`, `rebuild.sh`, `makefile` | `moabiblio` account, WSGI path and virtualenv hardcoded. |
@@ -69,7 +69,7 @@ that site unchanged. Check the live site after each one.
    Django app listed before `berkeley`, so its templates win; it has
    `about.html`, and the engine keeps a generic one. The background
    picture is `BIBLIO_SITE["background"]`, no longer in `style.css`.
-   The images stay in `mysite/static/` for now, because on
+   The images stayed in `mysite/static/` until phase 5, because on
    PythonAnywhere a static-files mapping serves `/static/` straight
    from that folder (Django never sees those requests). Moving them is
    part of phase 5.*
@@ -112,7 +112,18 @@ that site unchanged. Check the live site after each one.
    `PA_VENV`, `PA_WSGI` and `DJANGO_SETTINGS_MODULE`, defaulting to
    Oakeshott's; deploys run `collectstatic` into
    `~/mysite/static_collected` (not yet served). The second CI deploy
-   job waits for phase 6, when Voegelin has a server and secrets.*
+   job waits for phase 6, when Voegelin has a server and secrets.
+   5b done 2026-11-18: the Web tab's `/static/` mapping now points at
+   `/home/moabiblio/mysite/static_collected` (public files unchanged;
+   five admin files that had been 404 now load). 5c done 2026-11-18:
+   `mysite/static/` is gone. The engine's CSS is in
+   `berkeley/static/berkeley/`, the Oakeshott images in
+   `sites/oakeshott/static/oakeshott/img/`, and the admin and
+   django-extensions files come from the installed packages (jQuery
+   3.7.1). Because `collectstatic` skips a file whose collected copy is
+   newer, the old admin files were removed from `static_collected` by
+   hand once after that deploy. A new server just needs its `/static/`
+   mapping pointed at `~/mysite/static_collected`.*
 6. **Voegelin.** Skeleton site package, empty migrated database, local
    smoke test, then deploy. Choose how its data comes in: loader modules
    like Oakeshott's, or a generic CSV/BibTeX import in the engine that

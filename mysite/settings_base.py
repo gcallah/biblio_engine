@@ -132,9 +132,9 @@ LOGIN_REDIRECT_URL = "berkeley:search"
 LOGOUT_REDIRECT_URL = "berkeley:search"
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "mysite", "static", ),
-    )
+# Static files live in the apps: the engine's in berkeley/static/berkeley/,
+# a site's in sites/<site>/static/<site>/.
+
 # where deploy.sh's collectstatic gathers every static file, for the web
 # server to serve at /static/ (not in git)
 STATIC_ROOT = os.path.join(BASE_DIR, "static_collected")

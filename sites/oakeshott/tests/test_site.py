@@ -1,5 +1,8 @@
 """What the Oakeshott site adds to the engine: its About page, its
 background picture and the redirects from its old /berkeley/ URLs."""
+from django.conf import settings
+from django.contrib.staticfiles import finders
+
 from berkeley.tests.helpers import BiblioTestCase
 
 
@@ -12,7 +15,11 @@ class OakeshottPagesTest(BiblioTestCase):
     def test_background_is_the_caius_gate(self):
         self.assertContains(
             self.client.get("/oakeshott/"),
-            'url("/static/berkeley/img/caius-gate-of-honour.jpg")')
+            'url("/static/oakeshott/img/caius-gate-of-honour.jpg")')
+
+    def test_portrait_and_background_are_found(self):
+        for key in ("portrait", "background"):
+            self.assertTrue(finders.find(settings.BIBLIO_SITE[key]), key)
 
 
 class OldUrlRedirectTest(BiblioTestCase):

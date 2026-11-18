@@ -26,11 +26,11 @@ BIBLIO_SITE = {
     "name": "Michael Oakeshott",       # masthead, footer, admin
     "short_name": "Oakeshott",         # "Books by Oakeshott", ...
     "dates": "1901 \u2013 1990",
-    "portrait": "berkeley/img/oakeshott.jpg",   # a static file
+    "portrait": "oakeshott/img/oakeshott.jpg",   # a static file
     "portrait_version": "3",           # bump to refresh browser caches
     "portrait_alt": "Portrait of Michael Oakeshott in profile",
     # page background, a static file shown behind a dark tint (optional)
-    "background": "berkeley/img/caius-gate-of-honour.jpg",
+    "background": "oakeshott/img/caius-gate-of-honour.jpg",
     "credits": ("Background: the Gate of Honour, Gonville & Caius "
                 "College, Cambridge (19th-century photograph, public "
                 "domain). Portrait: LSE Library, no known copyright "
