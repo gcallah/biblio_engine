@@ -3,10 +3,14 @@ MUDIR = myutils
 UDIR = utils
 TDIR = tests
 
+# the PythonAnywhere account to deploy to (pushing master deploys the
+# Oakeshott site through GitHub Actions anyway)
+PA_USER ?= moabiblio
+
 prod:
 	-git commit -a 
 	git push origin master
-	ssh moabiblio@ssh.pythonanywhere.com 'cd /home/moabiblio/mysite; /home/moabiblio/mysite/myutils/dev.sh'
+	ssh $(PA_USER)@ssh.pythonanywhere.com 'cd /home/$(PA_USER)/mysite; /home/$(PA_USER)/mysite/myutils/dev.sh'
 
 # the engine on its own (a made-up site), then the Oakeshott site
 tests: engine_tests oakeshott_tests

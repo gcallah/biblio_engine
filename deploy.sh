@@ -11,13 +11,32 @@
 # pull can neither fail on it nor delete it.
 #
 # Usage: ./deploy.sh <PA password> <PA API token>
+#
+# Which site and server: these environment variables, which default to
+# the Oakeshott site.
+#   PA_USER                 PythonAnywhere account (moabiblio)
+#   PA_VENV                 virtualenv in ~/.virtualenvs (biblio)
+#   PA_WSGI                 WSGI file to touch for a reload
+#                           (/var/www/<account>_pythonanywhere_com_wsgi.py)
+#   DJANGO_SETTINGS_MODULE  the site's settings (mysite.settings)
+# The checkout is ~/mysite on every server. After the migrations,
+# collectstatic gathers the static files into ~/mysite/static_collected,
+# which the Web tab's /static/ mapping serves.
 
-export user_name=moabiblio
+PA_USER=${PA_USER:-moabiblio}
+PA_VENV=${PA_VENV:-biblio}
+PA_WSGI=${PA_WSGI:-/var/www/${PA_USER}_pythonanywhere_com_wsgi.py}
+DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-mysite.settings}
 
-echo "SSHing to PythonAnywhere."
+echo "SSHing to PythonAnywhere as $PA_USER ($DJANGO_SETTINGS_MODULE)."
+# the remote script is quoted, so its settings go in through the
+# environment
 sshpass -p "$1" ssh -o "StrictHostKeyChecking no" \
-    $user_name@ssh.pythonanywhere.com "PA_API='$2' bash -s" << 'EOF'
+    $PA_USER@ssh.pythonanywhere.com \
+    "PA_API='$2' PA_USER='$PA_USER' PA_VENV='$PA_VENV' PA_WSGI='$PA_WSGI' \
+     DJANGO_SETTINGS_MODULE='$DJANGO_SETTINGS_MODULE' bash -s" << 'EOF'
 set -u
+export PA_USER PA_VENV PA_WSGI DJANGO_SETTINGS_MODULE
 cd ~/mysite
 mkdir -p ~/db_backups
 stamp=$(date +%Y%m%d-%H%M%S)
@@ -49,7 +68,10 @@ fi
 # from here on, any failure (e.g. a migration) fails the deploy
 set -e
 set +u   # virtualenv's activate script may read unset variables
-source ~/.virtualenvs/biblio/bin/activate
+source ~/.virtualenvs/$PA_VENV/bin/activate
 python manage.py migrate --noinput
-touch /var/www/moabiblio_pythonanywhere_com_wsgi.py
+# no --clear: files left from an earlier version keep serving pages that
+# still ask for them until the reload below
+python manage.py collectstatic --noinput -v0
+touch "$PA_WSGI"
 EOF

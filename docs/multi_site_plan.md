@@ -96,14 +96,23 @@ that site unchanged. Check the live site after each one.
    to-do page tests. Left over: `todo.html` and the `Candidate`
    docstring still mention MOA's list, which is Oakeshott's source.*
 5. **Deployment.** Parameterize `deploy.sh`, `rebuild.sh` and `makefile`
-   (account, WSGI path, virtualenv, settings module). A second CI deploy
-   job with Voegelin's secrets. Static files: set `STATIC_ROOT`, run
-   `collectstatic` in `deploy.sh`, then repoint each server's `/static/`
-   mapping (PythonAnywhere Web tab) at `STATIC_ROOT`; only after that,
-   move the Oakeshott images into `sites/oakeshott/static/`. Note that
-   `collectstatic` will also replace the very old admin files committed
-   in `mysite/static/admin` (jQuery 2.1.4) with Django 6.1's, so check
-   the admin add/change forms on the live site after that push.
+   (account, WSGI path, virtualenv, settings module). Static files: set
+   `STATIC_ROOT`, run `collectstatic` in `deploy.sh`, then repoint each
+   server's `/static/` mapping (PythonAnywhere Web tab) at `STATIC_ROOT`;
+   only after that, move the static files into the apps
+   (`berkeley/static/`, `sites/oakeshott/static/`) and drop
+   `STATICFILES_DIRS`. The old admin files committed in
+   `mysite/static/admin` (jQuery 2.1.4) win over Django's own in
+   `collectstatic`, since `STATICFILES_DIRS` is searched first; they are
+   replaced only when that folder is deleted, so check the admin
+   add/change forms on the live site after that push.
+   *5a done 2026-11-18: `mysite/settings_base.py` holds the shared
+   settings and `mysite/settings.py` stays the Oakeshott site's (the
+   WSGI file names it); `deploy.sh` and `rebuild.sh` take `PA_USER`,
+   `PA_VENV`, `PA_WSGI` and `DJANGO_SETTINGS_MODULE`, defaulting to
+   Oakeshott's; deploys run `collectstatic` into
+   `~/mysite/static_collected` (not yet served). The second CI deploy
+   job waits for phase 6, when Voegelin has a server and secrets.*
 6. **Voegelin.** Skeleton site package, empty migrated database, local
    smoke test, then deploy. Choose how its data comes in: loader modules
    like Oakeshott's, or a generic CSV/BibTeX import in the engine that

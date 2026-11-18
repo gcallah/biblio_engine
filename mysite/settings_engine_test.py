@@ -5,10 +5,7 @@ tests must pass under these settings as well as under each real site's.
 
     python manage.py test berkeley --settings=mysite.settings_engine_test
 """
-from .settings import *  # noqa: F401,F403
-
-INSTALLED_APPS = [app for app in INSTALLED_APPS  # noqa: F405
-                  if not app.startswith("sites.")]
+from .settings_base import *  # noqa: F401,F403
 
 BIBLIO_URL_PREFIX = "testbib"
 BIBLIO_OLD_URL_PREFIXES = ()

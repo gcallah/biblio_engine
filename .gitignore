@@ -11,3 +11,4 @@ backups/*.csv
 .venv/
 .superset/config.local.json
 db.sqlite3.*
+static_collected/
