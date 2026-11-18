@@ -130,8 +130,9 @@ that site unchanged. Check the live site after each one.
    later sites can reuse.
    *6a done 2026-11-18 (code only, no deploy): `sites/voegelin` (app
    label `voegelin_site`, the engine's own About page) and
-   `mysite/settings_voegelin.py` (`/voegelin/`, 1901 – 1985, no
-   portrait or background yet; the engine's base.html now leaves the
+   `mysite/settings_voegelin.py` (`/voegelin/`, 1901 – 1985; the
+   Wikipedia portrait, added the same day under fair use; no background
+   yet; the engine's base.html now leaves the
    portrait and credits out when a site has none). CI runs a third test
    suite, `make voegelin_tests`. Still to do: 6b, a one-off bootstrap of
    the `voegelin` PythonAnywhere account (clone, virtualenv, migrate,

@@ -16,12 +16,21 @@ INSTALLED_APPS = ["sites.voegelin"] + INSTALLED_APPS  # noqa: F405
 BIBLIO_URL_PREFIX = "voegelin"
 BIBLIO_OLD_URL_PREFIXES = ()
 
-# See mysite/settings.py for what each key does. No portrait or
-# background picture yet.
+# See mysite/settings.py for what each key does. No background picture
+# yet.
 BIBLIO_SITE = {
     "name": "Eric Voegelin",
     "short_name": "Voegelin",
     "dates": "1901 – 1985",
-    "credits": "",
+    # Copyrighted; used, as on Wikipedia, under fair use (a small copy, to
+    # identify the subject of a non-commercial scholarly bibliography).
+    # Source: https://en.wikipedia.org/wiki/File:Eric_Voegelin.jpg, from
+    # voegelinview.com. If the rights holder objects, remove it (the
+    # site works without a portrait).
+    "portrait": "voegelin/img/voegelin.jpg",
+    "portrait_version": "1",
+    "portrait_alt": "Portrait of Eric Voegelin",
+    "credits": "Portrait: via VoegelinView (voegelinview.com), used "
+               "under fair use.",
     "pub_type_labels": {},
 }
