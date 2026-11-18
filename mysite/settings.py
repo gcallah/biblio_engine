@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'berkeley.context_processors.biblio_site',
             ],
         },
     },
@@ -133,6 +134,24 @@ BIBLIO_URL_PREFIX = "oakeshott"
 # Earlier prefixes, permanently redirected to the current one so old
 # links keep working.
 BIBLIO_OLD_URL_PREFIXES = ("berkeley",)
+
+# Who this bibliography is about. The engine's templates, admin and
+# publication-type labels read everything site-specific from here.
+BIBLIO_SITE = {
+    "name": "Michael Oakeshott",       # masthead, footer, admin
+    "short_name": "Oakeshott",         # "Books by Oakeshott", ...
+    "dates": "1901 \u2013 1990",
+    "portrait": "berkeley/img/oakeshott.jpg",   # a static file
+    "portrait_version": "3",           # bump to refresh browser caches
+    "portrait_alt": "Portrait of Michael Oakeshott in profile",
+    "credits": ("Background: the Gate of Honour, Gonville & Caius "
+                "College, Cambridge (19th-century photograph, public "
+                "domain). Portrait: LSE Library, no known copyright "
+                "restrictions. Images via Wikimedia Commons."),
+    # replacements for the standard type labels, by code, e.g.
+    # {"MENT": "Works Discussing Oakeshott"}
+    "pub_type_labels": {},
+}
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (

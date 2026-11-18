@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models.functions import Lower
 
-from .models import PERSON_NAME_LEN, TYPE_CHOICES, DEPT_LEN, Keyword, Journal, Subject, CATEGORIES
+from .models import PERSON_NAME_LEN, Keyword, Subject, pub_type_choices
 
 
 class SearchForm(forms.Form):
@@ -12,7 +12,7 @@ class SearchForm(forms.Form):
        #     max_length=PERSON_NAME_LEN)
     reviewed = forms.CharField(label='Reviewed author last name:',
             max_length=PERSON_NAME_LEN)
-    pub_type = forms.ChoiceField(label='Type', choices=TYPE_CHOICES)
+    pub_type = forms.ChoiceField(label='Type', choices=pub_type_choices)
     start_year = forms.IntegerField(label='From year:')
     end_year = forms.IntegerField(label='To year:')
     subject = forms.ModelChoiceField(label='Category',

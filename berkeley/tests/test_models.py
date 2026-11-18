@@ -3,7 +3,7 @@ from django.db import IntegrityError, transaction
 
 from berkeley.models import (
     Address, AdminEmail, Authorship, Journal, Keyword, Person, Publication, Publisher,
-    Site, Subject, REVIEW_TYPES, TYPE_CHOICES,
+    Site, Subject, REVIEW_TYPES, pub_type_choices,
 )
 
 from .helpers import BiblioTestCase
@@ -12,15 +12,15 @@ from .helpers import BiblioTestCase
 class TypeChoicesTest(BiblioTestCase):
     def test_codes_fit_the_column(self):
         max_len = Publication._meta.get_field("pub_type").max_length
-        for code, _ in TYPE_CHOICES:
+        for code, _ in pub_type_choices():
             self.assertLessEqual(len(code), max_len, code)
 
     def test_codes_are_unique(self):
-        codes = [code for code, _ in TYPE_CHOICES]
+        codes = [code for code, _ in pub_type_choices()]
         self.assertEqual(len(codes), len(set(codes)))
 
     def test_review_types_are_valid_choices(self):
-        codes = {code for code, _ in TYPE_CHOICES}
+        codes = {code for code, _ in pub_type_choices()}
         self.assertTrue(set(REVIEW_TYPES) <= codes)
 
 

@@ -20,11 +20,11 @@
         <div class="masthead">
           <a class="brand" href="{% url 'berkeley:search' %}">
             <span class="brand-kicker">A Bibliography of Works by and about</span>
-            <span class="header-title">Michael Oakeshott</span>
-            <span class="brand-dates">1901 &ndash; 1990</span>
+            <span class="header-title">{{ biblio.name }}</span>
+            <span class="brand-dates">{{ biblio.dates }}</span>
           </a>
-          <img class="portrait" src="{% static 'berkeley/img/oakeshott.jpg' %}?v=3"
-               alt="Portrait of Michael Oakeshott in profile" />
+          <img class="portrait" src="{% static biblio.portrait %}?v={{ biblio.portrait_version }}"
+               alt="{{ biblio.portrait_alt }}" />
         </div>
         <nav id="user-tools">
           <a href="{% url 'berkeley:search' %}">Search</a>
@@ -55,13 +55,8 @@
           <span class="sep">&middot;</span>
           <a href="https://github.com/gcallah/biblio_engine">Source on GitHub</a>
         </nav>
-        <p class="footer-name">The Michael Oakeshott Bibliography</p>
-        <p class="credits">
-          Background: the Gate of Honour, Gonville &amp; Caius College, Cambridge
-          (19th-century photograph, public domain).
-          Portrait: LSE Library, no known copyright restrictions.
-          Images via Wikimedia Commons.
-        </p>
+        <p class="footer-name">The {{ biblio.name }} Bibliography</p>
+        <p class="credits">{{ biblio.credits }}</p>
       </footer>
     </div>
   </body>

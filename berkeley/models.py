@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -20,34 +21,35 @@ AFFILIATION_LEN = 128
 
 UNKNOWN_ID = 9
 
-TYPE_CHOICES = (
-    ('', ''),
-    ('BKBY', 'Books by Oakeshott'),
-    ('SWBY', 'Short Works by Oakeshott'),
-    ('BKAB', 'Books About Oakeshott'),
-    ('SWAB', 'Short Works About Oakeshott'),
-    ('MENT', 'Works Mentioning Oakeshott'),
-    ('RVBY', 'Book Reviews by Oakeshott'),
-    ('RVOB', 'Book Reviews of Books by Oakeshott'),
-    ('RVAB', 'Book Reviews of Books About Oakeshott'),
+# Publication types: the codes are the engine's, the same on every site;
+# "{name}" in a label is the site's BIBLIO_SITE["short_name"] (e.g.
+# "Books by Oakeshott"). A site can replace any label through
+# BIBLIO_SITE["pub_type_labels"].
+PUB_TYPES = (
+    ('BKBY', 'Books by {name}'),
+    ('SWBY', 'Short Works by {name}'),
+    ('BKAB', 'Books About {name}'),
+    ('SWAB', 'Short Works About {name}'),
+    ('MENT', 'Works Mentioning {name}'),
+    ('RVBY', 'Book Reviews by {name}'),
+    ('RVOB', 'Book Reviews of Books by {name}'),
+    ('RVAB', 'Book Reviews of Books About {name}'),
 )
 
 REVIEW_TYPES = ('RVBY', 'RVOB', 'RVAB')
 BOOK_TYPES = ('BKBY', 'BKAB')
 SHORT_TYPES = ('SWBY', 'SWAB')
 
-CATEGORIES = (
-    ('', ''),
-    ('SOCDIST', 'Social Distancing'),
-    ('MONTRG', 'Monitoring / Situational Awareness Strategies & Data'),
-    ('POLSOR', 'PPE & Other Essential Supplies & Services – Policies & Sourcing'),
-    ('MED', 'Medical / Public Health Guidance for Individuals & Organizations'),
-    ('WORK', 'Sustained Work from Home Strategies'),
-    ('HEALTHSTAT', 'Health Status Confirmation Strategies & Technologies'),
-    ('COMM', 'Communications (internal & external)'),
-    ('CLEANING', 'Cleaning & Disinfection'),
-    ('HR', 'HR / Personnel Strategies'),
-)
+
+def pub_type_choices():
+    """The publication types, labelled for this site, after a blank
+    choice. A callable, so the labels stay out of the migrations and
+    each site can have its own."""
+    site = settings.BIBLIO_SITE
+    labels = site.get("pub_type_labels", {})
+    return [('', '')] + [
+        (code, labels.get(code, label.format(name=site["short_name"])))
+        for code, label in PUB_TYPES]
 
 
 class SingleNameModel(models.Model):
@@ -205,7 +207,7 @@ class Journal(SingleNameModel, UrlModel, DescrModel):
 class Publication(UrlModel):
     title = models.CharField(max_length=PUB_TITLE_LEN,
             blank=True, null=True, default="")
-    pub_type = models.CharField(choices=TYPE_CHOICES, max_length=4,
+    pub_type = models.CharField(choices=pub_type_choices, max_length=4,
             blank=True, null=True, default="")
     publisher = models.ForeignKey(Publisher, blank=True, null=True,  on_delete=models.CASCADE,)
     subject = models.ForeignKey(Subject, default=UNKNOWN_ID, on_delete=models.CASCADE,)

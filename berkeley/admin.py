@@ -2,6 +2,7 @@
 bibliography: the edit pencils on the site link to these pages. Logins are
 made with manage.py add_editor; every editor can edit everything."""
 from django import forms
+from django.conf import settings
 from django.contrib import admin
 from django.urls import reverse_lazy
 
@@ -20,8 +21,9 @@ from .models import Publisher
 from .models import Site
 from .models import Subject
 
-admin.site.site_header = "Michael Oakeshott Bibliography: editing"
-admin.site.site_title = "Oakeshott Bibliography editing"
+admin.site.site_header = f"{settings.BIBLIO_SITE['name']} Bibliography: editing"
+admin.site.site_title = (f"{settings.BIBLIO_SITE['short_name']} "
+                         "Bibliography editing")
 admin.site.index_title = "Records"
 admin.site.site_url = reverse_lazy("berkeley:search")
 

@@ -1,7 +1,10 @@
 """Every page renders, missing objects 404, and old URLs redirect."""
+from django.conf import settings
+from django.test import override_settings
+
 from berkeley.forms import SearchForm
 from berkeley.models import (
-    AdminEmail, Journal, Keyword, Publisher, Site, TYPE_CHOICES,
+    AdminEmail, Journal, Keyword, Publisher, Site, pub_type_choices,
 )
 
 from .helpers import BiblioTestCase
@@ -165,11 +168,28 @@ class SearchFormTest(BiblioTestCase):
         resp = self.client.get("/oakeshott/")
         for name in SearchForm().fields:
             self.assertContains(resp, f'name="{name}"')
-        for code, label in TYPE_CHOICES:
+        for code, label in pub_type_choices():
             if code:
                 self.assertContains(resp, f'value="{code}"')
                 self.assertContains(resp, label)
         self.assertContains(resp, 'action="/oakeshott/publications"')
+
+    def test_site_identity_comes_from_settings(self):
+        site = dict(settings.BIBLIO_SITE, name="Eric Voegelin",
+                    short_name="Voegelin", dates="1901 \u2013 1985",
+                    portrait_alt="Portrait of Eric Voegelin",
+                    credits="Portrait: a test credit.",
+                    pub_type_labels={"MENT": "Works Discussing Voegelin"})
+        with override_settings(BIBLIO_SITE=site):
+            html = self.client.get("/oakeshott/").content.decode()
+        for expected in ('<span class="header-title">Eric Voegelin</span>',
+                         "1901 \u2013 1985", 'alt="Portrait of Eric Voegelin"',
+                         "The Eric Voegelin Bibliography",
+                         "Portrait: a test credit.",
+                         ">Books by Voegelin<", ">Book Reviews of Books About "
+                         "Voegelin<", ">Works Discussing Voegelin<"):
+            self.assertIn(expected, html)
+        self.assertNotIn("Oakeshott<", html)
 
     def test_no_field_is_required_in_the_browser(self):
         self.assertNotContains(self.client.get("/oakeshott/"), "required")

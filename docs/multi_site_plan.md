@@ -57,7 +57,10 @@ that site unchanged. Check the live site after each one.
    per-site overrides for different labels or enabled types. Migrations:
    labels are serialized into them, so use callable choices and confirm
    `makemigrations --check` is clean under every site's settings. Drop the
-   leftover COVID `CATEGORIES` here.
+   leftover COVID `CATEGORIES` here. *Done 2026-11-17: `BIBLIO_SITE` (name, short
+   name, dates, portrait, credits, `pub_type_labels`), the `biblio`
+   context processor, `pub_type_choices()` with migration 0013 (no SQL);
+   a test checks another site's settings need no migrations.*
 3. **Templates and static files.** Site template and static dirs come
    before the engine's. `about.html` becomes wholly per-site; `base.html`
    gets its header, portrait and footer from settings. Move
