@@ -242,6 +242,12 @@ class Publication(UrlModel):
         'berkeley.Publication', symmetrical=False, related_name="reprints",
         blank=True
     )
+    # The work this one translates, e.g. Political Religions (1986) of
+    # Die politischen Religionen (1938). original.translations lists them.
+    translation_of = models.ForeignKey(
+        'berkeley.Publication', blank=True, null=True,
+        related_name="translations", on_delete=models.SET_NULL,
+    )
     keywords = models.ManyToManyField(
         Keyword, default="", related_name="keywords",
         blank=True
@@ -456,6 +462,10 @@ class Publication(UrlModel):
     def ordered_reprints(self):
         """Works this book reprints, oldest first."""
         return self.reprints.order_by('year', 'id')
+
+    def ordered_translations(self):
+        """Translations of this work, oldest first."""
+        return self.translations.order_by('year', 'id')
 
     def reviewed_title(self):
         """Title of the reviewed book, whether or not it is in the

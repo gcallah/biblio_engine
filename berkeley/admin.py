@@ -91,7 +91,7 @@ class PublicationAdmin(admin.ModelAdmin):
     search_fields = ("title", "authors__lname", "journal__name")
     autocomplete_fields = ("publisher", "journal", "collection",
                            "pub_reviewed", "translators", "reviewees",
-                           "reprinted_in", "keywords")
+                           "reprinted_in", "translation_of", "keywords")
 
 
 @admin.register(OpenQuestion)

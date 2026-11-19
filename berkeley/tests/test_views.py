@@ -1,5 +1,6 @@
 """Every page renders, missing objects 404, and old URLs redirect."""
 import copy
+import re
 from pathlib import Path
 
 from django.conf import settings
@@ -10,7 +11,12 @@ from berkeley.models import (
     AdminEmail, Journal, Keyword, Publisher, Site, pub_type_choices,
 )
 
-from .helpers import ROOT, BiblioTestCase
+from .helpers import ROOT, BiblioTestCase, squash
+
+
+def words(html):
+    """The page's text without its tags, whitespace collapsed."""
+    return squash(re.sub(r"<[^>]+>", " ", html)).replace(" :", ":")
 
 
 class PagesRenderTest(BiblioTestCase):
@@ -71,6 +77,28 @@ class PagesRenderTest(BiblioTestCase):
         text = self.page_text(url)
         self.assertIn("Reprints (1):", text)
         self.assertIn("Review of M. Cranston, Freedom", text)
+
+    def test_pub_detail_translations(self):
+        url = f"{ROOT}pub_detail/{self.book.id}/"
+        text = self.page_text(url)
+        for absent in ("Translator(s):", "Language:", "Translation of:",
+                       "Translations:"):
+            self.assertNotIn(absent, text)
+        tr = self.pub("Rationalismus in der Politik", 1966,
+                      pub_type="BKBY", authors=[self.mo], language="German",
+                      translation_of=self.book)
+        translator = self.person("Klaus", "Uebersetzer")
+        tr.translators.add(translator)
+        html = self.page_text(f"{ROOT}pub_detail/{tr.id}/")
+        self.assertIn(f'href="{ROOT}person_detail/{translator.id}/"', html)
+        self.assertIn(f'href="{ROOT}pub_detail/{self.book.id}/"', html)
+        text = words(html)
+        self.assertIn("Language: German", text)
+        self.assertIn("Klaus Uebersetzer", text)
+        self.assertIn("Translation of: Rationalism in Politics (1962)", text)
+        text = words(self.page_text(url))
+        self.assertIn("Translations: Rationalismus in der Politik "
+                      "(1966, German)", text)
 
     def test_edit_pub_needs_login(self):
         resp = self.client.get(f"{ROOT}edit_pub/{self.book.id}/")

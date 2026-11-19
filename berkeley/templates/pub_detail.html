@@ -23,6 +23,40 @@
             </td>
         </tr>
         {% endif %}{% endwith %}
+        {% with translators=pub.translators.all %}{% if translators %}
+        <tr>
+            <td>Translator(s):</td>
+            <td>
+            {% for translator in translators %}
+                <a href="{% url 'berkeley:person_detail' translator.id %}">{{ translator.natural_name }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}{% endwith %}
+        {% if pub.language %}
+        <tr>
+            <td>Language:</td>
+            <td> {{ pub.language }} </td>
+        </tr>
+        {% endif %}
+        {% if pub.translation_of %}
+        <tr>
+            <td>Translation of:</td>
+            <td>
+                <a href="{% url 'berkeley:pub_detail' pub.translation_of.id %}"><i>{{ pub.translation_of.title }}</i></a> ({{ pub.translation_of.year }})
+            </td>
+        </tr>
+        {% endif %}
+        {% with translations=pub.ordered_translations %}{% if translations %}
+        <tr>
+            <td>Translations:</td>
+            <td>
+            {% for item in translations %}
+                <a href="{% url 'berkeley:pub_detail' item.id %}"><i>{{ item.title }}</i></a> ({{ item.year }}{% if item.language %}, {{ item.language }}{% endif %}){% if not forloop.last %};<br>{% endif %}
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}{% endwith %}
         {% if pub.reviewed_title %}
         <tr>
             <td>Review of:</td>
