@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.db.models.functions import Lower
 
 from .models import PERSON_NAME_LEN, Keyword, Subject, pub_type_choices
@@ -22,3 +23,23 @@ class SearchForm(forms.Form):
     kwlist = Keyword.objects.all().order_by(Lower('name'))
     keyword1 = forms.ModelChoiceField(label='Keyword', queryset=kwlist)
     #keyword2 = forms.ModelChoiceField(label='Keyword', queryset=kwlist)
+
+
+class EditorLoginForm(AuthenticationForm):
+    """The login form: only editors (staff accounts) may log in. Other
+    accounts would be turned away by the admin pages anyway, so they are
+    told why here instead."""
+    error_messages = {
+        **AuthenticationForm.error_messages,
+        "invalid_login": "Your username and password did not match. "
+                         "Please try again.",
+        "not_editor": "This account is not set up as an editor yet. Ask "
+                      "the site administrator to give it editor rights "
+                      "(manage.py add_editor).",
+    }
+
+    def confirm_login_allowed(self, user):
+        super().confirm_login_allowed(user)
+        if not user.is_staff:
+            raise forms.ValidationError(self.error_messages["not_editor"],
+                                        code="not_editor")

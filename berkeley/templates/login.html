@@ -8,12 +8,15 @@
                     Editor login<br>
                     (Logins are given to trusted editors; there is no sign-up.)
                 </caption>
-                {% if form.errors %}
-                <tr><td colspan="2" class="form-error">
-                    Your username and password didn't match. Please try again.
-                </td></tr>
-                {% endif %}
-                {{ form.as_table }}
+                {% for error in form.non_field_errors %}
+                <tr><td colspan="2" class="form-error">{{ error }}</td></tr>
+                {% endfor %}
+                {% for field in form %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <td>{{ field.errors }}{{ field }}</td>
+                </tr>
+                {% endfor %}
             </table>
             <input type="hidden" name="next" value="{{ next }}">
             <input type="submit" value="Log in">

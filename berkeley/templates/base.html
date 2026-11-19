@@ -41,9 +41,11 @@
           <a href="{% url 'berkeley:search' %}">Search</a>
           <a href="{% url 'berkeley:about' %}">About</a>
           {% if user.is_authenticated %}
+          {% if user.is_staff %}
           <a href="{% url 'admin:berkeley_publication_add' %}">Add entry</a>
           <a href="{% url 'berkeley:todo' %}">To do</a>
           <a href="{% url 'admin:password_change' %}">Change password</a>
+          {% endif %}
           <form class="logout" action="{% url 'berkeley:logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" title="Logged in as {{ user.get_username }}">Log out</button>

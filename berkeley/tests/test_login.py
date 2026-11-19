@@ -61,7 +61,7 @@ class AnonymousTest(LoginTestCase):
     def test_bad_password(self):
         resp = self.client.post(f"{ROOT}login/",
                                 {"username": "editor", "password": "no"})
-        self.assertContains(resp, "didn't match")
+        self.assertContains(resp, "did not match")
 
     def test_logging_in_returns_to_the_page(self):
         resp = self.client.post(f"{ROOT}login/",
@@ -74,6 +74,27 @@ class AnonymousTest(LoginTestCase):
         self.assertIn('href="/admin/password_change/">Change password</a>',
                       html)
         self.assertNotIn(">Login</a>", html)
+
+    def test_account_that_is_not_an_editor_is_told_so(self):
+        """An account made without editor rights (e.g. with the admin's
+        Add user form, which leaves Staff status unticked) is not logged
+        in, and is told why, instead of meeting "not authorized" pages."""
+        User.objects.create_user("reader", password="pw")
+        resp = self.client.post(f"{ROOT}login/",
+                                {"username": "reader", "password": "pw"})
+        self.assertContains(resp, "not set up as an editor yet")
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_logged_in_non_editor_sees_no_editor_links(self):
+        reader = User.objects.create_user("reader", password="pw")
+        self.client.force_login(reader)
+        html = self.client.get(f"{ROOT}pub_detail/{self.book.id}/"
+                               ).content.decode()
+        for absent in ("Add entry", ">To do<", "Change password", PENCIL):
+            self.assertNotIn(absent, html)
+        self.assertIn("Log out", html)
+        resp = self.client.get(f"{ROOT}todo/")
+        self.assertEqual(resp.status_code, 302)
 
     def test_change_password_page(self):
         self.login()

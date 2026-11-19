@@ -2,7 +2,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
 from django.urls import reverse
@@ -17,7 +17,11 @@ from .models import Publication
 from .models import REVIEW_TYPES
 from .models import Site
 
-from .forms import SearchForm
+from .forms import EditorLoginForm, SearchForm
+
+# editors are staff accounts (manage.py add_editor); anyone else is sent
+# to the login page, as login_required would
+editor_required = user_passes_test(lambda u: u.is_active and u.is_staff)
 
 
 def get_hdr():
@@ -73,7 +77,7 @@ def pub_detail(request, pub_id):
             'pub_detail.html', 'pub')
 
 
-@login_required
+@editor_required
 def edit_pub(request, pub_id):
     """Editing is done in the Django admin: send the editor to the
     entry's admin page."""
@@ -82,7 +86,7 @@ def edit_pub(request, pub_id):
                             args=[pub.id]))
 
 
-@login_required
+@editor_required
 def todo(request):
     """The editors' to-do page: open questions about existing entries,
     then the possible entries still to decide on. Both are kept up to date
@@ -103,6 +107,7 @@ class LoginView(auth_views.LoginView):
     """The editors' login page, in the site's own style. There is no
     sign-up: logins are made by an administrator (manage.py add_editor)."""
     template_name = 'login.html'
+    authentication_form = EditorLoginForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
