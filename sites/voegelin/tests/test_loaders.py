@@ -4,7 +4,7 @@ from io import StringIO
 from django.core.management import call_command
 from django.test import TestCase
 
-from berkeley.models import OpenQuestion, Publication
+from berkeley.models import Journal, OpenQuestion, Publication
 
 from sites.voegelin.management.commands._books_by import BOOKS, QUESTIONS
 
@@ -127,3 +127,45 @@ class ShortWorksByVoegelinTest(TestCase):
         self.assertEqual(pub.language, timur["language"])
         self.assertEqual([p.lname for p in pub.ordered_authors()],
                          ["Voegelin"])
+
+
+class ReviewsByVoegelinTest(TestCase):
+    def test_load_twice(self):
+        from sites.voegelin.management.commands import _reviews_by as d
+        load()
+        out = StringIO()
+        call_command("load_reviews_by_voegelin", stdout=out)
+        n = len(d.REVIEWS)
+        self.assertIn(f"Added {n} reviews", out.getvalue())
+        call_command("load_reviews_by_voegelin", stdout=out)
+        self.assertIn("Added 0 reviews", out.getvalue())
+        reviews = Publication.objects.filter(pub_type="RVBY")
+        self.assertEqual(reviews.count(), n)
+        self.assertEqual(
+            reviews.exclude(reprinted_in=None).distinct().count(),
+            len([r for r in d.REVIEWS if r.get("reprinted")]))
+        self.assertEqual(OpenQuestion.objects.filter(
+            title__startswith="Voegelin reviews").count(), len(d.QUESTIONS))
+        first = d.REVIEWS[0]
+        pub = reviews.get(review=first["book"], year=first["year"])
+        self.assertEqual([p.lname for p in pub.ordered_authors()],
+                         ["Voegelin"])
+        self.assertEqual(pub.language, first["language"])
+        self.assertEqual(
+            sorted(p.lname for p in pub.reviewees.all()),
+            sorted(n[2] for n in first["reviewees"]))
+
+    def test_field_lengths(self):
+        """Values fit their database columns (sqlite would not complain)."""
+        from sites.voegelin.management.commands import _reviews_by as d
+        for r in d.REVIEWS:
+            for field in ("book", "names", "title", "journal", "volume",
+                          "issue", "pages", "language"):
+                model, column = {
+                    "book": (Publication, "review"),
+                    "names": (Publication, "reviewed_names"),
+                    "journal": (Journal, "name"),
+                }.get(field, (Publication, field))
+                limit = model._meta.get_field(column).max_length
+                self.assertLessEqual(len(r.get(field, "")), limit,
+                                     (r["key"], field))
