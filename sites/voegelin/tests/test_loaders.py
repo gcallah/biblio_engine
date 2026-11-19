@@ -63,3 +63,24 @@ class BooksByVoegelinTest(TestCase):
         self.assertEqual(
             [p.lname for p in self.book("Rasse und Staat").ordered_authors()],
             ["Voegelin"])
+
+
+class BooksAboutVoegelinTest(TestCase):
+    def test_load_twice(self):
+        from sites.voegelin.management.commands.load_books_about_voegelin \
+            import BOOKS_ABOUT, MENTIONING
+        out = StringIO()
+        call_command("load_books_about_voegelin", stdout=out)
+        self.assertIn(f"Added {len(BOOKS_ABOUT)} books about", out.getvalue())
+        call_command("load_books_about_voegelin", stdout=out)
+        self.assertEqual(Publication.objects.filter(pub_type="BKAB").count(),
+                         len(BOOKS_ABOUT))
+        self.assertEqual(Publication.objects.filter(pub_type="MENT").count(),
+                         len(MENTIONING))
+        recollected = Publication.objects.get(
+            title="Voegelin Recollected: Conversations on a Life")
+        self.assertEqual([p.lname for p in recollected.ordered_editors()],
+                         ["Cooper", "Bruhn"])
+        self.assertEqual(recollected.publisher.name,
+                         "University of Missouri Press")
+        self.assertEqual(recollected.subject.name, "Philosophy")
