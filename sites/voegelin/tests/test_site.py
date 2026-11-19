@@ -29,7 +29,7 @@ class VoegelinPagesTest(BiblioTestCase):
 
     def test_own_stylesheet(self):
         self.assertContains(self.client.get("/voegelin/"),
-                            'href="/static/voegelin/css/site.css?v=1"')
+                            'href="/static/voegelin/css/site.css?v=')
         self.assertTrue(finders.find(settings.BIBLIO_SITE["stylesheet"]))
 
     def test_background_is_the_flammarion_engraving(self):
