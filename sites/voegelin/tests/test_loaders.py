@@ -84,3 +84,19 @@ class BooksAboutVoegelinTest(TestCase):
         self.assertEqual(recollected.publisher.name,
                          "University of Missouri Press")
         self.assertEqual(recollected.subject.name, "Philosophy")
+
+
+class KeywordsVoegelinTest(TestCase):
+    def test_tags(self):
+        load()
+        out = StringIO()
+        call_command("load_keywords_voegelin", stdout=out)
+        call_command("load_keywords_voegelin", stdout=out)
+        self.assertIn("Added 0 keyword tags.", out.getvalue())
+        pub = Publication.objects.get(title="Die politischen Religionen")
+        self.assertEqual([k.name for k in pub.keywords.all()],
+                         ["political religions"])
+        oh3 = Publication.objects.get(
+            title="Order and History, Volume III: Plato and Aristotle")
+        self.assertEqual(sorted(k.name for k in oh3.keywords.all()),
+                         ["Aristotle", "Plato"])
