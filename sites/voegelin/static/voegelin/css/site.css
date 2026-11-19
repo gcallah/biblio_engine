@@ -1,41 +1,137 @@
 /*
     The Eric Voegelin bibliography's look: brighter and sharper than the
-    engine's default (berkeley/static/berkeley/style.css, loaded first).
-    Only variables are redefined here; any rule could be overridden too.
+    engine's default (berkeley/static/berkeley/style.css, loaded first),
+    in shades of blue: a navy night, a lapis accent (like the engraving's
+    sky), sky-blue rules and highlights, and pale blue bands. Gold is kept
+    only for the portrait's ring and the dates, as a counterpoint.
+    Variables are redefined first; a few rules follow, under BLUES.
 */
 
 :root {
-    /* brighter: white paper, whiter lettering and a brighter gold on
-       a cool tint (the engraving is busy, so the tint stays strong
-       enough for the masthead to read) */
-    --night: #12151b;
-    --tint-top: rgba(18, 21, 27, 0.58);
-    --tint-bottom: rgba(18, 21, 27, 0.78);
+    /* the blues, darkest to palest */
+    --navy: #0b1730;
+    --lapis: #1d4f91;
+    --lapis-dark: #133766;
+    --cobalt: #2f6db5;
+    --sky: #6fa8e0;
+    --sky-light: #a9cdf2;
+    --pale-blue: #e6eff9;
+    --ice: #f4f8fd;
+
+    /* brighter: white paper, whiter lettering, on a navy tint (the
+       engraving is busy, so the tint stays strong enough for the
+       masthead to read) */
+    --night: var(--navy);
+    --tint-top: rgba(11, 23, 48, 0.58);
+    --tint-bottom: rgba(11, 23, 48, 0.80);
     --paper: #ffffff;
-    --paper-edge: #d4d9e0;
-    --rule: #d9dee5;
-    --field-bg: #ffffff;
+    --paper-edge: #c3d5ea;
+    --rule: #d3e0ef;
+    --field-bg: var(--ice);
     --on-night-bright: #ffffff;
-    --on-night: #f4f6f9;
-    --on-night-soft: #e2e7ee;
-    --on-night-muted: rgba(244, 246, 249, 0.8);
+    --on-night: #eef4fb;
+    --on-night-soft: var(--sky-light);
+    --on-night-muted: rgba(214, 228, 245, 0.8);
 
     /* sharper: near-black text, a clear lapis accent, a sturdier display
        face, crisp corners and tighter shadows */
-    --ink: #15171c;
-    --ink-soft: #414956;
-    --accent: #1d4f91;        /* lapis, like the engraving's sky */
-    --accent-dark: #143a6b;
+    --ink: #121a26;
+    --ink-soft: #3b4e69;      /* slate blue */
+    --accent: var(--lapis);
+    --accent-dark: var(--lapis-dark);
     --gold: #e9bb45;
     --serif-display: "EB Garamond", Garamond, Georgia, serif;
-    --link-underline: rgba(29, 79, 145, 0.3);
-    --row-hover: rgba(29, 79, 145, 0.06);
-    --focus-ring: rgba(29, 79, 145, 0.25);
-    --masthead-rule: rgba(233, 187, 69, 0.75);
-    --footer-rule: rgba(233, 187, 69, 0.55);
+    --link-underline: rgba(47, 109, 181, 0.35);
+    --row-hover: rgba(111, 168, 224, 0.16);
+    --focus-ring: rgba(111, 168, 224, 0.35);
+    --masthead-rule: rgba(111, 168, 224, 0.75);
+    --footer-rule: rgba(111, 168, 224, 0.55);
     --panel-radius: 2px;
     --radius: 2px;
     --panel-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-    --pop-shadow: 0 4px 12px rgba(18, 21, 27, 0.2);
+    --pop-shadow: 0 4px 12px rgba(11, 23, 48, 0.25);
     --title-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* BLUES */
+
+/* menu and footer links light up sky blue */
+#user-tools a:hover, #user-tools a:focus,
+.footer-nav a:hover, .footer-nav a:focus,
+#user-tools form.logout button:hover,
+#user-tools form.logout button:focus {
+    color: var(--sky-light);
+    border-bottom-color: var(--sky-light);
+}
+
+.footer-nav .sep {
+    color: var(--sky);
+}
+
+/* a lapis band along the top of the content panel */
+#content {
+    border-top: 4px solid var(--lapis);
+}
+
+h2, caption {
+    border-bottom: 2px solid var(--sky-light);
+}
+
+h3, h4 {
+    color: var(--cobalt);
+}
+
+/* table headings on a pale blue band, ruled in lapis */
+th {
+    color: var(--lapis-dark);
+    background: var(--pale-blue);
+    border-bottom: 2px solid var(--lapis);
+}
+
+/* every other row faintly blue */
+tbody tr:nth-child(even) td {
+    background: var(--ice);
+}
+
+tr:hover td,
+tbody tr:nth-child(even):hover td {
+    background: var(--row-hover);
+}
+
+/* form labels stay plain */
+form th {
+    background: transparent;
+    color: var(--ink);
+}
+
+form tbody tr:nth-child(even) td,
+form tr:hover td {
+    background: transparent;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--sky);
+}
+
+/* buttons shade from cobalt to lapis */
+input[type=submit], button, #submit,
+a.button-link:link, a.button-link:visited {
+    background: linear-gradient(var(--cobalt), var(--lapis));
+}
+
+input[type=submit]:hover, button:hover, #submit:hover,
+a.button-link:hover, a.button-link:focus {
+    background: var(--lapis-dark);
+}
+
+ul.nested {
+    border-left-color: var(--sky);
+}
+
+.no-results h2::after {
+    border-bottom-color: var(--sky);
+}
+
+.abstract-pop {
+    border-top-color: var(--lapis);
 }
