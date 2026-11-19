@@ -100,3 +100,30 @@ class KeywordsVoegelinTest(TestCase):
             title="Order and History, Volume III: Plato and Aristotle")
         self.assertEqual(sorted(k.name for k in oh3.keywords.all()),
                          ["Aristotle", "Plato"])
+
+
+class ShortWorksByVoegelinTest(TestCase):
+    def test_load_twice(self):
+        from sites.voegelin.management.commands import _short_works_by as d
+        load()
+        out = StringIO()
+        call_command("load_short_works_by_voegelin", stdout=out)
+        n = len(d.ARTICLES) + len(d.CHAPTERS)
+        self.assertIn(f"Added {n} short works", out.getvalue())
+        call_command("load_short_works_by_voegelin", stdout=out)
+        self.assertIn("Added 0 short works", out.getvalue())
+        self.assertEqual(Publication.objects.filter(pub_type="SWBY").count(),
+                         n)
+        self.assertEqual(Publication.objects.filter(pub_type="MENT").count(),
+                         len(d.HOSTS))
+        reprinted = [i for i in d.ARTICLES + d.CHAPTERS if i.get("reprinted")]
+        self.assertEqual(
+            Publication.objects.filter(pub_type="SWBY")
+            .exclude(reprinted_in=None).distinct().count(), len(reprinted))
+        timur = next(i for i in d.ARTICLES + d.CHAPTERS
+                     if i["title"].startswith("Das Timurbild")
+                     or "Timur" in i["title"])
+        pub = Publication.objects.get(title=timur["title"])
+        self.assertEqual(pub.language, timur["language"])
+        self.assertEqual([p.lname for p in pub.ordered_authors()],
+                         ["Voegelin"])
