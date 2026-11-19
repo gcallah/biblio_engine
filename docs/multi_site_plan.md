@@ -148,3 +148,14 @@ that site unchanged. Check the live site after each one.
 Later: links between sites (e.g. Voegelin works on Oakeshott, a
 Collingwood site). Stable per-site URLs plus an "also in" field on
 people and works would do it; not needed for the split.
+
+**Look and feel (2026-11-19).** The engine's stylesheet
+(`berkeley/static/berkeley/style.css`) defines every colour, font,
+shadow, corner and the background tint as a CSS variable in `:root`. A
+site keeps that look wholesale, or names a stylesheet of its own in
+`BIBLIO_SITE["stylesheet"]` (with `"stylesheet_version"` to refresh
+caches), loaded after the engine's. There it can redefine a few variables
+or override any rule. Oakeshott uses the default; Voegelin's
+`sites/voegelin/static/voegelin/css/site.css` redefines variables only
+(white paper, near-black ink, a lapis accent, crisper corners).
+

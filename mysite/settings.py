@@ -35,6 +35,10 @@ BIBLIO_SITE = {
                 "College, Cambridge (19th-century photograph, public "
                 "domain). Portrait: LSE Library, no known copyright "
                 "restrictions. Images via Wikimedia Commons."),
+    # a stylesheet of the site's own, loaded after the engine's
+    # (berkeley/static/berkeley/style.css) to change as much or as little
+    # of the look as it likes, e.g. "oakeshott/css/site.css", with
+    # "stylesheet_version" to bump (optional; none: the default look)
     # replacements for the standard type labels, by code, e.g.
     # {"MENT": "Works Discussing Oakeshott"}
     "pub_type_labels": {},

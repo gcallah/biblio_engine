@@ -1,0 +1,41 @@
+/*
+    The Eric Voegelin bibliography's look: brighter and sharper than the
+    engine's default (berkeley/static/berkeley/style.css, loaded first).
+    Only variables are redefined here; any rule could be overridden too.
+*/
+
+:root {
+    /* brighter: white paper, whiter lettering and a brighter gold on
+       a cool tint (the engraving is busy, so the tint stays strong
+       enough for the masthead to read) */
+    --night: #12151b;
+    --tint-top: rgba(18, 21, 27, 0.58);
+    --tint-bottom: rgba(18, 21, 27, 0.78);
+    --paper: #ffffff;
+    --paper-edge: #d4d9e0;
+    --rule: #d9dee5;
+    --field-bg: #ffffff;
+    --on-night-bright: #ffffff;
+    --on-night: #f4f6f9;
+    --on-night-soft: #e2e7ee;
+    --on-night-muted: rgba(244, 246, 249, 0.8);
+
+    /* sharper: near-black text, a clear lapis accent, a sturdier display
+       face, crisp corners and tighter shadows */
+    --ink: #15171c;
+    --ink-soft: #414956;
+    --accent: #1d4f91;        /* lapis, like the engraving's sky */
+    --accent-dark: #143a6b;
+    --gold: #e9bb45;
+    --serif-display: "EB Garamond", Garamond, Georgia, serif;
+    --link-underline: rgba(29, 79, 145, 0.3);
+    --row-hover: rgba(29, 79, 145, 0.06);
+    --focus-ring: rgba(29, 79, 145, 0.25);
+    --masthead-rule: rgba(233, 187, 69, 0.75);
+    --footer-rule: rgba(233, 187, 69, 0.55);
+    --panel-radius: 2px;
+    --radius: 2px;
+    --panel-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    --pop-shadow: 0 4px 12px rgba(18, 21, 27, 0.2);
+    --title-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}

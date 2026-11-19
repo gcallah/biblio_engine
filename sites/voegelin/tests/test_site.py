@@ -27,6 +27,11 @@ class VoegelinPagesTest(BiblioTestCase):
         self.assertContains(resp, "used under fair use")
         self.assertTrue(finders.find(settings.BIBLIO_SITE["portrait"]))
 
+    def test_own_stylesheet(self):
+        self.assertContains(self.client.get("/voegelin/"),
+                            'href="/static/voegelin/css/site.css?v=1"')
+        self.assertTrue(finders.find(settings.BIBLIO_SITE["stylesheet"]))
+
     def test_background_is_the_flammarion_engraving(self):
         resp = self.client.get("/voegelin/")
         self.assertContains(resp,

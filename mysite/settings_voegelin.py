@@ -39,5 +39,8 @@ BIBLIO_SITE = {
                 "Flammarion, L’atmosphère: météorologie populaire (Paris, "
                 "1888), public domain. Portrait: via VoegelinView "
                 "(voegelinview.com), used under fair use."),
+    # the site's own look, on top of the engine's default
+    "stylesheet": "voegelin/css/site.css",
+    "stylesheet_version": "1",         # bump to refresh browser caches
     "pub_type_labels": {},
 }

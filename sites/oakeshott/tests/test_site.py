@@ -17,6 +17,11 @@ class OakeshottPagesTest(BiblioTestCase):
             self.client.get("/oakeshott/"),
             'url("/static/oakeshott/img/caius-gate-of-honour.jpg")')
 
+    def test_default_look(self):
+        """Oakeshott has no stylesheet of its own: the engine's look."""
+        html = self.client.get("/oakeshott/").content.decode()
+        self.assertEqual(html.count('rel="stylesheet" type="text/css"'), 1)
+
     def test_portrait_and_background_are_found(self):
         for key in ("portrait", "background"):
             self.assertTrue(finders.find(settings.BIBLIO_SITE[key]), key)

@@ -185,6 +185,32 @@ class SiteRootTest(BiblioTestCase):
         self.assertEqual(resp["Location"], ROOT)
 
 
+class SiteStylesheetTest(BiblioTestCase):
+    """A site may add a stylesheet of its own after the engine's."""
+    def test_own_stylesheet_after_the_engines(self):
+        site = dict(settings.BIBLIO_SITE, stylesheet="example/css/site.css",
+                    stylesheet_version="4")
+        with self.settings(BIBLIO_SITE=site):
+            html = self.client.get(ROOT).content.decode()
+        engine = html.index("/static/berkeley/style.css")
+        own = html.index('href="/static/example/css/site.css?v=4"')
+        self.assertLess(engine, own)
+
+    def test_default_look_without_one(self):
+        site = {k: v for k, v in settings.BIBLIO_SITE.items()
+                if k != "stylesheet"}
+        with self.settings(BIBLIO_SITE=site):
+            html = self.client.get(ROOT).content.decode()
+        self.assertEqual(html.count('rel="stylesheet" type="text/css"'), 1)
+
+    def test_background_tint_comes_from_the_stylesheet(self):
+        site = dict(settings.BIBLIO_SITE, background="example/img/bg.jpg")
+        with self.settings(BIBLIO_SITE=site):
+            html = self.client.get(ROOT).content.decode()
+        self.assertIn("linear-gradient(var(--tint-top), var(--tint-bottom))",
+                      html)
+
+
 class SiteWithoutPicturesTest(BiblioTestCase):
     """A new site may start with no portrait, background or credits."""
     def test_no_portrait_background_or_credits(self):
