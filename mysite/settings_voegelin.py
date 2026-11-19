@@ -41,6 +41,6 @@ BIBLIO_SITE = {
                 "(voegelinview.com), used under fair use."),
     # the site's own look, on top of the engine's default
     "stylesheet": "voegelin/css/site.css",
-    "stylesheet_version": "2",         # bump to refresh browser caches
+    "stylesheet_version": "3",         # bump to refresh browser caches
     "pub_type_labels": {},
 }

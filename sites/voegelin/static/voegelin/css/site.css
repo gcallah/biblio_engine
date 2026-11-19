@@ -2,7 +2,7 @@
     The Eric Voegelin bibliography's look: brighter and sharper than the
     engine's default (berkeley/static/berkeley/style.css, loaded first),
     in shades of blue: a navy night, a lapis accent (like the engraving's
-    sky), sky-blue rules and highlights, and pale blue bands. Gold is kept
+    sky), sky-blue rules and highlights, and a pale blue panel with bands. Gold is kept
     only for the portrait's ring and the dates, as a counterpoint.
     Variables are redefined first; a few rules follow, under BLUES.
 */
@@ -15,19 +15,20 @@
     --cobalt: #2f6db5;
     --sky: #6fa8e0;
     --sky-light: #a9cdf2;
-    --pale-blue: #e6eff9;
-    --ice: #f4f8fd;
+    --pale-blue: #dce8f6;
+    --ice: #eaf1fa;
+    --mist: #f3f7fc;          /* the panel */
 
-    /* brighter: white paper, whiter lettering, on a navy tint (the
+    /* brighter: pale blue paper, whiter lettering, on a navy tint (the
        engraving is busy, so the tint stays strong enough for the
        masthead to read) */
     --night: var(--navy);
     --tint-top: rgba(11, 23, 48, 0.58);
     --tint-bottom: rgba(11, 23, 48, 0.80);
-    --paper: #ffffff;
+    --paper: var(--mist);
     --paper-edge: #c3d5ea;
     --rule: #d3e0ef;
-    --field-bg: var(--ice);
+    --field-bg: #ffffff;
     --on-night-bright: #ffffff;
     --on-night: #eef4fb;
     --on-night-soft: var(--sky-light);
