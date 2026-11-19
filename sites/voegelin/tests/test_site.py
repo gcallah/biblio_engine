@@ -27,12 +27,11 @@ class VoegelinPagesTest(BiblioTestCase):
         self.assertContains(resp, "used under fair use")
         self.assertTrue(finders.find(settings.BIBLIO_SITE["portrait"]))
 
-    def test_background_is_the_wilderness(self):
+    def test_background_is_the_flammarion_engraving(self):
         resp = self.client.get("/voegelin/")
-        self.assertContains(
-            resp,
-            'url("/static/voegelin/img/israelites-in-the-wilderness.jpg")')
-        self.assertContains(resp, "Pillar of Clouds")
+        self.assertContains(resp,
+                            'url("/static/voegelin/img/flammarion.jpg")')
+        self.assertContains(resp, "Flammarion engraving")
         self.assertTrue(finders.find(settings.BIBLIO_SITE["background"]))
 
     def test_no_oakeshott_urls(self):

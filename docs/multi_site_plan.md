@@ -131,8 +131,8 @@ that site unchanged. Check the live site after each one.
    *6a done 2026-11-18 (code only, no deploy): `sites/voegelin` (app
    label `voegelin_site`, the engine's own About page) and
    `mysite/settings_voegelin.py` (`/voegelin/`, 1901 – 1985; the
-   Wikipedia portrait, under fair use; background: William West's
-   Israelites in the wilderness, from the Met, CC0; the engine's base.html now leaves the
+   Wikipedia portrait, under fair use; background: the Flammarion
+   engraving (1888, public domain); the engine's base.html now leaves the
    portrait and credits out when a site has none). CI runs a third test
    suite, `make voegelin_tests`. 6b done 2026-11-18: `bin/setup_pa_site.sh voegelin
    mysite.settings_voegelin ...` set up the `voegelin` account once

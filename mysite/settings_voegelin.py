@@ -29,15 +29,15 @@ BIBLIO_SITE = {
     "portrait": "voegelin/img/voegelin.jpg",
     "portrait_version": "1",
     "portrait_alt": "Portrait of Eric Voegelin",
-    # the Israelites' journey through the wilderness, for Voegelin's
-    # "In Search of Order". Source: Wikimedia Commons, "A Column of
-    # Oriental Travelers Scattered by a Dust Storm ... MET DP805116.jpg"
-    # (CC0), cropped to the picture and scaled to 1600 px.
-    "background": "voegelin/img/israelites-in-the-wilderness.jpg",
-    "credits": ("Background: William West, The Israelites Passing "
-                "through the Wilderness, Preceded by the Pillar of Clouds "
-                "(c. 1820\u201340), The Metropolitan Museum of Art "
-                "(public domain). Portrait: via VoegelinView "
+    # the "Flammarion engraving": a pilgrim looks through the vault of the
+    # heavens for the order behind it, for Voegelin's "In Search of
+    # Order". Source: Wikimedia Commons, File:Flammarion.jpg (public
+    # domain), 1280 px. (A picture's middle is hidden behind the content
+    # panel, so one whose top and edges carry it works best.)
+    "background": "voegelin/img/flammarion.jpg",
+    "credits": ("Background: the “Flammarion engraving”, from Camille "
+                "Flammarion, L’atmosphère: météorologie populaire (Paris, "
+                "1888), public domain. Portrait: via VoegelinView "
                 "(voegelinview.com), used under fair use."),
     "pub_type_labels": {},
 }
