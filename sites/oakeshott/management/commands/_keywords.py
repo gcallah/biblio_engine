@@ -7,6 +7,13 @@ that book. ENTRY_KEYWORDS are keyed by (title, reviewed title, year,
 where): "where" is the journal name, "in: <book title>" for a chapter,
 or the publisher name for a book; "reviewed title" is the review field
 (a book not in the bibliography), usually blank.
+
+The second set (BOOK_KEYWORDS_2, ENTRY_KEYWORDS_2, 2026-11-20) tags the
+keywords the editors added on the site, by the same rule; it is kept
+apart so that an entry tagged in both sets is not silently overwritten
+by a repeated dictionary key. POSSIBLE lists entries that may deserve
+one of those keywords but are not plainly about it; load_keywords puts
+each group on the editors' to-do page as an open question.
 """
 
 KEYWORDS = [
@@ -23,6 +30,18 @@ KEYWORDS = [
     'politics of faith',
     'politics of scepticism',
     'Hobbes',
+    # added by the editors on the site, 2026-11-19; tagged in the second
+    # set below
+    'nomocracy',
+    'jurisprudence',
+    'teleocracy',
+    'pluralism',
+    'Collingwood',
+    'Bradley',
+    'Hegel',
+    'ethics',
+    'moral philosophy',
+    'political philosophy',
 ]
 
 BOOK_KEYWORDS = {
@@ -347,4 +366,212 @@ ENTRY_KEYWORDS = {
         ['rationalism'],
     ("An Oakeshottian Analysis of Stephen Wolfe's Christian Nationalism: Civil Associations vs. The Complete Good", '', 2025, 'Cosmos + Taxis'):
         ['civil association', 'enterprise association'],
+}
+
+
+# THE SECOND SET (2026-11-20)
+
+BOOK_KEYWORDS_2 = {
+    'The Concept of a Philosophical Jurisprudence: Essays and Reviews 1926–51':
+        ['jurisprudence'],
+    'On History and Other Essays':
+        ['jurisprudence'],
+    'The Defence of Natural Law: A Study of the Ideas of Law and Justice in the Writings of Lon L. Fuller, Michael Oakeshott, F. A. Hayek, Ronald Dworkin and John Finnis':
+        ['jurisprudence'],
+    'Michael Oakeshott':
+        ['pluralism'],
+    'In Defence of Modernity: Vision and Philosophy in Michael Oakeshott':
+        ['pluralism'],
+    'On World Politics: R. G. Collingwood, Michael Oakeshott and Neotraditionalism in International Relations':
+        ['Collingwood'],
+    'Experience and Its Modes':
+        ['Bradley', 'Hegel'],
+    'The Politics and Philosophy of Michael Oakeshott':
+        ['Bradley'],
+    'Oakeshott and His Contemporaries: Montaigne, St. Augustine, Hegel, et al.':
+        ['Hegel'],
+    'Religion, Politics and the Moral Life':
+        ['moral philosophy', 'political philosophy'],
+    'Religious and Poetic Experience in the Thought of Michael Oakeshott':
+        ['moral philosophy'],
+    'Morality and Politics in Modern Europe: The Harvard Lectures':
+        ['moral philosophy'],
+    'The Political Philosophy of Michael Oakeshott':
+        ['political philosophy'],
+    "The Limits of Political Theory: Oakeshott's Philosophy of Civil Association":
+        ['political philosophy'],
+    "The Skeptic's Oakeshott":
+        ['political philosophy'],
+    'Michael Oakeshott and Liberalism Revisited':
+        ['political philosophy'],
+    "Michael Oakeshott's Political Philosophy of International Relations: Civil Association and International Society":
+        ['political philosophy'],
+    'Political Education: An Inaugural Lecture':
+        ['political philosophy'],
+    'Lectures in the History of Political Thought':
+        ['political philosophy'],
+    'Early Political Writings 1925–30: A Discussion of Some Matters Preliminary to the Study of Political Philosophy':
+        ['political philosophy'],
+}
+
+ENTRY_KEYWORDS_2 = {
+    ('Law, Legislation and Liberty', '', 1973, 'Routledge and Kegan Paul'):
+        ['nomocracy', 'teleocracy', 'jurisprudence'],
+    ('', 'Natural Law and the Theory of Society, 1500 to 1800 (trans. E. Barker)', 1934, 'Cambridge Review'):
+        ['jurisprudence'],
+    ('Legal Intimations: Michael Oakeshott and the Rule of Law', '', 1993, 'Wisconsin Law Journal'):
+        ['jurisprudence'],
+    ('Michael Oakeshott and the Elusive Identity of the Rule of Law', '', 2005, 'in: The Intellectual Legacy of Michael Oakeshott'):
+        ['jurisprudence'],
+    ('Oakeshott on Law, Liberty and Civil Association', '', 1988, 'The World and I'):
+        ['jurisprudence'],
+    ('Oakeshott on the Authority of Law', '', 1989, 'Ratio Juris'):
+        ['jurisprudence'],
+    ('Oakeshott on the Rule of Law: A Defense', '', 2014, 'Cosmos + Taxis'):
+        ['jurisprudence'],
+    ('The Rule of Law in the Modern European State: Oakeshott and the Enlargement of Europe', '', 2005, 'European Journal of Political Theory'):
+        ['jurisprudence'],
+    ('What Is a Non-Instrumental Law?', '', 1992, 'Political Science Reviewer'):
+        ['jurisprudence'],
+    ('Law and Contingency: Michael Oakeshott and The German Historical School', '', 2016, 'Collingwood and British Idealism Studies'):
+        ['jurisprudence'],
+    ("Rationalism in Law: Constitutional Originalism and the 'Sovereignty of Technique'", '', 2016, 'Collingwood and British Idealism Studies'):
+        ['jurisprudence'],
+    ('Law, Morality, and the Relations of States', '', 1983, 'Princeton University Press'):
+        ['jurisprudence'],
+    ('The Anglo-American Conception of the Rule of Law', '', 2019, 'Palgrave Macmillan'):
+        ['jurisprudence'],
+    ('Pluralism in the Thought of Oakeshott, Shils and Weber', '', 2002, 'Journal of Classical Sociology'):
+        ['pluralism'],
+    ('Dimensions of Radical Democracy: Pluralism, Citizenship, Community', '', 1992, 'Verso'):
+        ['pluralism'],
+    ('How Oakeshott Became an Oakeshottean', '', 2005, 'European Journal of Political Theory'):
+        ['pluralism'],
+    ('The Shapes of Liberal Thought: Oakeshott, Berlin, and Liberalism', '', 2003, 'Political Theory'):
+        ['pluralism'],
+    ('Art, History and Science: The Contrasting Worlds of Collingwood and Oakeshott', '', 1998, 'Collingwood Studies'):
+        ['Collingwood'],
+    ('Collingwood, Oakeshott and Webb on the “Historical Element” in Religion', '', 2007, 'Collingwood and British Idealism Studies'):
+        ['Collingwood'],
+    ('Collingwood, Oakeshott, and the Social Contract', '', 1996, 'Collingwood Studies'):
+        ['Collingwood'],
+    ('Human Conduct, History, and Social Science in the Works of R. G. Collingwood and Michael Oakeshott', '', 1993, 'New Literary History'):
+        ['Collingwood'],
+    ('Overlap and Autonomy: The Different Worlds of Collingwood and Oakeshott', '', 1989, 'Storia Antropologia e Scienza del Linguaggio'):
+        ['Collingwood'],
+    ('The English Idea of History from Coleridge to Collingwood', '', 2000, 'Ashgate'):
+        ['Collingwood'],
+    ('The Idea of History', '', 1946, 'Clarendon Press'):
+        ['Collingwood'],
+    ('', '', 1933, 'Cambridge Review'):
+        ['Collingwood'],
+    ('Apologia for Poetry and the Art of Conversation', '', 2022, 'Cosmos + Taxis'):
+        ['Collingwood'],
+    ('Scepticism and Historical Knowledge', '', 1965, 'Random House'):
+        ['Collingwood'],
+    ('', 'The Political Philosophies of Plato and Hegel', 1935, 'Cambridge Review'):
+        ['Hegel', 'political philosophy'],
+    ('', 'Critique of Hegel’s Philosophy of Right (ed. J. O’Malley)', 1971, 'Spectator'):
+        ['Hegel'],
+    ('', 'Hegel’s Theory of the Modern State', 1975, 'European Studies Review'):
+        ['Hegel'],
+    ("Oakeshott's Relationship to Hegel", '', 2005, 'in: The Intellectual Legacy of Michael Oakeshott'):
+        ['Hegel'],
+    ('', 'Ethical Principles in Theory and Practice', 1931, 'Journal of Theological Studies'):
+        ['ethics'],
+    ('', 'Socialism and Ethics', 1949, 'Cambridge Journal'):
+        ['ethics'],
+    ('', 'The Ethics of Redistribution', 1952, 'Clare Market Review'):
+        ['ethics'],
+    ('Ethics and the Conduct of Life in the old Georg Simmel and the young Michael Oakeshott', '', 2007, 'Simmel Studies'):
+        ['ethics'],
+    ('The Moral Life in the Writings of Thomas Hobbes', '', 1962, 'in: Rationalism in Politics and Other Essays'):
+        ['moral philosophy'],
+    ("The Voice of Poetry in Oakeshott's Moral Philosophy", '', 2002, 'Review of Politics'):
+        ['moral philosophy'],
+    ('Oakeshott and the Complex Ecology of the Moral Life', '', 2014, 'Cosmos + Taxis'):
+        ['moral philosophy'],
+    ("Proud Men / Just Men: An Analysis of Michael Oakeshott's Account of Hobbesian Morality", '', 1992, 'Hobbes Studies'):
+        ['moral philosophy'],
+    ('The Minefields of Moral Philosophy', '', 1976, 'Encounter'):
+        ['moral philosophy'],
+    ('Poetic Experience and the Good Life in the Writings of Michael Oakeshott', '', 2005, 'European Journal of Political Theory'):
+        ['moral philosophy'],
+    ('Habit and Discovery: The Political Philosophy of Michael Oakeshott', '', 1977, 'Political Science Reviewer'):
+        ['political philosophy'],
+    ('Michael Oakeshott as a Political Philosopher', '', 1975, 'Indian Journal of Political Science'):
+        ['political philosophy'],
+    ('Michael Oakeshott, Political Philosopher', '', 1991, 'Cambridge Review'):
+        ['political philosophy'],
+    ('Review Article: The Political Philosophy of Michael Oakeshott', '', 1979, 'British Journal of Political Science'):
+        ['political philosophy'],
+    ("The Dilemma of Michael Oakeshott: Oakeshott's Treatment of Equality of Opportunity in Education and His Political Philosophy", '', 1989, 'Journal of Philosophy of Education'):
+        ['political philosophy'],
+    ("Political Philosophy versus Poetic Individuality: A Response to David McIlwain's Michael Oakeshott and Leo Strauss: The Politics of Renaissance and Enlightenment", '', 2022, 'Cosmos + Taxis'):
+        ['political philosophy'],
+    ("Contingency and Judgement in Oakeshott's Political Thought", '', 2005, 'European Journal of Political Theory'):
+        ['political philosophy'],
+    ("What Can We Learn from Michael Oakeshott's Effort to Understand Our World?", '', 2020, 'Cosmos + Taxis'):
+        ['political philosophy'],
+    ('Rationalism in Ideal Theory: Michael Oakeshott on John Rawls', '', 2022, 'Cosmos + Taxis'):
+        ['political philosophy'],
+    ("Liberalism and the Prospect of Rational Order in Hobbes's Political Philosophy and the Responses of Oakeshott, Strauss and Voegelin", '', 2018, 'in: Tradition v. Rationalism: Voegelin, Oakeshott, Hayek, and Others'):
+        ['political philosophy'],
+    ('', 'The Political Philosophy of Hobbes', 1936, 'Cambridge Review'):
+        ['political philosophy'],
+    ('', 'The Political Philosophy of Hobbes', 1937, 'Philosophy'):
+        ['political philosophy'],
+    ('', 'The Political Philosophy of Thomas Hobbes', 1957, 'Spectator'):
+        ['political philosophy'],
+    ('', 'John Locke’s Political Philosophy', 1950, 'English Historical Review'):
+        ['political philosophy'],
+    ('Conceptions of Liberty in Political Philosophy', '', 1984, 'Athlone Press'):
+        ['political philosophy'],
+    ('Contemporary Political Philosophers', '', 1976, 'Methuen'):
+        ['political philosophy'],
+    ('Political Philosophers of the Twentieth Century', '', 1999, 'Blackwell'):
+        ['political philosophy'],
+}
+
+# Possible tags, for the editors to decide: (question title) ->
+# (details, entries as BOOK_KEYWORDS titles or ENTRY_KEYWORDS keys)
+POSSIBLE = {
+    "Keywords: tag these 'nomocracy' and 'teleocracy'?": (
+        "Hayek took the terms from Oakeshott's LSE lectures, which may be "
+        "these (not checked); 'Michael Oakeshott Goes Fishing' lists the "
+        "pair among his distinctions.",
+        ['Lectures in the History of Political Thought',
+         ('Michael Oakeshott Goes Fishing', '', 2025, 'Cosmos + Taxis')]),
+    "Keywords: tag these 'pluralism'?": (
+        "One is on plurality in liberal education; the other reads his "
+        "1930s writings as defending a pluralist order.",
+        [('The Meaning of Plurality in Liberal Education', '', 2025,
+          'Cosmos + Taxis'),
+         ("Oakeshott's Politics for Gentlemen", '', 2007,
+          'Review of Politics')]),
+    "Keywords: tag these 'Collingwood'?": (
+        "Each sets Oakeshott beside Collingwood in part: Dray presents "
+        "both as idealist philosophers of history; Boucher notes "
+        "Collingwood's praise; Jackson compares their accounts of "
+        "conduct.",
+        [('Philosophy of History', '', 1964, 'Prentice-Hall'),
+         ("The Creation of the Past: British Idealism and Michael "
+          "Oakeshott's Philosophy of History", '', 1984,
+          'History and Theory'),
+         ('The Global Covenant: Human Conduct in a World of States', '',
+          2000, 'Oxford University Press')]),
+    "Keywords: tag these 'Hegel'?": (
+        "Franco places Oakeshott in a liberal line from Hobbes through "
+        "Hegel; the 2025 essay says he used parts of Hegel. Tagging "
+        "Franco's book would tag its 14 reviews too.",
+        ['The Political Philosophy of Michael Oakeshott',
+         ('Oakeshott Turned Conservatism into a Creed of Liberty', '', 2025,
+          'Cosmos + Taxis')]),
+    "Keywords: tag these 'moral philosophy'?": (
+        "On Human Conduct sets out his theory of moral conduct, but "
+        "tagging it would tag its 38 reviews too; Nardin's book is on "
+        "law and morality among states.",
+        ['On Human Conduct',
+         ('Law, Morality, and the Relations of States', '', 1983,
+          'Princeton University Press')]),
 }
