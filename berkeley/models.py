@@ -1,3 +1,4 @@
+import re
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -545,6 +546,11 @@ class OpenQuestion(models.Model):
         return self.title
 
 
+def _plain(title):
+    """A title without case, punctuation or spacing, for matching."""
+    return re.sub(r"[\W_]+", "", title).lower()
+
+
 class Candidate(models.Model):
     """A work that might belong in the bibliography but is not in it
     (yet): from the "other works" list in MOA, sorted for the Works
@@ -585,3 +591,71 @@ class Candidate(models.Model):
     def __str__(self):
         return f"{self.author}: {self.citation}" if self.author \
             else self.citation
+
+    def author_name(self):
+        """The author as (first, middle, last), from e.g. "Marsh, L." or
+        "Minogue, K.R."; None if there is none."""
+        last, _, first = self.author.partition(",")
+        last = last.strip()
+        if not first.strip():
+            last = last.rstrip(".")
+        if not last or last.lower() == "anon":
+            return None
+        names = re.findall(r"[^\s.]+\.?", first)
+        return (names[0] if names else "", " ".join(names[1:]),
+                last)
+
+    def draft_entry(self):
+        """A first draft of its entry, read from the citation, as initial
+        values for the admin's new-entry form: title, year, and where a
+        journal or book already in the bibliography matches, that too.
+        Citations are in MOA's style: an article or chapter title in
+        quotation marks, a journal or book title between non-breaking
+        spaces (MOA's italics), the year near the end."""
+        text = re.sub(r"^\s*\(\d{4}\)\s*", "", self.citation)
+        draft = {"pub_type": "MENT"}
+        # ’ also ends an apostrophe ("Trollope’s"), so the title's closing
+        # quotation mark is the one followed by punctuation or a space
+        quoted = re.match(r"\s*‘(.+?)’(?=[,.;:\s\xa0]|$)", text)
+        if quoted:
+            draft["title"] = quoted.group(1).strip().rstrip(",.")
+            rest = text[quoted.end():].lstrip(",.; \xa0")
+            if re.match(r"in\b", rest):
+                # a chapter: "in A. Editor (ed.), Book Title (Place: ..."
+                book = re.search(r"\(eds?\.\),?[\s\xa0]*(.+?)[\xa0\s]\(",
+                                 rest)
+                if book:
+                    # the same title, or a short title of just one book
+                    # ("Politics and Experience" for its full title)
+                    wanted = _plain(book.group(1))
+                    books = {p.id: _plain(p.title) for p in
+                             Publication.objects.filter(
+                                 journal=None, collection=None).exclude(
+                                 title="").only("id", "title")}
+                    same = [i for i, t in books.items() if t == wanted]
+                    longer = [i for i, t in books.items()
+                              if len(wanted) >= 12 and t.startswith(wanted)]
+                    if len(same or longer) == 1:
+                        draft["collection"] = (same or longer)[0]
+            else:
+                # an article: "Journal, 12 (1970), pp. 1-10"
+                name = re.split(r",\s*\d|[\xa0\s]\(", rest, maxsplit=1)[0]
+                journal = Journal.objects.filter(
+                    name__iexact=name.strip(" ,\xa0")).first()
+                if journal:
+                    draft["journal"] = journal.id
+                volume = re.match(r"[^(]*?,[\s\xa0]*(\d+)[\s\xa0]*\(", rest)
+                if volume:
+                    draft["volume"] = volume.group(1)
+        else:
+            # a book: MOA marks the end of its title, before "(Place:"
+            title = re.split(r"[\xa0\s]\(", text, maxsplit=1)[0]
+            draft["title"] = title.strip().rstrip(",.")
+        pages = re.search(r"\bpp?\.\s*(\d+(?:\s*[-–]\s*\d+)?)", text)
+        if pages:
+            draft["pages"] = re.sub(r"\s*[-–]\s*", "-", pages.group(1))
+        draft["title"] = draft["title"].replace("\xa0", " ")
+        years = re.findall(r"\b(1[5-9]\d\d|20\d\d)\b", text)
+        if years:
+            draft["year"] = years[-1]
+        return draft

@@ -30,8 +30,10 @@ in the admin; the pencils lead there.{% endcomment %}
 
   <h3>Possible entries</h3>
   <p>Works that might belong in the bibliography, mostly from MOA's list
-  of other works. When you decide on one, set its status (and, if you add
-  it, link it to its new entry); it then leaves this list.
+  of other works. To add one, click <em>Add it</em>: the new-entry form
+  opens filled in from its citation, and saving the entry marks this one
+  added. To leave one out, set its status with the pencil. Either way it
+  then leaves this list.
   {% if decided %}{{ decided }} have been decided already.{% endif %}
   <a href="{% url 'admin:berkeley_candidate_add' %}">Add a possible entry</a></p>
   {% for label, candidates in groups %}
@@ -41,6 +43,7 @@ in the admin; the pencils lead there.{% endcomment %}
       {% for c in candidates %}
       <li>
         {% if c.author %}{{ c.author }}, {% endif %}{{ c.citation }}<a class="edit-pencil" href="{% url 'admin:berkeley_candidate_change' c.id %}" title="Decide on this possible entry" aria-label="Decide on this possible entry">&#9998;</a>
+        <a class="add-it" href="{% url 'admin:berkeley_publication_add' %}?candidate={{ c.id }}" title="Open a new entry filled in from this citation; saving it marks this one added">Add it</a>
         {% if c.reason %}<p class="todo-reason">{{ c.reason }}{% if c.evidence %} <a href="{{ c.evidence }}">Source</a>{% endif %}</p>{% endif %}
       </li>
       {% empty %}
