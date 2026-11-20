@@ -17,7 +17,7 @@ from berkeley.models import Keyword, OpenQuestion, Publication
 from ._keywords import (
     BOOK_KEYWORDS, BOOK_KEYWORDS_2, ENTRY_KEYWORDS, ENTRY_KEYWORDS_2, KEYWORDS,
     POSSIBLE)
-from .load_abstracts import where
+from berkeley.management.commands._loaders import where
 
 
 def one(matches, label):

@@ -212,3 +212,42 @@ def load_short_works(data, pub_type, book_type):
             updated += 1
     return created, updated, len(works)
 
+
+
+def where(pub):
+    """Where an entry appeared, as the abstracts and keywords data name
+    it: the journal name, "in: <book title>" for a chapter, or the
+    publisher name for a book."""
+    if pub.journal_id:
+        return pub.journal.name
+    if pub.collection_id:
+        return "in: " + pub.collection.title
+    return pub.publisher.name if pub.publisher_id else ""
+
+
+def apply_abstracts(abstracts):
+    """Fill in abstracts, keyed by (title, year, where), each a dict with
+    "abstract" (and its "source"). The key must match one entry, unless
+    "same_piece" is true: a review of several books is one entry per
+    book, all with the review's title, and all get its abstract. Never
+    overwrites an abstract an editor has written or changed. Returns how
+    many were set."""
+    from django.core.management.base import CommandError
+    from berkeley.models import Publication
+    max_len = Publication._meta.get_field("abstract").max_length
+    updated = 0
+    for (title, year, place), info in abstracts.items():
+        if len(info["abstract"]) > max_len:
+            raise CommandError(f"Abstract too long: {title!r}")
+        matches = [p for p in Publication.objects.filter(
+            title=title, year=year).select_related(
+                "journal", "collection", "publisher")
+            if where(p) == place]
+        if not matches or (len(matches) > 1
+                           and not info.get("same_piece")):
+            raise CommandError(f"{len(matches)} entries match "
+                               f"{title!r} ({year}, {place!r})")
+        for pub in matches:
+            if fill_blanks(pub, {"abstract": info["abstract"]}):
+                updated += 1
+    return updated
