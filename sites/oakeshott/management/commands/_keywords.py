@@ -42,6 +42,7 @@ KEYWORDS = [
     'ethics',
     'moral philosophy',
     'political philosophy',
+    'Gadamer',  # added by the editors, 2026-11-20
 ]
 
 BOOK_KEYWORDS = {
@@ -415,6 +416,10 @@ BOOK_KEYWORDS_2 = {
 }
 
 ENTRY_KEYWORDS_2 = {
+    ('Adventures of Self-Understanding: Gadamer, Oakeshott and the Question of Education', '', 1996, 'Journal of the British Society for Phenomenology'):
+        ['Gadamer'],
+    ('Prejudice, Tradition, and the Critique of Ideology: Gadamer and Oakeshott on Practical Reason', '', 2013, 'in: Praxis und Politik: Michael Oakeshott im Dialog'):
+        ['Gadamer'],
     ('Law, Legislation and Liberty', '', 1973, 'Routledge and Kegan Paul'):
         ['nomocracy', 'teleocracy', 'jurisprudence'],
     ('', 'Natural Law and the Theory of Society, 1500 to 1800 (trans. E. Barker)', 1934, 'Cambridge Review'):
@@ -567,6 +572,22 @@ POSSIBLE = {
         ['The Political Philosophy of Michael Oakeshott',
          ('Oakeshott Turned Conservatism into a Creed of Liberty', '', 2025,
           'Cosmos + Taxis')]),
+    "Keywords: tag these 'Gadamer'?": (
+        "Each gives Gadamer a part, not the whole: Praxis und Politik "
+        "discusses him among Oakeshott's German-speaking contemporaries "
+        "(its Gadamer chapter is tagged); Tradition v. Rationalism and "
+        "Critics of Enlightenment Rationalism each have a chapter on him; "
+        "Kestenbaum compares Dewey with Gadamer and Oakeshott; Nardin "
+        "relates Oakeshott to hermeneutics. Tagging Tradition v. "
+        "Rationalism or Nardin's book would tag their reviews too (2 "
+        "and 14).",
+        ['Praxis und Politik: Michael Oakeshott im Dialog',
+         'Tradition v. Rationalism: Voegelin, Oakeshott, Hayek, and Others',
+         ('Critics of Enlightenment Rationalism', '', 2020,
+          'Palgrave Macmillan'),
+         ('The Grace and the Severity of the Ideal: John Dewey and the '
+          'Transcendent', '', 2002, 'University of Chicago Press'),
+         'The Philosophy of Michael Oakeshott']),
     "Keywords: tag these 'moral philosophy'?": (
         "On Human Conduct sets out his theory of moral conduct, but "
         "tagging it would tag its 38 reviews too; Nardin's book is on "
