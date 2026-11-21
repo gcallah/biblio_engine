@@ -184,5 +184,12 @@ class AbstractsVoegelinTest(TestCase):
         out = StringIO()
         call_command("load_abstracts_voegelin", stdout=out)
         self.assertIn("Set 0 abstracts", out.getvalue())
+        self.assertIn("added 0 open questions", out.getvalue())
+        from sites.voegelin.management.commands._abstract_questions \
+            import QUESTIONS
+        for title, (_, keys) in QUESTIONS.items():
+            self.assertEqual(
+                OpenQuestion.objects.get(title=title).entries.count(),
+                len(keys))
         self.assertEqual(Publication.objects.exclude(abstract="").count(),
                          len(ABSTRACTS))

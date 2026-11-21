@@ -9,7 +9,8 @@ reviews or unauthorised copies. Entries are matched on title, year and
 "where": the journal name, "in: <book title>" for a chapter, or the
 publisher name for a book. Run it after the other loaders; it only fills
 blank abstracts, so an editor's changes are kept and re-running sets
-nothing new.
+nothing new. The doubts in _abstract_questions.py, noticed while
+searching, become open questions on the editors' to-do page.
 
     python manage.py load_abstracts_voegelin \
         --settings=mysite.settings_voegelin
@@ -17,8 +18,10 @@ nothing new.
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from berkeley.management.commands._loaders import apply_abstracts
+from berkeley.management.commands._loaders import (
+    add_questions, apply_abstracts)
 
+from ._abstract_questions import QUESTIONS
 from ._abstracts import ABSTRACTS
 
 
@@ -28,5 +31,7 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         updated = apply_abstracts(ABSTRACTS)
+        questions = add_questions(QUESTIONS)
         self.stdout.write(f"Set {updated} abstracts "
-                          f"({len(ABSTRACTS) - updated} unchanged).")
+                          f"({len(ABSTRACTS) - updated} unchanged); "
+                          f"added {questions} open questions.")

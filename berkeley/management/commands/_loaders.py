@@ -225,6 +225,37 @@ def where(pub):
     return pub.publisher.name if pub.publisher_id else ""
 
 
+def entries_at(title, year, place):
+    """The entries with this title and year that appeared at place, as
+    where() names it."""
+    from berkeley.models import Publication
+    return [p for p in Publication.objects.filter(
+        title=title, year=year).select_related(
+            "journal", "collection", "publisher")
+        if where(p) == place]
+
+
+def add_questions(questions):
+    """Put open questions on the editors' to-do page: questions maps a
+    title to (details, entry keys), each key a (title, year, where) that
+    must match one entry. Returns how many questions were new."""
+    from django.core.management.base import CommandError
+    from berkeley.models import OpenQuestion
+    added = 0
+    for title, (details, keys) in questions.items():
+        entries = []
+        for key in keys:
+            matches = entries_at(*key)
+            if len(matches) != 1:
+                raise CommandError(f"{len(matches)} entries match {key!r}")
+            entries += matches
+        question, is_new = OpenQuestion.objects.get_or_create(
+            title=title, defaults={"details": details})
+        add_missing(question.entries, entries)
+        added += is_new
+    return added
+
+
 def apply_abstracts(abstracts):
     """Fill in abstracts, keyed by (title, year, where), each a dict with
     "abstract" (and its "source"). The key must match one entry, unless
@@ -239,10 +270,7 @@ def apply_abstracts(abstracts):
     for (title, year, place), info in abstracts.items():
         if len(info["abstract"]) > max_len:
             raise CommandError(f"Abstract too long: {title!r}")
-        matches = [p for p in Publication.objects.filter(
-            title=title, year=year).select_related(
-                "journal", "collection", "publisher")
-            if where(p) == place]
+        matches = entries_at(title, year, place)
         if not matches or (len(matches) > 1
                            and not info.get("same_piece")):
             raise CommandError(f"{len(matches)} entries match "
