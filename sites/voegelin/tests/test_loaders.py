@@ -169,3 +169,20 @@ class ReviewsByVoegelinTest(TestCase):
                 limit = model._meta.get_field(column).max_length
                 self.assertLessEqual(len(r.get(field, "")), limit,
                                      (r["key"], field))
+
+
+class AbstractsVoegelinTest(TestCase):
+    def test_load_twice(self):
+        from sites.voegelin.management.commands._abstracts import ABSTRACTS
+        load()
+        out = StringIO()
+        for command in ("load_books_about_voegelin",
+                        "load_short_works_by_voegelin",
+                        "load_abstracts_voegelin"):
+            call_command(command, stdout=out)
+        self.assertIn(f"Set {len(ABSTRACTS)} abstracts", out.getvalue())
+        out = StringIO()
+        call_command("load_abstracts_voegelin", stdout=out)
+        self.assertIn("Set 0 abstracts", out.getvalue())
+        self.assertEqual(Publication.objects.exclude(abstract="").count(),
+                         len(ABSTRACTS))
