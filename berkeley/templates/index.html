@@ -18,7 +18,10 @@ the admin (Index terms).{% endcomment %}
   <dl class="index-terms">
     {% for term in terms %}
     <dt id="{{ term.anchor }}">{{ term.name }}{% if user.is_staff %}<a class="edit-pencil" href="{% url 'admin:berkeley_indexterm_change' term.id %}" title="Edit this term" aria-label="Edit this term">&#9998;</a>{% endif %}</dt>
-    <dd>{% for pub in term.ordered_entries %}<a href="{% url 'berkeley:pub_detail' pub.id %}">{% include "_entry_label.html" %}</a>{% if not forloop.last %}; {% endif %}{% empty %}No entries yet.{% endfor %}</dd>
+    <dd><ul class="index-entries">{% for pub in term.ordered_entries %}
+      <li><a href="{% url 'berkeley:pub_detail' pub.id %}">{% include "_entry_label.html" %}</a></li>{% empty %}
+      <li>No entries yet.</li>{% endfor %}
+    </ul></dd>
     {% endfor %}
   </dl>
   {% endfor %}

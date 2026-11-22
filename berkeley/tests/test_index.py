@@ -39,11 +39,11 @@ class IndexPageTest(IndexTestCase):
         self.assertLess(html.index('id="hobbes-thomas"'),
                         html.index('id="rationalism"'))
         self.assertIn('<a href="#letter-R">R</a>', html)
-        # entries oldest first, labelled with surnames and year
+        # entries oldest first, one per line, labelled with surnames and year
         start = html.index('id="rationalism"')
         part = html[start:html.index("</dd>", start)]
         self.assertIn(f'href="{ROOT}pub_detail/{self.article.id}/">'
-                      "On Being Conservative (Oakeshott, 1956)</a>; ", part)
+                      "On Being Conservative (Oakeshott, 1956)</a></li>", part)
         self.assertLess(part.index("On Being Conservative"),
                         part.index("Rationalism in Politics (Oakeshott, 1962)"))
 

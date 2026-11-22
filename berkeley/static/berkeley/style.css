@@ -707,6 +707,13 @@ dl.index-terms dd {
     overflow-wrap: anywhere;
 }
 
+/* one entry per line under its term */
+ul.index-entries {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* jumping to a term (from an entry's page) lands it below the top edge */
 dl.index-terms dt:target {
     color: var(--accent);
