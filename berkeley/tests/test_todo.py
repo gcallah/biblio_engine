@@ -141,7 +141,17 @@ class DraftEntryTest(TodoTestCase):
         draft = self.draft("The Devil in Modern Philosophy\xa0(Boston: "
                            "Routledge, 1974).")
         self.assertEqual(draft, {"pub_type": "MENT", "year": "1974",
-                                 "title": "The Devil in Modern Philosophy"})
+                                 "title": "The Devil in Modern Philosophy",
+                                 "new_publisher": "Boston: Routledge"})
+
+    def test_book_by_a_known_publisher(self):
+        # "&" and "and" are the same; the city must match
+        draft = self.draft("Political Ideas in Modern Britain\xa0(London: "
+                           "Methuen, 1978).")
+        self.assertEqual(draft["publisher"], self.methuen.id)
+        self.assertNotIn("new_publisher", draft)
+        draft = self.draft("A Book (New York: Methuen, 1978).")
+        self.assertEqual(draft["new_publisher"], "New York: Methuen")
 
     def test_author_names(self):
         self.assertEqual(Candidate(author="Minogue, K.R.").author_name(),
@@ -193,8 +203,52 @@ class AddItTest(TodoTestCase):
         self.candidate.refresh_from_db()
         return self.candidate.entry
 
+    def test_new_author_and_publisher_boxes(self):
+        resp = self.client.get(self.url)
+        form = resp.context["adminform"].form
+        self.assertEqual(form.initial["new_author"], "Minogue, K.R.")
+        self.assertContains(resp, "Author to add")
+        # not on a plain new entry, nor on an entry's change page
+        resp = self.client.get("/admin/berkeley/publication/add/")
+        self.assertNotContains(resp, "Author to add")
+        resp = self.client.get(
+            f"/admin/berkeley/publication/{self.book.id}/change/")
+        self.assertNotContains(resp, "Publisher to add")
+
+    def test_an_author_already_in_is_chosen(self):
+        self.candidate.author = "Oakeshott, M."
+        self.candidate.save()
+        resp = self.client.get(self.url)
+        self.assertNotIn("new_author", resp.context["adminform"].form.initial)
+        authors = [f for f in resp.context["inline_admin_formsets"]
+                   if f.formset.prefix == "authorship_set"][0].formset
+        self.assertEqual(authors.forms[0].initial["person"], self.mo.id)
+
+    def test_book_with_a_new_publisher(self):
+        self.candidate.citation = ("Political Ideas (Belmont, CA: "
+                                   "Wadsworth, 1978).")
+        self.candidate.save()
+        resp = self.client.get(self.url)
+        self.assertEqual(resp.context["adminform"].form.initial[
+            "new_publisher"], "Belmont, CA: Wadsworth")
+        entry = self.save(new_publisher="Belmont, CA: Wadsworth",
+                          journal="")
+        self.assertEqual(entry.publisher.name, "Wadsworth")
+        self.assertEqual((entry.publisher.address.city,
+                          entry.publisher.address.province),
+                         ("Belmont", "CA"))
+
+    def test_a_chosen_publisher_wins(self):
+        entry = self.save(new_publisher="Boston: Other",
+                          publisher=self.methuen.id)
+        self.assertEqual(entry.publisher, self.methuen)
+
+    def test_cleared_author_box_adds_no_one(self):
+        entry = self.save(new_author="")
+        self.assertEqual(entry.ordered_authors(), [])
+
     def test_saving_marks_it_added_with_its_author(self):
-        entry = self.save()
+        entry = self.save(new_author="Minogue, K.R.")
         self.assertEqual(self.candidate.status, Candidate.ADDED)
         self.assertEqual(entry.title, "Parts and Wholes")
         self.assertEqual([(p.fname, p.mname, p.lname)

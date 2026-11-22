@@ -76,6 +76,20 @@ class EditorshipInline(admin.TabularInline):
 
 
 class PublicationForm(forms.ModelForm):
+    # only on "Add it" (a new entry from a possible entry): an author or
+    # publisher named in its citation but not yet in the database, made
+    # when the entry is saved (see PublicationAdmin)
+    new_author = forms.CharField(
+        label="Author to add", required=False,
+        help_text="From the citation, and not yet in the bibliography: "
+        "saving adds this person (last name, initials) as the author, "
+        "unless you choose authors below. Clear it to add no one.")
+    new_publisher = forms.CharField(
+        label="Publisher to add", required=False,
+        help_text="From the citation, and not yet in the bibliography: "
+        "saving adds this publisher (Place: Name) unless you choose one "
+        "above. Clear it to add none.")
+
     class Meta:
         model = Publication
         # authors and editors are edited in the ordered inlines below; the
@@ -112,7 +126,56 @@ class PublicationAdmin(admin.ModelAdmin):
         if candidate:
             initial = {**candidate.draft_entry(), **initial}
             initial.pop("candidate", None)
+            if candidate.author_name() and not self.known_author(candidate):
+                initial["new_author"] = candidate.author
         return initial
+
+    @staticmethod
+    def known_author(candidate):
+        """The person in the database the possible entry's author is,
+        if any."""
+        from .management.commands._loaders import find_person
+        name = candidate.author_name()
+        return find_person(name) if name else None
+
+    def get_fields(self, request, obj=None):
+        """The new-author and new-publisher boxes only on "Add it"."""
+        extra = ("new_author", "new_publisher")
+        fields = [f for f in super().get_fields(request, obj)
+                  if f not in extra]
+        if obj or not self.candidate(request):
+            return fields
+        # each next to what it stands in for (authors are an inline, at
+        # the foot of the form, so the author box goes first)
+        fields.insert(fields.index("publisher") + 1, "new_publisher")
+        return ["new_author", *fields]
+
+    def get_formset_kwargs(self, request, obj, inline, prefix):
+        """On "Add it", the authors list starts with the citation's
+        author when that person is already in the database."""
+        kwargs = super().get_formset_kwargs(request, obj, inline, prefix)
+        candidate = None if obj.pk else self.candidate(request)
+        if (candidate and request.method == "GET"
+                and isinstance(inline, AuthorshipInline)):
+            person = self.known_author(candidate)
+            if person:
+                kwargs["initial"] = [{"person": person.id, "position": 1}]
+        return kwargs
+
+    def save_model(self, request, obj, form, change):
+        """A publisher typed into "Publisher to add" (Place: Name) is made
+        when no publisher is chosen."""
+        from .management.commands._loaders import (find_publisher,
+                                                   get_publisher)
+        text = form.cleaned_data.get("new_publisher", "").strip()
+        if text and not obj.publisher_id:
+            place, _, name = text.rpartition(":")
+            # "Belmont, CA": the city, then its state or province
+            city, _, province = (p.strip() for p in place.partition(","))
+            name = name.strip()
+            obj.publisher = (find_publisher(name, city) or get_publisher(
+                name, {}, city=city or None, province=province or None))
+        super().save_model(request, obj, form, change)
 
     def add_view(self, request, form_url="", extra_context=None):
         candidate = self.candidate(request)
@@ -125,9 +188,7 @@ class PublicationAdmin(admin.ModelAdmin):
                 "Adding the possible entry: <em>{}</em>. The fields below "
                 "are read from its citation: check them, add what is "
                 "missing, and save. Saving marks it added and links it to "
-                "this entry{}.", str(candidate),
-                "; its author is added if you list none" if
-                candidate.author_name() else ""))
+                "this entry.", str(candidate)))
         return super().add_view(request, form_url, extra_context)
 
     def save_related(self, request, form, formsets, change):
@@ -136,7 +197,8 @@ class PublicationAdmin(admin.ModelAdmin):
         if not candidate:
             return
         pub = form.instance
-        name = candidate.author_name()
+        text = form.cleaned_data.get("new_author", "").strip()
+        name = Candidate(author=text).author_name() if text else None
         if name and not pub.authors.exists():
             from .management.commands._loaders import get_reviewer
             Authorship.objects.create(publication=pub,

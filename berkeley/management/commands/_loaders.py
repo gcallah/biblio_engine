@@ -19,11 +19,11 @@ def _initials(names):
     return "".join(w[0] for w in re.split(r"[\s.\-]+", names or "") if w)
 
 
-def get_reviewer(name):
+def find_person(name):
     """An existing person with this last name and first initial, and no
-    conflicting middle initials ("W. J." matches Wendell John), else a
-    new one. Lets a source that gives only initials reuse a person who is
-    already in the database under a full name."""
+    conflicting middle initials ("W. J." matches Wendell John), or None.
+    Lets a source that gives only initials find a person who is already
+    in the database under a full name."""
     fname, mname, lname = name
     for person in Person.objects.filter(lname=lname):
         if person.fname[:1] != fname[:1]:
@@ -32,7 +32,28 @@ def get_reviewer(name):
                 _initials(mname) != _initials(person.mname):
             continue
         return person
-    return get_person(name)
+    return None
+
+
+def get_reviewer(name):
+    """find_person, else a new person."""
+    return find_person(name) or get_person(name)
+
+
+def find_publisher(name, city=""):
+    """An existing publisher of this name (ignoring case, spacing and
+    '&' for 'and') in this city, or None. With no city, any of that
+    name. The same press in another city is a different Publisher (see
+    get_publisher)."""
+    def plain(text):
+        return " ".join(text.replace("&", "and").lower().split())
+    wanted = plain(name)
+    found = [p for p in Publisher.objects.select_related("address")
+             if plain(p.name) == wanted]
+    if city:
+        found = [p for p in found
+                 if p.address and p.address.city == city]
+    return found[0] if found else None
 
 
 def get_publisher(name, publishers, city=None, province=None):

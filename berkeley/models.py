@@ -654,6 +654,30 @@ class Candidate(models.Model):
         return (names[0] if names else "", " ".join(names[1:]),
                 last)
 
+    def draft_publisher(self):
+        """The book's place and publisher, from "(London: Methuen, 1978)",
+        as (place, publisher), or None."""
+        found = re.search(r"\(([^():]+):\s*([^()]+?),[^(),]*?"
+                          r"\b(1[5-9]\d\d|20\d\d)\)", self.citation)
+        if not found:
+            return None
+        place, name = (" ".join(g.split()) for g in found.groups()[:2])
+        return place, name
+
+    def _draft_publisher(self):
+        """The publisher's part of a draft: the publisher's id if it is in
+        the database, else "new_publisher" ('London: Methuen'), for the
+        admin to add when the entry is saved."""
+        from .management.commands._loaders import find_publisher
+        found = self.draft_publisher()
+        if not found:
+            return {}
+        place, name = found
+        publisher = find_publisher(name, place.split(",")[0].strip())
+        if publisher:
+            return {"publisher": publisher.id}
+        return {"new_publisher": f"{place}: {name}"}
+
     def draft_entry(self):
         """A first draft of its entry, read from the citation, as initial
         values for the admin's new-entry form: title, year, and where a
@@ -700,6 +724,7 @@ class Candidate(models.Model):
             # a book: MOA marks the end of its title, before "(Place:"
             title = re.split(r"[\xa0\s]\(", text, maxsplit=1)[0]
             draft["title"] = title.strip().rstrip(",.")
+            draft.update(self._draft_publisher())
         pages = re.search(r"\bpp?\.\s*(\d+(?:\s*[-–]\s*\d+)?)", text)
         if pages:
             draft["pages"] = re.sub(r"\s*[-–]\s*", "-", pages.group(1))
