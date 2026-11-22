@@ -21,9 +21,12 @@ class IndexPageTest(IndexTestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, "There is no index yet.")
 
-    def test_menu_links_to_it(self):
+    def test_menu_links_to_it_once_it_has_terms(self):
         html = self.client.get(ROOT).content.decode()
-        self.assertIn(f'href="{INDEX_URL}">Index</a>', html)
+        self.assertNotIn(f'href="{INDEX_URL}"', html)
+        self.term("rationalism", self.book)
+        html = self.client.get(ROOT).content.decode()
+        self.assertEqual(html.count(f'href="{INDEX_URL}">Index</a>'), 2)
 
     def test_terms_a_to_z_with_their_entries(self):
         self.term("rationalism", self.book, self.article)

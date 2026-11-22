@@ -43,7 +43,7 @@
         </div>
         <nav id="user-tools">
           <a href="{% url 'berkeley:search' %}">Search</a>
-          <a href="{% url 'berkeley:index' %}">Index</a>
+          {% if has_index %}<a href="{% url 'berkeley:index' %}">Index</a>{% endif %}
           <a href="{% url 'berkeley:about' %}">About</a>
           {% if user.is_authenticated %}
           {% if user.is_staff %}
@@ -69,8 +69,8 @@
         <nav class="footer-nav">
           <a href="{% url 'berkeley:search' %}">Search</a>
           <span class="sep">&middot;</span>
-          <a href="{% url 'berkeley:index' %}">Index</a>
-          <span class="sep">&middot;</span>
+          {% if has_index %}<a href="{% url 'berkeley:index' %}">Index</a>
+          <span class="sep">&middot;</span>{% endif %}
           <a href="{% url 'berkeley:about' %}">About</a>
           <span class="sep">&middot;</span>
           <a href="https://github.com/gcallah/biblio_engine">Source on GitHub</a>
