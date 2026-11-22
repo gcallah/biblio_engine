@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% comment %}The index: every significant term in the bibliography (concepts,
+people, works), A to Z, each with the entries that refer to it. Unlike the
+keywords (a few broad themes), it tries to be complete. Terms are kept in
+the admin (Index terms).{% endcomment %}
+{% block content %}
+<div class="module index-page">
+  <h2>Index{% if user.is_staff %}<a class="edit-pencil" href="{% url 'admin:berkeley_indexterm_changelist' %}" title="Edit the index" aria-label="Edit the index">&#9998;</a>{% endif %}</h2>
+  {% if letters %}
+  <p>The significant terms found in the entries' titles and abstracts,
+  each with the entries that refer to it, oldest first. For a few broad
+  themes, see the keywords on the search page.</p>
+  <nav class="index-letters" aria-label="Index letters">
+    {% for letter, terms in letters %}<a href="#letter-{{ letter }}">{{ letter }}</a>{% endfor %}
+  </nav>
+  {% for letter, terms in letters %}
+  <h3 id="letter-{{ letter }}">{{ letter }}</h3>
+  <dl class="index-terms">
+    {% for term in terms %}
+    <dt id="{{ term.anchor }}">{{ term.name }}{% if user.is_staff %}<a class="edit-pencil" href="{% url 'admin:berkeley_indexterm_change' term.id %}" title="Edit this term" aria-label="Edit this term">&#9998;</a>{% endif %}</dt>
+    <dd>{% for pub in term.ordered_entries %}<a href="{% url 'berkeley:pub_detail' pub.id %}">{% include "_entry_label.html" %}</a>{% if not forloop.last %}; {% endif %}{% empty %}No entries yet.{% endfor %}</dd>
+    {% endfor %}
+  </dl>
+  {% endfor %}
+  {% else %}
+  <p>There is no index yet.</p>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,1 @@
+{% comment %}An entry's link text where many entries share a title ("Michael Oakeshott", "Introduction", a review): its title, then its authors' surnames and its year.{% endcomment %}{{ pub }} ({% for a in pub.ordered_authors %}{{ a.lname }}, {% endfor %}{{ pub.year }})

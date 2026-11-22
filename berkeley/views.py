@@ -10,6 +10,8 @@ from django.urls import reverse
 from .models import AdminEmail
 from .models import Candidate
 from .models import OpenQuestion
+from .models import IndexTerm
+from .models import PossibleIndexTerm
 from .models import Journal
 from .models import Person
 from .models import Publisher
@@ -98,9 +100,33 @@ def todo(request):
     groups = [(label, [c for c in candidates if c.status == status])
               for status, label in Candidate.STATUS_CHOICES
               if status in (Candidate.UNDECIDED, Candidate.NOT_CHECKED)]
+    index_doubts = (PossibleIndexTerm.objects.filter(settled=False)
+                    .prefetch_related('entries__authorship_set__person',
+                                      'entries__pub_reviewed'))
+    in_index = set(IndexTerm.objects.filter(
+        name__in=[d.name for d in index_doubts]).values_list('name',
+                                                              flat=True))
+    for doubt in index_doubts:
+        doubt.in_index = doubt.name in in_index
     return render(request, 'todo.html', {
         'header': get_hdr(), 'questions': questions, 'groups': groups,
+        'index_doubts': index_doubts,
         'decided': Candidate.objects.count() - len(candidates)})
+
+
+def index(request):
+    """The index: every significant term, A to Z, each with links to
+    the entries that refer to it."""
+    terms = IndexTerm.objects.prefetch_related(
+        'entries__authorship_set__person', 'entries__pub_reviewed')
+    letters = {}
+    for term in terms:
+        term.ordered_entries = sorted(
+            term.entries.all(), key=lambda p: (p.year, str(p).lower()))
+        first = term.name[:1].upper()
+        letters.setdefault(first if first.isalpha() else '#', []).append(term)
+    return render(request, 'index.html', {
+        'header': get_hdr(), 'letters': sorted(letters.items())})
 
 
 class LoginView(auth_views.LoginView):

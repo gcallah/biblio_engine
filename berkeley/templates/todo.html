@@ -28,6 +28,32 @@ in the admin; the pencils lead there.{% endcomment %}
   {% endif %}
   <p><a href="{% url 'admin:berkeley_openquestion_add' %}">Add a question</a></p>
 
+  <h3>Possible index terms</h3>
+  <p>Doubts about the <a href="{% url 'berkeley:index' %}">index</a>: terms
+  that might be added to it, and entries that might belong under a term
+  already there. To settle one, add the term or the entries to the index
+  (its pencil there, or <a href="{% url 'admin:berkeley_indexterm_changelist' %}">Index terms</a>
+  in the admin), then mark this one settled with its pencil here.</p>
+  {% if index_doubts %}
+  <ul class="todo-list">
+    {% for doubt in index_doubts %}
+    <li>
+      <strong>{{ doubt.name }}</strong>{% if doubt.in_index %} (in the index: <a href="{% url 'berkeley:index' %}#{{ doubt.index_term.anchor }}">see it</a>){% else %} (not in the index){% endif %}<a class="edit-pencil" href="{% url 'admin:berkeley_possibleindexterm_change' doubt.id %}" title="Edit or settle this" aria-label="Edit or settle this">&#9998;</a>
+      {% if doubt.details %}<p>{{ doubt.details|linebreaksbr }}</p>{% endif %}
+      {% with entries=doubt.entries.all %}{% if entries %}
+      <details class="todo-entries">
+        <summary>Possible entries ({{ entries|length }})</summary>
+        {% for pub in entries %}<a href="{% url 'berkeley:pub_detail' pub.id %}">{% include "_entry_label.html" %}</a>{% if not forloop.last %}; {% endif %}{% endfor %}
+      </details>
+      {% endif %}{% endwith %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>None.</p>
+  {% endif %}
+  <p><a href="{% url 'admin:berkeley_possibleindexterm_add' %}">Add a possible index term</a></p>
+
   <h3>Possible entries</h3>
   <p>Works that might belong in the bibliography, mostly from MOA's list
   of other works. To add one, click <em>Add it</em>: the new-entry form

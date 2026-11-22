@@ -12,6 +12,8 @@ from .models import Authorship
 from .models import Editorship
 from .models import AdminEmail
 from .models import Candidate
+from .models import IndexTerm
+from .models import PossibleIndexTerm
 from .models import OpenQuestion
 from .models import Institution
 from .models import Journal
@@ -175,3 +177,26 @@ class CandidateAdmin(admin.ModelAdmin):
         return format_html(
             '<a class="button" href="{}?candidate={}">Add it</a>',
             reverse("admin:berkeley_publication_add"), obj.pk)
+
+
+@admin.register(IndexTerm)
+class IndexTermAdmin(admin.ModelAdmin):
+    """The index page's terms, each with the entries that refer to it."""
+    list_display = ("name", "entry_count")
+    search_fields = ("name",)
+    autocomplete_fields = ("entries",)
+
+    @admin.display(description="Entries")
+    def entry_count(self, obj):
+        return obj.entries.count()
+
+
+@admin.register(PossibleIndexTerm)
+class PossibleIndexTermAdmin(admin.ModelAdmin):
+    """Doubts about the index, listed on the to-do page. To settle one,
+    add the term or the entries to the index (Index terms) and tick
+    "settled"."""
+    list_display = ("name", "settled")
+    list_filter = ("settled",)
+    search_fields = ("name", "details")
+    autocomplete_fields = ("entries",)

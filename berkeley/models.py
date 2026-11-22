@@ -1,7 +1,9 @@
 import re
 from django.conf import settings
 from django.db import models
+from django.db.models.functions import Lower
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 HEADER_LEN = 128
@@ -544,6 +546,53 @@ class OpenQuestion(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class IndexTerm(models.Model):
+    """A term in the site's index: a concept, a person or a work that
+    entries discuss. Unlike keywords (a few broad themes, used in the
+    search form), the index aims to list every significant term, with
+    every entry that refers to it. Each site has its own database, so
+    its own index."""
+    name = models.CharField(max_length=128, unique=True)
+    entries = models.ManyToManyField(
+        Publication, blank=True, related_name="index_terms",
+        help_text="The entries that refer to this term.")
+
+    class Meta:
+        ordering = [Lower('name')]
+
+    def __str__(self):
+        return self.name
+
+    def anchor(self):
+        """Its id on the index page, e.g. 'civil-association'."""
+        return slugify(self.name) or f"term-{self.id}"
+
+
+class PossibleIndexTerm(models.Model):
+    """A doubt about the index, for the editors' to-do page: a term that
+    might be added to it, or entries that might belong under a term that
+    is already there (when an IndexTerm has the same name)."""
+    name = models.CharField(max_length=128)
+    details = models.TextField(blank=True, default="",
+                               help_text="Why it is in doubt.")
+    entries = models.ManyToManyField(
+        Publication, blank=True, related_name="possible_index_terms",
+        help_text="Entries that may refer to it.")
+    settled = models.BooleanField(default=False)
+    resolution = models.TextField(
+        blank=True, default="", help_text="What was decided, and why.")
+
+    class Meta:
+        ordering = ['settled', Lower('name')]
+
+    def __str__(self):
+        return self.name
+
+    def index_term(self):
+        """The term of the same name already in the index, if any."""
+        return IndexTerm.objects.filter(name=self.name).first()
 
 
 def _plain(title):

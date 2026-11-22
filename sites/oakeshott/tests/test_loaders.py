@@ -545,3 +545,46 @@ class LoadersKeepEditsTest(TestCase):
         pub.refresh_from_db()
         self.assertEqual(pub.abstract, abstract)
         self.assertEqual(pub.doi, "10.1111/1467-9248.00184")
+
+
+class LoadIndexTermsTest(TestCase):
+    """The index data: well formed, and loading it is idempotent."""
+    load_all = LoadKeywordsTest.load_all
+    keywords = LoadKeywordsTest.keywords
+
+    def index(self):
+        out = StringIO()
+        call_command("load_index_terms", stdout=out)
+        return out.getvalue()
+
+    def test_data_is_well_formed(self):
+        from sites.oakeshott.management.commands._index_terms import (
+            POSSIBLE, TERMS)
+        for name, keys in [*TERMS.items(),
+                           *((n, k) for n, (_, k) in POSSIBLE.items())]:
+            self.assertTrue(keys, name)
+            self.assertEqual(len(keys), len(set(keys)), name)
+            for key in keys:
+                self.assertEqual(len(key), 4, (name, key))
+        for name, (details, _) in POSSIBLE.items():
+            self.assertTrue(details, name)
+        # a doubt about entries under a term already in the index has
+        # no overlap with the term's own entries
+        for name, (_, keys) in POSSIBLE.items():
+            self.assertFalse(set(keys) & set(TERMS.get(name, ())), name)
+
+    def test_loads_and_is_idempotent(self):
+        from berkeley.models import IndexTerm, PossibleIndexTerm
+        from sites.oakeshott.management.commands._index_terms import (
+            POSSIBLE, TERMS)
+        self.load_all()
+        self.keywords()
+        first = self.index()
+        self.assertIn(f"Added {len(TERMS)} index terms", first)
+        self.assertEqual(IndexTerm.objects.count(), len(TERMS))
+        self.assertEqual(PossibleIndexTerm.objects.count(), len(POSSIBLE))
+        self.assertIn("Added 0 index terms, 0 links and 0 possible",
+                      self.index())
+        hobbes = IndexTerm.objects.get(name="Hobbes, Thomas")
+        self.assertTrue(hobbes.entries.filter(
+            title="Hobbes on Civil Association").exists())

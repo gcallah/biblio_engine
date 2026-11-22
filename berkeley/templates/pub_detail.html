@@ -129,6 +129,14 @@
             {% endfor %}
             </td>
         </tr>
+        {% with terms=pub.index_terms.all %}{% if terms %}
+        <tr>
+            <td>In the index:</td>
+            <td>
+            {% for term in terms %}<a href="{% url 'berkeley:index' %}#{{ term.anchor }}">{{ term.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+            </td>
+        </tr>
+        {% endif %}{% endwith %}
         <tr>
             <td>Export:</td>
             <td>

@@ -680,3 +680,35 @@ details.todo-group summary {
     font-weight: 600;
     margin: 0.6em 0;
 }
+
+/* THE INDEX PAGE */
+nav.index-letters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em 0.7em;
+    margin: 0.8em 0 1.2em;
+    font-weight: 600;
+}
+
+.index-page h3 {
+    margin-top: 1.4em;
+    border-bottom: 1px solid var(--rule, #ccc);
+}
+
+dl.index-terms dt {
+    margin-top: 0.7em;
+    font-weight: 600;
+}
+
+dl.index-terms dd {
+    margin: 0.15em 0 0 1.4em;
+    font-size: 0.95em;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* jumping to a term (from an entry's page) lands it below the top edge */
+dl.index-terms dt:target {
+    color: var(--accent);
+    scroll-margin-top: 1em;
+}

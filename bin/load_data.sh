@@ -24,7 +24,7 @@ for cmd in load_books_by_oakeshott load_books_about_oakeshott \
            load_reviews_of_books_by_oakeshott \
            load_reviews_of_books_about_oakeshott \
            load_works_mentioning_oakeshott \
-           load_abstracts load_keywords \
+           load_abstracts load_keywords load_index_terms \
            load_author_info load_journal_info load_editors_todo; do
     if [ -f "sites/oakeshott/management/commands/$cmd.py" ]; then
         echo "== $cmd"
