@@ -85,7 +85,7 @@ a:hover, a:focus {
 /* PAGE STRUCTURE */
 
 #container {
-    max-width: 1100px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 1.5rem;
 }
@@ -152,7 +152,9 @@ a:hover, a:focus {
 
 #user-tools {
     display: flex;
-    gap: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    white-space: nowrap;
     padding-top: 0.8rem;
     font-family: var(--serif-display);
     font-size: 1.15rem;
