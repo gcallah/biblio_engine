@@ -91,6 +91,7 @@ TERMS = {
         ("Oakeshott's Early Conception of Authority", '', 2025, 'Cosmos + Taxis'),
     ],
     'Bacon, Francis': [
+        ('Rationalism in Politics', '', 1947, 'Cambridge Journal'),
         ('The Revulsion from Thought', '', 1948, 'Cambridge Journal'),
         ('The Work of Michael Oakeshott', '', 1991, 'Political Theory'),
         ("Michael Oakeshott's Critique of Modern Rationalism", '', 2020, 'in: Critics of Enlightenment Rationalism'),
@@ -377,6 +378,7 @@ TERMS = {
         ('Reason and Unreason in Politics', '', 2022, 'Cosmos + Taxis'),
     ],
     'Descartes, René': [
+        ('Rationalism in Politics', '', 1947, 'Cambridge Journal'),
         ('The Revulsion from Thought', '', 1948, 'Cambridge Journal'),
         ('', 'The Modern Approach to Descartes’ Problem', 1949, 'Cambridge Journal'),
         ('', 'Notes on Descartes’ Règles', 1949, 'Cambridge Journal'),

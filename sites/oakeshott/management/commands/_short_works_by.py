@@ -54,6 +54,11 @@ ARTICLES = [
          title='The "Collective Dream of Civilisation"',
          journal="Listener", volume="37", year=1947, pages="966-967",
          url=HOBBES_ON_CIVIL_ASSOCIATION_URL, subject=POL),
+    # in two parts (Nov. and Dec. 1947); reprinted in Rationalism in
+    # Politics and Other Essays (the reprint link was added on the site)
+    dict(authors=[OAKESHOTT], title="Rationalism in Politics",
+         journal="Cambridge Journal", volume="1", issue="2-3", year=1947,
+         pages="81-98, 145-157", subject=POL),
     dict(authors=[OAKESHOTT], title="The Definition of a University",
          journal="Journal of Educational Thought", volume="1", issue="3",
          year=1967, pages="129-142",
