@@ -92,3 +92,68 @@ class PossibleIndexTermsTest(IndexTestCase):
             for page in ("", "add/"):
                 resp = self.client.get(f"/admin/berkeley/{model}/{page}")
                 self.assertEqual(resp.status_code, 200, (model, page))
+
+
+class ChooseEntriesTest(IndexTestCase):
+    """An index term's entries are tick boxes: those under it, ticked,
+    and those its possible index term suggests, not."""
+
+    def setUp(self):
+        super().setUp()
+        self.login()
+        self.conservatism = self.term("conservatism", self.book)
+        self.maybe = PossibleIndexTerm.objects.create(name="conservatism")
+        self.maybe.entries.set([self.article])
+        self.url = (f"/admin/berkeley/indexterm/{self.conservatism.id}/"
+                    "change/")
+
+    def post(self, url, **data):
+        resp = self.client.post(url, {"name": "conservatism", **data})
+        self.assertEqual(resp.status_code, 302)
+
+    def test_tick_boxes(self):
+        html = self.client.get(self.url).content.decode()
+        self.assertIn(f'type="checkbox" name="entries" value="{self.book.id}"'
+                      , html)
+        self.assertIn("Possible: On Being Conservative (Oakeshott, 1956)",
+                      html)
+        self.assertIn("Settled", html)
+        # only these two, not every entry
+        self.assertEqual(html.count('type="checkbox" name="entries"'), 2)
+
+    def test_ticking_and_unticking(self):
+        self.post(self.url, entries=[self.article.id], settle="on")
+        self.assertEqual(list(self.conservatism.entries.all()),
+                         [self.article])
+        self.maybe.refresh_from_db()
+        self.assertTrue(self.maybe.settled)
+
+    def test_left_unsettled(self):
+        self.post(self.url, entries=[self.book.id, self.article.id])
+        self.assertEqual(self.conservatism.entries.count(), 2)
+        self.maybe.refresh_from_db()
+        self.assertFalse(self.maybe.settled)
+
+    def test_other_entries_to_add(self):
+        other = self.pub("Another", 1970)
+        self.post(self.url, entries=[self.book.id], more_entries=[other.id])
+        self.assertEqual(set(self.conservatism.entries.all()),
+                         {self.book, other})
+
+    def test_a_new_term_from_the_todo_page(self):
+        maybe = PossibleIndexTerm.objects.create(name="experience")
+        maybe.entries.set([self.book])
+        html = self.client.get(f"{ROOT}todo/").content.decode()
+        self.assertIn('href="/admin/berkeley/indexterm/add/?name=experience"',
+                      html)
+        self.assertIn('href="/admin/berkeley/indexterm/'
+                      f'{self.conservatism.id}/change/"', html)
+        url = "/admin/berkeley/indexterm/add/?name=experience"
+        html = self.client.get(url).content.decode()
+        self.assertEqual(html.count('type="checkbox" name="entries"'), 1)
+        self.client.post(url, {"name": "experience",
+                               "entries": [self.book.id], "settle": "on"})
+        term = IndexTerm.objects.get(name="experience")
+        self.assertEqual(list(term.entries.all()), [self.book])
+        maybe.refresh_from_db()
+        self.assertTrue(maybe.settled)

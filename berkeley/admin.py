@@ -4,6 +4,8 @@ made with manage.py add_editor; every editor can edit everything."""
 from django import forms
 from django.conf import settings
 from django.contrib import admin, messages
+from django.contrib.admin.widgets import AutocompleteSelectMultiple
+from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from django.utils.html import format_html
 
@@ -258,12 +260,85 @@ class CandidateAdmin(admin.ModelAdmin):
             reverse("admin:berkeley_publication_add"), obj.pk)
 
 
+def entry_label(pub):
+    """'Title (Surname, Surname, 1962)', as on the index page."""
+    names = [a.lname for a in pub.ordered_authors()] + [str(pub.year)]
+    return f"{pub} ({', '.join(names)})"
+
+
+class IndexTermForm(forms.ModelForm):
+    """An index term's entries as tick boxes: the entries under it, and
+    those a possible index term of the same name (on the to-do page)
+    suggests. Saving keeps the ticked ones under the term."""
+    entries = forms.ModelMultipleChoiceField(
+        queryset=Publication.objects.none(), required=False,
+        widget=forms.CheckboxSelectMultiple, label="Entries",
+        help_text="Tick each entry that belongs under this term, and "
+        "untick any that does not; the index lists the ticked ones. "
+        "Those marked “Possible” are suggested on the to-do page and not "
+        "under the term yet.")
+    more_entries = forms.ModelMultipleChoiceField(
+        queryset=Publication.objects.all(), required=False,
+        widget=AutocompleteSelectMultiple(
+            IndexTerm._meta.get_field("entries"), admin.site),
+        label="Other entries to add",
+        help_text="For an entry not in the list above: type part of its "
+        "title, choose it, and save.")
+    settle = forms.BooleanField(
+        required=False, initial=True, label="Settled",
+        help_text="Take this term off the to-do page's possible index "
+        "terms when saved.")
+
+    class Meta:
+        model = IndexTerm
+        fields = ("name", "entries")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        from django.db.models import Exists, OuterRef
+        name = (self.data.get("name") or self.initial.get("name")
+                or self.instance.name or "")
+        self.doubts = PossibleIndexTerm.objects.filter(name=name,
+                                                       settled=False)
+        links = IndexTerm.entries.through.objects.filter(
+            indexterm_id=self.instance.pk, publication=OuterRef("pk"))
+        wanted = Q(possible_index_terms__in=self.doubts)
+        if self.instance.pk:
+            wanted |= Q(index_terms=self.instance.pk)
+        choices = (Publication.objects.filter(wanted)
+            .distinct().annotate(under=Exists(links))
+            .order_by("under", "year", "title")
+            .prefetch_related("authorship_set__person"))
+        field = self.fields["entries"]
+        field.queryset = choices
+        field.label_from_instance = lambda pub: (
+            entry_label(pub) if pub.under
+            else f"Possible: {entry_label(pub)}")
+        if "settle" in self.fields and not self.doubts:
+            del self.fields["settle"]
+
+
 @admin.register(IndexTerm)
 class IndexTermAdmin(admin.ModelAdmin):
-    """The index page's terms, each with the entries that refer to it."""
+    """The index page's terms, each with the entries that refer to it,
+    chosen with tick boxes (IndexTermForm)."""
+    form = IndexTermForm
     list_display = ("name", "entry_count")
     search_fields = ("name",)
-    autocomplete_fields = ("entries",)
+
+    def get_fields(self, request, obj=None):
+        name = obj.name if obj else (request.POST.get("name")
+                                     or request.GET.get("name"))
+        settle = ["settle"] if PossibleIndexTerm.objects.filter(
+            name=name or "", settled=False).exists() else []
+        return ["name", "entries", "more_entries", *settle]
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        term = form.instance
+        term.entries.add(*form.cleaned_data.get("more_entries", []))
+        if form.cleaned_data.get("settle"):
+            form.doubts.update(settled=True)
 
     @admin.display(description="Entries")
     def entry_count(self, obj):

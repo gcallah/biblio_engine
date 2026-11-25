@@ -34,14 +34,15 @@ in the admin; the pencils lead there.{% endcomment %}
   <h3>Possible index terms</h3>
   <p>Doubts about the <a href="{% url 'berkeley:index' %}">index</a>: terms
   that might be added to it, and entries that might belong under a term
-  already there. To settle one, add the term or the entries to the index
-  (its pencil there, or <a href="{% url 'admin:berkeley_indexterm_changelist' %}">Index terms</a>
-  in the admin), then mark this one settled with its pencil here.</p>
+  already there. Click <em>Choose entries</em>: a page opens with each
+  possible entry and a tick box; tick the ones that belong under the term
+  and save. That adds them to the index and takes the term off this list.</p>
   {% if index_doubts %}
   <ul class="todo-list">
     {% for doubt in index_doubts %}
     <li>
       <strong>{{ doubt.name }}</strong>{% if doubt.in_index %} (in the index: <a href="{% url 'berkeley:index' %}#{{ doubt.index_term.anchor }}">see it</a>){% else %} (not in the index){% endif %}<a class="edit-pencil" href="{% url 'admin:berkeley_possibleindexterm_change' doubt.id %}" title="Edit or settle this" aria-label="Edit or settle this">&#9998;</a>
+      {% if doubt.in_index %}<a class="add-it" href="{% url 'admin:berkeley_indexterm_change' doubt.index_term.id %}" title="Tick the entries that belong under this term">Choose entries</a>{% else %}<a class="add-it" href="{% url 'admin:berkeley_indexterm_add' %}?name={{ doubt.name|urlencode }}" title="Add this term to the index, ticking the entries that belong under it">Choose entries</a>{% endif %}
       {% if doubt.details %}<p>{{ doubt.details|linebreaksbr }}</p>{% endif %}
       {% with entries=doubt.entries.all %}{% if entries %}
       <details class="todo-entries">
