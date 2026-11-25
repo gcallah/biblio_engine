@@ -1,0 +1,32 @@
+{% comment %}The to-do page's possible duplicates: pairs of people, entries or publishers that look like one record entered twice. "Keep this one" merges the other into it; "Not the same" takes the pair off the list.{% endcomment %}
+<h3 id="duplicates">Possible duplicates</h3>
+<p>People, entries and publishers that look like one record entered twice.
+Check the two (their links open their pages), then click <em>Keep this
+one</em> on the better record: everything that refers to the other (its
+entries, authors, index terms, reprints and so on) moves to the one kept,
+any of its blank fields are filled in from the other, and the other is
+deleted. If they are really different, click <em>Not the same</em>.</p>
+{% for kind, label, pairs in duplicates %}
+<details class="todo-group"{% if pairs %} open{% endif %}>
+  <summary>{{ label }} ({{ pairs|length }})</summary>
+  <ul class="todo-list">
+    {% for pair in pairs %}
+    <li class="dup-pair">
+      {% for side in pair.sides %}
+      <div class="dup-side">
+        <a href="{{ side.url }}">{{ side.name }}</a>{% if side.note %} <span class="todo-reason">({{ side.note }})</span>{% endif %}
+        <form method="post" action="{% url 'berkeley:merge' kind side.obj.id side.other.id %}" class="dup-form" onsubmit="return confirm('Keep this one, merge the other into it and delete the other?');">
+          {% csrf_token %}<button type="submit" class="add-it">Keep this one</button>
+        </form>
+      </div>
+      {% endfor %}
+      <form method="post" action="{% url 'berkeley:not_duplicates' kind pair.sides.0.obj.id pair.sides.1.obj.id %}" class="dup-form">
+        {% csrf_token %}<button type="submit" class="dup-dismiss">Not the same</button>
+      </form>
+    </li>
+    {% empty %}
+    <li>None.</li>
+    {% endfor %}
+  </ul>
+</details>
+{% endfor %}

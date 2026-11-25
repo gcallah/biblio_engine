@@ -16,6 +16,11 @@ urlpatterns = [
     re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     re_path(r'^index/$', views.index, name='index'),
     re_path(r'^todo/$', views.todo, name='todo'),
+    re_path(r'^merge/(?P<kind>[a-z]+)/(?P<keep_id>[0-9]+)/'
+            r'(?P<drop_id>[0-9]+)/$', views.merge, name='merge'),
+    re_path(r'^not_duplicates/(?P<kind>[a-z]+)/(?P<first_id>[0-9]+)/'
+            r'(?P<second_id>[0-9]+)/$', views.not_duplicates,
+            name='not_duplicates'),
     re_path(r'^feedback/*$', views.feedback, name='feedback'),
     re_path(r'^publications/*$', views.publications, name='publications'),
     re_path(r'^export/(?P<pub_id>[0-9]+)/$', views.export, name='export'),

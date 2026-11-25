@@ -677,6 +677,45 @@ a.add-it:hover, a.add-it:focus {
     color: var(--ink-soft);
 }
 
+/* possible duplicates: the two records, each with "Keep this one" */
+li.dup-pair .dup-side {
+    margin-bottom: 0.2em;
+}
+
+form.dup-form {
+    display: inline;
+}
+
+button.add-it {
+    display: inline-block;
+    margin-left: 0.6em;
+    padding: 0.05em 0.6em;
+    font: inherit;
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--on-night-bright);
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+button.add-it:hover, button.add-it:focus {
+    background: var(--accent-dark);
+}
+
+button.dup-dismiss {
+    font: inherit;
+    font-size: 0.8em;
+    padding: 0.05em 0.6em;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px solid currentColor;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
 details.todo-group summary {
     cursor: pointer;
     font-weight: 600;

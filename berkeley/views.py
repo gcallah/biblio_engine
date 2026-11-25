@@ -1,7 +1,9 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from django.contrib import messages
 from django.contrib.auth import views as auth_views
+from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, get_list_or_404, redirect, render
@@ -20,6 +22,8 @@ from .models import REVIEW_TYPES
 from .models import Site
 
 from .forms import EditorLoginForm, SearchForm
+from . import duplicates as dups
+from .models import NotDuplicate
 
 # editors are staff accounts (manage.py add_editor); anyone else is sent
 # to the login page, as login_required would
@@ -108,10 +112,56 @@ def todo(request):
                                                               flat=True))
     for doubt in index_doubts:
         doubt.in_index = doubt.name in in_index
+    found = []
+    for kind, label, pairs in dups.possible_duplicates():
+        rows = []
+        for a, b in pairs:
+            rows.append({'sides': [
+                dict(zip(('name', 'url', 'note'), dups.describe(obj)),
+                     obj=obj, other=other)
+                for obj, other in ((a, b), (b, a))]})
+        found.append((kind, label, rows))
     return render(request, 'todo.html', {
         'header': get_hdr(), 'questions': questions, 'groups': groups,
-        'index_doubts': index_doubts,
+        'index_doubts': index_doubts, 'duplicates': found,
         'decided': Candidate.objects.count() - len(candidates)})
+
+
+def _todo_duplicates():
+    return redirect(reverse('berkeley:todo') + '#duplicates')
+
+
+@editor_required
+@require_POST
+def merge(request, kind, keep_id, drop_id):
+    """"Keep this one" on the to-do page: merge the other record of a
+    possible duplicate into this one."""
+    model = dups.KINDS.get(kind)
+    if not model:
+        return _todo_duplicates()
+    keep = get_object_or_404(model, pk=keep_id)
+    drop = get_object_or_404(model, pk=drop_id)
+    dropped = str(drop)
+    try:
+        dups.merge(keep, drop)
+    except (ValueError, RuntimeError) as err:
+        messages.error(request, f"Not merged: {err}")
+    else:
+        logger.info("%s merged %s %s into %s", request.user, kind,
+                    drop_id, keep_id)
+        messages.success(request, f"Merged “{dropped}” into “{keep}”.")
+    return _todo_duplicates()
+
+
+@editor_required
+@require_POST
+def not_duplicates(request, kind, first_id, second_id):
+    """"Not the same": take a pair off the possible duplicates."""
+    if kind in dups.KINDS:
+        first, second = sorted((int(first_id), int(second_id)))
+        NotDuplicate.objects.get_or_create(kind=kind, first_id=first,
+                                           second_id=second)
+    return _todo_duplicates()
 
 
 def index(request):

@@ -595,6 +595,20 @@ class PossibleIndexTerm(models.Model):
         return IndexTerm.objects.filter(name=self.name).first()
 
 
+class NotDuplicate(models.Model):
+    """Two records the to-do page listed as possible duplicates, which
+    an editor marked as not the same: they are not listed again."""
+    kind = models.CharField(max_length=16)  # "person", "publication", ...
+    first_id = models.PositiveIntegerField()
+    second_id = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = [("kind", "first_id", "second_id")]
+
+    def __str__(self):
+        return f"{self.kind} {self.first_id} is not {self.second_id}"
+
+
 def _plain(title):
     """A title without case, punctuation or spacing, for matching."""
     return re.sub(r"[\W_]+", "", title).lower()

@@ -18,6 +18,7 @@ from .models import OpenQuestion
 from .models import Institution
 from .models import Journal
 from .models import Keyword
+from .models import NotDuplicate
 from .models import Person
 from .models import Publication
 from .models import Publisher
@@ -33,6 +34,8 @@ admin.site.site_url = reverse_lazy("berkeley:search")
 admin.site.register(Address)
 admin.site.register(AdminEmail)
 admin.site.register(Institution)
+# pairs marked "Not the same" on the to-do page; delete one to list it again
+admin.site.register(NotDuplicate)
 admin.site.register(Site)
 admin.site.register(Subject)
 

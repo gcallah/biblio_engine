@@ -5,6 +5,7 @@ in the admin; the pencils lead there.{% endcomment %}
 {% block content %}
 <div class="module todo">
   <h2>To do</h2>
+  {% if messages %}<ul class="messages">{% for m in messages %}<li class="{{ m.tags }}">{{ m }}</li>{% endfor %}</ul>{% endif %}
   <p>Questions and possible entries for the editors. Everything here is
   kept in the admin: click a pencil to edit one, or to settle it.</p>
 
@@ -27,6 +28,8 @@ in the admin; the pencils lead there.{% endcomment %}
   <p>None.</p>
   {% endif %}
   <p><a href="{% url 'admin:berkeley_openquestion_add' %}">Add a question</a></p>
+
+  {% include "_duplicates.html" %}
 
   <h3>Possible index terms</h3>
   <p>Doubts about the <a href="{% url 'berkeley:index' %}">index</a>: terms
