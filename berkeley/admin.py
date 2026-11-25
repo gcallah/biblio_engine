@@ -84,6 +84,14 @@ class PublicationForm(forms.ModelForm):
         help_text="From the citation, and not yet in the bibliography: "
         "saving adds this person (last name, initials) as the author, "
         "unless you choose authors below. Clear it to add no one.")
+    # on "Add it", when the citation's author is already in the
+    # bibliography: who that is, at the top of the form, since the
+    # Authors list where they are chosen is at its foot
+    found_author = forms.CharField(
+        label="Author", required=False, disabled=True,
+        help_text="From the citation, and already in the bibliography: "
+        "chosen for you under Authors, at the foot of the form. There is "
+        "no need to add them again.")
     new_publisher = forms.CharField(
         label="Publisher to add", required=False,
         help_text="From the citation, and not yet in the bibliography: "
@@ -126,7 +134,10 @@ class PublicationAdmin(admin.ModelAdmin):
         if candidate:
             initial = {**candidate.draft_entry(), **initial}
             initial.pop("candidate", None)
-            if candidate.author_name() and not self.known_author(candidate):
+            person = self.known_author(candidate)
+            if person:
+                initial["found_author"] = str(person)
+            elif candidate.author_name():
                 initial["new_author"] = candidate.author
         return initial
 
@@ -139,16 +150,19 @@ class PublicationAdmin(admin.ModelAdmin):
         return find_person(name) if name else None
 
     def get_fields(self, request, obj=None):
-        """The new-author and new-publisher boxes only on "Add it"."""
-        extra = ("new_author", "new_publisher")
+        """The author and new-publisher boxes only on "Add it"."""
+        extra = ("found_author", "new_author", "new_publisher")
         fields = [f for f in super().get_fields(request, obj)
                   if f not in extra]
-        if obj or not self.candidate(request):
+        candidate = None if obj else self.candidate(request)
+        if not candidate:
             return fields
         # each next to what it stands in for (authors are an inline, at
         # the foot of the form, so the author box goes first)
         fields.insert(fields.index("publisher") + 1, "new_publisher")
-        return ["new_author", *fields]
+        author = ("found_author" if self.known_author(candidate)
+                  else "new_author")
+        return [author, *fields]
 
     def get_formset_kwargs(self, request, obj, inline, prefix):
         """On "Add it", the authors list starts with the citation's

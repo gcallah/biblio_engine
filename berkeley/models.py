@@ -710,6 +710,9 @@ class Candidate(models.Model):
                               if len(wanted) >= 12 and t.startswith(wanted)]
                     if len(same or longer) == 1:
                         draft["collection"] = (same or longer)[0]
+                # the book's publisher, as for a book: shown on the
+                # chapter's page (its citations take the book's own)
+                draft.update(self._draft_publisher())
             else:
                 # an article: "Journal, 12 (1970), pp. 1-10"
                 name = re.split(r",\s*\d|[\xa0\s]\(", rest, maxsplit=1)[0]

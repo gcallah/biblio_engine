@@ -136,6 +136,15 @@ class DraftEntryTest(TodoTestCase):
         self.assertEqual(draft["title"], "A Chapter")
         self.assertEqual(draft["collection"], self.book.id)
         self.assertEqual(draft["year"], "1962")
+        # the book's publisher, read from the citation, as for a book
+        self.assertEqual(draft["publisher"], self.methuen.id)
+
+    def test_chapter_in_a_book_by_a_new_publisher(self):
+        draft = self.draft("‘A Chapter’, in A. Editor (ed.),\xa0Not In"
+                           "\xa0(Cambridge: Cambridge University Press, "
+                           "1968), pp. 153-208.")
+        self.assertEqual(draft["new_publisher"],
+                         "Cambridge: Cambridge University Press")
 
     def test_book(self):
         draft = self.draft("The Devil in Modern Philosophy\xa0(Boston: "
@@ -219,7 +228,12 @@ class AddItTest(TodoTestCase):
         self.candidate.author = "Oakeshott, M."
         self.candidate.save()
         resp = self.client.get(self.url)
-        self.assertNotIn("new_author", resp.context["adminform"].form.initial)
+        form = resp.context["adminform"].form
+        self.assertNotIn("new_author", form.initial)
+        # named at the top of the form, as well as chosen in Authors
+        self.assertEqual(form.initial["found_author"], str(self.mo))
+        self.assertContains(resp, "chosen for you under Authors")
+        self.assertNotContains(resp, "Author to add")
         authors = [f for f in resp.context["inline_admin_formsets"]
                    if f.formset.prefix == "authorship_set"][0].formset
         self.assertEqual(authors.forms[0].initial["person"], self.mo.id)
